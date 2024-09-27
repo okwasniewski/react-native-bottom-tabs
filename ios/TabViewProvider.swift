@@ -16,7 +16,7 @@ struct TabData: Codable {
         
         self.tabs = tabDictionary.map { (key, value) in
             TabInfo(key: key, icon: value["icon"] ?? "", title: value["title"] ?? "")
-        }.sorted { $0.key < $1.key }
+        }
     }
 }
 
