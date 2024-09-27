@@ -1,0 +1,38 @@
+{
+  "name": "SwiftuiTabviewExample",
+  "displayName": "SwiftuiTabviewExample",
+  "components": [
+    {
+      "appKey": "SwiftuiTabviewExample",
+      "displayName": "SwiftuiTabviewExample"
+    }
+  ],
+  "resources": {
+    "android": [
+      "dist/res",
+      "dist/main.android.jsbundle"
+    ],
+    "ios": [
+      "dist/assets",
+      "dist/main.ios.jsbundle"
+    ],
+    "macos": [
+      "dist/assets",
+      "dist/main.macos.jsbundle"
+    ],
+    "visionos": [
+      "dist/assets",
+      "dist/main.visionos.jsbundle"
+    ],
+    "windows": [
+      "dist/assets",
+      "dist/main.windows.bundle"
+    ]
+  },
+  "android": {
+    "package": "swiftuitabview.example"
+  },
+  "ios": {
+    "bundleIdentifier": "swiftuitabview.example"
+  }
+}
