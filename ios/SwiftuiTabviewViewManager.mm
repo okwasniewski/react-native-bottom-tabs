@@ -12,9 +12,11 @@ RCT_EXPORT_MODULE(SwiftUITabViewView)
 
 - (UIView *)view
 {
-  return [[TabViewProvider alloc] init];
+  return [[TabViewProvider alloc] initWithEventDispatcher:self.bridge.eventDispatcher];
 }
 
 RCT_EXPORT_VIEW_PROPERTY(items, NSDictionary)
+RCT_EXPORT_VIEW_PROPERTY(onPageSelected, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(selectedPage, NSString)
 
 @end

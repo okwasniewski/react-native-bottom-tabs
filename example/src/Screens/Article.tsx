@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {
+  Button,
   Image,
   SafeAreaView,
   ScrollView,
@@ -12,6 +13,7 @@ import {
 
 type Props = Partial<ScrollViewProps> & {
   date?: string;
+  onClick?: () => void;
   author?: {
     name: string;
   };
@@ -40,6 +42,7 @@ const DEFAULT_AUTHOR = {
 export function Article({
   date = '1st Jan 2025',
   author = DEFAULT_AUTHOR,
+  onClick,
   ...rest
 }: Props) {
   const ref = React.useRef<ScrollView>(null);
@@ -62,6 +65,7 @@ export function Article({
             <Text style={[styles.timestamp, { color: '#000' }]}>{date}</Text>
           </View>
         </View>
+        <Button title="Click me" onPress={onClick} />
         <Heading>What is Lorem Ipsum?</Heading>
         <Paragraph>
           Lorem Ipsum is simply dummy text of the printing and typesetting

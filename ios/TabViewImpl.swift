@@ -7,6 +7,7 @@ import SwiftUI
 class TabViewProps: ObservableObject {
   @Published var children: [UIView]?
   @Published var items: TabData?
+  @Published var selectedPage: String?
 }
 
 /**
@@ -26,33 +27,48 @@ struct RepresentableView: UIViewRepresentable {
  */
 struct TabViewImpl: View {
   @ObservedObject var props: TabViewProps
+  var onSelect: (_ key: String) -> Void
   
   var body: some View {
-    TabView {
+    TabView(selection: $props.selectedPage) {
       ForEach(props.children?.indices ?? 0..<0, id: \.self) { index in
         let child = props.children?[safe: index] ?? UIView()
         let tabData = props.items?.tabs[safe: index]
         RepresentableView(view: child)
           .frame(width: child.frame.width, height: child.frame.height)
           .tabItem {
-            if #available(iOS 14.0, *) {
-              Label(tabData?.title ?? "", systemImage: tabData?.icon ?? "")
-            } else {
-              Text(tabData?.title ?? "")
-            }
+            Label(tabData?.title ?? "", systemImage: tabData?.icon ?? "")
           }
+          .tag(tabData?.key)
+          .tabBadge(tabData?.badge)
       }
-    }.sidebarAdaptable()
+    }
+    .onChange(of: props.selectedPage ?? "") { newValue in
+      onSelect(newValue)
+    }
   }
 }
 
 extension View {
-    @ViewBuilder
-    func sidebarAdaptable() -> some View {
-        if #available(iOS 18.0, macOS 15.0, *) {
-            self.tabViewStyle(.sidebarAdaptable)
-        } else {
-            self
-        }
+  @ViewBuilder
+  func sidebarAdaptable() -> some View {
+    if #available(iOS 18.0, macOS 15.0, *) {
+      self.tabViewStyle(.sidebarAdaptable)
+    } else {
+      self
     }
+  }
+  
+  @ViewBuilder
+  func tabBadge(_ data: String?) -> some View {
+    if #available(iOS 15.0, macOS 15.0, *) {
+      if let data = data, !data.isEmpty {
+        self.badge(data)
+      } else {
+        self
+      }
+    } else {
+      self
+    }
+  }
 }

@@ -1,19 +1,40 @@
 import { StyleSheet } from 'react-native';
-import TabView from 'react-native-swiftui-tabview';
+import TabView, {
+  type OnPageSelectedEventData,
+  type TabViewItems,
+} from 'react-native-swiftui-tabview';
 import { Article } from './Screens/Article';
 import { Contacts } from './Screens/Contacts';
 import { Albums } from './Screens/Albums';
+import { useState } from 'react';
 
-const items = {
-  home: { title: 'Article', icon: 'document.fill' },
-  contacts: { title: 'Albums', icon: 'square.grid.2x2.fill' },
-  settings: { title: 'Contacts', icon: 'person.fill' },
+const items: TabViewItems = {
+  article: { title: 'Article', icon: 'document.fill' },
+  albums: { title: 'Albums', icon: 'square.grid.2x2.fill' },
+  contacts: { title: 'Contacts', icon: 'person.fill', badge: '3' },
 };
 
 export default function App() {
+  const [selectedPage, setSelectedTab] = useState<keyof typeof items>('home');
+
+  const handlePageSelected = ({
+    nativeEvent: { key },
+  }: {
+    nativeEvent: OnPageSelectedEventData;
+  }) => setSelectedTab(key);
+
+  const goToAlbums = () => {
+    setSelectedTab('albums');
+  };
+
   return (
-    <TabView style={styles.fullWidth} items={items}>
-      <Article />
+    <TabView
+      style={styles.fullWidth}
+      items={items}
+      selectedPage={selectedPage}
+      onPageSelected={handlePageSelected}
+    >
+      <Article onClick={goToAlbums} />
       <Albums />
       <Contacts />
     </TabView>

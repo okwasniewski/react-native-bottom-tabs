@@ -5,6 +5,7 @@ struct TabInfo: Codable {
     let key: String
     let icon: String
     let title: String
+    let badge: String
 }
 
 struct TabData: Codable {
@@ -15,7 +16,7 @@ struct TabData: Codable {
         let tabDictionary = try container.decode([String: [String: String]].self)
         
         self.tabs = tabDictionary.map { (key, value) in
-            TabInfo(key: key, icon: value["icon"] ?? "", title: value["title"] ?? "")
+          TabInfo(key: key, icon: value["icon"] ?? "", title: value["title"] ?? "", badge: value["badge"] ?? "")
         }
     }
 }
@@ -23,11 +24,24 @@ struct TabData: Codable {
 @objc public class TabViewProvider: UIView {
   var props = TabViewProps()
   private var hostingController: UIHostingController<TabViewImpl>?
-  
+  private var coalescingKey: UInt16 = 0
+  var eventDispatcher: RCTEventDispatcherProtocol?
+ 
+  @objc var onPageSelected: RCTDirectEventBlock?
+  @objc var selectedPage: NSString? {
+    didSet {
+      props.selectedPage = selectedPage as? String
+    }
+  }
   @objc var items: NSDictionary? {
     didSet {
       props.items = parseTabData(from: items)
     }
+  }
+  
+  @objc public convenience init(eventDispatcher: RCTEventDispatcherProtocol) {
+    self.init()
+    self.eventDispatcher = eventDispatcher
   }
   
   override init(frame: CGRect) {
@@ -50,7 +64,10 @@ struct TabData: Codable {
   }
   
   private func setupView() {
-    self.hostingController = UIHostingController(rootView: TabViewImpl(props: props))
+    self.hostingController = UIHostingController(rootView: TabViewImpl(props: props) { key in
+      self.coalescingKey += 1
+      self.eventDispatcher?.send(PageSelectedEvent(reactTag: self.reactTag, key: NSString(string: key), coalescingKey: self.coalescingKey))
+    })
     if let hostingController = self.hostingController {
       addSubview(hostingController.view)
       hostingController.view.translatesAutoresizingMaskIntoConstraints = false
