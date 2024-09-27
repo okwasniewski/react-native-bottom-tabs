@@ -11,6 +11,7 @@
     "start": "react-native start"
   },
   "dependencies": {
+    "color": "^4.2.3",
     "react": "18.3.1",
     "react-native": "0.75.3"
   },

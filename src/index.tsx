@@ -1,2 +1,3 @@
-export { default as SwiftuiTabviewView } from './SwiftuiTabviewViewNativeComponent';
-export * from './SwiftuiTabviewViewNativeComponent';
+import TabView from './TabView';
+
+export default TabView;

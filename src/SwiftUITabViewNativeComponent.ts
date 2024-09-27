@@ -1,8 +1,8 @@
 import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
 import type { ViewProps } from 'react-native';
 
-interface NativeProps extends ViewProps {
-  color?: string;
+export interface TabViewProps extends ViewProps {
+  items: {};
 }
 
-export default codegenNativeComponent<NativeProps>('SwiftuiTabviewView');
+export default codegenNativeComponent<TabViewProps>('SwiftUITabViewView');

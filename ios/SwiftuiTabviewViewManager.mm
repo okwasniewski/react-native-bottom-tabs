@@ -1,23 +1,20 @@
 #import <React/RCTViewManager.h>
 #import <React/RCTUIManager.h>
 #import "RCTBridge.h"
-#import "Utils.h"
+#import "react_native_swiftui_tabview-Swift.h"
 
-@interface SwiftuiTabviewViewManager : RCTViewManager
+@interface SwiftUITabViewViewManager : RCTViewManager
 @end
 
-@implementation SwiftuiTabviewViewManager
+@implementation SwiftUITabViewViewManager
 
-RCT_EXPORT_MODULE(SwiftuiTabviewView)
+RCT_EXPORT_MODULE(SwiftUITabViewView)
 
 - (UIView *)view
 {
-  return [[UIView alloc] init];
+  return [[TabViewProvider alloc] init];
 }
 
-RCT_CUSTOM_VIEW_PROPERTY(color, NSString, UIView)
-{
-  [view setBackgroundColor: [Utils hexStringToColor:json]];
-}
+RCT_EXPORT_VIEW_PROPERTY(items, NSDictionary)
 
 @end
