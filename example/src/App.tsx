@@ -5,9 +5,9 @@ import { Contacts } from './Screens/Contacts';
 import { Albums } from './Screens/Albums';
 
 const items = {
-  home: { title: 'Home', icon: 'house' },
-  contacts: { title: 'Contacts', icon: 'person' },
-  settings: { title: 'Settings', icon: 'gear' },
+  home: { title: 'Article', icon: 'document.fill' },
+  contacts: { title: 'Albums', icon: 'square.grid.2x2.fill' },
+  settings: { title: 'Contacts', icon: 'person.fill' },
 };
 
 export default function App() {

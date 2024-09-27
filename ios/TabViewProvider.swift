@@ -20,7 +20,7 @@ struct TabData: Codable {
     }
 }
 
-@objc class TabViewProvider: UIView {
+@objc public class TabViewProvider: UIView {
   var props = TabViewProps()
   private var hostingController: UIHostingController<TabViewImpl>?
   
@@ -40,11 +40,11 @@ struct TabData: Codable {
     setupView()
   }
   
-  override func didUpdateReactSubviews() {
+  public override func didUpdateReactSubviews() {
     props.children = reactSubviews()
   }
   
-  override func layoutSubviews() {
+  public override func layoutSubviews() {
     super.layoutSubviews()
     props.children = reactSubviews()
   }
