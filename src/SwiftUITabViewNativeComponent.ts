@@ -6,10 +6,19 @@ export type OnPageSelectedEventData = Readonly<{
   key: string;
 }>;
 
+export type TabViewItems = ReadonlyArray<{
+  key: string;
+  title: string;
+  icon: string;
+  badge?: string;
+}>;
+
 export interface TabViewProps extends ViewProps {
-  items: {};
+  items: TabViewItems;
   onPageSelected?: DirectEventHandler<OnPageSelectedEventData>;
   selectedPage: string;
 }
 
-export default codegenNativeComponent<TabViewProps>('SwiftUITabViewView');
+export default codegenNativeComponent<TabViewProps>('SwiftUITabViewView', {
+  excludedPlatforms: ['android'],
+});

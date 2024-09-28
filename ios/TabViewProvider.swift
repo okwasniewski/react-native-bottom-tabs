@@ -10,15 +10,6 @@ struct TabInfo: Codable {
 
 struct TabData: Codable {
     let tabs: [TabInfo]
-    
-    init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        let tabDictionary = try container.decode([String: [String: String]].self)
-        
-        self.tabs = tabDictionary.map { (key, value) in
-          TabInfo(key: key, icon: value["icon"] ?? "", title: value["title"] ?? "", badge: value["badge"] ?? "")
-        }
-    }
 }
 
 @objc public class TabViewProvider: UIView {
@@ -33,7 +24,7 @@ struct TabData: Codable {
       props.selectedPage = selectedPage as? String
     }
   }
-  @objc var items: NSDictionary? {
+  @objc var items: NSArray? {
     didSet {
       props.items = parseTabData(from: items)
     }
@@ -75,20 +66,23 @@ struct TabData: Codable {
     }
   }
   
-  func parseTabData(from dictionary: NSDictionary?) -> TabData? {
-      guard let dict = dictionary as? [String: Any] else {
-          print("Failed to cast dictionary")
-          return nil
+  func parseTabData(from array: NSArray?) -> TabData? {
+    guard let array else { return nil }
+    var items: [TabInfo] = []
+    
+    for value in array {
+      if let itemDict = value as? [String: Any] {
+        items.append(
+          TabInfo(
+            key: itemDict["key"] as? String ?? "",
+            icon: itemDict["icon"] as? String ?? "",
+            title: itemDict["title"] as? String ?? "",
+            badge: itemDict["badge"] as? String ?? ""
+          )
+        )
       }
-      
-      do {
-          let jsonData = try JSONSerialization.data(withJSONObject: dict, options: [])
-          let decoder = JSONDecoder()
-          let tabData = try decoder.decode(TabData.self, from: jsonData)
-          return tabData
-      } catch {
-          print("Error decoding dictionary: \(error)")
-          return nil
-      }
+    }
+    
+    return TabData(tabs: items)
   }
 }

@@ -65,7 +65,7 @@ export function Article({
             <Text style={[styles.timestamp, { color: '#000' }]}>{date}</Text>
           </View>
         </View>
-        <Button title="Click me" onPress={onClick} />
+        <Button title="Go to Albums" onPress={onClick} />
         <Heading>What is Lorem Ipsum?</Heading>
         <Paragraph>
           Lorem Ipsum is simply dummy text of the printing and typesetting

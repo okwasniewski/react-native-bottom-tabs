@@ -1,6 +1,8 @@
 import TabView from './TabView';
-import type { TabViewItems } from './TabView';
-import type { OnPageSelectedEventData } from './SwiftUITabViewNativeComponent';
+import type {
+  TabViewItems,
+  OnPageSelectedEventData,
+} from './SwiftUITabViewNativeComponent';
 
 export type { TabViewItems, OnPageSelectedEventData };
 

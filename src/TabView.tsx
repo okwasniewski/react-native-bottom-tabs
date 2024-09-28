@@ -3,18 +3,7 @@ import SwiftUITabViewView from './SwiftUITabViewNativeComponent';
 import type { TabViewProps } from './SwiftUITabViewNativeComponent';
 import { View } from 'react-native';
 
-export type TabViewItems = Record<
-  string,
-  {
-    title: string;
-    icon: string;
-    badge?: string;
-  }
->;
-
-interface Props extends TabViewProps {
-  items: TabViewItems;
-}
+interface Props extends TabViewProps {}
 
 const childrenWithOverriddenStyle = (children?: ReactNode, pageMargin = 0) => {
   return React.Children.map(children, (child) => {

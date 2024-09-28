@@ -8,14 +8,14 @@ import { Contacts } from './Screens/Contacts';
 import { Albums } from './Screens/Albums';
 import { useState } from 'react';
 
-const items: TabViewItems = {
-  article: { title: 'Article', icon: 'document.fill' },
-  albums: { title: 'Albums', icon: 'square.grid.2x2.fill' },
-  contacts: { title: 'Contacts', icon: 'person.fill', badge: '3' },
-};
+const items: TabViewItems = [
+  { key: 'article', title: 'Article', icon: 'document.fill' },
+  { key: 'albums', title: 'Albums', icon: 'square.grid.2x2.fill' },
+  { key: 'contacts', title: 'Contacts', icon: 'person.fill', badge: '3' },
+];
 
 export default function App() {
-  const [selectedPage, setSelectedTab] = useState<keyof typeof items>('home');
+  const [selectedPage, setSelectedTab] = useState<string>('contacts');
 
   const handlePageSelected = ({
     nativeEvent: { key },
