@@ -9,7 +9,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class ReactBottomNavigationView(context: Context) : BottomNavigationView(context) {
   private var onTabSelectedListener: ((WritableMap) -> Unit)? = null
-  private var items: MutableList<TabInfo>? = null
+  var items: MutableList<TabInfo>? = null
 
   init {
     setOnItemSelectedListener { item ->
@@ -34,7 +34,7 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
     onTabSelectedListener = listener
   }
 
-  fun setItems(items: MutableList<TabInfo>) {
+  fun updateItems(items: MutableList<TabInfo>) {
     this.items = items
     menu.clear()
     items.forEachIndexed {index, item ->

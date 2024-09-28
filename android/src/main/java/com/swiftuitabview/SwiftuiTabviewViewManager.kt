@@ -40,7 +40,14 @@ class SwiftuiTabviewViewManager :
         )
       }
     }
-    view.setItems(itemsArray)
+    view.updateItems(itemsArray)
+  }
+
+  @ReactProp(name = "selectedPage")
+  fun setSelectedPage(view: ReactBottomNavigationView, key: String) {
+    view.items?.indexOfFirst { it.key == key }?.let {
+      view.selectedItemId = it
+    }
   }
 
   public override fun createViewInstance(context: ThemedReactContext): ReactBottomNavigationView {
