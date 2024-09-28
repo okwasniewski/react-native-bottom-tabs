@@ -8,6 +8,7 @@ class TabViewProps: ObservableObject {
   @Published var children: [UIView]?
   @Published var items: TabData?
   @Published var selectedPage: String?
+  @Published var tabViewStyle: String?
 }
 
 /**
@@ -28,7 +29,7 @@ struct RepresentableView: UIViewRepresentable {
 struct TabViewImpl: View {
   @ObservedObject var props: TabViewProps
   var onSelect: (_ key: String) -> Void
-  
+
   var body: some View {
     TabView(selection: $props.selectedPage) {
       ForEach(props.children?.indices ?? 0..<0, id: \.self) { index in
@@ -43,6 +44,7 @@ struct TabViewImpl: View {
           .tabBadge(tabData?.badge)
       }
     }
+    .getTabViewStyle(name: props.tabViewStyle ?? "")
     .onChange(of: props.selectedPage ?? "") { newValue in
       onSelect(newValue)
     }
@@ -51,17 +53,30 @@ struct TabViewImpl: View {
 
 extension View {
   @ViewBuilder
-  func sidebarAdaptable() -> some View {
-    if #available(iOS 18.0, macOS 15.0, *) {
-      self.tabViewStyle(.sidebarAdaptable)
-    } else {
+  func getTabViewStyle(name: String) -> some View {
+    switch name {
+    case "automatic":
+      self.tabViewStyle(.automatic)
+    case "page":
+      if #available(iOS 14.0, tvOS 14.0, *) {
+        self.tabViewStyle(.page)
+      } else {
+        self
+      }
+    case "sidebarAdaptable":
+      if #available(iOS 18.0, macOS 15.0, tvOS 18.0, visionOS 2.0, *) {
+        self.tabViewStyle(.sidebarAdaptable)
+      } else {
+        self
+      }
+    default:
       self
     }
   }
-  
+
   @ViewBuilder
   func tabBadge(_ data: String?) -> some View {
-    if #available(iOS 15.0, macOS 15.0, *) {
+    if #available(iOS 15.0, macOS 15.0, visionOS 2.0, *) {
       if let data = data, !data.isEmpty {
         self.badge(data)
       } else {

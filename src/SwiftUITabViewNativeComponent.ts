@@ -1,6 +1,9 @@
 import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
 import type { ViewProps } from 'react-native';
-import type { DirectEventHandler } from 'react-native/Libraries/Types/CodegenTypes';
+import type {
+  DirectEventHandler,
+  WithDefault,
+} from 'react-native/Libraries/Types/CodegenTypes';
 
 export type OnPageSelectedEventData = Readonly<{
   key: string;
@@ -15,8 +18,12 @@ export type TabViewItems = ReadonlyArray<{
 
 export interface TabViewProps extends ViewProps {
   items: TabViewItems;
-  onPageSelected?: DirectEventHandler<OnPageSelectedEventData>;
   selectedPage: string;
+  onPageSelected?: DirectEventHandler<OnPageSelectedEventData>;
+  tabViewStyle?: WithDefault<
+    'automatic' | 'page' | 'sidebarAdaptable',
+    'automatic'
+  >;
 }
 
 export default codegenNativeComponent<TabViewProps>('SwiftUITabViewView', {

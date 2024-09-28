@@ -10,8 +10,8 @@ import { useState } from 'react';
 
 const items: TabViewItems = [
   { key: 'article', title: 'Article', icon: 'document.fill' },
-  { key: 'albums', title: 'Albums', icon: 'square.grid.2x2.fill' },
-  { key: 'contacts', title: 'Contacts', icon: 'person.fill', badge: '3' },
+  { key: 'albums', title: 'Albums', icon: 'square.grid.2x2.fill', badge: '3' },
+  { key: 'contacts', title: 'Contacts', icon: 'person.fill' },
 ];
 
 export default function App() {
@@ -31,6 +31,7 @@ export default function App() {
     <TabView
       style={styles.fullWidth}
       items={items}
+      tabViewStyle="sidebarAdaptable"
       selectedPage={selectedPage}
       onPageSelected={handlePageSelected}
     >

@@ -18,5 +18,6 @@ RCT_EXPORT_MODULE(SwiftUITabViewView)
 RCT_EXPORT_VIEW_PROPERTY(items, NSArray)
 RCT_EXPORT_VIEW_PROPERTY(onPageSelected, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(selectedPage, NSString)
+RCT_EXPORT_VIEW_PROPERTY(tabViewStyle, NSString)
 
 @end

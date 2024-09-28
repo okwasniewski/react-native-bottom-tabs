@@ -17,11 +17,16 @@ struct TabData: Codable {
   private var hostingController: UIHostingController<TabViewImpl>?
   private var coalescingKey: UInt16 = 0
   var eventDispatcher: RCTEventDispatcherProtocol?
- 
+
   @objc var onPageSelected: RCTDirectEventBlock?
   @objc var selectedPage: NSString? {
     didSet {
       props.selectedPage = selectedPage as? String
+    }
+  }
+  @objc var tabViewStyle: NSString? {
+    didSet {
+      props.tabViewStyle = tabViewStyle as? String
     }
   }
   @objc var items: NSArray? {
@@ -29,31 +34,31 @@ struct TabData: Codable {
       props.items = parseTabData(from: items)
     }
   }
-  
+
   @objc public convenience init(eventDispatcher: RCTEventDispatcherProtocol) {
     self.init()
     self.eventDispatcher = eventDispatcher
   }
-  
+
   override init(frame: CGRect) {
     super.init(frame: frame)
     setupView()
   }
-  
+
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     setupView()
   }
-  
+
   public override func didUpdateReactSubviews() {
     props.children = reactSubviews()
   }
-  
+
   public override func layoutSubviews() {
     super.layoutSubviews()
     props.children = reactSubviews()
   }
-  
+
   private func setupView() {
     self.hostingController = UIHostingController(rootView: TabViewImpl(props: props) { key in
       self.coalescingKey += 1
@@ -65,11 +70,11 @@ struct TabData: Codable {
       hostingController.view.pinEdges(to: self)
     }
   }
-  
+
   func parseTabData(from array: NSArray?) -> TabData? {
     guard let array else { return nil }
     var items: [TabInfo] = []
-    
+
     for value in array {
       if let itemDict = value as? [String: Any] {
         items.append(
@@ -82,7 +87,7 @@ struct TabData: Codable {
         )
       }
     }
-    
+
     return TabData(tabs: items)
   }
 }
