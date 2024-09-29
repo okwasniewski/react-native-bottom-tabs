@@ -1,7 +1,7 @@
 {
-  "name": "react-native-swiftui-tabview",
+  "name": "react-native-bottom-tabs",
   "version": "0.1.0",
-  "description": "SwiftUI TabView in React Native",
+  "description": "Native Bottom Tabs for React Native",
   "source": "./src/index.tsx",
   "main": "./lib/commonjs/index.js",
   "module": "./lib/module/index.js",
@@ -36,7 +36,7 @@
     "!**/.*"
   ],
   "scripts": {
-    "example": "yarn workspace react-native-swiftui-tabview-example",
+    "example": "yarn workspace react-native-bottom-tabs-example",
     "test": "jest",
     "typecheck": "tsc",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
@@ -51,14 +51,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/okwasniewski/react-native-swiftui-tabview.git"
+    "url": "git+https://github.com/okwasniewski/react-native-bottom-tabs.git"
   },
   "author": "Oskar Kwasniewski <oskarkwasniewski@icloud.com> (https://github.com/okwasniewski)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/okwasniewski/react-native-swiftui-tabview/issues"
+    "url": "https://github.com/okwasniewski/react-native-bottom-tabs/issues"
   },
-  "homepage": "https://github.com/okwasniewski/react-native-swiftui-tabview#readme",
+  "homepage": "https://github.com/okwasniewski/react-native-bottom-tabs#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
@@ -181,7 +181,7 @@
     ]
   },
   "codegenConfig": {
-    "name": "RNSwiftuiTabviewViewSpec",
+    "name": "RCTTabViewSpec",
     "type": "all",
     "jsSrcsDir": "src",
     "outputDir": {
@@ -189,7 +189,7 @@
       "android": "android/generated"
     },
     "android": {
-      "javaPackageName": "com.swiftuitabview"
+      "javaPackageName": "com.rcttabview"
     }
   },
   "create-react-native-library": {

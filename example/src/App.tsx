@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import TabView, {
   type OnPageSelectedEventData,
   type TabViewItems,
-} from 'react-native-swiftui-tabview';
+} from 'react-native-bottom-tabs';
 import { Article } from './Screens/Article';
 import { Contacts } from './Screens/Contacts';
 import { Albums } from './Screens/Albums';

@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
-import SwiftUITabViewView from './SwiftUITabViewNativeComponent';
-import type { TabViewProps } from './SwiftUITabViewNativeComponent';
+import NativeTabView from './TabViewNativeComponent';
+import type { TabViewProps } from './TabViewNativeComponent';
 import { StyleSheet, View } from 'react-native';
 
 interface Props extends TabViewProps {}
@@ -30,7 +30,7 @@ const TabView = ({ children, ...props }: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.content}>{renderedChildren}</View>
-      <SwiftUITabViewView {...props} style={styles.tabBar} />
+      <NativeTabView {...props} style={styles.tabBar} />
     </View>
   );
 };

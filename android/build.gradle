@@ -1,6 +1,6 @@
 buildscript {
   // Buildscript is evaluated before everything else so we can't use getExtOrDefault
-  def kotlin_version = rootProject.ext.has("kotlinVersion") ? rootProject.ext.get("kotlinVersion") : project.properties["SwiftuiTabview_kotlinVersion"]
+  def kotlin_version = rootProject.ext.has("kotlinVersion") ? rootProject.ext.get("kotlinVersion") : project.properties["RCTTabView_kotlinVersion"]
 
   repositories {
     google()
@@ -31,11 +31,11 @@ if (isNewArchitectureEnabled()) {
 }
 
 def getExtOrDefault(name) {
-  return rootProject.ext.has(name) ? rootProject.ext.get(name) : project.properties["SwiftuiTabview_" + name]
+  return rootProject.ext.has(name) ? rootProject.ext.get(name) : project.properties["RCTTabView_" + name]
 }
 
 def getExtOrIntegerDefault(name) {
-  return rootProject.ext.has(name) ? rootProject.ext.get(name) : (project.properties["SwiftuiTabview_" + name]).toInteger()
+  return rootProject.ext.has(name) ? rootProject.ext.get(name) : (project.properties["RCTTabView_" + name]).toInteger()
 }
 
 def supportsNamespace() {
@@ -49,7 +49,7 @@ def supportsNamespace() {
 
 android {
   if (supportsNamespace()) {
-    namespace "com.swiftuitabview"
+    namespace "com.rcttabview"
 
     sourceSets {
       main {
@@ -121,7 +121,7 @@ dependencies {
 if (isNewArchitectureEnabled()) {
   react {
     jsRootDir = file("../src/")
-    libraryName = "SwiftuiTabviewView"
-    codegenJavaPackageName = "com.swiftuitabview"
+    libraryName = "RCTTabView"
+    codegenJavaPackageName = "com.rcttabview"
   }
 }

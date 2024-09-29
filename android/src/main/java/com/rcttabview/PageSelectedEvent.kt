@@ -1,4 +1,4 @@
-package com.swiftuitabview
+package com.rcttabview
 
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.WritableMap

@@ -1209,7 +1209,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - react-native-swiftui-tabview (0.1.0):
+  - react-native-bottom-tabs (0.1.0):
     - DoubleConversion
     - glog
     - RCT-Folly (= 2024.01.01.00)
@@ -1539,7 +1539,7 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - React-Mapbuffer (from `../node_modules/react-native/ReactCommon`)
   - React-microtasksnativemodule (from `../node_modules/react-native/ReactCommon/react/nativemodule/microtasks`)
-  - react-native-swiftui-tabview (from `../..`)
+  - react-native-bottom-tabs (from `../..`)
   - React-nativeconfig (from `../node_modules/react-native/ReactCommon`)
   - React-NativeModulesApple (from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
@@ -1643,7 +1643,7 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   React-microtasksnativemodule:
     :path: "../node_modules/react-native/ReactCommon/react/nativemodule/microtasks"
-  react-native-swiftui-tabview:
+  react-native-bottom-tabs:
     :path: "../.."
   React-nativeconfig:
     :path: "../node_modules/react-native/ReactCommon"
@@ -1739,7 +1739,7 @@ SPEC CHECKSUMS:
   React-logger: 4072f39df335ca443932e0ccece41fbeb5ca8404
   React-Mapbuffer: 714f2fae68edcabfc332b754e9fbaa8cfc68fdd4
   React-microtasksnativemodule: 987cf7e0e0e7129250a48b807e70d3b906c726cf
-  react-native-swiftui-tabview: a1b3ef738ad72b43e7a928ea6fc15804a0bd292b
+  react-native-bottom-tabs: 894d1fb8fc4e6d525b2da35e83e00e18c420cdf2
   React-nativeconfig: 4a9543185905fe41014c06776bf126083795aed9
   React-NativeModulesApple: 651670a799672bd54469f2981d91493dda361ddf
   React-perflogger: 3bbb82f18e9ac29a1a6931568e99d6305ef4403b
@@ -1769,8 +1769,8 @@ SPEC CHECKSUMS:
   ReactTestApp-DevSupport: b7cd76a3aeee6167f5e14d82f09685059152c426
   ReactTestApp-Resources: 7db90c026cccdf40cfa495705ad436ccc4d64154
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
-  Yoga: 4ef80d96a5534f0e01b3055f17d1e19a9fc61b63
+  Yoga: 1354c027ab07c7736f99a3bef16172d6f1b12b47
 
-PODFILE CHECKSUM: 8e7694a9e16430010022d4b66b91e6034ab1fc20
+PODFILE CHECKSUM: 539add55dc6c2e7f9754e288b1ce4fd8583819ae
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.14.3

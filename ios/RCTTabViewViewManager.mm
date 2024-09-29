@@ -1,14 +1,14 @@
 #import <React/RCTViewManager.h>
 #import <React/RCTUIManager.h>
 #import "RCTBridge.h"
-#import "react_native_swiftui_tabview-Swift.h"
+#import "react_native_bottom_tabs-Swift.h"
 
-@interface SwiftUITabViewViewManager : RCTViewManager
+@interface RCTTabView : RCTViewManager
 @end
 
-@implementation SwiftUITabViewViewManager
+@implementation RCTTabView
 
-RCT_EXPORT_MODULE(SwiftUITabViewView)
+RCT_EXPORT_MODULE(RCTTabView)
 
 - (UIView *)view
 {

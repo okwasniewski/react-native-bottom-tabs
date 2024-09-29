@@ -1,17 +1,17 @@
 #ifdef RCT_NEW_ARCH_ENABLED
-#import "SwiftuiTabviewView.h"
+#import "RCTTabViewView.h"
 
-#import <react/renderer/components/RNSwiftuiTabviewViewSpec/ComponentDescriptors.h>
-#import <react/renderer/components/RNSwiftuiTabviewViewSpec/EventEmitters.h>
-#import <react/renderer/components/RNSwiftuiTabviewViewSpec/Props.h>
-#import <react/renderer/components/RNSwiftuiTabviewViewSpec/RCTComponentViewHelpers.h>
+#import <react/renderer/components/RCTTabViewSpec/ComponentDescriptors.h>
+#import <react/renderer/components/RCTTabViewSpec/EventEmitters.h>
+#import <react/renderer/components/RCTTabViewSpec/Props.h>
+#import <react/renderer/components/RCTTabViewSpec/RCTComponentViewHelpers.h>
 
 #import "RCTFabricComponentsPlugins.h"
 #import "Utils.h"
 
 using namespace facebook::react;
 
-@interface SwiftuiTabviewView () <RCTSwiftuiTabviewViewViewProtocol>
+@interface RCTTabViewView () <RCTSwiftuiTabviewViewViewProtocol>
 
 @end
 
@@ -51,9 +51,9 @@ using namespace facebook::react;
     [super updateProps:props oldProps:oldProps];
 }
 
-Class<RCTComponentViewProtocol> SwiftuiTabviewViewCls(void)
+Class<RCTComponentViewProtocol> RCTTabViewViewCls(void)
 {
-    return SwiftuiTabviewView.class;
+    return RCTTabViewView.class;
 }
 
 @end
