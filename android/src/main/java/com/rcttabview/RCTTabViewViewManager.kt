@@ -1,4 +1,4 @@
-package com.swiftuitabview
+package com.rcttabview
 
 import com.facebook.react.module.annotations.ReactModule
 import com.facebook.react.bridge.ReadableArray
@@ -16,8 +16,8 @@ data class TabInfo(
   val badge: String
 )
 
-@ReactModule(name = SwiftuiTabviewViewManager.NAME)
-class SwiftuiTabviewViewManager :
+@ReactModule(name = RCTTabViewViewManager.NAME)
+class RCTTabViewViewManager :
   ViewGroupManager<ReactBottomNavigationView>() {
   private lateinit var eventDispatcher: EventDispatcher
 
@@ -64,7 +64,7 @@ class SwiftuiTabviewViewManager :
   }
 
   companion object {
-    const val NAME = "SwiftUITabViewView"
+    const val NAME = "RCTTabView"
   }
 
   override fun getExportedCustomDirectEventTypeConstants(): MutableMap<String, Any>? {

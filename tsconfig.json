@@ -2,7 +2,7 @@
   "compilerOptions": {
     "rootDir": ".",
     "paths": {
-      "react-native-swiftui-tabview": ["./src/index"]
+      "react-native-bottom-tabs": ["./src/index"]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,

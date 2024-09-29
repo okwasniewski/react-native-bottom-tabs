@@ -1,10 +1,10 @@
 {
-  "name": "SwiftuiTabviewExample",
-  "displayName": "SwiftuiTabviewExample",
+  "name": "ReactNativeBottomTabs",
+  "displayName": "ReactNativeBottomTabs",
   "components": [
     {
-      "appKey": "SwiftuiTabviewExample",
-      "displayName": "SwiftuiTabviewExample"
+      "appKey": "ReactNativeBottomTabs",
+      "displayName": "ReactNativeBottomTabs"
     }
   ],
   "resources": {
@@ -30,9 +30,9 @@
     ]
   },
   "android": {
-    "package": "swiftuitabview.example"
+    "package": "bottomtabs.example"
   },
   "ios": {
-    "bundleIdentifier": "swiftuitabview.example"
+    "bundleIdentifier": "bottomtabs.example"
   }
 }

@@ -1,22 +1,50 @@
-# react-native-swiftui-tabview
+<h1 align="center">
+  React Native Bottom Tabs
+</h1>
 
-SwiftUI TabView in React Native
+<p align="center">
+  <strong>Native Bottom tabs</strong><br>
+  using SwiftUI's TabView and BottomNavigationView for React Native.
+</p>
 
-## Installation
+## 📦 Installation
 
 ```sh
-npm install react-native-swiftui-tabview
+npm install react-native-bottom-tabs
 ```
 
-## Usage
+```sh
+yarn add react-native-bottom-tabs
+```
+
+## 📖 Documentation
 
 
-```js
-import { SwiftuiTabviewView } from "react-native-swiftui-tabview";
+```tsx
+import { TabView } from "react-native-bottom-tabs";
 
-// ...
+const items: TabViewItems = [
+  { key: 'article', title: 'Article', icon: 'document.fill' },
+  { key: 'albums', title: 'Albums', icon: 'square.grid.2x2.fill', badge: '3' },
+  { key: 'contacts', title: 'Contacts', icon: 'person.fill' },
+];
 
-<SwiftuiTabviewView color="tomato" />
+export default function App() {
+  const [selectedPage, setSelectedTab] = useState<string>('contacts');
+
+  return (
+    <TabView
+      style={styles.fullWidth}
+      items={items}
+      selectedPage={selectedPage}
+      onPageSelected={handlePageSelected}
+    >
+      <View/>
+      <View/>
+      <View/>
+    </TabView>
+  );
+}
 ```
 
 

@@ -6,7 +6,7 @@ pluginManagement {
     }
 }
 
-rootProject.name = "SwiftuiTabviewExample"
+rootProject.name = "BottomTabsExample"
 
 apply(from: {
     def searchDir = rootDir.toPath()

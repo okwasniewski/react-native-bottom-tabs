@@ -1,6 +1,6 @@
 //
 //  File.swift
-//  SwiftuiTabviewExample
+//  ReactNativeBottomTabsExample
 //
 
 import Foundation

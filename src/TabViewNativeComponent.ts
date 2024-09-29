@@ -26,6 +26,6 @@ export interface TabViewProps extends ViewProps {
   >;
 }
 
-export default codegenNativeComponent<TabViewProps>('SwiftUITabViewView', {
+export default codegenNativeComponent<TabViewProps>('RCTTabView', {
   excludedPlatforms: ['android'],
 });

@@ -1,6 +1,6 @@
 import React, { type ReactNode } from 'react';
-import SwiftUITabViewView from './SwiftUITabViewNativeComponent';
-import type { TabViewProps } from './SwiftUITabViewNativeComponent';
+import NativeTabView from './TabViewNativeComponent';
+import type { TabViewProps } from './TabViewNativeComponent';
 import { View } from 'react-native';
 
 interface Props extends TabViewProps {}
@@ -24,7 +24,7 @@ const childrenWithOverriddenStyle = (children?: ReactNode, pageMargin = 0) => {
 
 const TabView = ({ children, ...props }: Props) => {
   return (
-    <SwiftUITabViewView
+    <NativeTabView
       {...props}
       children={childrenWithOverriddenStyle(children, 0)}
     />

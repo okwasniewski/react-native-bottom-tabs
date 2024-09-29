@@ -1,4 +1,4 @@
-package com.swiftuitabview
+package com.rcttabview
 
 import android.view.View
 
@@ -8,7 +8,7 @@ import com.facebook.react.uimanager.ViewManagerDelegate
 import com.facebook.react.viewmanagers.SwiftuiTabviewViewManagerDelegate
 import com.facebook.react.viewmanagers.SwiftuiTabviewViewManagerInterface
 
-abstract class SwiftuiTabviewViewManagerSpec<T : View> : SimpleViewManager<T>(), SwiftuiTabviewViewManagerInterface<T> {
+abstract class RCTTabViewViewManagerSpec<T : View> : SimpleViewManager<T>(), SwiftuiTabviewViewManagerInterface<T> {
   private val mDelegate: ViewManagerDelegate<T>
 
   init {
