@@ -1,10 +1,12 @@
 {
   "name": "ReactNativeBottomTabs",
   "displayName": "ReactNativeBottomTabs",
+  "singleApp": "bottomtabs-example",
   "components": [
     {
       "appKey": "ReactNativeBottomTabs",
-      "displayName": "ReactNativeBottomTabs"
+      "displayName": "ReactNativeBottomTabs",
+      "slug": "bottomtabs-example"
     }
   ],
   "resources": {

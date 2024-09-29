@@ -9,8 +9,8 @@ import { Albums } from './Screens/Albums';
 import { useState } from 'react';
 
 const items: TabViewItems = [
-  { key: 'article', title: 'Article', icon: 'document.fill' },
-  { key: 'albums', title: 'Albums', icon: 'square.grid.2x2.fill', badge: '3' },
+  { key: 'article', title: 'Article', icon: 'document.fill', badge: '!' },
+  { key: 'albums', title: 'Albums', icon: 'square.grid.2x2.fill', badge: '5' },
   { key: 'contacts', title: 'Contacts', icon: 'person.fill' },
 ];
 

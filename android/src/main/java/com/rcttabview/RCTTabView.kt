@@ -2,7 +2,6 @@ package com.rcttabview
 
 import android.content.Context
 import android.view.MenuItem
-import android.view.ViewGroup
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.WritableMap
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -39,8 +38,15 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
     menu.clear()
     items.forEachIndexed {index, item ->
       // TODO: Handle custom icons
-      // TODO: Handle badges
       menu.add(0, index, 0, item.title).setIcon(android.R.drawable.btn_star)
+      
+      if (item.badge.isNotEmpty()) {
+        val badge = this.getOrCreateBadge(index)
+        badge.isVisible = true
+        badge.text = item.badge
+      } else {
+        removeBadge(index)
+      }
     }
   }
 }
