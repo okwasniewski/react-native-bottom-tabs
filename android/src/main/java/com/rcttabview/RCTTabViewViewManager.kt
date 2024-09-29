@@ -1,13 +1,20 @@
 package com.rcttabview
 
-import com.facebook.react.module.annotations.ReactModule
+import android.view.View.MeasureSpec
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.common.MapBuilder
+import com.facebook.react.module.annotations.ReactModule
+import com.facebook.react.uimanager.LayoutShadowNode
+import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.UIManagerModule
-import com.facebook.react.uimanager.ViewGroupManager
 import com.facebook.react.uimanager.annotations.ReactProp
 import com.facebook.react.uimanager.events.EventDispatcher
+import com.facebook.yoga.YogaMeasureFunction
+import com.facebook.yoga.YogaMeasureMode
+import com.facebook.yoga.YogaMeasureOutput
+import com.facebook.yoga.YogaNode
+
 
 data class TabInfo(
   val key: String,
@@ -18,7 +25,7 @@ data class TabInfo(
 
 @ReactModule(name = RCTTabViewViewManager.NAME)
 class RCTTabViewViewManager :
-  ViewGroupManager<ReactBottomNavigationView>() {
+  SimpleViewManager<ReactBottomNavigationView>() {
   private lateinit var eventDispatcher: EventDispatcher
 
   override fun getName(): String {
@@ -29,15 +36,15 @@ class RCTTabViewViewManager :
   fun setItems(view: ReactBottomNavigationView, items: ReadableArray) {
     val itemsArray = mutableListOf<TabInfo>()
     for (i in 0 until items.size()) {
-      items.getMap(i)?.let { item ->
-        itemsArray.add(
-          TabInfo(
-            key = item.getString("key") ?: "",
-            icon = item.getString("icon") ?: "",
-            title = item.getString("title") ?: "",
-            badge = item.getString("badge") ?: ""
+      items.getMap(i).let { item ->
+          itemsArray.add(
+            TabInfo(
+              key = item.getString("key") ?: "",
+              icon = item.getString("icon") ?: "",
+              title = item.getString("title") ?: "",
+              badge = item.getString("badge") ?: ""
+            )
           )
-        )
       }
     }
     view.updateItems(itemsArray)
@@ -52,8 +59,6 @@ class RCTTabViewViewManager :
 
   public override fun createViewInstance(context: ThemedReactContext): ReactBottomNavigationView {
     eventDispatcher = context.getNativeModule(UIManagerModule::class.java)!!.eventDispatcher
-    // TODO: BottomBar height is currently set to a constant, this may require Custom Shadow node to measure the view.
-    // Sometimes the view behaves weird.
     val view = ReactBottomNavigationView(context)
     view.setOnTabSelectedListener { data ->
      data.getString("key")?.let {
@@ -61,6 +66,47 @@ class RCTTabViewViewManager :
       }
     }
     return view
+  }
+
+
+  class TabViewShadowNode() : LayoutShadowNode(),
+    YogaMeasureFunction {
+    private var mWidth = 0
+    private var mHeight = 0
+    private var mMeasured = false
+
+    init {
+      initMeasureFunction()
+    }
+
+    private fun initMeasureFunction() {
+      setMeasureFunction(this)
+    }
+
+    override fun measure(
+      node: YogaNode,
+      width: Float,
+      widthMode: YogaMeasureMode,
+      height: Float,
+      heightMode: YogaMeasureMode
+    ): Long {
+      if (mMeasured) {
+        return YogaMeasureOutput.make(mWidth, mHeight)
+      }
+
+      val tabView = ReactBottomNavigationView(themedContext)
+      val spec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED)
+      tabView.measure(spec, spec)
+      this.mWidth = tabView.measuredWidth
+      this.mHeight = tabView.measuredHeight
+      this.mMeasured = true
+
+      return YogaMeasureOutput.make(mWidth, mHeight)
+    }
+  }
+
+  override fun createShadowNodeInstance(): LayoutShadowNode {
+    return TabViewShadowNode()
   }
 
   companion object {
