@@ -48,13 +48,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
-  tabBar: {
-    minHeight: 81,
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-  },
+  tabBar: {},
 });
 
 export default TabView;
