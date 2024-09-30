@@ -7,11 +7,13 @@ import { Article } from './Screens/Article';
 import { Contacts } from './Screens/Contacts';
 import { Albums } from './Screens/Albums';
 import { useState } from 'react';
+import { Chat } from './Screens/Chat';
 
 const items: TabViewItems = [
   { key: 'article', title: 'Article', icon: 'document.fill', badge: '!' },
   { key: 'albums', title: 'Albums', icon: 'square.grid.2x2.fill', badge: '5' },
   { key: 'contacts', title: 'Contacts', icon: 'person.fill' },
+  { key: 'chat', title: 'Chat', icon: 'keyboard' },
 ];
 
 export default function App() {
@@ -38,6 +40,7 @@ export default function App() {
       <Article onClick={goToAlbums} />
       <Albums />
       <Contacts />
+      <Chat />
     </TabView>
   );
 }
