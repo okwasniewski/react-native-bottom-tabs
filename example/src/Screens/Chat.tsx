@@ -20,6 +20,7 @@ export function Chat({
   bottom = true,
   ...rest
 }: Partial<ScrollViewProps & { bottom: boolean }>) {
+  console.log(Platform.OS, ' Rendering Chat');
   return (
     <View style={styles.container}>
       <ScrollView

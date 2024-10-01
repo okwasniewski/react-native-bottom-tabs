@@ -39,6 +39,7 @@ const COVERS = [
 export function Albums(props: Partial<ScrollViewProps>) {
   const dimensions = useWindowDimensions();
 
+  console.log(Platform.OS, ' Rendering Albums');
   const itemSize = dimensions.width / Math.floor(dimensions.width / 150);
 
   return (

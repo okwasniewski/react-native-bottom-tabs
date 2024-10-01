@@ -1,58 +1,109 @@
-import { StyleSheet } from 'react-native';
-import TabView, {
-  type OnPageSelectedEventData,
-  type TabViewItems,
-} from 'react-native-bottom-tabs';
-import { Article } from './Screens/Article';
-import { Contacts } from './Screens/Contacts';
-import { Albums } from './Screens/Albums';
-import { useState } from 'react';
-import { Chat } from './Screens/Chat';
+import { enableScreens } from 'react-native-screens';
+// run this before any screen render(usually in App.js)
+enableScreens();
 
-const items: TabViewItems = [
-  { key: 'article', title: 'Article', icon: 'document.fill', badge: '!' },
-  { key: 'albums', title: 'Albums', icon: 'square.grid.2x2.fill', badge: '5' },
-  { key: 'contacts', title: 'Contacts', icon: 'person.fill' },
-  { key: 'chat', title: 'Chat', icon: 'keyboard' },
+import * as React from 'react';
+import {
+  StyleSheet,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  Button,
+  Alert,
+} from 'react-native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import JSBottomTabs from './Examples/JSBottomTabs';
+import ThreeTabs from './Examples/ThreeTabs';
+import FourTabs from './Examples/FourTabs';
+
+const examples = [
+  { component: ThreeTabs, name: 'Three Tabs' },
+  { component: FourTabs, name: 'Four Tabs' },
+  { component: JSBottomTabs, name: 'JS Bottom Tabs' },
 ];
 
-export default function App() {
-  const [selectedPage, setSelectedTab] = useState<string>('contacts');
-
-  const handlePageSelected = ({
-    nativeEvent: { key },
-  }: {
-    nativeEvent: OnPageSelectedEventData;
-  }) => setSelectedTab(key);
-
-  const goToAlbums = () => {
-    setSelectedTab('albums');
-  };
-
+function App() {
+  const navigation = useNavigation();
   return (
-    <TabView
-      style={styles.fullWidth}
-      items={items}
-      tabViewStyle="sidebarAdaptable"
-      selectedPage={selectedPage}
-      onPageSelected={handlePageSelected}
-    >
-      <Article onClick={goToAlbums} />
-      <Albums />
-      <Contacts />
-      <Chat />
-    </TabView>
+    <ScrollView>
+      {examples.map((example) => (
+        <TouchableOpacity
+          key={example.name}
+          testID={example.name}
+          style={styles.exampleTouchable}
+          onPress={() => {
+            //@ts-ignore
+            navigation.navigate(example.name);
+          }}
+        >
+          <Text style={styles.exampleText}>{example.name}</Text>
+        </TouchableOpacity>
+      ))}
+    </ScrollView>
+  );
+}
+
+const Stack = createStackNavigator();
+
+const NativeStack = createNativeStackNavigator();
+
+export default function Navigation() {
+  const [mode, setMode] = React.useState<'native' | 'js'>('native');
+  const NavigationStack = mode === 'js' ? Stack : NativeStack;
+  return (
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <NavigationStack.Navigator initialRouteName="BottomTabs Example">
+          <NavigationStack.Screen
+            name="BottomTabs Example"
+            component={App}
+            options={{
+              headerRight: () => (
+                <Button
+                  onPress={() =>
+                    Alert.alert(
+                      'Alert',
+                      `Do you want to change to the ${
+                        mode === 'js' ? 'native stack' : 'js stack'
+                      } ?`,
+                      [
+                        { text: 'No', onPress: () => {} },
+                        {
+                          text: 'Yes',
+                          onPress: () => {
+                            setMode(mode === 'js' ? 'native' : 'js');
+                          },
+                        },
+                      ]
+                    )
+                  }
+                  title={mode === 'js' ? 'JS' : 'NATIVE'}
+                  color="blue"
+                />
+              ),
+            }}
+          />
+          {examples.map((example, index) => (
+            <NavigationStack.Screen
+              key={index}
+              name={example.name}
+              component={example.component}
+            />
+          ))}
+        </NavigationStack.Navigator>
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+  exampleTouchable: {
+    padding: 16,
   },
-  fullWidth: {
-    width: '100%',
-    height: '100%',
+  exampleText: {
+    fontSize: 16,
   },
 });

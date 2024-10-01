@@ -2,6 +2,7 @@ import * as React from 'react';
 import {
   FlatList,
   type FlatListProps,
+  Platform,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -92,6 +93,7 @@ const ItemSeparator = () => {
 };
 
 export function Contacts({ query, ...rest }: Props) {
+  console.log(Platform.OS, ' Rendering Contacts');
   const renderItem = ({ item }: { item: Item }) => <ContactItem item={item} />;
 
   return (
