@@ -6,4 +6,6 @@ import type {
 
 export type { TabViewItems, OnPageSelectedEventData };
 
+export { SceneMap } from './SceneMap';
+
 export default TabView;

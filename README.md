@@ -21,28 +21,33 @@ yarn add react-native-bottom-tabs
 
 
 ```tsx
-import { TabView } from "react-native-bottom-tabs";
+import TabView, { SceneMap } from 'react-native-bottom-tabs';
 
-const items: TabViewItems = [
-  { key: 'article', title: 'Article', icon: 'document.fill' },
-  { key: 'albums', title: 'Albums', icon: 'square.grid.2x2.fill', badge: '3' },
-  { key: 'contacts', title: 'Contacts', icon: 'person.fill' },
-];
+export default function ThreeTabs() {
+  const [index, setIndex] = useState(0);
+  const [routes] = useState([
+    { key: 'article', title: 'Article', icon: 'document.fill', badge: '!' },
+    {
+      key: 'albums',
+      title: 'Albums',
+      icon: 'square.grid.2x2.fill',
+      badge: '5',
+    },
+    { key: 'contacts', title: 'Contacts', icon: 'person.fill' },
+  ]);
 
-export default function App() {
-  const [selectedPage, setSelectedTab] = useState<string>('contacts');
+  const renderScene = SceneMap({
+    article: Article,
+    albums: Albums,
+    contacts: Contacts,
+  });
 
   return (
     <TabView
-      style={styles.fullWidth}
-      items={items}
-      selectedPage={selectedPage}
-      onPageSelected={handlePageSelected}
-    >
-      <View/>
-      <View/>
-      <View/>
-    </TabView>
+      navigationState={{ index, routes }}
+      onIndexChange={setIndex}
+      renderScene={renderScene}
+    />
   );
 }
 ```
