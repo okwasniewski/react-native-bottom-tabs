@@ -20,10 +20,7 @@ export interface TabViewProps extends ViewProps {
   items: TabViewItems;
   selectedPage: string;
   onPageSelected?: DirectEventHandler<OnPageSelectedEventData>;
-  tabViewStyle?: WithDefault<
-    'automatic' | 'page' | 'sidebarAdaptable',
-    'automatic'
-  >;
+  tabViewStyle?: WithDefault<'automatic' | 'sidebarAdaptable', 'automatic'>;
 }
 
 export default codegenNativeComponent<TabViewProps>('RCTTabView', {
