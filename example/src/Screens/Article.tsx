@@ -13,7 +13,7 @@ import {
 
 type Props = Partial<ScrollViewProps> & {
   date?: string;
-  onClick?: () => void;
+  jumpTo?: (key: string) => void;
   author?: {
     name: string;
   };
@@ -42,7 +42,7 @@ const DEFAULT_AUTHOR = {
 export function Article({
   date = '1st Jan 2025',
   author = DEFAULT_AUTHOR,
-  onClick,
+  jumpTo,
   ...rest
 }: Props) {
   const ref = React.useRef<ScrollView>(null);
@@ -65,7 +65,12 @@ export function Article({
           <Text style={[styles.timestamp, { color: '#000' }]}>{date}</Text>
         </View>
       </View>
-      <Button title="Go to Albums" onPress={onClick} />
+      <Button
+        title="Go to Albums"
+        onPress={() => {
+          jumpTo?.('albums');
+        }}
+      />
       <Heading>What is Lorem Ipsum?</Heading>
       <Paragraph>
         Lorem Ipsum is simply dummy text of the printing and typesetting
