@@ -30,9 +30,7 @@ function MaterialBottomTabs() {
         component={Albums}
         options={{
           tabBarIcon: () => (
-            <TabBarIcon
-              source={require('../../assets/icons/article_dark.png')}
-            />
+            <TabBarIcon source={require('../../assets/icons/grid_dark.png')} />
           ),
         }}
       />
@@ -42,7 +40,7 @@ function MaterialBottomTabs() {
         options={{
           tabBarIcon: () => (
             <TabBarIcon
-              source={require('../../assets/icons/article_dark.png')}
+              source={require('../../assets/icons/person_dark.png')}
             />
           ),
         }}
@@ -52,9 +50,7 @@ function MaterialBottomTabs() {
         component={Chat}
         options={{
           tabBarIcon: () => (
-            <TabBarIcon
-              source={require('../../assets/icons/article_dark.png')}
-            />
+            <TabBarIcon source={require('../../assets/icons/chat_dark.png')} />
           ),
         }}
       />

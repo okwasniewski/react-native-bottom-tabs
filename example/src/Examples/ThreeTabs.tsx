@@ -7,14 +7,24 @@ import { Contacts } from '../Screens/Contacts';
 export default function ThreeTabs() {
   const [index, setIndex] = useState(0);
   const [routes] = useState([
-    { key: 'article', title: 'Article', icon: 'document.fill', badge: '!' },
+    {
+      key: 'article',
+      title: 'Article',
+      focusedIcon: require('../../assets/icons/article.png'),
+      unfocusedIcon: require('../../assets/icons/chat.png'),
+      badge: '!',
+    },
     {
       key: 'albums',
       title: 'Albums',
-      icon: 'square.grid.2x2.fill',
+      focusedIcon: require('../../assets/icons/grid.png'),
       badge: '5',
     },
-    { key: 'contacts', title: 'Contacts', icon: 'person.fill' },
+    {
+      key: 'contacts',
+      focusedIcon: require('../../assets/icons/person.png'),
+      title: 'Contacts',
+    },
   ]);
 
   const renderScene = SceneMap({

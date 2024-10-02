@@ -18,7 +18,6 @@ import com.facebook.yoga.YogaNode
 
 data class TabInfo(
   val key: String,
-  val icon: String,
   val title: String,
   val badge: String
 )
@@ -40,7 +39,6 @@ class RCTTabViewViewManager :
           itemsArray.add(
             TabInfo(
               key = item.getString("key") ?: "",
-              icon = item.getString("icon") ?: "",
               title = item.getString("title") ?: "",
               badge = item.getString("badge") ?: ""
             )
@@ -55,6 +53,11 @@ class RCTTabViewViewManager :
     view.items?.indexOfFirst { it.key == key }?.let {
       view.selectedItemId = it
     }
+  }
+
+  @ReactProp(name = "icons")
+  fun setIcons(view: ReactBottomNavigationView, icons: ReadableArray?) {
+    view.setIcons(icons)
   }
 
   public override fun createViewInstance(context: ThemedReactContext): ReactBottomNavigationView {
