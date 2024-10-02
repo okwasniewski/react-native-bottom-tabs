@@ -60,8 +60,8 @@ class RCTTabViewViewManager :
   public override fun createViewInstance(context: ThemedReactContext): ReactBottomNavigationView {
     eventDispatcher = context.getNativeModule(UIManagerModule::class.java)!!.eventDispatcher
     val view = ReactBottomNavigationView(context)
-    view.setOnTabSelectedListener { data ->
-     data.getString("key")?.let {
+    view.onTabSelectedListener = { data ->
+      data.getString("key")?.let {
         eventDispatcher.dispatchEvent(PageSelectedEvent(viewTag = view.id, key = it ))
       }
     }
