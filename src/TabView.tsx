@@ -1,21 +1,12 @@
-import React from 'react';
 import type { TabViewItems } from './TabViewNativeComponent';
-import { Platform, StyleSheet, View } from 'react-native';
+import { Image, Platform, StyleSheet, View } from 'react-native';
+
+//@ts-ignore
+import type { ImageSource } from 'react-native/Libraries/Image/ImageSource';
 import TabViewAdapter from './TabViewAdapter';
 import useLatestCallback from 'use-latest-callback';
-
-export type BaseRoute = {
-  key: string;
-  title?: string;
-  badge?: string;
-  lazy?: boolean;
-  icon?: string;
-};
-
-type NavigationState<Route extends BaseRoute> = {
-  index: number;
-  routes: Route[];
-};
+import { useState } from 'react';
+import type { BaseRoute, NavigationState } from './types';
 
 interface Props<Route extends BaseRoute> {
   navigationState: NavigationState<Route>;
@@ -47,7 +38,7 @@ const TabView = <Route extends BaseRoute>({
   /**
    * List of loaded tabs, tabs will be loaded when navigated to.
    */
-  const [loaded, setLoaded] = React.useState<string[]>([focusedKey]);
+  const [loaded, setLoaded] = useState<string[]>([focusedKey]);
 
   if (!loaded.includes(focusedKey)) {
     // Set the current tab to be loaded if it was not loaded before
@@ -57,9 +48,19 @@ const TabView = <Route extends BaseRoute>({
   const items: TabViewItems = navigationState.routes.map((route) => ({
     key: route.key,
     title: route.title ?? route.key,
-    icon: route.icon,
     badge: route.badge,
   }));
+
+  const icons: ImageSource[] = navigationState.routes
+    .map((route) =>
+      route.unfocusedIcon
+        ? route.key === focusedKey
+          ? route.focusedIcon
+          : route.unfocusedIcon
+        : route.focusedIcon
+    )
+    // Pass empty object for icons that are not provided to avoid index mismatch on native side.
+    .map((icon) => (icon ? Image.resolveAssetSource(icon) : { uri: '' }));
 
   const jumpTo = useLatestCallback((key: string) => {
     const index = navigationState.routes.findIndex(
@@ -73,6 +74,7 @@ const TabView = <Route extends BaseRoute>({
     <TabViewAdapter
       style={styles.fullWidth}
       items={items}
+      icons={icons}
       selectedPage={focusedKey}
       onPageSelected={({ nativeEvent: { key } }) => {
         const index = navigationState.routes.findIndex((r) => r.key === key);
