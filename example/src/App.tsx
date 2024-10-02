@@ -22,6 +22,11 @@ import FourTabs from './Examples/FourTabs';
 const examples = [
   { component: ThreeTabs, name: 'Three Tabs' },
   { component: FourTabs, name: 'Four Tabs' },
+  {
+    component: FourTabs,
+    name: 'Four Tabs - No header',
+    screenOptions: { headerShown: false },
+  },
   { component: JSBottomTabs, name: 'JS Bottom Tabs' },
 ];
 
@@ -91,6 +96,7 @@ export default function Navigation() {
               key={index}
               name={example.name}
               component={example.component}
+              options={example.screenOptions}
             />
           ))}
         </NavigationStack.Navigator>
