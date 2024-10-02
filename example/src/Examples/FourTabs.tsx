@@ -5,7 +5,7 @@ import { Albums } from '../Screens/Albums';
 import { Contacts } from '../Screens/Contacts';
 import { Chat } from '../Screens/Chat';
 
-export default function ThreeTabs() {
+export default function FourTabs() {
   const [index, setIndex] = useState(0);
   const [routes] = useState([
     { key: 'article', title: 'Article', icon: 'document.fill', badge: '!' },

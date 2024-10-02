@@ -12,7 +12,7 @@ export type OnPageSelectedEventData = Readonly<{
 export type TabViewItems = ReadonlyArray<{
   key: string;
   title: string;
-  icon: string;
+  icon?: string;
   badge?: string;
 }>;
 
