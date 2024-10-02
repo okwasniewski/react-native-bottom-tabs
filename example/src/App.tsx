@@ -18,6 +18,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import JSBottomTabs from './Examples/JSBottomTabs';
 import ThreeTabs from './Examples/ThreeTabs';
 import FourTabs from './Examples/FourTabs';
+import MaterialBottomTabs from './Examples/MaterialBottomTabs';
 
 const examples = [
   { component: ThreeTabs, name: 'Three Tabs' },
@@ -28,6 +29,7 @@ const examples = [
     screenOptions: { headerShown: false },
   },
   { component: JSBottomTabs, name: 'JS Bottom Tabs' },
+  { component: MaterialBottomTabs, name: 'Material (JS) Bottom Tabs' },
 ];
 
 function App() {

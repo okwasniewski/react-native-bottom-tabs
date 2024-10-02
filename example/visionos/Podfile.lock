@@ -1243,7 +1243,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - react-native-swiftui-tabview (0.1.0):
+  - react-native-bottom-tabs (0.1.0):
     - DoubleConversion
     - glog
     - RCT-Folly (= 2024.01.01.00)
@@ -1264,6 +1264,8 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
+  - react-native-safe-area-context (4.11.0):
+    - React-Core
   - React-nativeconfig (0.75.0)
   - React-NativeModulesApple (0.75.0):
     - glog
@@ -1553,6 +1555,49 @@ PODS:
     - React-Core
     - React-jsi
   - ReactTestApp-Resources (1.0.0-dev)
+  - RNGestureHandler (2.20.0):
+    - DoubleConversion
+    - glog
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
+  - RNScreens (3.34.0):
+    - DoubleConversion
+    - glog
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-RCTImage
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
   - SocketRocket (0.7.0.1)
   - Yoga (0.0.0)
 
@@ -1593,7 +1638,8 @@ DEPENDENCIES:
   - "React-logger (from `../node_modules/@callstack/react-native-visionos/ReactCommon/logger`)"
   - "React-Mapbuffer (from `../node_modules/@callstack/react-native-visionos/ReactCommon`)"
   - "React-microtasksnativemodule (from `../node_modules/@callstack/react-native-visionos/ReactCommon/react/nativemodule/microtasks`)"
-  - react-native-swiftui-tabview (from `../..`)
+  - react-native-bottom-tabs (from `../..`)
+  - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - "React-nativeconfig (from `../node_modules/@callstack/react-native-visionos/ReactCommon`)"
   - "React-NativeModulesApple (from `../node_modules/@callstack/react-native-visionos/ReactCommon/react/nativemodule/core/platform/ios`)"
   - "React-perflogger (from `../node_modules/@callstack/react-native-visionos/ReactCommon/reactperflogger`)"
@@ -1625,6 +1671,8 @@ DEPENDENCIES:
   - "ReactNativeHost (from `../node_modules/@rnx-kit/react-native-host`)"
   - ReactTestApp-DevSupport (from `../node_modules/react-native-test-app`)
   - ReactTestApp-Resources (from `..`)
+  - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNScreens (from `../node_modules/react-native-screens`)
   - "SocketRocket (from `../node_modules/@callstack/react-native-visionos/third-party-podspecs/SocketRocket.podspec`)"
   - "Yoga (from `../node_modules/@callstack/react-native-visionos/ReactCommon/yoga`)"
 
@@ -1697,8 +1745,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@callstack/react-native-visionos/ReactCommon"
   React-microtasksnativemodule:
     :path: "../node_modules/@callstack/react-native-visionos/ReactCommon/react/nativemodule/microtasks"
-  react-native-swiftui-tabview:
+  react-native-bottom-tabs:
     :path: "../.."
+  react-native-safe-area-context:
+    :path: "../node_modules/react-native-safe-area-context"
   React-nativeconfig:
     :path: "../node_modules/@callstack/react-native-visionos/ReactCommon"
   React-NativeModulesApple:
@@ -1761,6 +1811,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-test-app"
   ReactTestApp-Resources:
     :path: ".."
+  RNGestureHandler:
+    :path: "../node_modules/react-native-gesture-handler"
+  RNScreens:
+    :path: "../node_modules/react-native-screens"
   SocketRocket:
     :podspec: "../node_modules/@callstack/react-native-visionos/third-party-podspecs/SocketRocket.podspec"
   Yoga:
@@ -1801,7 +1855,8 @@ SPEC CHECKSUMS:
   React-logger: 3b9cc828d9dd5f8ba7da014dab19fcff6beceb79
   React-Mapbuffer: b925e985164304a420b29103c38c6c9d91691d2d
   React-microtasksnativemodule: 1940f8375742bf1fa2100cbc1dba3e9b20c1b8b5
-  react-native-swiftui-tabview: 3be89c5b1d6efe6643ce44ee9aa3ce4bf7760320
+  react-native-bottom-tabs: 894d1fb8fc4e6d525b2da35e83e00e18c420cdf2
+  react-native-safe-area-context: 851c62c48dce80ccaa5637b6aa5991a1bc36eca9
   React-nativeconfig: afe30c46ab7d8b251f38961a644698387f5f9e6d
   React-NativeModulesApple: ccef48a493eae993fcddc7c7b7f80e5cdd2add8a
   React-perflogger: 76276a729b69a8131bf2a56f9edb811448ea1408
@@ -1833,9 +1888,11 @@ SPEC CHECKSUMS:
   ReactNativeHost: 99c0ffb175cd69de2ac9a70892cd22dac65ea79d
   ReactTestApp-DevSupport: b7cd76a3aeee6167f5e14d82f09685059152c426
   ReactTestApp-Resources: 0be6dec7d289172429c080c56dbd4f5aeb5e1ced
+  RNGestureHandler: 18b9b5d65c77c4744a640f69b7fccdd47ed935c0
+  RNScreens: 5288a8dbeedb3c5051aa2d5658c1c553c050b80a
   SocketRocket: 0ba3e799f983d2dfa878777017659ef6c866e5c6
   Yoga: 7c17e3a94a522222e393c1e9c9387afd9428f6eb
 
-PODFILE CHECKSUM: ef8414f59a2b45c9341c759274184990c6e69561
+PODFILE CHECKSUM: f89ba4e3c51d912721e2bf52a0d5575eb0309fc2
 
 COCOAPODS: 1.15.2
