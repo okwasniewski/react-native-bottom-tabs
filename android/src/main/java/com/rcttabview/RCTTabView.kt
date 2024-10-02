@@ -3,8 +3,6 @@ package com.rcttabview
 import android.content.Context
 import android.view.Choreographer
 import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.WritableMap
@@ -40,16 +38,13 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
 
   private fun onTabSelected(item: MenuItem) {
     val selectedItem = items?.first { it.title == item.title }
-    if (selectedItem == null) {
-      return
+    selectedItem?.let {
+      val event = Arguments.createMap().apply {
+        putString("key", selectedItem.key)
+      }
+      onTabSelectedListener?.invoke(event)
+      startAnimation()
     }
-    
-    startAnimation()
-
-    val event = Arguments.createMap().apply {
-      putString("key", selectedItem.key)
-    }
-    onTabSelectedListener?.invoke(event)
   }
 
   // Refresh TabView children to fix issue with animations.
@@ -91,7 +86,6 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
 
   // Fixes issues with BottomNavigationView children layouting.
   private fun measureAndLayout() {
-    viewTreeObserver.dispatchOnGlobalLayout();
       measure(
         MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY),
         MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY))

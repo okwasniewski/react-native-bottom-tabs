@@ -9,6 +9,7 @@ export type BaseRoute = {
   title?: string;
   badge?: string;
   lazy?: boolean;
+  icon?: string;
 };
 
 type NavigationState<Route extends BaseRoute> = {
@@ -56,7 +57,7 @@ const TabView = <Route extends BaseRoute>({
   const items: TabViewItems = navigationState.routes.map((route) => ({
     key: route.key,
     title: route.title ?? route.key,
-    icon: 'document.fill',
+    icon: route.icon,
     badge: route.badge,
   }));
 
