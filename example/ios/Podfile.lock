@@ -1774,15 +1774,15 @@ SPEC CHECKSUMS:
   React-CoreModules: 2d68c251bc4080028f2835fa47504e8f20669a21
   React-cxxreact: bb0dc212b515d6dba6c6ddc4034584e148857db9
   React-debug: fd0ed8ecd5f8a23c7daf5ceaca8aa722a4d083fd
-  React-defaultsnativemodule: 371dc516e5020f8b87f1d32f8fa6872cafcc2081
-  React-domnativemodule: 5d1288b9b8666b818a1004b56a03befc00eb5698
+  React-defaultsnativemodule: 0d824306a15dd80e2bea12f4079fbeff9712b301
+  React-domnativemodule: 195491d7c1725befd636f84c67bf229203fc7d07
   React-Fabric: c12ce848f72cba42fb9e97a73a7c99abc6353f23
   React-FabricComponents: 7813d5575c8ea2cda0fef9be4ff9d10987cba512
   React-FabricImage: c511a5d612479cb4606edf3557c071956c8735f6
   React-featureflags: cf78861db9318ae29982fa8953c92d31b276c9ac
-  React-featureflagsnativemodule: e774cf495486b0e2a8b324568051d6b4c722fa93
+  React-featureflagsnativemodule: 54f6decea27c187c2127e3669a7f5bf2e145e637
   React-graphics: 7572851bca7242416b648c45d6af87d93d29281e
-  React-idlecallbacksnativemodule: d2009bad67ef232a0ee586f53193f37823e81ef1
+  React-idlecallbacksnativemodule: 7d21b0e071c3e02bcc897d2c3db51319642dd466
   React-ImageManager: aedf54d34d4475c66f4c3da6b8359b95bee904e4
   React-jsc: 92ac98e0e03ee54fdaa4ac3936285a4fdb166fab
   React-jserrorhandler: 0c8949672a00f2a502c767350e591e3ec3d82fb3
@@ -1792,8 +1792,8 @@ SPEC CHECKSUMS:
   React-jsitracing: 3935b092f85bb1e53b8cf8a00f572413648af46b
   React-logger: 4072f39df335ca443932e0ccece41fbeb5ca8404
   React-Mapbuffer: 714f2fae68edcabfc332b754e9fbaa8cfc68fdd4
-  React-microtasksnativemodule: 987cf7e0e0e7129250a48b807e70d3b906c726cf
-  react-native-bottom-tabs: 894d1fb8fc4e6d525b2da35e83e00e18c420cdf2
+  React-microtasksnativemodule: 618b64238e43ef3154079f193aa6649e5320ae19
+  react-native-bottom-tabs: 5662b5e3b5968bec6258b9d6f1a0a834bd3f7553
   react-native-safe-area-context: 851c62c48dce80ccaa5637b6aa5991a1bc36eca9
   React-nativeconfig: 4a9543185905fe41014c06776bf126083795aed9
   React-NativeModulesApple: 651670a799672bd54469f2981d91493dda361ddf
@@ -1820,11 +1820,11 @@ SPEC CHECKSUMS:
   React-utils: b2baee839fb869f732d617b97dcfa384b4b4fdb3
   ReactCodegen: f177b8fd67788c5c6ff45a39c7482c5f8d77ace6
   ReactCommon: 627bd3192ef01a351e804e9709673d3741d38fec
-  ReactNativeHost: 99c0ffb175cd69de2ac9a70892cd22dac65ea79d
+  ReactNativeHost: 62249d6e1e42a969159946c035c1cd3f4b1035dd
   ReactTestApp-DevSupport: b7cd76a3aeee6167f5e14d82f09685059152c426
   ReactTestApp-Resources: 7db90c026cccdf40cfa495705ad436ccc4d64154
-  RNGestureHandler: 18b9b5d65c77c4744a640f69b7fccdd47ed935c0
-  RNScreens: 5288a8dbeedb3c5051aa2d5658c1c553c050b80a
+  RNGestureHandler: 366823a3ebcc5ddd25550dbfe80e89779c4760b2
+  RNScreens: d86f05e9c243a063ca67cda7f4e05d28fe5c31d4
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
   Yoga: 4ef80d96a5534f0e01b3055f17d1e19a9fc61b63
 
