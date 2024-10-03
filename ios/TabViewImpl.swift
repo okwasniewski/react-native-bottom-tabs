@@ -41,7 +41,7 @@ struct TabViewImpl: View {
         RepresentableView(view: child)
           .frame(width: child.frame.width, height: child.frame.height)
           .tabItem {
-            TabItem(icon: icon, title: tabData?.title)
+            TabItem(icon: icon, sfSymbol: tabData?.sfSymbol, title: tabData?.title)
           }
           .tag(tabData?.key)
           .tabBadge(tabData?.badge)
@@ -56,11 +56,14 @@ struct TabViewImpl: View {
 
 struct TabItem: View {
   var icon: UIImage?
+  var sfSymbol: String?
   var title: String?
   
   var body: some View {
     if let icon {
       Image(uiImage: icon)
+    } else if let sfSymbol, !sfSymbol.isEmpty {
+      Image(systemName: sfSymbol)
     }
     Text(title ?? "")
   }

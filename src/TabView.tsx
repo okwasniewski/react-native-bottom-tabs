@@ -35,6 +35,10 @@ const TabView = <Route extends BaseRoute>({
   // @ts-ignore
   const focusedKey = navigationState.routes[navigationState.index].key;
 
+  if (navigationState.routes.length > 6) {
+    throw new Error('TabView only supports up to 6 tabs');
+  }
+
   /**
    * List of loaded tabs, tabs will be loaded when navigated to.
    */
@@ -45,25 +49,48 @@ const TabView = <Route extends BaseRoute>({
     setLoaded((loaded) => [...loaded, focusedKey]);
   }
 
-  const items: TabViewItems = navigationState.routes.map((route) => ({
-    key: route.key,
-    title: route.title ?? route.key,
-    badge: route.badge,
-  }));
-
-  const icons: ImageSource[] = useMemo(
+  const icons = useMemo(
     () =>
-      navigationState.routes
-        .map((route) =>
-          route.unfocusedIcon
-            ? route.key === focusedKey
-              ? route.focusedIcon
-              : route.unfocusedIcon
-            : route.focusedIcon
-        )
-        // Pass empty object for icons that are not provided to avoid index mismatch on native side.
-        .map((icon) => (icon ? Image.resolveAssetSource(icon) : { uri: '' })),
+      navigationState.routes.map((route) =>
+        route.unfocusedIcon
+          ? route.key === focusedKey
+            ? route.focusedIcon
+            : route.unfocusedIcon
+          : route.focusedIcon
+      ),
     [focusedKey, navigationState.routes]
+  );
+
+  const items: TabViewItems = useMemo(
+    () =>
+      navigationState.routes.map((route, index) => {
+        const icon = icons[index];
+        const isIconString = typeof icon === 'string';
+
+        if (Platform.OS === 'android' && isIconString) {
+          console.warn(
+            'SF Symbols are not supported on Android. Use require() or pass uri to load an image instead.'
+          );
+        }
+        return {
+          key: route.key,
+          title: route.title ?? route.key,
+          sfSymbol: isIconString ? icon : undefined,
+          badge: route.badge,
+        };
+      }),
+    [icons, navigationState.routes]
+  );
+
+  const resolvedIconAssets: ImageSource[] = useMemo(
+    () =>
+      // Pass empty object for icons that are not provided to avoid index mismatch on native side.
+      icons.map((icon) =>
+        icon && typeof icon !== 'string'
+          ? Image.resolveAssetSource(icon)
+          : { uri: '' }
+      ),
+    [icons]
   );
 
   const jumpTo = useLatestCallback((key: string) => {
@@ -78,14 +105,10 @@ const TabView = <Route extends BaseRoute>({
     <TabViewAdapter
       style={styles.fullWidth}
       items={items}
-      icons={icons}
+      icons={resolvedIconAssets}
       selectedPage={focusedKey}
       onPageSelected={({ nativeEvent: { key } }) => {
-        const index = navigationState.routes.findIndex((r) => r.key === key);
-
-        if (index !== -1) {
-          onIndexChange?.(index);
-        }
+        jumpTo(key);
       }}
       {...props}
     >

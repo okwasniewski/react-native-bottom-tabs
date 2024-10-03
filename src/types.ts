@@ -7,8 +7,8 @@ export type BaseRoute = {
   title?: string;
   badge?: string;
   lazy?: boolean;
-  focusedIcon?: ImageSourcePropType;
-  unfocusedIcon?: ImageSourcePropType;
+  focusedIcon?: ImageSourcePropType | string;
+  unfocusedIcon?: ImageSourcePropType | string;
 };
 
 export type NavigationState<Route extends BaseRoute> = {

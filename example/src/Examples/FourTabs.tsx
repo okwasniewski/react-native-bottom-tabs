@@ -11,24 +11,24 @@ export default function FourTabs() {
     {
       key: 'article',
       title: 'Article',
-      focusedIcon: require('../../assets/icons/article.png'),
-      unfocusedIcon: require('../../assets/icons/chat.png'),
+      focusedIcon: require('../../assets/icons/article_dark.png'),
+      unfocusedIcon: require('../../assets/icons/chat_dark.png'),
       badge: '!',
     },
     {
       key: 'albums',
       title: 'Albums',
-      focusedIcon: require('../../assets/icons/grid.png'),
+      focusedIcon: require('../../assets/icons/grid_dark.png'),
       badge: '5',
     },
     {
       key: 'contacts',
-      focusedIcon: require('../../assets/icons/person.png'),
+      focusedIcon: require('../../assets/icons/person_dark.png'),
       title: 'Contacts',
     },
     {
       key: 'chat',
-      focusedIcon: require('../../assets/icons/chat.png'),
+      focusedIcon: require('../../assets/icons/chat_dark.png'),
       title: 'Chat',
     },
   ]);

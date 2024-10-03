@@ -6,6 +6,7 @@ struct TabInfo: Codable {
   let key: String
   let title: String
   let badge: String
+  let sfSymbol: String
 }
 
 struct TabData: Codable {
@@ -18,7 +19,7 @@ struct TabData: Codable {
   private var coalescingKey: UInt16 = 0
   private var eventDispatcher: RCTEventDispatcherProtocol?
   private var imageLoader: RCTImageLoaderProtocol?
-  private var iconSize = CGSize(width: 25, height: 25)
+  private var iconSize = CGSize(width: 27, height: 27)
   
   
   @objc var onPageSelected: RCTDirectEventBlock?
@@ -130,7 +131,8 @@ struct TabData: Codable {
           TabInfo(
             key: itemDict["key"] as? String ?? "",
             title: itemDict["title"] as? String ?? "",
-            badge: itemDict["badge"] as? String ?? ""
+            badge: itemDict["badge"] as? String ?? "",
+            sfSymbol: itemDict["sfSymbol"] as? String ?? ""
           )
         )
       }
