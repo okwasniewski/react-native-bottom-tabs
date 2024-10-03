@@ -5,7 +5,7 @@ import { Image, Platform, StyleSheet, View } from 'react-native';
 import type { ImageSource } from 'react-native/Libraries/Image/ImageSource';
 import TabViewAdapter from './TabViewAdapter';
 import useLatestCallback from 'use-latest-callback';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import type { BaseRoute, NavigationState } from './types';
 
 interface Props<Route extends BaseRoute> {
@@ -51,16 +51,20 @@ const TabView = <Route extends BaseRoute>({
     badge: route.badge,
   }));
 
-  const icons: ImageSource[] = navigationState.routes
-    .map((route) =>
-      route.unfocusedIcon
-        ? route.key === focusedKey
-          ? route.focusedIcon
-          : route.unfocusedIcon
-        : route.focusedIcon
-    )
-    // Pass empty object for icons that are not provided to avoid index mismatch on native side.
-    .map((icon) => (icon ? Image.resolveAssetSource(icon) : { uri: '' }));
+  const icons: ImageSource[] = useMemo(
+    () =>
+      navigationState.routes
+        .map((route) =>
+          route.unfocusedIcon
+            ? route.key === focusedKey
+              ? route.focusedIcon
+              : route.unfocusedIcon
+            : route.focusedIcon
+        )
+        // Pass empty object for icons that are not provided to avoid index mismatch on native side.
+        .map((icon) => (icon ? Image.resolveAssetSource(icon) : { uri: '' })),
+    [focusedKey, navigationState.routes]
+  );
 
   const jumpTo = useLatestCallback((key: string) => {
     const index = navigationState.routes.findIndex(

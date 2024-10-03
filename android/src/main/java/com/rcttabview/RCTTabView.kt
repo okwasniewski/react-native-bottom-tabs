@@ -1,6 +1,5 @@
 package com.rcttabview
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
@@ -104,9 +103,8 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
       var imageSource =
         ImageSource(
           context,
-          source.getString("uri"),
-          source.getDouble("width"),
-          source.getDouble("height"))
+          source.getString("uri")
+        )
       if (Uri.EMPTY == imageSource.uri) {
         imageSource = getTransparentBitmapImageSource(context)
       }
@@ -119,8 +117,8 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
     }
   }
 
-  @SuppressLint("UseCompatLoadingForDrawables")
   private fun getDrawable(imageSource: ImageSource): Drawable {
+    // TODO: Check if this can be done using some built-in React Native class
     val imageRequest = ImageRequestBuilder.newBuilderWithSource(imageSource.uri).build()
     val dataSource = Fresco.getImagePipeline().fetchDecodedImage(imageRequest, context)
     val result = DataSources.waitForFinalResult(dataSource) as CloseableReference<CloseableBitmap>
