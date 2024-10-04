@@ -39,17 +39,17 @@ struct TabViewImpl: View {
         let tabData = props.items?.tabs[safe: index]
         let icon = props.icons[index]
         RepresentableView(view: child)
-          .frame(width: child.frame.width, height: child.frame.height)
+          .frame(maxWidth: .infinity, maxHeight: .infinity)
           .tabItem {
             TabItem(icon: icon, sfSymbol: tabData?.sfSymbol, title: tabData?.title)
           }
           .tag(tabData?.key)
           .tabBadge(tabData?.badge)
       }
-    }
-    .getTabViewStyle(name: props.tabViewStyle ?? "")
-    .onChange(of: props.selectedPage ?? "") { newValue in
-      onSelect(newValue)
+      .getTabViewStyle(name: props.tabViewStyle ?? "")
+      .onChange(of: props.selectedPage ?? "") { newValue in
+        onSelect(newValue)
+      }
     }
   }
 }
@@ -99,4 +99,3 @@ extension View {
     }
   }
 }
-

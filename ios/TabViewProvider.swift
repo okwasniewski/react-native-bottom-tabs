@@ -73,24 +73,13 @@ struct TabData: Codable {
       self.coalescingKey += 1
       self.eventDispatcher?.send(PageSelectedEvent(reactTag: self.reactTag, key: NSString(string: key), coalescingKey: self.coalescingKey))
     })
-    if let hostingController = self.hostingController, let parentViewController = findViewController() {
+    if let hostingController = self.hostingController, let parentViewController = reactViewController() {
       parentViewController.addChild(hostingController)
       addSubview(hostingController.view)
       hostingController.view.translatesAutoresizingMaskIntoConstraints = false
       hostingController.view.pinEdges(to: self)
       hostingController.didMove(toParent: parentViewController)
     }
-  }
-  
-  private func findViewController() -> UIViewController? {
-    var responder: UIResponder? = self
-    while let nextResponder = responder?.next {
-      if let viewController = nextResponder as? UIViewController {
-        return viewController
-      }
-      responder = nextResponder
-    }
-    return nil
   }
   
   private func loadIcons(_ icons: NSArray?) {
