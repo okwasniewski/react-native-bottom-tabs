@@ -15,10 +15,10 @@ export default function SFSymbols() {
       title: 'Article',
       focusedIcon: isAndroid
         ? require('../../assets/icons/article_dark.png')
-        : 'document.fill',
+        : { sfSymbol: 'document.fill' },
       unfocusedIcon: isAndroid
         ? require('../../assets/icons/chat_dark.png')
-        : 'bubble.left.fill',
+        : { sfSymbol: 'bubble.left.fill' },
       badge: '!',
     },
     {
@@ -26,14 +26,14 @@ export default function SFSymbols() {
       title: 'Albums',
       focusedIcon: isAndroid
         ? require('../../assets/icons/grid_dark.png')
-        : 'square.grid.3x2.fill',
+        : { sfSymbol: 'square.grid.3x2.fill' },
       badge: '5',
     },
     {
       key: 'contacts',
       focusedIcon: isAndroid
         ? require('../../assets/icons/person_dark.png')
-        : 'person.fill',
+        : { sfSymbol: 'person.fill' },
       title: 'Contacts',
     },
   ]);

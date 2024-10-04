@@ -8,6 +8,9 @@ import useLatestCallback from 'use-latest-callback';
 import { useMemo, useState } from 'react';
 import type { BaseRoute, NavigationState } from './types';
 
+const isAppleSymbol = (icon: any): icon is { sfSymbol: string } =>
+  icon.sfSymbol;
+
 interface Props<Route extends BaseRoute> {
   navigationState: NavigationState<Route>;
   renderScene: (props: {
@@ -65,9 +68,9 @@ const TabView = <Route extends BaseRoute>({
     () =>
       navigationState.routes.map((route, index) => {
         const icon = icons[index];
-        const isIconString = typeof icon === 'string';
+        const isSfSymbol = isAppleSymbol(icon);
 
-        if (Platform.OS === 'android' && isIconString) {
+        if (Platform.OS === 'android' && isSfSymbol) {
           console.warn(
             'SF Symbols are not supported on Android. Use require() or pass uri to load an image instead.'
           );
@@ -75,7 +78,7 @@ const TabView = <Route extends BaseRoute>({
         return {
           key: route.key,
           title: route.title ?? route.key,
-          sfSymbol: isIconString ? icon : undefined,
+          sfSymbol: isSfSymbol ? icon.sfSymbol : undefined,
           badge: route.badge,
         };
       }),
@@ -86,7 +89,7 @@ const TabView = <Route extends BaseRoute>({
     () =>
       // Pass empty object for icons that are not provided to avoid index mismatch on native side.
       icons.map((icon) =>
-        icon && typeof icon !== 'string'
+        icon && !isAppleSymbol(icon)
           ? Image.resolveAssetSource(icon)
           : { uri: '' }
       ),
