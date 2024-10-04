@@ -197,6 +197,7 @@
     "version": "0.41.2"
   },
   "dependencies": {
+    "sf-symbols-typescript": "^2.0.0",
     "use-latest-callback": "^0.2.1"
   }
 }

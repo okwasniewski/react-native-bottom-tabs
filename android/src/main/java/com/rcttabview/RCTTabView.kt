@@ -1,15 +1,27 @@
 package com.rcttabview
 
 import android.content.Context
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.view.Choreographer
 import android.view.MenuItem
-import androidx.appcompat.content.res.AppCompatResources
+import com.facebook.common.references.CloseableReference
+import com.facebook.datasource.DataSources
+import com.facebook.drawee.backends.pipeline.Fresco
+import com.facebook.imagepipeline.image.CloseableBitmap
+import com.facebook.imagepipeline.request.ImageRequestBuilder
 import com.facebook.react.bridge.Arguments
+import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.WritableMap
+import com.facebook.react.views.imagehelper.ImageSource
+import com.facebook.react.views.imagehelper.ImageSource.Companion.getTransparentBitmapImageSource
 import com.google.android.material.bottomnavigation.BottomNavigationView
+
 
 class ReactBottomNavigationView(context: Context) : BottomNavigationView(context) {
   private val ANIMATION_DURATION: Long = 300
+  private val icons: MutableMap<Int, ImageSource> = mutableMapOf()
 
   var items: MutableList<TabInfo>? = null
   var onTabSelectedListener: ((WritableMap) -> Unit)? = null
@@ -62,17 +74,10 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
 
   fun updateItems(items: MutableList<TabInfo>) {
     this.items = items
-    // TODO: This doesn't work with hot reload. It clears all menu items
-    menu.clear()
     items.forEachIndexed {index, item ->
-      val menuItem = menu.add(0, index, 0, item.title)
-      val iconResourceId = resources.getIdentifier(
-        item.icon, "drawable", context.packageName
-      )
-      if (iconResourceId != 0) {
-        menuItem.icon = AppCompatResources.getDrawable(context, iconResourceId)
-      } else {
-        menuItem.setIcon(android.R.drawable.btn_star) // fallback icon
+      val menuItem = getOrCreateItem(index, item.title)
+      if (icons.containsKey(index)) {
+        menuItem.icon = getDrawable(icons[index]!!)
       }
       if (item.badge.isNotEmpty()) {
         val badge = this.getOrCreateBadge(index)
@@ -82,6 +87,47 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
         removeBadge(index)
       }
     }
+  }
+
+  private fun getOrCreateItem(index: Int, title: String): MenuItem {
+    return menu.findItem(index) ?: menu.add(0, index, 0, title)
+  }
+
+  fun setIcons(icons: ReadableArray?) {
+    if (icons == null || icons.size() == 0) {
+      return
+    }
+
+    for (idx in 0 until icons.size()) {
+      val source = icons.getMap(idx)
+      var imageSource =
+        ImageSource(
+          context,
+          source.getString("uri")
+        )
+      if (Uri.EMPTY == imageSource.uri) {
+        imageSource = getTransparentBitmapImageSource(context)
+      }
+      this.icons[idx] = imageSource
+
+      // Update existing item if exists.
+      menu.findItem(idx)?.let { menuItem ->
+        menuItem.icon = getDrawable(imageSource)
+      }
+    }
+  }
+
+  private fun getDrawable(imageSource: ImageSource): Drawable {
+    // TODO: Check if this can be done using some built-in React Native class
+    val imageRequest = ImageRequestBuilder.newBuilderWithSource(imageSource.uri).build()
+    val dataSource = Fresco.getImagePipeline().fetchDecodedImage(imageRequest, context)
+    val result = DataSources.waitForFinalResult(dataSource) as CloseableReference<CloseableBitmap>
+    val bitmap = result.get().underlyingBitmap
+
+    CloseableReference.closeSafely(result)
+    dataSource.close()
+
+    return BitmapDrawable(resources, bitmap)
   }
 
   // Fixes issues with BottomNavigationView children layouting.

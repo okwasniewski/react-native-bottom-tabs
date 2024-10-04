@@ -1,21 +1,15 @@
-import React from 'react';
 import type { TabViewItems } from './TabViewNativeComponent';
-import { Platform, StyleSheet, View } from 'react-native';
+import { Image, Platform, StyleSheet, View } from 'react-native';
+
+//@ts-ignore
+import type { ImageSource } from 'react-native/Libraries/Image/ImageSource';
 import TabViewAdapter from './TabViewAdapter';
 import useLatestCallback from 'use-latest-callback';
+import { useMemo, useState } from 'react';
+import type { BaseRoute, NavigationState } from './types';
 
-export type BaseRoute = {
-  key: string;
-  title?: string;
-  badge?: string;
-  lazy?: boolean;
-  icon?: string;
-};
-
-type NavigationState<Route extends BaseRoute> = {
-  index: number;
-  routes: Route[];
-};
+const isAppleSymbol = (icon: any): icon is { sfSymbol: string } =>
+  icon.sfSymbol;
 
 interface Props<Route extends BaseRoute> {
   navigationState: NavigationState<Route>;
@@ -44,22 +38,63 @@ const TabView = <Route extends BaseRoute>({
   // @ts-ignore
   const focusedKey = navigationState.routes[navigationState.index].key;
 
+  if (navigationState.routes.length > 6) {
+    throw new Error('TabView only supports up to 6 tabs');
+  }
+
   /**
    * List of loaded tabs, tabs will be loaded when navigated to.
    */
-  const [loaded, setLoaded] = React.useState<string[]>([focusedKey]);
+  const [loaded, setLoaded] = useState<string[]>([focusedKey]);
 
   if (!loaded.includes(focusedKey)) {
     // Set the current tab to be loaded if it was not loaded before
     setLoaded((loaded) => [...loaded, focusedKey]);
   }
 
-  const items: TabViewItems = navigationState.routes.map((route) => ({
-    key: route.key,
-    title: route.title ?? route.key,
-    icon: route.icon,
-    badge: route.badge,
-  }));
+  const icons = useMemo(
+    () =>
+      navigationState.routes.map((route) =>
+        route.unfocusedIcon
+          ? route.key === focusedKey
+            ? route.focusedIcon
+            : route.unfocusedIcon
+          : route.focusedIcon
+      ),
+    [focusedKey, navigationState.routes]
+  );
+
+  const items: TabViewItems = useMemo(
+    () =>
+      navigationState.routes.map((route, index) => {
+        const icon = icons[index];
+        const isSfSymbol = isAppleSymbol(icon);
+
+        if (Platform.OS === 'android' && isSfSymbol) {
+          console.warn(
+            'SF Symbols are not supported on Android. Use require() or pass uri to load an image instead.'
+          );
+        }
+        return {
+          key: route.key,
+          title: route.title ?? route.key,
+          sfSymbol: isSfSymbol ? icon.sfSymbol : undefined,
+          badge: route.badge,
+        };
+      }),
+    [icons, navigationState.routes]
+  );
+
+  const resolvedIconAssets: ImageSource[] = useMemo(
+    () =>
+      // Pass empty object for icons that are not provided to avoid index mismatch on native side.
+      icons.map((icon) =>
+        icon && !isAppleSymbol(icon)
+          ? Image.resolveAssetSource(icon)
+          : { uri: '' }
+      ),
+    [icons]
+  );
 
   const jumpTo = useLatestCallback((key: string) => {
     const index = navigationState.routes.findIndex(
@@ -73,13 +108,10 @@ const TabView = <Route extends BaseRoute>({
     <TabViewAdapter
       style={styles.fullWidth}
       items={items}
+      icons={resolvedIconAssets}
       selectedPage={focusedKey}
       onPageSelected={({ nativeEvent: { key } }) => {
-        const index = navigationState.routes.findIndex((r) => r.key === key);
-
-        if (index !== -1) {
-          onIndexChange?.(index);
-        }
+        jumpTo(key);
       }}
       {...props}
     >

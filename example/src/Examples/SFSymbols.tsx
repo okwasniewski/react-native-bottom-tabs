@@ -3,26 +3,37 @@ import { useState } from 'react';
 import { Article } from '../Screens/Article';
 import { Albums } from '../Screens/Albums';
 import { Contacts } from '../Screens/Contacts';
+import { Platform } from 'react-native';
 
-export default function ThreeTabs() {
+const isAndroid = Platform.OS === 'android';
+
+export default function SFSymbols() {
   const [index, setIndex] = useState(0);
   const [routes] = useState([
     {
       key: 'article',
       title: 'Article',
-      focusedIcon: require('../../assets/icons/article_dark.png'),
-      unfocusedIcon: require('../../assets/icons/chat_dark.png'),
+      focusedIcon: isAndroid
+        ? require('../../assets/icons/article_dark.png')
+        : { sfSymbol: 'document.fill' },
+      unfocusedIcon: isAndroid
+        ? require('../../assets/icons/chat_dark.png')
+        : { sfSymbol: 'bubble.left.fill' },
       badge: '!',
     },
     {
       key: 'albums',
       title: 'Albums',
-      focusedIcon: require('../../assets/icons/grid_dark.png'),
+      focusedIcon: isAndroid
+        ? require('../../assets/icons/grid_dark.png')
+        : { sfSymbol: 'square.grid.3x2.fill' },
       badge: '5',
     },
     {
       key: 'contacts',
-      focusedIcon: require('../../assets/icons/person_dark.png'),
+      focusedIcon: isAndroid
+        ? require('../../assets/icons/person_dark.png')
+        : { sfSymbol: 'person.fill' },
       title: 'Contacts',
     },
   ]);

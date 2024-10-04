@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import React
 
 /**
  Props that component accepts. SwiftUI view gets re-rendered when ObservableObject changes.
@@ -9,6 +10,7 @@ class TabViewProps: ObservableObject {
   @Published var items: TabData?
   @Published var selectedPage: String?
   @Published var tabViewStyle: String?
+  @Published var icons: [Int: UIImage] = [:]
 }
 
 /**
@@ -35,19 +37,35 @@ struct TabViewImpl: View {
       ForEach(props.children?.indices ?? 0..<0, id: \.self) { index in
         let child = props.children?[safe: index] ?? UIView()
         let tabData = props.items?.tabs[safe: index]
+        let icon = props.icons[index]
         RepresentableView(view: child)
-          .frame(width: child.frame.width, height: child.frame.height)
+          .frame(maxWidth: .infinity, maxHeight: .infinity)
           .tabItem {
-            Label(tabData?.title ?? "", systemImage: tabData?.icon ?? "")
+            TabItem(icon: icon, sfSymbol: tabData?.sfSymbol, title: tabData?.title)
           }
           .tag(tabData?.key)
           .tabBadge(tabData?.badge)
       }
+      .getTabViewStyle(name: props.tabViewStyle ?? "")
+      .onChange(of: props.selectedPage ?? "") { newValue in
+        onSelect(newValue)
+      }
     }
-    .getTabViewStyle(name: props.tabViewStyle ?? "")
-    .onChange(of: props.selectedPage ?? "") { newValue in
-      onSelect(newValue)
+  }
+}
+
+struct TabItem: View {
+  var icon: UIImage?
+  var sfSymbol: String?
+  var title: String?
+  
+  var body: some View {
+    if let icon {
+      Image(uiImage: icon)
+    } else if let sfSymbol, !sfSymbol.isEmpty {
+      Image(systemName: sfSymbol)
     }
+    Text(title ?? "")
   }
 }
 
@@ -81,4 +99,3 @@ extension View {
     }
   }
 }
-
