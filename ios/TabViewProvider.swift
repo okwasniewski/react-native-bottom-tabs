@@ -108,7 +108,7 @@ struct TabData: Codable {
             }
             guard let image else { return }
             DispatchQueue.main.async {
-              self.props.icons[index] = image
+              self.props.icons[index] = image.resizeImageTo(size: self.iconSize)
             }
           })
       }
@@ -139,11 +139,21 @@ struct TabData: Codable {
     guard let configDict = dict as? [String: Any] else { return nil }
     let sidebarAdaptable = configDict["sidebarAdaptable"] as? Bool ?? false
     let labeled = configDict["labeled"] as? Bool ?? nil
-
+    
     return TabViewConfig(
       sidebarAdaptable: sidebarAdaptable,
       labeled: labeled
     )
   }
   
+}
+
+extension UIImage {
+  func resizeImageTo(size: CGSize) -> UIImage? {
+    UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+    self.draw(in: CGRect(origin: CGPoint.zero, size: size))
+    let resizedImage = UIGraphicsGetImageFromCurrentImageContext()!
+    UIGraphicsEndImageContext()
+    return resizedImage
+  }
 }

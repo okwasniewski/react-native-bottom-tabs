@@ -1,5 +1,6 @@
 import {
   Image,
+  KeyboardAvoidingView,
   Platform,
   ScrollView,
   type ScrollViewProps,
@@ -22,7 +23,10 @@ export function Chat({
 }: Partial<ScrollViewProps & { bottom: boolean }>) {
   console.log(Platform.OS, ' Rendering Chat');
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}
+    >
       <ScrollView
         style={styles.inverted}
         contentContainerStyle={styles.content}
@@ -64,10 +68,10 @@ export function Chat({
       />
       {bottom ? (
         <View
-          style={[styles.spacer, Platform.OS !== 'android' && { height: 80 }]}
+          style={[styles.spacer, Platform.OS !== 'android' && { height: 90 }]}
         />
       ) : null}
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
