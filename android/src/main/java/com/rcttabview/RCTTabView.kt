@@ -14,22 +14,26 @@ import com.facebook.imagepipeline.request.ImageRequestBuilder
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.WritableMap
+import com.facebook.react.modules.core.ReactChoreographer
 import com.facebook.react.views.imagehelper.ImageSource
 import com.facebook.react.views.imagehelper.ImageSource.Companion.getTransparentBitmapImageSource
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class ReactBottomNavigationView(context: Context) : BottomNavigationView(context) {
-  private val ANIMATION_DURATION: Long = 300
   private val icons: MutableMap<Int, ImageSource> = mutableMapOf()
-
+  private var isLayoutEnqueued = false
   var items: MutableList<TabInfo>? = null
   var onTabSelectedListener: ((WritableMap) -> Unit)? = null
   private var isAnimating = false
-  private val frameCallback = Choreographer.FrameCallback {
-    if (isAnimating) {
-      measureAndLayout()
-    }
+
+  private val layoutCallback = Choreographer.FrameCallback {
+    isLayoutEnqueued = false
+    measure(
+      MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY),
+      MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY),
+    )
+    layout(left, top, right, bottom)
   }
 
   init {
@@ -41,35 +45,31 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
 
   override fun requestLayout() {
     super.requestLayout()
-    // Manually trigger measure & layout, as RN on Android skips those.
-    // See this issue: https://github.com/facebook/react-native/issues/17968#issuecomment-721958427
-    this.post {
-      measureAndLayout()
+    @Suppress("SENSELESS_COMPARISON") // layoutCallback can be null here since this method can be called in init
+    if (!isLayoutEnqueued && layoutCallback != null) {
+      isLayoutEnqueued = true
+      // we use NATIVE_ANIMATED_MODULE choreographer queue because it allows us to catch the current
+      // looper loop instead of enqueueing the update in the next loop causing a one frame delay.
+      ReactChoreographer
+        .getInstance()
+        .postFrameCallback(
+          ReactChoreographer.CallbackType.NATIVE_ANIMATED_MODULE,
+          layoutCallback,
+        )
     }
   }
 
   private fun onTabSelected(item: MenuItem) {
+    if (isLayoutEnqueued) {
+      return;
+    }
     val selectedItem = items?.first { it.title == item.title }
     selectedItem?.let {
       val event = Arguments.createMap().apply {
         putString("key", selectedItem.key)
       }
       onTabSelectedListener?.invoke(event)
-      startAnimation()
     }
-  }
-
-  // Refresh TabView children to fix issue with animations.
-  // https://github.com/facebook/react-native/issues/17968#issuecomment-697136929
-  private fun startAnimation() {
-    if (labelVisibilityMode != LABEL_VISIBILITY_AUTO) {
-      return
-    }
-    isAnimating = true
-    Choreographer.getInstance().postFrameCallback(frameCallback)
-    postDelayed({
-      isAnimating = false
-    }, ANIMATION_DURATION)
   }
 
   fun updateItems(items: MutableList<TabInfo>) {
@@ -138,14 +138,6 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
     dataSource.close()
 
     return BitmapDrawable(resources, bitmap)
-  }
-
-  // Fixes issues with BottomNavigationView children layouting.
-  private fun measureAndLayout() {
-      measure(
-        MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY),
-        MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY))
-      layout(left, top, right, bottom)
   }
 
   override fun onDetachedFromWindow() {
