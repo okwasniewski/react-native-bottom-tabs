@@ -117,6 +117,16 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
     }
   }
 
+  fun setConfig(config: TabViewConfig) {
+    labelVisibilityMode = if (config.labeled == false) {
+      LABEL_VISIBILITY_UNLABELED
+    } else if (config.labeled == true) {
+      LABEL_VISIBILITY_LABELED
+    } else {
+      LABEL_VISIBILITY_AUTO
+    }
+  }
+
   private fun getDrawable(imageSource: ImageSource): Drawable {
     // TODO: Check if this can be done using some built-in React Native class
     val imageRequest = ImageRequestBuilder.newBuilderWithSource(imageSource.uri).build()

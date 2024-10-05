@@ -20,11 +20,13 @@ import ThreeTabs from './Examples/ThreeTabs';
 import FourTabs from './Examples/FourTabs';
 import MaterialBottomTabs from './Examples/MaterialBottomTabs';
 import SFSymbols from './Examples/SFSymbols';
+import LabeledTabs from './Examples/Labeled';
 
 const examples = [
   { component: ThreeTabs, name: 'Three Tabs' },
   { component: FourTabs, name: 'Four Tabs' },
   { component: SFSymbols, name: 'SF Symbols' },
+  { component: LabeledTabs, name: 'Labeled Tabs' },
   {
     component: FourTabs,
     name: 'Four Tabs - No header',

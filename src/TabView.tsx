@@ -1,4 +1,4 @@
-import type { TabViewItems } from './TabViewNativeComponent';
+import type { TabViewConfig, TabViewItems } from './TabViewNativeComponent';
 import { Image, Platform, StyleSheet, View } from 'react-native';
 
 //@ts-ignore
@@ -12,6 +12,14 @@ const isAppleSymbol = (icon: any): icon is { sfSymbol: string } =>
   icon.sfSymbol;
 
 interface Props<Route extends BaseRoute> {
+  /*
+   * Whether to show labels in tabs. When false, only icons will be displayed.
+   */
+  labeled?: boolean;
+  /*
+   * Whether to show labels in tabs. When false, only icons will be displayed.
+   */
+  sidebarAdaptable?: boolean;
   navigationState: NavigationState<Route>;
   renderScene: (props: {
     route: Route;
@@ -96,6 +104,14 @@ const TabView = <Route extends BaseRoute>({
     [icons]
   );
 
+  const nativeConfig: TabViewConfig = useMemo(
+    () => ({
+      labeled: props.labeled,
+      sidebarAdaptable: props.sidebarAdaptable,
+    }),
+    [props.labeled, props.sidebarAdaptable]
+  );
+
   const jumpTo = useLatestCallback((key: string) => {
     const index = navigationState.routes.findIndex(
       (route) => route.key === key
@@ -110,6 +126,7 @@ const TabView = <Route extends BaseRoute>({
       items={items}
       icons={resolvedIconAssets}
       selectedPage={focusedKey}
+      config={nativeConfig}
       onPageSelected={({ nativeEvent: { key } }) => {
         jumpTo(key);
       }}
