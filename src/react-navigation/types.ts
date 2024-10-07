@@ -9,6 +9,7 @@ import type {
 } from '@react-navigation/native';
 import type { ImageSourcePropType } from 'react-native';
 import type TabView from '../TabView';
+import type { AppleIcon } from '../types';
 
 export type NativeBottomTabNavigationEventMap = {
   /**
@@ -58,9 +59,9 @@ export type NativeBottomTabNavigationOptions = {
   tabBarLabel?: string;
 
   /**
-   * Function that given { focused: boolean } returns a React.Node to display in the navigation bar.
+   * Function that given { focused: boolean } returns ImageSource or AppleIcon to display in the navigation bar.
    */
-  tabBarIcon?: (props: { focused: boolean }) => ImageSourcePropType;
+  tabBarIcon?: (props: { focused: boolean }) => ImageSourcePropType | AppleIcon;
 
   /**
    * Badge to show on the tab icon.
