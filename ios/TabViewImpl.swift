@@ -31,14 +31,14 @@ struct RepresentableView: UIViewRepresentable {
 struct TabViewImpl: View {
   @ObservedObject var props: TabViewProps
   var onSelect: (_ key: String) -> Void
-  
+
   var body: some View {
     TabView(selection: $props.selectedPage) {
       ForEach(props.children?.indices ?? 0..<0, id: \.self) { index in
         let child = props.children?[safe: index] ?? UIView()
         let tabData = props.items?.tabs[safe: index]
         let icon = props.icons[index]
-        
+
         RepresentableView(view: child)
           .frame(maxWidth: .infinity, maxHeight: .infinity)
           .tabItem {
@@ -52,11 +52,18 @@ struct TabViewImpl: View {
           .tag(tabData?.key)
           .tabBadge(tabData?.badge)
       }
-      .onChange(of: props.selectedPage ?? "") { newValue in
-        onSelect(newValue)
-      }
     }
     .getSidebarAdaptable(enabled: props.config?.sidebarAdaptable ?? false)
+    .onChange(of: props.selectedPage ?? "") { newValue in
+      onSelect(newValue)
+    }
+    .onAppear {
+      if #available(iOS 15.0, *) {
+        // This causes issues with lazy loading making the TabView background blink.
+        let appearance = UITabBarAppearance()
+        UITabBar.appearance().scrollEdgeAppearance = appearance
+      }
+    }
   }
 }
 
@@ -65,7 +72,7 @@ struct TabItem: View {
   var icon: UIImage?
   var sfSymbol: String?
   var labeled: Bool?
-  
+
   var body: some View {
     if let icon {
       Image(uiImage: icon)
@@ -91,7 +98,7 @@ extension View {
       self
     }
   }
-  
+
   @ViewBuilder
   func tabBadge(_ data: String?) -> some View {
     if #available(iOS 15.0, macOS 15.0, visionOS 2.0, *) {
