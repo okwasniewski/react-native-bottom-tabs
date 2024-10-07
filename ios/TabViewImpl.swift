@@ -7,9 +7,9 @@ import React
  */
 class TabViewProps: ObservableObject {
   @Published var children: [UIView]?
+  @Published var config: TabViewConfig?
   @Published var items: TabData?
   @Published var selectedPage: String?
-  @Published var tabViewStyle: String?
   @Published var icons: [Int: UIImage] = [:]
 }
 
@@ -38,26 +38,33 @@ struct TabViewImpl: View {
         let child = props.children?[safe: index] ?? UIView()
         let tabData = props.items?.tabs[safe: index]
         let icon = props.icons[index]
+        
         RepresentableView(view: child)
           .frame(maxWidth: .infinity, maxHeight: .infinity)
           .tabItem {
-            TabItem(icon: icon, sfSymbol: tabData?.sfSymbol, title: tabData?.title)
+            TabItem(
+              title: tabData?.title,
+              icon: icon,
+              sfSymbol: tabData?.sfSymbol,
+              labeled: props.config?.labeled
+            )
           }
           .tag(tabData?.key)
           .tabBadge(tabData?.badge)
       }
-      .getTabViewStyle(name: props.tabViewStyle ?? "")
       .onChange(of: props.selectedPage ?? "") { newValue in
         onSelect(newValue)
       }
     }
+    .getSidebarAdaptable(enabled: props.config?.sidebarAdaptable ?? false)
   }
 }
 
 struct TabItem: View {
+  var title: String?
   var icon: UIImage?
   var sfSymbol: String?
-  var title: String?
+  var labeled: Bool?
   
   var body: some View {
     if let icon {
@@ -65,23 +72,22 @@ struct TabItem: View {
     } else if let sfSymbol, !sfSymbol.isEmpty {
       Image(systemName: sfSymbol)
     }
-    Text(title ?? "")
+    if (labeled != false) {
+      Text(title ?? "")
+    }
   }
 }
 
 extension View {
   @ViewBuilder
-  func getTabViewStyle(name: String) -> some View {
-    switch name {
-    case "automatic":
-      self.tabViewStyle(.automatic)
-    case "sidebarAdaptable":
-      if #available(iOS 18.0, macOS 15.0, tvOS 18.0, visionOS 2.0, *) {
+  func getSidebarAdaptable(enabled: Bool) -> some View {
+    if #available(iOS 18.0, macOS 15.0, tvOS 18.0, visionOS 2.0, *) {
+      if (enabled) {
         self.tabViewStyle(.sidebarAdaptable)
       } else {
         self
       }
-    default:
+    } else {
       self
     }
   }

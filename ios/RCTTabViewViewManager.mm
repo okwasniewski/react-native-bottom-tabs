@@ -22,5 +22,6 @@ RCT_EXPORT_VIEW_PROPERTY(onPageSelected, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(selectedPage, NSString)
 RCT_EXPORT_VIEW_PROPERTY(tabViewStyle, NSString)
 RCT_EXPORT_VIEW_PROPERTY(icons, NSArray<RCTImageSource *>);
+RCT_EXPORT_VIEW_PROPERTY(config, NSDictionary)
 
 @end

@@ -9,6 +9,11 @@ struct TabInfo: Codable {
   let sfSymbol: String
 }
 
+struct TabViewConfig: Codable {
+  let sidebarAdaptable: Bool
+  let labeled: Bool?
+}
+
 struct TabData: Codable {
   let tabs: [TabInfo]
 }
@@ -30,15 +35,15 @@ struct TabData: Codable {
     }
   }
   
-  @objc var selectedPage: NSString? {
+  @objc var config: NSDictionary? {
     didSet {
-      props.selectedPage = selectedPage as? String
+      props.config = parseTabViewConfig(from: config)
     }
   }
   
-  @objc var tabViewStyle: NSString? {
+  @objc var selectedPage: NSString? {
     didSet {
-      props.tabViewStyle = tabViewStyle as? String
+      props.selectedPage = selectedPage as? String
     }
   }
   
@@ -103,7 +108,7 @@ struct TabData: Codable {
             }
             guard let image else { return }
             DispatchQueue.main.async {
-              self.props.icons[index] = image
+              self.props.icons[index] = image.resizeImageTo(size: self.iconSize)
             }
           })
       }
@@ -128,5 +133,27 @@ struct TabData: Codable {
     }
     
     return TabData(tabs: items)
+  }
+  
+  private func parseTabViewConfig(from dict: NSDictionary?) -> TabViewConfig? {
+    guard let configDict = dict as? [String: Any] else { return nil }
+    let sidebarAdaptable = configDict["sidebarAdaptable"] as? Bool ?? false
+    let labeled = configDict["labeled"] as? Bool ?? nil
+    
+    return TabViewConfig(
+      sidebarAdaptable: sidebarAdaptable,
+      labeled: labeled
+    )
+  }
+  
+}
+
+extension UIImage {
+  func resizeImageTo(size: CGSize) -> UIImage? {
+    UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+    self.draw(in: CGRect(origin: CGPoint.zero, size: size))
+    let resizedImage = UIGraphicsGetImageFromCurrentImageContext()!
+    UIGraphicsEndImageContext()
+    return resizedImage
   }
 }

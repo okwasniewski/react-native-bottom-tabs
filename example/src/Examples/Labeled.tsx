@@ -5,14 +5,13 @@ import { Albums } from '../Screens/Albums';
 import { Contacts } from '../Screens/Contacts';
 import { Chat } from '../Screens/Chat';
 
-export default function FourTabs() {
+export default function LabeledTabs() {
   const [index, setIndex] = useState(0);
   const [routes] = useState([
     {
       key: 'article',
       title: 'Article',
       focusedIcon: require('../../assets/icons/article_dark.png'),
-      unfocusedIcon: require('../../assets/icons/chat_dark.png'),
       badge: '!',
     },
     {
@@ -42,7 +41,7 @@ export default function FourTabs() {
 
   return (
     <TabView
-      sidebarAdaptable
+      labeled
       navigationState={{ index, routes }}
       onIndexChange={setIndex}
       renderScene={renderScene}
