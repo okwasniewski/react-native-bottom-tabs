@@ -28,7 +28,7 @@ yarn add react-native-bottom-tabs
 Example usage:
 
 ```tsx
-import createNativeBottomTabNavigator from 'react-native-bottom-tabs/react-navigation';
+import {createNativeBottomTabNavigator} from 'react-native-bottom-tabs/react-navigation';
 
 const Tab = createNativeBottomTabNavigator();
 
