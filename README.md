@@ -9,6 +9,8 @@
 > [!CAUTION]
 > This library is in early development and not ready for production use.
 
+https://github.com/user-attachments/assets/fbdd9ce2-f4b9-4d0c-bd91-2e62bb422d69
+
 ## 📦 Installation
 
 ```sh
@@ -19,11 +21,9 @@ yarn add react-native-bottom-tabs
 
 ### Usage with React Navigation
 
-Install the required dependencies:
 
-```sh
-yarn add @react-navigation/native
-```
+> ![INFO]
+> To use this navigator, ensure that you have [`@react-navigation/native` and its dependencies (follow this guide)](https://reactnavigation.org/docs/getting-started):
 
 Example usage:
 
