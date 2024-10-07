@@ -22,7 +22,7 @@ yarn add react-native-bottom-tabs
 ### Usage with React Navigation
 
 
-> ![INFO]
+> [!NOTE]
 > To use this navigator, ensure that you have [`@react-navigation/native` and its dependencies (follow this guide)](https://reactnavigation.org/docs/getting-started):
 
 Example usage:
