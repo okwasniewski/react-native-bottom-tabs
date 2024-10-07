@@ -11521,6 +11521,7 @@ __metadata:
     "@commitlint/config-conventional": ^17.0.2
     "@evilmartians/lefthook": ^1.5.0
     "@react-native/eslint-config": ^0.73.1
+    "@react-navigation/native": ^6.1.18
     "@release-it/conventional-changelog": ^5.0.0
     "@types/jest": ^29.5.5
     "@types/react": ^18.2.44
@@ -11540,8 +11541,12 @@ __metadata:
     typescript: ^5.2.2
     use-latest-callback: ^0.2.1
   peerDependencies:
+    "@react-navigation/native": ">=6"
     react: "*"
     react-native: "*"
+  peerDependenciesMeta:
+    "@react-navigation/native":
+      optional: true
   languageName: unknown
   linkType: soft
 

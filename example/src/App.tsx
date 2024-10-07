@@ -21,6 +21,7 @@ import FourTabs from './Examples/FourTabs';
 import MaterialBottomTabs from './Examples/MaterialBottomTabs';
 import SFSymbols from './Examples/SFSymbols';
 import LabeledTabs from './Examples/Labeled';
+import NativeBottomTabs from './Examples/NativeBottomTabs';
 
 const examples = [
   { component: ThreeTabs, name: 'Three Tabs' },
@@ -32,6 +33,7 @@ const examples = [
     name: 'Four Tabs - No header',
     screenOptions: { headerShown: false },
   },
+  { component: NativeBottomTabs, name: 'Native Bottom Tabs' },
   { component: JSBottomTabs, name: 'JS Bottom Tabs' },
   { component: MaterialBottomTabs, name: 'Material (JS) Bottom Tabs' },
 ];
