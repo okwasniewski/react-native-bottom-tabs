@@ -9,31 +9,61 @@ import { useMemo, useState } from 'react';
 import type { BaseRoute, NavigationState } from './types';
 
 const isAppleSymbol = (icon: any): icon is { sfSymbol: string } =>
-  icon.sfSymbol;
+  icon?.sfSymbol;
 
 interface Props<Route extends BaseRoute> {
   /*
    * Whether to show labels in tabs. When false, only icons will be displayed.
    */
   labeled?: boolean;
-  /*
-   * Whether to show labels in tabs. When false, only icons will be displayed.
+  /**
+   * A tab bar style that adapts to each platform.
+   *
+   * Tab views using the sidebar adaptable style have an appearance
+   * that varies depending on the platform:
+   * - iPadOS displays a top tab bar that can adapt into a sidebar.
+   * - iOS displays a bottom tab bar.
+   * - macOS and tvOS always show a sidebar.
+   * - visionOS shows an ornament and also shows a sidebar for secondary tabs within a `TabSection`.
    */
   sidebarAdaptable?: boolean;
+  /**
+   * State for the tab view.
+   *
+   * The state should contain a `routes` prop which is an array of objects containing `key` and `title` props, such as `{ key: 'music', title: 'Music' }`.
+   *
+   */
   navigationState: NavigationState<Route>;
+  /**
+   * Function which takes an object with the route and returns a React element.
+   */
   renderScene: (props: {
     route: Route;
     jumpTo: (key: string) => void;
   }) => React.ReactNode | null;
   /**
    * Callback which is called on tab change, receives the index of the new tab as argument.
-   * The navigation state needs to be updated when it's called, otherwise the change is dropped.
    */
   onIndexChange: (index: number) => void;
   /**
    * Get lazy for the current screen. Uses true by default.
    */
   getLazy?: (props: { route: Route }) => boolean | undefined;
+  /**
+   * Get label text for the tab, uses `route.title` by default.
+   */
+  getLabelText?: (props: { route: Route }) => string | undefined;
+  /**
+   * Get badge for the tab, uses `route.badge` by default.
+   */
+  getBadge?: (props: { route: Route }) => string | undefined;
+  /**
+   * Get icon for the tab, uses `route.focusedIcon` by default.
+   */
+  getIcon?: (props: {
+    route: Route;
+    focused: boolean;
+  }) => ImageSource | undefined;
 }
 
 const TabView = <Route extends BaseRoute>({
@@ -41,6 +71,13 @@ const TabView = <Route extends BaseRoute>({
   renderScene,
   onIndexChange,
   getLazy = ({ route }: { route: Route }) => route.lazy,
+  getLabelText = ({ route }: { route: Route }) => route.title,
+  getIcon = ({ route, focused }: { route: Route; focused: boolean }) =>
+    route.unfocusedIcon
+      ? focused
+        ? route.focusedIcon
+        : route.unfocusedIcon
+      : route.focusedIcon,
   ...props
 }: Props<Route>) => {
   // @ts-ignore
@@ -63,13 +100,12 @@ const TabView = <Route extends BaseRoute>({
   const icons = useMemo(
     () =>
       navigationState.routes.map((route) =>
-        route.unfocusedIcon
-          ? route.key === focusedKey
-            ? route.focusedIcon
-            : route.unfocusedIcon
-          : route.focusedIcon
+        getIcon({
+          route,
+          focused: route.key === focusedKey,
+        })
       ),
-    [focusedKey, navigationState.routes]
+    [focusedKey, getIcon, navigationState.routes]
   );
 
   const items: TabViewItems = useMemo(
@@ -85,12 +121,12 @@ const TabView = <Route extends BaseRoute>({
         }
         return {
           key: route.key,
-          title: route.title ?? route.key,
+          title: getLabelText({ route }) ?? route.key,
           sfSymbol: isSfSymbol ? icon.sfSymbol : undefined,
-          badge: route.badge,
+          badge: props.getBadge?.({ route }),
         };
       }),
-    [icons, navigationState.routes]
+    [getLabelText, icons, navigationState.routes, props]
   );
 
   const resolvedIconAssets: ImageSource[] = useMemo(
