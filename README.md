@@ -19,7 +19,7 @@ yarn add react-native-bottom-tabs
 
 If you use React Native version 0.75 or lower:
 
-- For CLI template users, open Podfile in ios folder and change minimum iOS version to `14.0` before `pod install`
+- For `@react-native-community/cli` users, open Podfile in ios folder and change minimum iOS version to `14.0` before `pod install`
 
 ```patch
 -platform :ios, min_ios_version_supported
