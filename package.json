@@ -197,6 +197,7 @@
     "version": "0.41.2"
   },
   "dependencies": {
+    "expo-router": "^3.5.23",
     "sf-symbols-typescript": "^2.0.0",
     "use-latest-callback": "^0.2.1"
   }
