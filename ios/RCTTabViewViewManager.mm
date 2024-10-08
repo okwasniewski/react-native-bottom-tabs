@@ -2,7 +2,12 @@
 #import <React/RCTUIManager.h>
 #import <React/RCTImageLoader.h>
 #import "RCTBridge.h"
+
+#if __has_include("react_native_bottom_tabs/react_native_bottom_tabs-Swift.h")
+#import "react_native_bottom_tabs/react_native_bottom_tabs-Swift.h"
+#else
 #import "react_native_bottom_tabs-Swift.h"
+#endif
 
 @interface RCTTabView : RCTViewManager
 @end
