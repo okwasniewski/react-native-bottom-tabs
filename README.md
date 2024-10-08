@@ -17,11 +17,32 @@ https://github.com/user-attachments/assets/fbdd9ce2-f4b9-4d0c-bd91-2e62bb422d69
 yarn add react-native-bottom-tabs
 ```
 
-If you use React Native version 0.75 or lower, open Podfile and change minimum iOS version to `14.0` before `pod install`
+If you use React Native version 0.75 or lower:
+
+- For CLI template users, open Podfile in ios folder and change minimum iOS version to `14.0` before `pod install`
 
 ```patch
 -platform :ios, min_ios_version_supported
 +platform :ios, '14.0'
+```
+
+- For Expo users, install `expo-build-properties`, open app.json file and update `deploymentTarget` for `ios` as below
+
+```json
+{
+  "expo": {
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "deploymentTarget": "14.0"
+          }
+        }
+      ]
+    ],
+  }
+}
 ```
 
 ## 📖 Documentation
