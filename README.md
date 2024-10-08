@@ -17,6 +17,13 @@ https://github.com/user-attachments/assets/fbdd9ce2-f4b9-4d0c-bd91-2e62bb422d69
 yarn add react-native-bottom-tabs
 ```
 
+This library supports iOS 14 or higher to run. Open Podfile and change minimum iOS version before `pod install`
+
+```patch
+-platform :ios, min_ios_version_supported
++platform :ios, '14.0'
+```
+
 ## 📖 Documentation
 
 ### Usage with React Navigation
