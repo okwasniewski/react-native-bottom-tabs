@@ -28,6 +28,10 @@ interface Props<Route extends BaseRoute> {
    */
   sidebarAdaptable?: boolean;
   /**
+   * Whether to ignore the top safe area. (iOS only)
+   */
+  ignoresTopSafeArea?: boolean;
+  /**
    * State for the tab view.
    *
    * The state should contain a `routes` prop which is an array of objects containing `key` and `title` props, such as `{ key: 'music', title: 'Music' }`.

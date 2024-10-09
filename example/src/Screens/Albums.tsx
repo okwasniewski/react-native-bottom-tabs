@@ -1,7 +1,6 @@
 import {
   Image,
   Platform,
-  SafeAreaView,
   ScrollView,
   type ScrollViewProps,
   StyleSheet,
@@ -43,24 +42,22 @@ export function Albums(props: Partial<ScrollViewProps>) {
   const itemSize = dimensions.width / Math.floor(dimensions.width / 150);
 
   return (
-    <SafeAreaView>
-      <ScrollView contentContainerStyle={styles.content} {...props}>
-        {COVERS.map((source, i) => (
-          <View
-            key={i}
-            style={[
-              styles.item,
-              Platform.OS !== 'web' && {
-                height: itemSize,
-                width: itemSize,
-              },
-            ]}
-          >
-            <Image source={source} resizeMode="cover" style={styles.photo} />
-          </View>
-        ))}
-      </ScrollView>
-    </SafeAreaView>
+    <ScrollView contentContainerStyle={styles.content} {...props}>
+      {COVERS.map((source, i) => (
+        <View
+          key={i}
+          style={[
+            styles.item,
+            Platform.OS !== 'web' && {
+              height: itemSize,
+              width: itemSize,
+            },
+          ]}
+        >
+          <Image source={source} resizeMode="cover" style={styles.photo} />
+        </View>
+      ))}
+    </ScrollView>
   );
 }
 

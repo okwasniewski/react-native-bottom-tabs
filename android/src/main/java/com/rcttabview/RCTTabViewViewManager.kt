@@ -55,10 +55,7 @@ class RCTTabViewViewManager :
     }
   }
 
-  @ReactProp(name = "sidebarAdaptable")
-  fun setSidebarAdaptable(view: ReactBottomNavigationView, flag: Boolean) {
-    // iOS Only
-  }
+
 
   @ReactProp(name = "labeled")
   fun setLabeled(view: ReactBottomNavigationView, flag: Boolean?) {
@@ -132,4 +129,12 @@ class RCTTabViewViewManager :
       MapBuilder.of("registrationName", "onPageSelected"),
     )
   }
+
+  // iOS Props
+
+  @ReactProp(name = "sidebarAdaptable")
+  fun setSidebarAdaptable(view: ReactBottomNavigationView, flag: Boolean) {}
+
+  @ReactProp(name = "ignoresTopSafeArea")
+  fun setIgnoresTopSafeArea(view: ReactBottomNavigationView, flag: Boolean) {}
 }

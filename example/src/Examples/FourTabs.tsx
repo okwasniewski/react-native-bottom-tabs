@@ -5,7 +5,11 @@ import { Albums } from '../Screens/Albums';
 import { Contacts } from '../Screens/Contacts';
 import { Chat } from '../Screens/Chat';
 
-export default function FourTabs() {
+interface Props {
+  ignoresTopSafeArea?: boolean;
+}
+
+export default function FourTabs({ ignoresTopSafeArea = false }: Props) {
   const [index, setIndex] = useState(0);
   const [routes] = useState([
     {
@@ -42,6 +46,7 @@ export default function FourTabs() {
 
   return (
     <TabView
+      ignoresTopSafeArea={ignoresTopSafeArea}
       sidebarAdaptable
       navigationState={{ index, routes }}
       onIndexChange={setIndex}
