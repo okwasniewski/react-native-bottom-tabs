@@ -7,10 +7,11 @@ import React
  */
 class TabViewProps: ObservableObject {
   @Published var children: [UIView]?
-  @Published var config: TabViewConfig?
   @Published var items: TabData?
   @Published var selectedPage: String?
   @Published var icons: [Int: UIImage] = [:]
+  @Published var sidebarAdaptable: Bool?
+  @Published var labeled: Bool?
 }
 
 /**
@@ -46,14 +47,14 @@ struct TabViewImpl: View {
               title: tabData?.title,
               icon: icon,
               sfSymbol: tabData?.sfSymbol,
-              labeled: props.config?.labeled
+              labeled: props.labeled
             )
           }
           .tag(tabData?.key)
           .tabBadge(tabData?.badge)
       }
     }
-    .getSidebarAdaptable(enabled: props.config?.sidebarAdaptable ?? false)
+    .getSidebarAdaptable(enabled: props.sidebarAdaptable ?? false)
     .onChange(of: props.selectedPage ?? "") { newValue in
       onSelect(newValue)
     }
