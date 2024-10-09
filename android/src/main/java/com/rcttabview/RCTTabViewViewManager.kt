@@ -2,7 +2,6 @@ package com.rcttabview
 
 import android.view.View.MeasureSpec
 import com.facebook.react.bridge.ReadableArray
-import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.common.MapBuilder
 import com.facebook.react.module.annotations.ReactModule
 import com.facebook.react.uimanager.LayoutShadowNode
@@ -21,10 +20,6 @@ data class TabInfo(
   val key: String,
   val title: String,
   val badge: String
-)
-
-data class TabViewConfig(
-  val labeled: Boolean?
 )
 
 @ReactModule(name = RCTTabViewViewManager.NAME)
@@ -60,12 +55,11 @@ class RCTTabViewViewManager :
     }
   }
 
-  @ReactProp(name = "config")
-  fun setConfig(view: ReactBottomNavigationView, config: ReadableMap?) {
-    val tabViewConfig = TabViewConfig(
-      labeled = if (config?.hasKey("labeled") == true) config.getBoolean("labeled") else null,
-    )
-    view.setConfig(tabViewConfig)
+
+
+  @ReactProp(name = "labeled")
+  fun setLabeled(view: ReactBottomNavigationView, flag: Boolean?) {
+    view.setLabeled(flag)
   }
 
   @ReactProp(name = "icons")
@@ -135,4 +129,15 @@ class RCTTabViewViewManager :
       MapBuilder.of("registrationName", "onPageSelected"),
     )
   }
+
+  // iOS Props
+
+  @ReactProp(name = "sidebarAdaptable")
+  fun setSidebarAdaptable(view: ReactBottomNavigationView, flag: Boolean) {}
+
+  @ReactProp(name = "ignoresTopSafeArea")
+  fun setIgnoresTopSafeArea(view: ReactBottomNavigationView, flag: Boolean) {}
+
+  @ReactProp(name = "disablePageAnimations")
+  fun setDisablePageAnimations(view: ReactBottomNavigationView, flag: Boolean) {}
 }

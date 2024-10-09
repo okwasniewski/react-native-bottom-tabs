@@ -5,7 +5,17 @@ import { Albums } from '../Screens/Albums';
 import { Contacts } from '../Screens/Contacts';
 import { Chat } from '../Screens/Chat';
 
-export default function FourTabs() {
+interface Props {
+  ignoresTopSafeArea?: boolean;
+  disablePageAnimations?: boolean;
+  scrollEdgeAppearance?: 'default' | 'opaque' | 'transparent';
+}
+
+export default function FourTabs({
+  ignoresTopSafeArea = false,
+  disablePageAnimations = false,
+  scrollEdgeAppearance = 'default',
+}: Props) {
   const [index, setIndex] = useState(0);
   const [routes] = useState([
     {
@@ -42,7 +52,10 @@ export default function FourTabs() {
 
   return (
     <TabView
+      ignoresTopSafeArea={ignoresTopSafeArea}
       sidebarAdaptable
+      disablePageAnimations={disablePageAnimations}
+      scrollEdgeAppearance={scrollEdgeAppearance}
       navigationState={{ index, routes }}
       onIndexChange={setIndex}
       renderScene={renderScene}

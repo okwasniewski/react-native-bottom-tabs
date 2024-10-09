@@ -23,18 +23,40 @@ import SFSymbols from './Examples/SFSymbols';
 import LabeledTabs from './Examples/Labeled';
 import NativeBottomTabs from './Examples/NativeBottomTabs';
 
+const FourTabsIgnoreSafeArea = () => {
+  return <FourTabs ignoresTopSafeArea />;
+};
+
+const FourTabsNoAnimations = () => {
+  return <FourTabs disablePageAnimations />;
+};
+
+const FourTabsTransparentScrollEdgeAppearance = () => {
+  return <FourTabs scrollEdgeAppearance="transparent" />;
+};
+
 const examples = [
   { component: ThreeTabs, name: 'Three Tabs' },
   { component: FourTabs, name: 'Four Tabs' },
   { component: SFSymbols, name: 'SF Symbols' },
   { component: LabeledTabs, name: 'Labeled Tabs' },
   {
-    component: FourTabs,
+    component: FourTabsIgnoreSafeArea,
     name: 'Four Tabs - No header',
     screenOptions: { headerShown: false },
   },
+  { component: FourTabsNoAnimations, name: 'Four Tabs - No animations' },
+  {
+    component: FourTabsTransparentScrollEdgeAppearance,
+    name: 'Four Tabs - Transparent scroll edge appearance',
+  },
   { component: NativeBottomTabs, name: 'Native Bottom Tabs' },
   { component: JSBottomTabs, name: 'JS Bottom Tabs' },
+  {
+    component: JSBottomTabs,
+    name: 'JS Bottom Tabs - No header',
+    screenOptions: { headerShown: false },
+  },
   { component: MaterialBottomTabs, name: 'Material (JS) Bottom Tabs' },
 ];
 

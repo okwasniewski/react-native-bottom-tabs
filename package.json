@@ -1,10 +1,11 @@
 {
   "name": "react-native-bottom-tabs",
-  "version": "0.0.7",
+  "version": "0.0.11",
   "description": "Native Bottom Tabs for React Native",
   "source": "./src/index.tsx",
   "main": "./lib/commonjs/index.js",
   "module": "./lib/module/index.js",
+  "types": "./lib/typescript/module/src/index.d.ts",
   "exports": {
     ".": {
       "import": {
@@ -44,7 +45,8 @@
     "!**/__tests__",
     "!**/__fixtures__",
     "!**/__mocks__",
-    "!**/.*"
+    "!**/.*",
+    "!docs/"
   ],
   "scripts": {
     "example": "yarn workspace react-native-bottom-tabs-example",
@@ -108,7 +110,8 @@
     }
   },
   "workspaces": [
-    "example"
+    "example",
+    "docs"
   ],
   "packageManager": "yarn@3.6.1",
   "jest": {
@@ -170,7 +173,6 @@
     "source": "src",
     "output": "lib",
     "targets": [
-      "codegen",
       [
         "commonjs",
         {

@@ -15,17 +15,13 @@ export type TabViewItems = ReadonlyArray<{
   badge?: string;
 }>;
 
-export type TabViewConfig = {
-  labeled?: boolean;
-  sidebarAdaptable?: boolean;
-};
-
 export interface TabViewProps extends ViewProps {
   items: TabViewItems;
   selectedPage: string;
   onPageSelected?: DirectEventHandler<OnPageSelectedEventData>;
   icons?: ReadonlyArray<ImageSource>;
-  config?: TabViewConfig;
+  labeled?: boolean;
+  sidebarAdaptable?: boolean;
 }
 
 export default codegenNativeComponent<TabViewProps>('RCTTabView');

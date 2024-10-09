@@ -28,6 +28,7 @@ export function Chat({
       style={styles.container}
     >
       <ScrollView
+        contentInsetAdjustmentBehavior="automatic"
         style={styles.inverted}
         contentContainerStyle={styles.content}
         {...rest}

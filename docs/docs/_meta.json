@@ -1,0 +1,7 @@
+[
+  {
+    "text": "Docs",
+    "link": "/docs/getting-started/quick-start",
+    "activeMatch": "^/docs/"
+  }
+]

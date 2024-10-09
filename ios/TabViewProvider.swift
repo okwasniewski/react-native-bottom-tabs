@@ -9,11 +9,6 @@ struct TabInfo: Codable {
   let sfSymbol: String
 }
 
-struct TabViewConfig: Codable {
-  let sidebarAdaptable: Bool
-  let labeled: Bool?
-}
-
 struct TabData: Codable {
   let tabs: [TabInfo]
 }
@@ -26,7 +21,6 @@ struct TabData: Codable {
   private var imageLoader: RCTImageLoaderProtocol?
   private var iconSize = CGSize(width: 27, height: 27)
   
-  
   @objc var onPageSelected: RCTDirectEventBlock?
   
   @objc var icons: NSArray? {
@@ -35,15 +29,45 @@ struct TabData: Codable {
     }
   }
   
-  @objc var config: NSDictionary? {
+  @objc var sidebarAdaptable: Bool = false {
     didSet {
-      props.config = parseTabViewConfig(from: config)
+      props.sidebarAdaptable = sidebarAdaptable
     }
   }
   
+  @objc var disablePageAnimations: Bool = false {
+    didSet {
+      props.disablePageAnimations = disablePageAnimations
+    }
+  }
+
+  @objc var labeled: Bool = true {
+    didSet {
+      props.labeled = labeled
+    }
+  }
+  
+  @objc var ignoresTopSafeArea: Bool = false {
+    didSet {
+      props.ignoresTopSafeArea = ignoresTopSafeArea
+    }
+  }
+  
+  @objc var ignoresTopSafeArea: Bool = false {
+    didSet {
+      props.ignoresTopSafeArea = ignoresTopSafeArea
+    }
+  }
+
   @objc var selectedPage: NSString? {
     didSet {
       props.selectedPage = selectedPage as? String
+    }
+  }
+  
+@objc var scrollEdgeAppearance: NSString? {
+    didSet {
+      props.scrollEdgeAppearance = scrollEdgeAppearance as? String
     }
   }
   
@@ -73,7 +97,7 @@ struct TabData: Codable {
     if self.hostingController != nil {
       return
     }
-    
+
     self.hostingController = UIHostingController(rootView: TabViewImpl(props: props) { key in
       self.coalescingKey += 1
       self.eventDispatcher?.send(PageSelectedEvent(reactTag: self.reactTag, key: NSString(string: key), coalescingKey: self.coalescingKey))
@@ -95,7 +119,7 @@ struct TabData: Codable {
         guard let imageSource, let imageLoader else { continue }
         imageLoader.loadImage(
           with: imageSource.request,
-          size: iconSize,
+          size: imageSource.size,
           scale: imageSource.scale,
           clipped: true,
           resizeMode: RCTResizeMode.contain,
@@ -134,18 +158,6 @@ struct TabData: Codable {
     
     return TabData(tabs: items)
   }
-  
-  private func parseTabViewConfig(from dict: NSDictionary?) -> TabViewConfig? {
-    guard let configDict = dict as? [String: Any] else { return nil }
-    let sidebarAdaptable = configDict["sidebarAdaptable"] as? Bool ?? false
-    let labeled = configDict["labeled"] as? Bool ?? nil
-    
-    return TabViewConfig(
-      sidebarAdaptable: sidebarAdaptable,
-      labeled: labeled
-    )
-  }
-  
 }
 
 extension UIImage {

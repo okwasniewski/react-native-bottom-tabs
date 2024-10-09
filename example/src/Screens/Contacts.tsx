@@ -99,6 +99,7 @@ export function Contacts({ query, ...rest }: Props) {
   return (
     <SafeAreaView>
       <FlatList
+        contentInsetAdjustmentBehavior="automatic"
         {...rest}
         data={
           query

@@ -7,10 +7,14 @@ import React
  */
 class TabViewProps: ObservableObject {
   @Published var children: [UIView]?
-  @Published var config: TabViewConfig?
   @Published var items: TabData?
   @Published var selectedPage: String?
   @Published var icons: [Int: UIImage] = [:]
+  @Published var sidebarAdaptable: Bool?
+  @Published var labeled: Bool?
+  @Published var ignoresTopSafeArea: Bool?
+  @Published var disablePageAnimations: Bool = false
+  @Published var scrollEdgeAppearance: String?
 }
 
 /**
@@ -18,11 +22,12 @@ class TabViewProps: ObservableObject {
  */
 struct RepresentableView: UIViewRepresentable {
   var view: UIView
+  
   func makeUIView(context: Context) -> UIView {
     return view
   }
-  func updateUIView(_ uiView: UIView, context: Context) {
-  }
+  
+  func updateUIView(_ uiView: UIView, context: Context) {}
 }
 
 /**
@@ -31,37 +36,54 @@ struct RepresentableView: UIViewRepresentable {
 struct TabViewImpl: View {
   @ObservedObject var props: TabViewProps
   var onSelect: (_ key: String) -> Void
-
+  
   var body: some View {
     TabView(selection: $props.selectedPage) {
       ForEach(props.children?.indices ?? 0..<0, id: \.self) { index in
         let child = props.children?[safe: index] ?? UIView()
         let tabData = props.items?.tabs[safe: index]
         let icon = props.icons[index]
-
+        
         RepresentableView(view: child)
-          .frame(maxWidth: .infinity, maxHeight: .infinity)
+          .ignoresTopSafeArea(
+            props.ignoresTopSafeArea ?? false,
+            frame: child.frame
+          )
           .tabItem {
             TabItem(
               title: tabData?.title,
               icon: icon,
               sfSymbol: tabData?.sfSymbol,
-              labeled: props.config?.labeled
+              labeled: props.labeled
             )
           }
           .tag(tabData?.key)
           .tabBadge(tabData?.badge)
       }
     }
-    .getSidebarAdaptable(enabled: props.config?.sidebarAdaptable ?? false)
+    .getSidebarAdaptable(enabled: props.sidebarAdaptable ?? false)
     .onChange(of: props.selectedPage ?? "") { newValue in
+      if (props.disablePageAnimations) {
+        UIView.setAnimationsEnabled(false)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+          UIView.setAnimationsEnabled(true)
+        }
+      }
       onSelect(newValue)
     }
     .onAppear {
       if #available(iOS 15.0, *) {
         // This causes issues with lazy loading making the TabView background blink.
-        let appearance = UITabBarAppearance()
-        UITabBar.appearance().scrollEdgeAppearance = appearance
+        let scrollEdgeAppearance = UITabBarAppearance()
+        switch props.scrollEdgeAppearance {
+        case "opaque":
+          scrollEdgeAppearance.configureWithOpaqueBackground()
+        case "transparent":
+          scrollEdgeAppearance.configureWithTransparentBackground()
+        default:
+          scrollEdgeAppearance.configureWithDefaultBackground()
+        }
+        UITabBar.appearance().scrollEdgeAppearance = scrollEdgeAppearance
       }
     }
   }
@@ -72,7 +94,7 @@ struct TabItem: View {
   var icon: UIImage?
   var sfSymbol: String?
   var labeled: Bool?
-
+  
   var body: some View {
     if let icon {
       Image(uiImage: icon)
@@ -90,7 +112,9 @@ extension View {
   func getSidebarAdaptable(enabled: Bool) -> some View {
     if #available(iOS 18.0, macOS 15.0, tvOS 18.0, visionOS 2.0, *) {
       if (enabled) {
+#if compiler(>=6.0)
         self.tabViewStyle(.sidebarAdaptable)
+#endif
       } else {
         self
       }
@@ -98,7 +122,7 @@ extension View {
       self
     }
   }
-
+  
   @ViewBuilder
   func tabBadge(_ data: String?) -> some View {
     if #available(iOS 15.0, macOS 15.0, visionOS 2.0, *) {
@@ -109,6 +133,23 @@ extension View {
       }
     } else {
       self
+    }
+  }
+  
+  @ViewBuilder
+  func ignoresTopSafeArea(
+    _ flag: Bool,
+    frame: CGRect
+  ) -> some View {
+    if flag {
+      self
+        .ignoresSafeArea(.container, edges: .all)
+        .frame(idealWidth: frame.width, idealHeight: frame.height)
+    } else {
+      self
+        .ignoresSafeArea(.container, edges: .horizontal)
+        .ignoresSafeArea(.container, edges: .bottom)
+        .frame(idealWidth: frame.width, idealHeight: frame.height)
     }
   }
 }
