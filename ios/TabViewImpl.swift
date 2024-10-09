@@ -61,6 +61,7 @@ struct TabViewImpl: View {
       if #available(iOS 15.0, *) {
         // This causes issues with lazy loading making the TabView background blink.
         let appearance = UITabBarAppearance()
+        appearance.configureWithTransparentBackground()
         UITabBar.appearance().scrollEdgeAppearance = appearance
       }
     }
