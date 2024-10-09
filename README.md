@@ -47,8 +47,11 @@ If you use React Native version 0.75 or lower:
 
 ## 📖 Documentation
 
-### Usage with React Navigation
+### Usage with Expo Router
 
+Check this demo and instructions: [EvanBacon/expo-router-react-native-bottom-tabs]( https://github.com/EvanBacon/expo-router-react-native-bottom-tabs)
+
+### Usage with React Navigation
 
 > [!NOTE]
 > To use this navigator, ensure that you have [`@react-navigation/native` and its dependencies (follow this guide)](https://reactnavigation.org/docs/getting-started):
