@@ -1,4 +1,4 @@
-import type { TabViewConfig, TabViewItems } from './TabViewNativeComponent';
+import type { TabViewItems } from './TabViewNativeComponent';
 import { Image, Platform, StyleSheet, View } from 'react-native';
 
 //@ts-ignore
@@ -19,14 +19,18 @@ interface Props<Route extends BaseRoute> {
   /**
    * A tab bar style that adapts to each platform.
    *
-   * Tab views using the sidebar adaptable style have an appearance
    * that varies depending on the platform:
+   * Tab views using the sidebar adaptable style have an appearance
    * - iPadOS displays a top tab bar that can adapt into a sidebar.
    * - iOS displays a bottom tab bar.
    * - macOS and tvOS always show a sidebar.
    * - visionOS shows an ornament and also shows a sidebar for secondary tabs within a `TabSection`.
    */
   sidebarAdaptable?: boolean;
+  /**
+   * Whether to ignore the top safe area. (iOS only)
+   */
+  ignoresTopSafeArea?: boolean;
   /**
    * State for the tab view.
    *
@@ -140,14 +144,6 @@ const TabView = <Route extends BaseRoute>({
     [icons]
   );
 
-  const nativeConfig: TabViewConfig = useMemo(
-    () => ({
-      labeled: props.labeled,
-      sidebarAdaptable: props.sidebarAdaptable,
-    }),
-    [props.labeled, props.sidebarAdaptable]
-  );
-
   const jumpTo = useLatestCallback((key: string) => {
     const index = navigationState.routes.findIndex(
       (route) => route.key === key
@@ -162,7 +158,6 @@ const TabView = <Route extends BaseRoute>({
       items={items}
       icons={resolvedIconAssets}
       selectedPage={focusedKey}
-      config={nativeConfig}
       onPageSelected={({ nativeEvent: { key } }) => {
         jumpTo(key);
       }}

@@ -9,11 +9,6 @@ struct TabInfo: Codable {
   let sfSymbol: String
 }
 
-struct TabViewConfig: Codable {
-  let sidebarAdaptable: Bool
-  let labeled: Bool?
-}
-
 struct TabData: Codable {
   let tabs: [TabInfo]
 }
@@ -25,55 +20,66 @@ struct TabData: Codable {
   private var eventDispatcher: RCTEventDispatcherProtocol?
   private var imageLoader: RCTImageLoaderProtocol?
   private var iconSize = CGSize(width: 27, height: 27)
-  
-  
+
   @objc var onPageSelected: RCTDirectEventBlock?
-  
+
   @objc var icons: NSArray? {
     didSet {
       loadIcons(icons)
     }
   }
-  
-  @objc var config: NSDictionary? {
+
+  @objc var sidebarAdaptable: Bool = false {
     didSet {
-      props.config = parseTabViewConfig(from: config)
+      props.sidebarAdaptable = sidebarAdaptable
+    }
+  }
+
+  @objc var labeled: Bool = true {
+    didSet {
+      props.labeled = labeled
     }
   }
   
+  @objc var ignoresTopSafeArea: Bool = false {
+    didSet {
+      props.ignoresTopSafeArea = ignoresTopSafeArea
+    }
+  }
+
   @objc var selectedPage: NSString? {
     didSet {
       props.selectedPage = selectedPage as? String
     }
   }
-  
+
   @objc var items: NSArray? {
     didSet {
       props.items = parseTabData(from: items)
     }
   }
-  
+
   @objc public convenience init(eventDispatcher: RCTEventDispatcherProtocol, imageLoader: RCTImageLoader) {
     self.init()
     self.eventDispatcher = eventDispatcher
     self.imageLoader = imageLoader
   }
-  
+
   public override func didUpdateReactSubviews() {
     props.children = reactSubviews()
   }
-  
+
   public override func layoutSubviews() {
     super.layoutSubviews()
     setupView()
     props.children = reactSubviews()
   }
-  
+
   private func setupView() {
     if self.hostingController != nil {
       return
     }
-    
+
     self.hostingController = UIHostingController(rootView: TabViewImpl(props: props) { key in
       self.coalescingKey += 1
       self.eventDispatcher?.send(PageSelectedEvent(reactTag: self.reactTag, key: NSString(string: key), coalescingKey: self.coalescingKey))
@@ -86,7 +92,7 @@ struct TabData: Codable {
       hostingController.didMove(toParent: parentViewController)
     }
   }
-  
+
   private func loadIcons(_ icons: NSArray?) {
     // TODO: Diff the arrays and update only changed items.
     // Now if the user passes `unfocusedIcon` we update every item.
@@ -114,11 +120,11 @@ struct TabData: Codable {
       }
     }
   }
-  
+
   private func parseTabData(from array: NSArray?) -> TabData? {
     guard let array else { return nil }
     var items: [TabInfo] = []
-    
+
     for value in array {
       if let itemDict = value as? [String: Any] {
         items.append(
@@ -131,21 +137,9 @@ struct TabData: Codable {
         )
       }
     }
-    
+
     return TabData(tabs: items)
   }
-  
-  private func parseTabViewConfig(from dict: NSDictionary?) -> TabViewConfig? {
-    guard let configDict = dict as? [String: Any] else { return nil }
-    let sidebarAdaptable = configDict["sidebarAdaptable"] as? Bool ?? false
-    let labeled = configDict["labeled"] as? Bool ?? nil
-    
-    return TabViewConfig(
-      sidebarAdaptable: sidebarAdaptable,
-      labeled: labeled
-    )
-  }
-  
 }
 
 extension UIImage {

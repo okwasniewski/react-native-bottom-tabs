@@ -117,10 +117,10 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
     }
   }
 
-  fun setConfig(config: TabViewConfig) {
-    labelVisibilityMode = if (config.labeled == false) {
+  fun setLabeled(labeled: Boolean?) {
+    labelVisibilityMode = if (labeled == false) {
       LABEL_VISIBILITY_UNLABELED
-    } else if (config.labeled == true) {
+    } else if (labeled == true) {
       LABEL_VISIBILITY_LABELED
     } else {
       LABEL_VISIBILITY_AUTO
