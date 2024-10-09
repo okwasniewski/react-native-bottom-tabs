@@ -1,5 +1,12 @@
 import type { TabViewItems } from './TabViewNativeComponent';
-import { Image, Platform, StyleSheet, View } from 'react-native';
+import {
+  Image,
+  Platform,
+  StyleSheet,
+  View,
+  useWindowDimensions,
+} from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 //@ts-ignore
 import type { ImageSource } from 'react-native/Libraries/Image/ImageSource';
@@ -69,6 +76,19 @@ interface Props<Route extends BaseRoute> {
     focused: boolean;
   }) => ImageSource | undefined;
 }
+
+const isAndroid = Platform.OS === 'android';
+
+const isIPhone =
+  Platform.OS === 'ios' &&
+  !Platform.isTV &&
+  !Platform.isVision &&
+  !Platform.isPad;
+
+// Height without safe area inset, from Xcode Layout Inspector.
+// According to Apple, the height is constant: https://forums.developer.apple.com/forums/thread/65603
+const TABBAR_HEIGHT = 48;
+const HORIZONTAL_TABBAR_HEIGHT = 31;
 
 const TabView = <Route extends BaseRoute>({
   navigationState,
@@ -152,6 +172,16 @@ const TabView = <Route extends BaseRoute>({
     onIndexChange(index);
   });
 
+  const { width, height } = useWindowDimensions();
+  const isHorizontal = width > height;
+
+  const { bottom: bottomSafeAreaInset } = useSafeAreaInsets();
+
+  const contentBottomPadding =
+    isIPhone &&
+    (isHorizontal ? HORIZONTAL_TABBAR_HEIGHT : TABBAR_HEIGHT) +
+      bottomSafeAreaInset;
+
   return (
     <TabViewAdapter
       style={styles.fullWidth}
@@ -176,10 +206,11 @@ const TabView = <Route extends BaseRoute>({
           <View
             key={route.key}
             style={[
-              { width: '100%', height: '100%' },
-              Platform.OS === 'android' && {
+              styles.fullWidth,
+              isAndroid && {
                 display: route.key === focusedKey ? 'flex' : 'none',
               },
+              { paddingBottom: contentBottomPadding || 0 },
             ]}
           >
             {renderScene({

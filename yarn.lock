@@ -11110,6 +11110,7 @@ __metadata:
     react: 18.3.1
     react-native: 0.75.3
     react-native-builder-bob: ^0.30.2
+    react-native-safe-area-context: ^4.11.0
     release-it: ^15.0.0
     sf-symbols-typescript: ^2.0.0
     turbo: ^1.10.7
@@ -11119,6 +11120,7 @@ __metadata:
     "@react-navigation/native": ">=6"
     react: "*"
     react-native: "*"
+    react-native-safe-area-context: ">= 3.0.0"
   peerDependenciesMeta:
     "@react-navigation/native":
       optional: true
