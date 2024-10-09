@@ -16,7 +16,6 @@ import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.WritableMap
 import com.facebook.react.modules.core.ReactChoreographer
 import com.facebook.react.views.imagehelper.ImageSource
-import com.facebook.react.views.imagehelper.ImageSource.Companion.getTransparentBitmapImageSource
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
@@ -100,14 +99,11 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
 
     for (idx in 0 until icons.size()) {
       val source = icons.getMap(idx)
-      var imageSource =
+      val imageSource =
         ImageSource(
           context,
           source.getString("uri")
         )
-      if (Uri.EMPTY == imageSource.uri) {
-        imageSource = getTransparentBitmapImageSource(context)
-      }
       this.icons[idx] = imageSource
 
       // Update existing item if exists.
