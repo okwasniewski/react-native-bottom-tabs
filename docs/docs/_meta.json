@@ -1,0 +1,11 @@
+[
+  {
+    "text": "Docs",
+    "link": "/docs/",
+    "activeMatch": "/docs/"
+  },
+  {
+    "text": "API",
+    "link": "https://rspress.dev/api/index.html"
+  }
+]
