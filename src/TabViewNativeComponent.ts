@@ -23,6 +23,8 @@ export interface TabViewProps extends ViewProps {
   labeled?: boolean;
   sidebarAdaptable?: boolean;
   scrollEdgeAppearance?: string;
+  activeTintColor?: string;
+  inactiveTintColor?: string;
 }
 
 export default codegenNativeComponent<TabViewProps>('RCTTabView');
