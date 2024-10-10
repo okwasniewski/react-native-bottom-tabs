@@ -95,7 +95,9 @@ extension View {
   func getSidebarAdaptable(enabled: Bool) -> some View {
     if #available(iOS 18.0, macOS 15.0, tvOS 18.0, visionOS 2.0, *) {
       if (enabled) {
-        self.tabViewStyle(.sidebarAdaptable)
+        #if compiler(>=6.0)
+          self.tabViewStyle(.sidebarAdaptable)
+        #endif
       } else {
         self
       }
