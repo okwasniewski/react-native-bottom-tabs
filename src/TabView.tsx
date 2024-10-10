@@ -32,6 +32,14 @@ interface Props<Route extends BaseRoute> {
    */
   ignoresTopSafeArea?: boolean;
   /**
+   * Active tab color.
+   */
+  activeTintColor?: string;
+  /**
+   * Inactive tab color.
+   */
+  inactiveTintColor?: string;
+  /**
    * State for the tab view.
    *
    * The state should contain a `routes` prop which is an array of objects containing `key` and `title` props, such as `{ key: 'music', title: 'Music' }`.
