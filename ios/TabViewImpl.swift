@@ -13,6 +13,8 @@ class TabViewProps: ObservableObject {
   @Published var sidebarAdaptable: Bool?
   @Published var labeled: Bool?
   @Published var ignoresTopSafeArea: Bool?
+  @Published var activeTintColor: Color?
+  @Published var inactiveTintColor: Color?
 }
 
 /**
@@ -58,15 +60,29 @@ struct TabViewImpl: View {
           .tabBadge(tabData?.badge)
       }
     }
+    .tintColor(props.activeTintColor)
     .getSidebarAdaptable(enabled: props.sidebarAdaptable ?? false)
     .onChange(of: props.selectedPage ?? "") { newValue in
       onSelect(newValue)
     }
     .onAppear {
       if #available(iOS 15.0, *) {
-        // This causes issues with lazy loading making the TabView background blink.
+
         let appearance = UITabBarAppearance()
+        // @see https://stackoverflow.com/a/71934882
+        if let inactiveTintColor = props.inactiveTintColor {
+          appearance.stackedLayoutAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor(inactiveTintColor)]
+          appearance.stackedLayoutAppearance.normal.iconColor = UIColor(inactiveTintColor)
+        }
+        
+        if let activeTintColor = props.activeTintColor {
+          appearance.stackedLayoutAppearance.selected.titleTextAttributes = [.foregroundColor: UIColor(activeTintColor)]
+          appearance.stackedLayoutAppearance.selected.iconColor = UIColor(activeTintColor)
+        }
+
+        // This causes issues with lazy loading making the TabView background blink.
         UITabBar.appearance().scrollEdgeAppearance = appearance
+        UITabBar.appearance().standardAppearance = appearance
       }
     }
   }
@@ -123,6 +139,17 @@ extension View {
       self.frame(width: frame.width, height: frame.height)
     } else {
       self.frame(width: frame.width)
+    }
+  }
+
+  @ViewBuilder
+  func tintColor(_ color: Color?) -> some View {
+    if let color {
+      if #available(iOS 16.0, *) {
+        self.tint(color)
+      } else {
+        self.accentColor(color)
+      }
     }
   }
 }
