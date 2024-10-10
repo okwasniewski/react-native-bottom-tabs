@@ -20,7 +20,7 @@ struct TabData: Codable {
 
 @objc public class TabViewProvider: UIView {
   var props = TabViewProps()
-  private var hostingController: UIHostingController<TabViewImpl>?
+  private var hostingController: TabViewImpl?
   private var coalescingKey: UInt16 = 0
   private var eventDispatcher: RCTEventDispatcherProtocol?
   private var imageLoader: RCTImageLoaderProtocol?
@@ -74,10 +74,10 @@ struct TabData: Codable {
       return
     }
     
-    self.hostingController = UIHostingController(rootView: TabViewImpl(props: props) { key in
+    self.hostingController = TabViewImpl(props: props) { key in
       self.coalescingKey += 1
       self.eventDispatcher?.send(PageSelectedEvent(reactTag: self.reactTag, key: NSString(string: key), coalescingKey: self.coalescingKey))
-    })
+    }
     if let hostingController = self.hostingController, let parentViewController = reactViewController() {
       parentViewController.addChild(hostingController)
       addSubview(hostingController.view)
