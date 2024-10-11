@@ -9,7 +9,7 @@ const Tab = createNativeBottomTabNavigator();
 
 function NativeBottomTabs() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator inactiveTintColor="blue">
       <Tab.Screen
         name="Article"
         component={Article}

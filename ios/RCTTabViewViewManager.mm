@@ -32,7 +32,9 @@ RCT_EXPORT_VIEW_PROPERTY(labeled, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(ignoresTopSafeArea, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(disablePageAnimations, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(scrollEdgeAppearance, NSString)
-RCT_EXPORT_VIEW_PROPERTY(activeTintColor, NSString)
-RCT_EXPORT_VIEW_PROPERTY(inactiveTintColor, NSString)
+RCT_EXPORT_VIEW_PROPERTY(activeTintColor, NSNumber)
+RCT_EXPORT_VIEW_PROPERTY(inactiveTintColor, NSNumber)
+RCT_EXPORT_VIEW_PROPERTY(activeTintColor, NSNumber)
+RCT_EXPORT_VIEW_PROPERTY(inactiveTintColor, NSNumber)
 
 @end
