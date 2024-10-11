@@ -17,8 +17,8 @@ class TabViewProps: ObservableObject {
   @Published var scrollEdgeAppearance: String?
   @Published var barTintColor: UIColor?
   @Published var translucent: Bool = true
-  @Published var activeTintColor: Color?
-  @Published var inactiveTintColor: Color?
+  @Published var activeTintColor: UIColor?
+  @Published var inactiveTintColor: UIColor?
 }
 
 /**
@@ -202,8 +202,9 @@ extension View {
   }
 
   @ViewBuilder
-  func tintColor(_ color: Color?) -> some View {
+  func tintColor(_ color: UIColor?) -> some View {
     if let color {
+      let color = Color(color)
       if #available(iOS 16.0, *) {
         self.tint(color)
       } else {

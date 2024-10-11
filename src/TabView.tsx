@@ -50,11 +50,11 @@ interface Props<Route extends BaseRoute> {
   /**
    * Active tab color.
    */
-  activeTintColor?: string;
+  activeTintColor?: ColorValue;
   /**
    * Inactive tab color.
    */
-  inactiveTintColor?: string;
+  inactiveTintColor?: ColorValue;
   /**
    * State for the tab view.
    *
