@@ -70,6 +70,8 @@ interface Props<Route extends BaseRoute> {
   }) => ImageSource | undefined;
 }
 
+const ANDROID_MAX_TABS = 6;
+
 const TabView = <Route extends BaseRoute>({
   navigationState,
   renderScene,
@@ -87,9 +89,18 @@ const TabView = <Route extends BaseRoute>({
   // @ts-ignore
   const focusedKey = navigationState.routes[navigationState.index].key;
 
-  if (navigationState.routes.length > 6) {
-    throw new Error('TabView only supports up to 6 tabs');
-  }
+  const trimmedRoutes = useMemo(() => {
+    if (
+      Platform.OS === 'android' &&
+      navigationState.routes.length > ANDROID_MAX_TABS
+    ) {
+      console.warn(
+        `TabView only supports up to ${ANDROID_MAX_TABS} tabs on Android`
+      );
+      return navigationState.routes.slice(0, ANDROID_MAX_TABS);
+    }
+    return navigationState.routes;
+  }, [navigationState.routes]);
 
   /**
    * List of loaded tabs, tabs will be loaded when navigated to.
@@ -103,18 +114,18 @@ const TabView = <Route extends BaseRoute>({
 
   const icons = useMemo(
     () =>
-      navigationState.routes.map((route) =>
+      trimmedRoutes.map((route) =>
         getIcon({
           route,
           focused: route.key === focusedKey,
         })
       ),
-    [focusedKey, getIcon, navigationState.routes]
+    [focusedKey, getIcon, trimmedRoutes]
   );
 
   const items: TabViewItems = useMemo(
     () =>
-      navigationState.routes.map((route, index) => {
+      trimmedRoutes.map((route, index) => {
         const icon = icons[index];
         const isSfSymbol = isAppleSymbol(icon);
 
@@ -130,7 +141,7 @@ const TabView = <Route extends BaseRoute>({
           badge: props.getBadge?.({ route }),
         };
       }),
-    [getLabelText, icons, navigationState.routes, props]
+    [getLabelText, icons, trimmedRoutes, props]
   );
 
   const resolvedIconAssets: ImageSource[] = useMemo(
@@ -145,9 +156,7 @@ const TabView = <Route extends BaseRoute>({
   );
 
   const jumpTo = useLatestCallback((key: string) => {
-    const index = navigationState.routes.findIndex(
-      (route) => route.key === key
-    );
+    const index = trimmedRoutes.findIndex((route) => route.key === key);
 
     onIndexChange(index);
   });
@@ -163,7 +172,7 @@ const TabView = <Route extends BaseRoute>({
       }}
       {...props}
     >
-      {navigationState.routes.map((route) => {
+      {trimmedRoutes.map((route) => {
         if (getLazy({ route }) !== false && !loaded.includes(route.key)) {
           // Don't render a screen if we've never navigated to it
           if (Platform.OS === 'android') {
@@ -176,7 +185,7 @@ const TabView = <Route extends BaseRoute>({
           <View
             key={route.key}
             style={[
-              { width: '100%', height: '100%' },
+              styles.fullWidth,
               Platform.OS === 'android' && {
                 display: route.key === focusedKey ? 'flex' : 'none',
               },
