@@ -11,7 +11,11 @@ import {
   Button,
   Alert,
 } from 'react-native';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import {
+  DefaultTheme,
+  NavigationContainer,
+  useNavigation,
+} from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -77,7 +81,15 @@ export default function Navigation() {
   const NavigationStack = mode === 'js' ? Stack : NativeStack;
   return (
     <SafeAreaProvider>
-      <NavigationContainer>
+      <NavigationContainer
+        theme={{
+          ...DefaultTheme,
+          colors: {
+            ...DefaultTheme.colors,
+            primary: 'black',
+          },
+        }}
+      >
         <NavigationStack.Navigator initialRouteName="BottomTabs Example">
           <NavigationStack.Screen
             name="BottomTabs Example"

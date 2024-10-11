@@ -1,5 +1,5 @@
 import type { TabViewItems } from './TabViewNativeComponent';
-import { Image, Platform, StyleSheet, View } from 'react-native';
+import { ColorValue, Image, Platform, StyleSheet, View } from 'react-native';
 
 //@ts-ignore
 import type { ImageSource } from 'react-native/Libraries/Image/ImageSource';
@@ -34,11 +34,11 @@ interface Props<Route extends BaseRoute> {
   /**
    * Active tab color.
    */
-  activeTintColor?: string;
+  activeTintColor?: ColorValue;
   /**
    * Inactive tab color.
    */
-  inactiveTintColor?: string;
+  inactiveTintColor?: ColorValue;
   /**
    * State for the tab view.
    *

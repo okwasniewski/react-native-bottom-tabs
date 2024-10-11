@@ -13,8 +13,8 @@ class TabViewProps: ObservableObject {
   @Published var sidebarAdaptable: Bool?
   @Published var labeled: Bool?
   @Published var ignoresTopSafeArea: Bool?
-  @Published var activeTintColor: Color?
-  @Published var inactiveTintColor: Color?
+  @Published var activeTintColor: UIColor?
+  @Published var inactiveTintColor: UIColor?
 }
 
 /**
@@ -71,13 +71,13 @@ struct TabViewImpl: View {
         let appearance = UITabBarAppearance()
         // @see https://stackoverflow.com/a/71934882
         if let inactiveTintColor = props.inactiveTintColor {
-          appearance.stackedLayoutAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor(inactiveTintColor)]
-          appearance.stackedLayoutAppearance.normal.iconColor = UIColor(inactiveTintColor)
+          appearance.stackedLayoutAppearance.normal.titleTextAttributes = [.foregroundColor: inactiveTintColor]
+          appearance.stackedLayoutAppearance.normal.iconColor = inactiveTintColor
         }
         
         if let activeTintColor = props.activeTintColor {
-          appearance.stackedLayoutAppearance.selected.titleTextAttributes = [.foregroundColor: UIColor(activeTintColor)]
-          appearance.stackedLayoutAppearance.selected.iconColor = UIColor(activeTintColor)
+          appearance.stackedLayoutAppearance.selected.titleTextAttributes = [.foregroundColor: activeTintColor]
+          appearance.stackedLayoutAppearance.selected.iconColor = activeTintColor
         }
 
         // This causes issues with lazy loading making the TabView background blink.
@@ -143,8 +143,9 @@ extension View {
   }
 
   @ViewBuilder
-  func tintColor(_ color: Color?) -> some View {
+  func tintColor(_ color: UIColor?) -> some View {
     if let color {
+      let color = Color(color)
       if #available(iOS 16.0, *) {
         self.tint(color)
       } else {
