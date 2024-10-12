@@ -123,10 +123,13 @@ extension View {
   func ignoresTopSafeArea(_ flag: Bool, frame: CGRect) -> some View {
     if flag {
       self
-        .ignoresSafeArea(.container, edges: .top)
-        .frame(width: frame.width)
+        .ignoresSafeArea(.container, edges: .bottom)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .frame(height: frame.height)
     } else {
       self
+        .ignoresSafeArea(.container, edges: .bottom)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
   }
 }
