@@ -1209,7 +1209,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - react-native-bottom-tabs (0.1.0):
+  - react-native-bottom-tabs (0.0.9):
     - DoubleConversion
     - glog
     - RCT-Folly (= 2024.01.01.00)
@@ -1793,7 +1793,7 @@ SPEC CHECKSUMS:
   React-logger: 4072f39df335ca443932e0ccece41fbeb5ca8404
   React-Mapbuffer: 714f2fae68edcabfc332b754e9fbaa8cfc68fdd4
   React-microtasksnativemodule: 618b64238e43ef3154079f193aa6649e5320ae19
-  react-native-bottom-tabs: 5662b5e3b5968bec6258b9d6f1a0a834bd3f7553
+  react-native-bottom-tabs: 6b4dff8469797a3bf8758594832955a2214e2e0d
   react-native-safe-area-context: 851c62c48dce80ccaa5637b6aa5991a1bc36eca9
   React-nativeconfig: 4a9543185905fe41014c06776bf126083795aed9
   React-NativeModulesApple: 651670a799672bd54469f2981d91493dda361ddf
