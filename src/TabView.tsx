@@ -180,7 +180,7 @@ const TabView = <Route extends BaseRoute>({
           <View
             key={route.key}
             style={[
-              { width: '100%', height: '100%' },
+              styles.sceneContainer,
               Platform.OS === 'android' && {
                 display: route.key === focusedKey ? 'flex' : 'none',
               },
@@ -199,6 +199,10 @@ const TabView = <Route extends BaseRoute>({
 
 const styles = StyleSheet.create({
   fullWidth: {
+    width: '100%',
+    height: '100%',
+  },
+  sceneContainer: {
     width: '100%',
     height: '100%',
   },
