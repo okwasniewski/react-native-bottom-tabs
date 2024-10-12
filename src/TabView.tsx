@@ -95,7 +95,9 @@ const TabView = <Route extends BaseRoute>({
       return navigationState.routes.slice(0, MAX_TABS);
     }
     return navigationState.routes;
-  }, [navigationState.routes]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   /**
    * List of loaded tabs, tabs will be loaded when navigated to.
