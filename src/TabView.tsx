@@ -70,7 +70,7 @@ interface Props<Route extends BaseRoute> {
   }) => ImageSource | undefined;
 }
 
-const MAX_TABS = 6;
+const ANDROID_MAX_TABS = 6;
 
 const TabView = <Route extends BaseRoute>({
   navigationState,
@@ -90,14 +90,17 @@ const TabView = <Route extends BaseRoute>({
   const focusedKey = navigationState.routes[navigationState.index].key;
 
   const trimmedRoutes = useMemo(() => {
-    if (Platform.OS === 'android' && navigationState.routes.length > MAX_TABS) {
-      console.warn(`TabView only supports up to ${MAX_TABS} tabs on Android`);
-      return navigationState.routes.slice(0, MAX_TABS);
+    if (
+      Platform.OS === 'android' &&
+      navigationState.routes.length > ANDROID_MAX_TABS
+    ) {
+      console.warn(
+        `TabView only supports up to ${ANDROID_MAX_TABS} tabs on Android`
+      );
+      return navigationState.routes.slice(0, ANDROID_MAX_TABS);
     }
     return navigationState.routes;
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [navigationState.routes]);
 
   /**
    * List of loaded tabs, tabs will be loaded when navigated to.
@@ -182,7 +185,7 @@ const TabView = <Route extends BaseRoute>({
           <View
             key={route.key}
             style={[
-              styles.sceneContainer,
+              styles.fullWidth,
               Platform.OS === 'android' && {
                 display: route.key === focusedKey ? 'flex' : 'none',
               },
@@ -201,10 +204,6 @@ const TabView = <Route extends BaseRoute>({
 
 const styles = StyleSheet.create({
   fullWidth: {
-    width: '100%',
-    height: '100%',
-  },
-  sceneContainer: {
     width: '100%',
     height: '100%',
   },
