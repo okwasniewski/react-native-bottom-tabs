@@ -101,7 +101,7 @@ struct TabData: Codable {
         guard let imageSource, let imageLoader else { continue }
         imageLoader.loadImage(
           with: imageSource.request,
-          size: iconSize,
+          size: imageSource.size,
           scale: imageSource.scale,
           clipped: true,
           resizeMode: RCTResizeMode.contain,
