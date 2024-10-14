@@ -1,6 +1,5 @@
 package com.rcttabview
 
-import android.R.attr
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -173,33 +172,29 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
   }
 
   private fun updateTintColors() {
-    if (activeTintColor == null || inactiveTintColor == null) {
-      return;
-    }
+    val activeColor = activeTintColor ?: return
+    val inactiveColor = inactiveTintColor ?: return
 
     val states = arrayOf(
-      intArrayOf(-attr.state_checked),
-      intArrayOf(attr.state_checked)
-    )
-    val colors = intArrayOf(
-      inactiveTintColor as Int,
-      activeTintColor as Int
+      intArrayOf(-android.R.attr.state_checked),
+      intArrayOf(android.R.attr.state_checked)
     )
 
-    this.itemTextColor = ColorStateList(states, colors)
+    val colors = intArrayOf(inactiveColor, activeColor)
 
-    this.itemIconTintList = ColorStateList(
-      states, colors
-    )
+    ColorStateList(states, colors).apply {
+      this@ReactBottomNavigationView.itemTextColor = this
+      this@ReactBottomNavigationView.itemIconTintList = this
+    }
   }
 
   fun setActiveTintColor(color: Int?) {
-      activeTintColor = color
-      this.updateTintColors()
+    activeTintColor = color
+    updateTintColors()
   }
 
   fun setInactiveTintColor(color: Int?) {
-      inactiveTintColor = color
-      this.updateTintColors()
+    inactiveTintColor = color
+    updateTintColors()
   }
 }
