@@ -178,7 +178,7 @@ const TabView = <Route extends BaseRoute>({
           if (Platform.OS === 'android') {
             return null;
           }
-          return <View key={route.key} />;
+          return <View key={route.key} style={styles.fullWidth} />;
         }
 
         return (

@@ -20,11 +20,12 @@ class TabViewProps: ObservableObject {
  */
 struct RepresentableView: UIViewRepresentable {
   var view: UIView
+  
   func makeUIView(context: Context) -> UIView {
     return view
   }
-  func updateUIView(_ uiView: UIView, context: Context) {
-  }
+  
+  func updateUIView(_ uiView: UIView, context: Context) {}
 }
 
 /**
@@ -120,16 +121,19 @@ extension View {
   }
   
   @ViewBuilder
-  func ignoresTopSafeArea(_ flag: Bool, frame: CGRect) -> some View {
+  func ignoresTopSafeArea(
+    _ flag: Bool,
+    frame: CGRect
+  ) -> some View {
     if flag {
       self
-        .ignoresSafeArea(.container, edges: .bottom)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .frame(height: frame.height)
+        .ignoresSafeArea(.container, edges: .all)
+        .frame(idealWidth: frame.width, idealHeight: frame.height)
     } else {
       self
+        .ignoresSafeArea(.container, edges: .horizontal)
         .ignoresSafeArea(.container, edges: .bottom)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .frame(idealWidth: frame.width, idealHeight: frame.height)
     }
   }
 }
