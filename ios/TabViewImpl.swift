@@ -111,7 +111,9 @@ extension View {
   func getSidebarAdaptable(enabled: Bool) -> some View {
     if #available(iOS 18.0, macOS 15.0, tvOS 18.0, visionOS 2.0, *) {
       if (enabled) {
+#if compiler(>=6.0)
         self.tabViewStyle(.sidebarAdaptable)
+#endif
       } else {
         self
       }
@@ -132,13 +134,15 @@ extension View {
       self
     }
   }
-
+  
   @ViewBuilder
   func ignoresTopSafeArea(_ flag: Bool, frame: CGRect) -> some View {
     if flag {
-      self.frame(width: frame.width, height: frame.height)
+      self
+        .ignoresSafeArea(.container, edges: .top)
+        .frame(width: frame.width)
     } else {
-      self.frame(width: frame.width)
+      self
     }
   }
 
