@@ -10,8 +10,10 @@ import {
   TouchableOpacity,
   Button,
   Alert,
+  useColorScheme,
 } from 'react-native';
 import {
+  DarkTheme,
   DefaultTheme,
   NavigationContainer,
   useNavigation,
@@ -26,6 +28,7 @@ import MaterialBottomTabs from './Examples/MaterialBottomTabs';
 import SFSymbols from './Examples/SFSymbols';
 import LabeledTabs from './Examples/Labeled';
 import NativeBottomTabs from './Examples/NativeBottomTabs';
+import TintColorsExample from './Examples/TintColors';
 
 const FourTabsIgnoreSafeArea = () => {
   return <FourTabs ignoresTopSafeArea />;
@@ -62,6 +65,7 @@ const examples = [
     screenOptions: { headerShown: false },
   },
   { component: MaterialBottomTabs, name: 'Material (JS) Bottom Tabs' },
+  { component: TintColorsExample, name: 'Tint Colors' },
 ];
 
 function App() {
@@ -92,17 +96,12 @@ const NativeStack = createNativeStackNavigator();
 export default function Navigation() {
   const [mode, setMode] = React.useState<'native' | 'js'>('native');
   const NavigationStack = mode === 'js' ? Stack : NativeStack;
+  const colorScheme = useColorScheme();
+  const theme = colorScheme === 'dark' ? DarkTheme : DefaultTheme;
+
   return (
     <SafeAreaProvider>
-      <NavigationContainer
-        theme={{
-          ...DefaultTheme,
-          colors: {
-            ...DefaultTheme.colors,
-            primary: 'black',
-          },
-        }}
-      >
+      <NavigationContainer theme={theme}>
         <NavigationStack.Navigator initialRouteName="BottomTabs Example">
           <NavigationStack.Screen
             name="BottomTabs Example"
