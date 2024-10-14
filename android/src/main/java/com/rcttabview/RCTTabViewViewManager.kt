@@ -72,7 +72,7 @@ class RCTTabViewViewManager :
   fun setBarTintColor(view: ReactBottomNavigationView, color: Int?) {
     view.setBarTintColor(color)
   }
-  
+
   @ReactProp(name = "rippleColor")
   fun setRippleColor(view: ReactBottomNavigationView, rippleColor: Int?) {
     if (rippleColor != null) {
@@ -83,6 +83,16 @@ class RCTTabViewViewManager :
 
   @ReactProp(name = "translucent")
   fun setTranslucentview(view: ReactBottomNavigationView, translucent: Boolean?) {
+  }
+
+  @ReactProp(name = "activeTintColor")
+  fun setActiveTintColor(view: ReactBottomNavigationView, color: Int?) {
+    view.setActiveTintColor(color)
+  }
+
+  @ReactProp(name = "inactiveTintColor")
+  fun setInactiveTintColor(view: ReactBottomNavigationView, color: Int?) {
+    view.setInactiveTintColor(color)
   }
 
   public override fun createViewInstance(context: ThemedReactContext): ReactBottomNavigationView {
