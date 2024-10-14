@@ -1,9 +1,10 @@
 package com.rcttabview
 
+import android.R.attr
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
-import android.net.Uri
 import android.view.Choreographer
 import android.view.MenuItem
 import com.facebook.common.references.CloseableReference
@@ -25,6 +26,8 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
   var items: MutableList<TabInfo>? = null
   var onTabSelectedListener: ((WritableMap) -> Unit)? = null
   private var isAnimating = false
+  private var activeTintColor: Int? = null
+  private var inactiveTintColor: Int? = null
 
   private val layoutCallback = Choreographer.FrameCallback {
     isLayoutEnqueued = false
@@ -73,7 +76,7 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
 
   fun updateItems(items: MutableList<TabInfo>) {
     this.items = items
-    items.forEachIndexed {index, item ->
+    items.forEachIndexed { index, item ->
       val menuItem = getOrCreateItem(index, item.title)
       if (icons.containsKey(index)) {
         menuItem.icon = getDrawable(icons[index]!!)
@@ -139,5 +142,36 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
   override fun onDetachedFromWindow() {
     super.onDetachedFromWindow()
     isAnimating = false
+  }
+
+  private fun updateTintColors() {
+    if (activeTintColor == null || inactiveTintColor == null) {
+      return;
+    }
+
+    val states = arrayOf(
+      intArrayOf(-attr.state_checked),
+      intArrayOf(attr.state_checked)
+    )
+    val colors = intArrayOf(
+      inactiveTintColor as Int,
+      activeTintColor as Int
+    )
+
+    this.itemTextColor = ColorStateList(states, colors)
+
+    this.itemIconTintList = ColorStateList(
+      states, colors
+    )
+  }
+
+  fun setActiveTintColor(color: Int?) {
+      activeTintColor = color
+      this.updateTintColors()
+  }
+
+  fun setInactiveTintColor(color: Int?) {
+      inactiveTintColor = color
+      this.updateTintColors()
   }
 }
