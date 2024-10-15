@@ -4,8 +4,10 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.util.TypedValue
 import android.view.Choreographer
 import android.view.MenuItem
+import androidx.appcompat.content.res.AppCompatResources
 import com.facebook.common.references.CloseableReference
 import com.facebook.datasource.DataSources
 import com.facebook.drawee.backends.pipeline.Fresco
@@ -27,6 +29,10 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
   private var isAnimating = false
   private var activeTintColor: Int? = null
   private var inactiveTintColor: Int? = null
+  private val checkedStateSet = intArrayOf(android.R.attr.state_checked)
+  private val uncheckedStateSet = intArrayOf(-android.R.attr.state_checked)
+  private val disabledStateSet = intArrayOf(-android.R.attr.state_enabled)
+
 
   private val layoutCallback = Choreographer.FrameCallback {
     isLayoutEnqueued = false
@@ -143,22 +149,7 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
     isAnimating = false
   }
 
-  private fun updateTintColors() {
-    val activeColor = activeTintColor ?: return
-    val inactiveColor = inactiveTintColor ?: return
 
-    val states = arrayOf(
-      intArrayOf(-android.R.attr.state_checked),
-      intArrayOf(android.R.attr.state_checked)
-    )
-
-    val colors = intArrayOf(inactiveColor, activeColor)
-
-    ColorStateList(states, colors).apply {
-      this@ReactBottomNavigationView.itemTextColor = this
-      this@ReactBottomNavigationView.itemIconTintList = this
-    }
-  }
 
   fun setActiveTintColor(color: Int?) {
     activeTintColor = color
@@ -168,5 +159,30 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
   fun setInactiveTintColor(color: Int?) {
     inactiveTintColor = color
     updateTintColors()
+  }
+
+  private fun updateTintColors() {
+    // getDeaultColor will always return a valid color but to satisfy the compiler we need to check for null
+    val colorPrimary = activeTintColor ?: getDefaultColorFor(android.R.attr.colorPrimary) ?: return
+    val colorSecondary =
+      inactiveTintColor ?: getDefaultColorFor(android.R.attr.textColorSecondary) ?: return
+    val states = arrayOf(uncheckedStateSet, checkedStateSet)
+    val colors = intArrayOf(colorSecondary, colorPrimary)
+
+    ColorStateList(states, colors).apply {
+      this@ReactBottomNavigationView.itemTextColor = this
+      this@ReactBottomNavigationView.itemIconTintList = this
+    }
+  }
+
+  private fun getDefaultColorFor(baseColorThemeAttr: Int): Int? {
+    val value = TypedValue()
+    if (!context.theme.resolveAttribute(baseColorThemeAttr, value, true)) {
+      return null
+    }
+    val baseColor = AppCompatResources.getColorStateList(
+      context, value.resourceId
+    )
+    return baseColor.defaultColor
   }
 }
