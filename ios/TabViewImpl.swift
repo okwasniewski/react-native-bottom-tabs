@@ -181,6 +181,8 @@ extension View {
       } else {
         self.accentColor(color)
       }
+    } else {
+      self
     }
   }
 }
