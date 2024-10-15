@@ -27,6 +27,10 @@ const FourTabsIgnoreSafeArea = () => {
   return <FourTabs ignoresTopSafeArea />;
 };
 
+const FourTabsNoAnimations = () => {
+  return <FourTabs disablePageAnimations />;
+};
+
 const examples = [
   { component: ThreeTabs, name: 'Three Tabs' },
   { component: FourTabs, name: 'Four Tabs' },
@@ -37,6 +41,7 @@ const examples = [
     name: 'Four Tabs - No header',
     screenOptions: { headerShown: false },
   },
+  { component: FourTabsNoAnimations, name: 'Four Tabs - no animations' },
   { component: NativeBottomTabs, name: 'Native Bottom Tabs' },
   { component: JSBottomTabs, name: 'JS Bottom Tabs' },
   {

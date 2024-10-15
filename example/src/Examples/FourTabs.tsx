@@ -7,9 +7,13 @@ import { Chat } from '../Screens/Chat';
 
 interface Props {
   ignoresTopSafeArea?: boolean;
+  disablePageAnimations?: boolean;
 }
 
-export default function FourTabs({ ignoresTopSafeArea = false }: Props) {
+export default function FourTabs({
+  ignoresTopSafeArea = false,
+  disablePageAnimations = false,
+}: Props) {
   const [index, setIndex] = useState(0);
   const [routes] = useState([
     {
@@ -48,6 +52,7 @@ export default function FourTabs({ ignoresTopSafeArea = false }: Props) {
     <TabView
       ignoresTopSafeArea={ignoresTopSafeArea}
       sidebarAdaptable
+      disablePageAnimations={disablePageAnimations}
       navigationState={{ index, routes }}
       onIndexChange={setIndex}
       renderScene={renderScene}

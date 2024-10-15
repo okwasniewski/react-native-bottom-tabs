@@ -35,6 +35,12 @@ struct TabData: Codable {
     }
   }
   
+  @objc var disablePageAnimations: Bool = false {
+    didSet {
+      props.disablePageAnimations = disablePageAnimations
+    }
+  }
+
   @objc var labeled: Bool = true {
     didSet {
       props.labeled = labeled

@@ -30,5 +30,6 @@ RCT_EXPORT_VIEW_PROPERTY(icons, NSArray<RCTImageSource *>);
 RCT_EXPORT_VIEW_PROPERTY(sidebarAdaptable, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(labeled, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(ignoresTopSafeArea, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(disablePageAnimations, BOOL)
 
 @end

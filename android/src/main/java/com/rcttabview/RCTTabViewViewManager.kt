@@ -137,4 +137,7 @@ class RCTTabViewViewManager :
 
   @ReactProp(name = "ignoresTopSafeArea")
   fun setIgnoresTopSafeArea(view: ReactBottomNavigationView, flag: Boolean) {}
+
+  @ReactProp(name = "disablePageAnimations")
+  fun setDisablePageAnimations(view: ReactBottomNavigationView, flag: Boolean) {}
 }
