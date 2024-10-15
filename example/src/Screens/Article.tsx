@@ -53,6 +53,7 @@ export function Article({
       ref={ref}
       style={{ backgroundColor: '#fff' }}
       contentContainerStyle={styles.content}
+      contentInsetAdjustmentBehavior="automatic"
       {...rest}
     >
       <View style={styles.author}>

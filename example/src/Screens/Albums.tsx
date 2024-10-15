@@ -42,7 +42,11 @@ export function Albums(props: Partial<ScrollViewProps>) {
   const itemSize = dimensions.width / Math.floor(dimensions.width / 150);
 
   return (
-    <ScrollView contentContainerStyle={styles.content} {...props}>
+    <ScrollView
+      contentContainerStyle={styles.content}
+      contentInsetAdjustmentBehavior="automatic"
+      {...props}
+    >
       {COVERS.map((source, i) => (
         <View
           key={i}
