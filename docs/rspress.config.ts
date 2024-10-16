@@ -3,6 +3,7 @@ import { defineConfig } from 'rspress/config';
 
 export default defineConfig({
   root: path.join(__dirname, 'docs'),
+  base: '/react-native-testing-library/',
   title: 'Native Bottom Tabs',
   description: 'React Native Bottom Tabs Documentation',
   themeConfig: {
