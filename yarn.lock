@@ -13516,6 +13516,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-bottom-tabs-docs@workspace:docs":
+  version: 0.0.0-use.local
+  resolution: "react-native-bottom-tabs-docs@workspace:docs"
+  dependencies:
+    "@types/node": ^16
+    rspress: ^1.31.1
+  languageName: unknown
+  linkType: soft
+
 "react-native-bottom-tabs-example@workspace:example":
   version: 0.0.0-use.local
   resolution: "react-native-bottom-tabs-example@workspace:example"
@@ -14458,15 +14467,6 @@ __metadata:
   checksum: fdebebdf6b56797fb56c8dae624bc5118aebd1ceb1c7a5c2d85dab926147dc152387cab44b95a70c7d75ec1e9560daf3580cc3f206e7fc41ee658fc6813a1e57
   languageName: node
   linkType: hard
-
-"rspress-doc-template@workspace:docs":
-  version: 0.0.0-use.local
-  resolution: "rspress-doc-template@workspace:docs"
-  dependencies:
-    "@types/node": ^16
-    rspress: ^1.31.1
-  languageName: unknown
-  linkType: soft
 
 "rspress@npm:^1.31.1":
   version: 1.32.0

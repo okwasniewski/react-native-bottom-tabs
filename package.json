@@ -45,7 +45,8 @@
     "!**/__tests__",
     "!**/__fixtures__",
     "!**/__mocks__",
-    "!**/.*"
+    "!**/.*",
+    "!docs/"
   ],
   "scripts": {
     "example": "yarn workspace react-native-bottom-tabs-example",

@@ -1,3 +1,4 @@
 # Contributing
 
-Guidelines for contributing to the repository and the development workflow.
+Checkout project's [CONTRIBUTING.md](https://github.com/okwasniewski/react-native-bottom-tabs/blob/main/CONTRIBUTING.md) for more information.
+
