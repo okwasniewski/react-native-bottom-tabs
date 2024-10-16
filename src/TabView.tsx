@@ -31,6 +31,11 @@ interface Props<Route extends BaseRoute> {
    * Whether to ignore the top safe area. (iOS only)
    */
   ignoresTopSafeArea?: boolean;
+
+  /**
+   * Whether to disable page animations between tabs. (iOS only)
+   */
+  disablePageAnimations?: boolean;
   /**
    * State for the tab view.
    *

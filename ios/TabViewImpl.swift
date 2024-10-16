@@ -13,6 +13,7 @@ class TabViewProps: ObservableObject {
   @Published var sidebarAdaptable: Bool?
   @Published var labeled: Bool?
   @Published var ignoresTopSafeArea: Bool?
+  @Published var disablePageAnimations: Bool = false
 }
 
 /**
@@ -61,6 +62,12 @@ struct TabViewImpl: View {
     }
     .getSidebarAdaptable(enabled: props.sidebarAdaptable ?? false)
     .onChange(of: props.selectedPage ?? "") { newValue in
+      if (props.disablePageAnimations) {
+        UIView.setAnimationsEnabled(false)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+          UIView.setAnimationsEnabled(true)
+        }
+      }
       onSelect(newValue)
     }
     .onAppear {

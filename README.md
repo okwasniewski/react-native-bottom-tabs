@@ -109,6 +109,10 @@ Default options to use for the screens in the navigator.
 
 Whether to show labels in tabs. Defaults to true.
 
+#### `disablePageAnimations`
+
+Whether to disable page animations between tabs. (iOS only)
+
 #### `sidebarAdaptable`
 
 A tab bar style that adapts to each platform. (Apple platforms only)
