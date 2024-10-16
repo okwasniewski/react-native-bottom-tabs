@@ -11,6 +11,7 @@
     "rspress": "^1.31.1"
   },
   "devDependencies": {
-    "@types/node": "^16"
+    "@types/node": "^16",
+    "rsbuild-plugin-open-graph": "^1.0.2"
   }
 }

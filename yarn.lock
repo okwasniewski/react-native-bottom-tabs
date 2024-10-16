@@ -13521,6 +13521,7 @@ __metadata:
   resolution: "react-native-bottom-tabs-docs@workspace:docs"
   dependencies:
     "@types/node": ^16
+    rsbuild-plugin-open-graph: ^1.0.2
     rspress: ^1.31.1
   languageName: unknown
   linkType: soft
@@ -14449,6 +14450,18 @@ __metadata:
   bin:
     rimraf: ./bin.js
   checksum: 3ea587b981a19016297edb96d1ffe48af7e6af69660e3b371dbfc73722a73a0b0e9be5c88089fbeeb866c389c1098e07f64929c7414290504b855f54f901ab10
+  languageName: node
+  linkType: hard
+
+"rsbuild-plugin-open-graph@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "rsbuild-plugin-open-graph@npm:1.0.2"
+  peerDependencies:
+    "@rsbuild/core": 0.x || 1.x || ^1.0.1-beta.0
+  peerDependenciesMeta:
+    "@rsbuild/core":
+      optional: true
+  checksum: e62f38d7644f2d8ba7d5405a6eda9674e9b2705a612ecb8724d1b570e973fdbd7aa688211dbcac80ecc387822db877c1b79da8fbfd836539906a127ba1bfba39
   languageName: node
   linkType: hard
 
