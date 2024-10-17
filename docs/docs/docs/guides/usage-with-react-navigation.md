@@ -64,6 +64,7 @@ Available options:
 - `transparent` - uses transparent background and no shadow.
 - `opaque` - uses set of opaque colors that are appropriate for the current theme
 
+Note: It's recommended to use `transparent` or `opaque` without lazy loading as the tab bar background flashes when a view is rendered lazily.
 #### `sidebarAdaptable`
 
 A tab bar style that adapts to each platform. (Apple platforms only)

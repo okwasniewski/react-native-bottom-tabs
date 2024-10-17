@@ -73,7 +73,6 @@ struct TabViewImpl: View {
     }
     .onChange(of: props.scrollEdgeAppearance) { newValue in
       if #available(iOS 15.0, *) {
-        // This causes issues with lazy loading making the TabView background blink.
         UITabBar.appearance().scrollEdgeAppearance = configureAppearance(for: newValue ?? "")
       }
     }
