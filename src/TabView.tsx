@@ -41,10 +41,6 @@ interface Props<Route extends BaseRoute> {
    */
   scrollEdgeAppearance?: 'default' | 'opaque' | 'transparent';
   /**
-   * Whether to disable page animations between tabs. (iOS only)
-   */
-  disablePageAnimations?: boolean;
-  /**
    * State for the tab view.
    *
    * The state should contain a `routes` prop which is an array of objects containing `key` and `title` props, such as `{ key: 'music', title: 'Music' }`.
