@@ -31,6 +31,10 @@ const FourTabsNoAnimations = () => {
   return <FourTabs disablePageAnimations />;
 };
 
+const FourTabsTransparentScrollEdgeAppearance = () => {
+  return <FourTabs scrollEdgeAppearance="transparent" />;
+};
+
 const examples = [
   { component: ThreeTabs, name: 'Three Tabs' },
   { component: FourTabs, name: 'Four Tabs' },
@@ -42,6 +46,10 @@ const examples = [
     screenOptions: { headerShown: false },
   },
   { component: FourTabsNoAnimations, name: 'Four Tabs - no animations' },
+  {
+    component: FourTabsTransparentScrollEdgeAppearance,
+    name: 'Four Tabs - Transparent scroll edge appearance',
+  },
   { component: NativeBottomTabs, name: 'Native Bottom Tabs' },
   { component: JSBottomTabs, name: 'JS Bottom Tabs' },
   {

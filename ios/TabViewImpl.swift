@@ -14,6 +14,7 @@ class TabViewProps: ObservableObject {
   @Published var labeled: Bool?
   @Published var ignoresTopSafeArea: Bool?
   @Published var disablePageAnimations: Bool = false
+  @Published var scrollEdgeAppearance: String?
 }
 
 /**
@@ -70,14 +71,27 @@ struct TabViewImpl: View {
       }
       onSelect(newValue)
     }
-    .onAppear {
+    .onChange(of: props.scrollEdgeAppearance) { newValue in
       if #available(iOS 15.0, *) {
-        // This causes issues with lazy loading making the TabView background blink.
-        let appearance = UITabBarAppearance()
-        UITabBar.appearance().scrollEdgeAppearance = appearance
+        UITabBar.appearance().scrollEdgeAppearance = configureAppearance(for: newValue ?? "")
       }
     }
   }
+}
+
+private func configureAppearance(for appearanceType: String) -> UITabBarAppearance {
+  let appearance = UITabBarAppearance()
+  
+  switch appearanceType {
+  case "opaque":
+    appearance.configureWithOpaqueBackground()
+  case "transparent":
+    appearance.configureWithTransparentBackground()
+  default:
+    appearance.configureWithDefaultBackground()
+  }
+  
+  return appearance
 }
 
 struct TabItem: View {

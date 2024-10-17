@@ -31,5 +31,6 @@ RCT_EXPORT_VIEW_PROPERTY(sidebarAdaptable, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(labeled, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(ignoresTopSafeArea, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(disablePageAnimations, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(scrollEdgeAppearance, NSString)
 
 @end
