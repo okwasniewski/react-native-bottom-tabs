@@ -53,12 +53,6 @@ struct TabData: Codable {
     }
   }
   
-  @objc var ignoresTopSafeArea: Bool = false {
-    didSet {
-      props.ignoresTopSafeArea = ignoresTopSafeArea
-    }
-  }
-
   @objc var selectedPage: NSString? {
     didSet {
       props.selectedPage = selectedPage as? String
