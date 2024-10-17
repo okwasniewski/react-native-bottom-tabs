@@ -19,6 +19,7 @@ export default defineConfig({
       },
     ],
   },
+  globalStyles: path.join(__dirname, 'docs/styles/index.css'),
   builderConfig: {
     plugins: [
       pluginOpenGraph({
