@@ -22,6 +22,7 @@ export interface TabViewProps extends ViewProps {
   icons?: ReadonlyArray<ImageSource>;
   labeled?: boolean;
   sidebarAdaptable?: boolean;
+  scrollEdgeAppearance?: string;
 }
 
 export default codegenNativeComponent<TabViewProps>('RCTTabView');

@@ -37,6 +37,10 @@ interface Props<Route extends BaseRoute> {
    */
   disablePageAnimations?: boolean;
   /**
+   * Describes the appearance attributes for the tabBar to use when an observable scroll view is scrolled to the bottom. (iOS only)
+   */
+  scrollEdgeAppearance?: 'default' | 'opaque' | 'transparent';
+  /**
    * State for the tab view.
    *
    * The state should contain a `routes` prop which is an array of objects containing `key` and `title` props, such as `{ key: 'music', title: 'Music' }`.

@@ -59,6 +59,12 @@ struct TabData: Codable {
     }
   }
   
+  @objc var scrollEdgeAppearance: NSString? {
+    didSet {
+      props.scrollEdgeAppearance = scrollEdgeAppearance as? String
+    }
+  }
+  
   @objc var items: NSArray? {
     didSet {
       props.items = parseTabData(from: items)

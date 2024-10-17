@@ -55,6 +55,15 @@ Whether to show labels in tabs. Defaults to true.
 
 Whether to disable page animations between tabs. (iOS only)
 
+#### `scrollEdgeAppearance`
+
+Describes the appearance attributes for the tabBar to use when an observable scroll view is scrolled to the bottom. (iOS only)
+
+Available options:
+- `default` - uses default background and shadow values.
+- `transparent` - uses transparent background and no shadow.
+- `opaque` - uses set of opaque colors that are appropriate for the current theme
+
 #### `sidebarAdaptable`
 
 A tab bar style that adapts to each platform. (Apple platforms only)
