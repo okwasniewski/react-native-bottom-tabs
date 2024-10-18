@@ -71,16 +71,10 @@
   --rp-code-title-bg: var(--rp-c-bg-mute);
 }
 
-/* MD Containers */
-:root {
-  --rp-container-info-border: rgba(155, 109, 255, 0.2) !important;
-  --rp-container-info-text: #9b6dff !important;
-  --rp-container-info-bg: rgba(155, 109, 255, 0.06) !important;
-  --rp-container-info-code-bg: rgba(155, 109, 255, 0.1) !important;
-}
-
-.dark {
-  --rp-container-info-text: #9b6dff !important;
+.badge_99dcf.info_99dcf {
+    color: var(--rp-container-info-text);
+    background-color: var(--rp-container-info-bg);
+    @apply h-6;
 }
 
 /* Home background gradient */
