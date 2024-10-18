@@ -27,6 +27,10 @@ const FourTabsIgnoreSafeArea = () => {
   return <FourTabs ignoresTopSafeArea />;
 };
 
+const FourTabsRippleColor = () => {
+  return <FourTabs rippleColor={'#00ff00'} />;
+};
+
 const FourTabsNoAnimations = () => {
   return <FourTabs disablePageAnimations />;
 };
@@ -44,6 +48,10 @@ const examples = [
     component: FourTabsIgnoreSafeArea,
     name: 'Four Tabs - No header',
     screenOptions: { headerShown: false },
+  },
+  {
+    component: FourTabsRippleColor,
+    name: 'Four Tabs with ripple Color',
   },
   { component: FourTabsNoAnimations, name: 'Four Tabs - no animations' },
   {

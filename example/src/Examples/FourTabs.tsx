@@ -4,17 +4,20 @@ import { Article } from '../Screens/Article';
 import { Albums } from '../Screens/Albums';
 import { Contacts } from '../Screens/Contacts';
 import { Chat } from '../Screens/Chat';
+import { ColorValue } from 'react-native';
 
 interface Props {
   ignoresTopSafeArea?: boolean;
   disablePageAnimations?: boolean;
   scrollEdgeAppearance?: 'default' | 'opaque' | 'transparent';
+  rippleColor?: ColorValue;
 }
 
 export default function FourTabs({
   ignoresTopSafeArea = false,
   disablePageAnimations = false,
   scrollEdgeAppearance = 'default',
+  rippleColor,
 }: Props) {
   const [index, setIndex] = useState(0);
   const [routes] = useState([
@@ -59,6 +62,7 @@ export default function FourTabs({
       navigationState={{ index, routes }}
       onIndexChange={setIndex}
       renderScene={renderScene}
+      rippleColor={rippleColor}
     />
   );
 }
