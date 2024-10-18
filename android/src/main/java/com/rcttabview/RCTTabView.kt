@@ -28,7 +28,6 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
   var items: MutableList<TabInfo>? = null
   var onTabSelectedListener: ((WritableMap) -> Unit)? = null
   private var isAnimating = false
-  private var barTintColor : Int? = null
 
   private val layoutCallback = Choreographer.FrameCallback {
     isLayoutEnqueued = false
@@ -146,13 +145,12 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
   }
 
   fun setBarTintColor(color: Int?) {
-    barTintColor = color
-    updateBackgroundColors()
+    updateBackgroundColors(color)
   }
 
-  private fun updateBackgroundColors() {
+  private fun updateBackgroundColors(color: Int?) {
     // Set the color, either using the active background color or a default color.
-    val backgroundColor = barTintColor ?: getDefaultColorFor(android.R.attr.colorPrimary) ?: return
+    val backgroundColor = color ?: getDefaultColorFor(android.R.attr.colorPrimary) ?: return
 
     // Apply the same color to both active and inactive states
     val colorDrawable = ColorDrawable(backgroundColor)
