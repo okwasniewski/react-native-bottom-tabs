@@ -75,7 +75,7 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
 
   fun updateItems(items: MutableList<TabInfo>) {
     this.items = items
-    items.forEachIndexed {index, item ->
+    items.forEachIndexed { index, item ->
       val menuItem = getOrCreateItem(index, item.title)
       if (icons.containsKey(index)) {
         menuItem.icon = getDrawable(icons[index]!!)
@@ -124,6 +124,7 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
       LABEL_VISIBILITY_AUTO
     }
   }
+
   fun setRippleColor(color: ColorStateList) {
     itemRippleColor = color
   }
