@@ -1,3 +1,5 @@
+import { Badge } from '@theme';
+
 # Usage with React Navigation
 
 :::warning
@@ -51,23 +53,27 @@ Default options to use for the screens in the navigator.
 
 Whether to show labels in tabs. Defaults to true.
 
-#### `disablePageAnimations`
+#### `disablePageAnimations` <Badge text="iOS" type="info" />
 
-Whether to disable page animations between tabs. (iOS only)
+Whether to disable page animations between tabs.
 
-#### `scrollEdgeAppearance`
+#### `scrollEdgeAppearance` <Badge text="iOS" type="info" />
 
-Describes the appearance attributes for the tabBar to use when an observable scroll view is scrolled to the bottom. (iOS only)
+Describes the appearance attributes for the tabBar to use when an observable scroll view is scrolled to the bottom.
 
 Available options:
 - `default` - uses default background and shadow values.
 - `transparent` - uses transparent background and no shadow.
 - `opaque` - uses set of opaque colors that are appropriate for the current theme
 
-Note: It's recommended to use `transparent` or `opaque` without lazy loading as the tab bar background flashes when a view is rendered lazily.
-#### `sidebarAdaptable`
+:::note
+It's recommended to use `transparent` or `opaque` without lazy loading as the tab bar background flashes when a view is rendered lazily.
+:::
 
-A tab bar style that adapts to each platform. (Apple platforms only)
+
+#### `sidebarAdaptable` <Badge text="iOS" type="info" />
+
+A tab bar style that adapts to each platform.
 
 Tab views using the sidebar adaptable style have an appearance
 - iPadOS displays a top tab bar that can adapt into a sidebar.
@@ -90,9 +96,9 @@ Label text of the tab displayed in the navigation bar. When undefined, scene tit
 
 #### `tabBarIcon`
 
-Function that given { focused: boolean } returns ImageSource or AppleIcon to display in the navigation bar.
+Function that given `{ focused: boolean }` returns `ImageSource` or `AppleIcon` to display in the navigation bar.
 
-Note: SF Symbols are only supported on Apple platforms.
+
 
 ```tsx
 <Tab.Screen
@@ -104,8 +110,11 @@ Note: SF Symbols are only supported on Apple platforms.
     tabBarIcon: () => ({ sfSymbol: 'person' }),
   }}
 />
-
 ```
+
+:::note
+SF Symbols are only supported on Apple platforms.
+:::
 
 #### `tabBarBadge`
 

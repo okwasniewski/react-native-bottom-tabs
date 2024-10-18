@@ -11,6 +11,8 @@ export default defineConfig({
   icon: '/img/phone.png',
   logo: '/img/phone.png',
   themeConfig: {
+    enableContentAnimation: true,
+    enableAppearanceAnimation: false,
     socialLinks: [
       {
         icon: 'github',
