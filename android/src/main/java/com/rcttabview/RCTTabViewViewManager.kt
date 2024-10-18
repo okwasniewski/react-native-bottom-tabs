@@ -67,6 +67,11 @@ class RCTTabViewViewManager :
     view.setIcons(icons)
   }
 
+  @ReactProp(name = "barTintColor")
+  fun setBarTintColor(view: ReactBottomNavigationView, color: Int?) {
+    view.setBarTintColor(color)
+  }
+
   public override fun createViewInstance(context: ThemedReactContext): ReactBottomNavigationView {
     eventDispatcher = context.getNativeModule(UIManagerModule::class.java)!!.eventDispatcher
     val view = ReactBottomNavigationView(context)

@@ -15,6 +15,7 @@ class TabViewProps: ObservableObject {
   @Published var ignoresTopSafeArea: Bool?
   @Published var disablePageAnimations: Bool = false
   @Published var scrollEdgeAppearance: String?
+  @Published var barTintColor: UIColor?
 }
 
 /**
@@ -76,6 +77,9 @@ struct TabViewImpl: View {
         UITabBar.appearance().scrollEdgeAppearance = configureAppearance(for: newValue ?? "")
       }
     }
+    .onAppear {
+        updateTabBarAppearance(with: props.barTintColor)
+    }
   }
 }
 
@@ -92,6 +96,20 @@ private func configureAppearance(for appearanceType: String) -> UITabBarAppearan
   }
   
   return appearance
+}
+
+// Helper function to update the tab bar appearance
+private func updateTabBarAppearance(with barTintColor: UIColor?) {
+    
+  if #available(iOS 15.0, *) {
+    let appearance = UITabBarAppearance()
+      
+    appearance.backgroundColor = barTintColor
+    UITabBar.appearance().standardAppearance = appearance
+    UITabBar.appearance().scrollEdgeAppearance = appearance
+  } else {
+    UITabBar.appearance().barTintColor = barTintColor
+  }
 }
 
 struct TabItem: View {

@@ -70,6 +70,12 @@ struct TabData: Codable {
       props.items = parseTabData(from: items)
     }
   }
+
+  @objc var barTintColor: NSNumber? {
+    didSet {
+      props.barTintColor = RCTConvert.uiColor(barTintColor)
+    }
+  }
   
   @objc public convenience init(eventDispatcher: RCTEventDispatcherProtocol, imageLoader: RCTImageLoader) {
     self.init()
