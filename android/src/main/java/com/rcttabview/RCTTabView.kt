@@ -145,10 +145,6 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
   }
 
   fun setBarTintColor(color: Int?) {
-    updateBackgroundColors(color)
-  }
-
-  private fun updateBackgroundColors(color: Int?) {
     // Set the color, either using the active background color or a default color.
     val backgroundColor = color ?: getDefaultColorFor(android.R.attr.colorPrimary) ?: return
 
@@ -157,7 +153,6 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
 
     itemBackground = colorDrawable
   }
-
 
   private fun getDefaultColorFor(baseColorThemeAttr: Int): Int? {
     val value = TypedValue()
