@@ -36,7 +36,7 @@ const FourTabsTransparentScrollEdgeAppearance = () => {
 };
 
 const FourTabsWithBarTintColor = () => {
-  return <FourTabs barTintColor={''} />;
+  return <FourTabs barTintColor={'#87CEEB'} />;
 };
 
 const examples = [
