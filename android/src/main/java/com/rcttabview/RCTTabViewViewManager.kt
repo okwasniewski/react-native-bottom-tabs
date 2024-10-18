@@ -1,5 +1,7 @@
 package com.rcttabview
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.view.View.MeasureSpec
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.common.MapBuilder
@@ -65,6 +67,13 @@ class RCTTabViewViewManager :
   @ReactProp(name = "icons")
   fun setIcons(view: ReactBottomNavigationView, icons: ReadableArray?) {
     view.setIcons(icons)
+  }
+  @ReactProp(name = "rippleColor")
+  fun setRippleColor(view: ReactBottomNavigationView, rippleColor: Int?){
+    if(rippleColor!=null) {
+      val color = ColorStateList.valueOf(rippleColor)
+      view.setRippleColor(color)
+    }
   }
 
   public override fun createViewInstance(context: ThemedReactContext): ReactBottomNavigationView {

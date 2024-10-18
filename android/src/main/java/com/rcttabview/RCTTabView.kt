@@ -1,6 +1,8 @@
 package com.rcttabview
 
 import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
@@ -121,6 +123,9 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
     } else {
       LABEL_VISIBILITY_AUTO
     }
+  }
+  fun setRippleColor(color: ColorStateList){
+    itemRippleColor = color
   }
 
   private fun getDrawable(imageSource: ImageSource): Drawable {
