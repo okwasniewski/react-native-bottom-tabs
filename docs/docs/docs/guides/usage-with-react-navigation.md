@@ -51,6 +51,10 @@ Default options to use for the screens in the navigator.
 
 Whether to show labels in tabs. Defaults to true.
 
+#### `barTintColor`
+
+Background color of the tab bar.
+
 #### `disablePageAnimations`
 
 Whether to disable page animations between tabs. (iOS only)

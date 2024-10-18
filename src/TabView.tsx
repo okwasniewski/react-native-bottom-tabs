@@ -1,5 +1,12 @@
 import type { TabViewItems } from './TabViewNativeComponent';
-import { Image, Platform, StyleSheet, View } from 'react-native';
+import {
+  ColorValue,
+  Image,
+  Platform,
+  StyleSheet,
+  View,
+  processColor,
+} from 'react-native';
 
 //@ts-ignore
 import type { ImageSource } from 'react-native/Libraries/Image/ImageSource';
@@ -77,6 +84,11 @@ interface Props<Route extends BaseRoute> {
     route: Route;
     focused: boolean;
   }) => ImageSource | undefined;
+
+  /**
+   * Background color of the tab bar.
+   */
+  barTintColor?: ColorValue;
 }
 
 const ANDROID_MAX_TABS = 6;
@@ -93,6 +105,7 @@ const TabView = <Route extends BaseRoute>({
         ? route.focusedIcon
         : route.unfocusedIcon
       : route.focusedIcon,
+  barTintColor,
   ...props
 }: Props<Route>) => {
   // @ts-ignore
@@ -179,6 +192,7 @@ const TabView = <Route extends BaseRoute>({
       onPageSelected={({ nativeEvent: { key } }) => {
         jumpTo(key);
       }}
+      barTintColor={processColor(barTintColor)}
       {...props}
     >
       {trimmedRoutes.map((route) => {
