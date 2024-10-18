@@ -124,7 +124,7 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
       LABEL_VISIBILITY_AUTO
     }
   }
-  fun setRippleColor(color: ColorStateList){
+  fun setRippleColor(color: ColorStateList) {
     itemRippleColor = color
   }
 

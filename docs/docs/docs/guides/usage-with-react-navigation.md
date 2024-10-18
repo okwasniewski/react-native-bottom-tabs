@@ -53,7 +53,7 @@ Whether to show labels in tabs. Defaults to true.
 
 #### `rippleColor`
 
-change ripple color on tab press. (Android Only)
+Changes ripple color on tab press. (Android Only)
 
 #### `disablePageAnimations`
 

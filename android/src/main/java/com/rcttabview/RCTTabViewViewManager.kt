@@ -69,7 +69,7 @@ class RCTTabViewViewManager :
     view.setIcons(icons)
   }
   @ReactProp(name = "rippleColor")
-  fun setRippleColor(view: ReactBottomNavigationView, rippleColor: Int?){
+  fun setRippleColor(view: ReactBottomNavigationView, rippleColor: Int?) {
     if(rippleColor!=null) {
       val color = ColorStateList.valueOf(rippleColor)
       view.setRippleColor(color)
