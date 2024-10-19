@@ -1,5 +1,12 @@
 import type { TabViewItems } from './TabViewNativeComponent';
-import { Image, Platform, StyleSheet, View } from 'react-native';
+import {
+  ColorValue,
+  Image,
+  Platform,
+  StyleSheet,
+  View,
+  processColor,
+} from 'react-native';
 
 //@ts-ignore
 import type { ImageSource } from 'react-native/Libraries/Image/ImageSource';
@@ -82,6 +89,7 @@ interface Props<Route extends BaseRoute> {
    * A Boolean value that indicates whether the tab bar is translucent. (iOS only)
    */
   translucent?: boolean;
+  rippleColor?: ColorValue;
 }
 
 const ANDROID_MAX_TABS = 6;
@@ -185,6 +193,7 @@ const TabView = <Route extends BaseRoute>({
         jumpTo(key);
       }}
       {...props}
+      rippleColor={processColor(props.rippleColor)}
     >
       {trimmedRoutes.map((route) => {
         if (getLazy({ route }) !== false && !loaded.includes(route.key)) {
