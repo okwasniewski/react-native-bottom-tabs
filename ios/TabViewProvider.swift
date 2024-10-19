@@ -13,9 +13,13 @@ struct TabData: Codable {
   let tabs: [TabInfo]
 }
 
-@objc public class TabViewProvider: UIView {
+@objc public class TabViewProvider: PlatformView {
   var props = TabViewProps()
+#if os(iOS)
   private var hostingController: UIHostingController<TabViewImpl>?
+#elseif os(macOS)
+  private var hostingController: NSHostingController<TabViewImpl>?
+#endif
   private var coalescingKey: UInt16 = 0
   private var eventDispatcher: RCTEventDispatcherProtocol?
   private var imageLoader: RCTImageLoaderProtocol?
@@ -40,7 +44,7 @@ struct TabData: Codable {
       props.disablePageAnimations = disablePageAnimations
     }
   }
-
+  
   @objc var labeled: Bool = true {
     didSet {
       props.labeled = labeled
@@ -81,27 +85,44 @@ struct TabData: Codable {
     props.children = reactSubviews()
   }
   
+#if !os(macOS)
   public override func layoutSubviews() {
     super.layoutSubviews()
     setupView()
     props.children = reactSubviews()
   }
+#else
+  public override func layout() {
+    super.layout()
+    setupView()
+    props.children = reactSubviews()
+  }
+#endif
   
   private func setupView() {
     if self.hostingController != nil {
       return
     }
-
-    self.hostingController = UIHostingController(rootView: TabViewImpl(props: props) { key in
+    
+    let eventDispatchCallback: (_ key: String) -> Void = { key in
       self.coalescingKey += 1
       self.eventDispatcher?.send(PageSelectedEvent(reactTag: self.reactTag, key: NSString(string: key), coalescingKey: self.coalescingKey))
-    })
+    }
+    
+#if !os(macOS)
+    self.hostingController = UIHostingController(rootView: TabViewImpl(props: props, onSelect: eventDispatchCallback))
+#else
+    self.hostingController = NSHostingController(rootView: TabViewImpl(props: props, onSelect: eventDispatchCallback))
+#endif
     if let hostingController = self.hostingController, let parentViewController = reactViewController() {
       parentViewController.addChild(hostingController)
       addSubview(hostingController.view)
       hostingController.view.translatesAutoresizingMaskIntoConstraints = false
       hostingController.view.pinEdges(to: self)
+      
+#if !os(macOS)
       hostingController.didMove(toParent: parentViewController)
+#endif
     }
   }
   
@@ -154,12 +175,23 @@ struct TabData: Codable {
   }
 }
 
-extension UIImage {
-  func resizeImageTo(size: CGSize) -> UIImage? {
+extension PlatformImage {
+  func resizeImageTo(size: CGSize) -> PlatformImage? {
+#if os(iOS)
     UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
-    self.draw(in: CGRect(origin: CGPoint.zero, size: size))
-    let resizedImage = UIGraphicsGetImageFromCurrentImageContext()!
+    self.draw(in: CGRect(origin: .zero, size: size))
+    let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
     return resizedImage
+#elseif os(macOS)
+    let newImage = NSImage(size: size)
+    newImage.lockFocus()
+    self.draw(in: CGRect(origin: .zero, size: size),
+              from: CGRect(origin: .zero, size: self.size),
+              operation: .copy,
+              fraction: 1.0)
+    newImage.unlockFocus()
+    return newImage
+#endif
   }
 }

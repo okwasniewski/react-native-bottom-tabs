@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   Button,
   Alert,
+  Platform,
 } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -42,7 +43,11 @@ const FourTabsTransparentScrollEdgeAppearance = () => {
 const examples = [
   { component: ThreeTabs, name: 'Three Tabs' },
   { component: FourTabs, name: 'Four Tabs' },
-  { component: SFSymbols, name: 'SF Symbols' },
+  {
+    component: SFSymbols,
+    name: 'SF Symbols',
+    screenOptions: { headerShown: false },
+  },
   { component: LabeledTabs, name: 'Labeled Tabs' },
   {
     component: FourTabsIgnoreSafeArea,
@@ -93,8 +98,10 @@ const Stack = createStackNavigator();
 
 const NativeStack = createNativeStackNavigator();
 
+const defaultStack = Platform.OS === 'macos' ? 'js' : 'native';
+
 export default function Navigation() {
-  const [mode, setMode] = React.useState<'native' | 'js'>('native');
+  const [mode, setMode] = React.useState<'native' | 'js'>(defaultStack);
   const NavigationStack = mode === 'js' ? Stack : NativeStack;
   return (
     <SafeAreaProvider>
