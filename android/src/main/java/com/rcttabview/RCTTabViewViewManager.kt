@@ -76,6 +76,11 @@ class RCTTabViewViewManager :
     }
   }
 
+  @ReactProp(name = "barStyle")
+  fun setBarStyle(view: ReactBottomNavigationView, barStyle: String?) {
+    view.setBarStyle(barStyle)
+  }
+
   public override fun createViewInstance(context: ThemedReactContext): ReactBottomNavigationView {
     eventDispatcher = context.getNativeModule(UIManagerModule::class.java)!!.eventDispatcher
     val view = ReactBottomNavigationView(context)

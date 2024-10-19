@@ -39,6 +39,10 @@ const FourTabsTransparentScrollEdgeAppearance = () => {
   return <FourTabs scrollEdgeAppearance="transparent" />;
 };
 
+const FourTabsWithBarStyle = () => {
+  return <FourTabs barStyle="default" />;
+};
+
 const examples = [
   { component: ThreeTabs, name: 'Three Tabs' },
   { component: FourTabs, name: 'Four Tabs' },
@@ -57,6 +61,10 @@ const examples = [
   {
     component: FourTabsTransparentScrollEdgeAppearance,
     name: 'Four Tabs - Transparent scroll edge appearance',
+  },
+  {
+    component: FourTabsWithBarStyle,
+    name: 'Four Tabs - Bar Style',
   },
   { component: NativeBottomTabs, name: 'Native Bottom Tabs' },
   { component: JSBottomTabs, name: 'JS Bottom Tabs' },

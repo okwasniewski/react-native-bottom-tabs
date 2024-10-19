@@ -48,6 +48,10 @@ interface Props<Route extends BaseRoute> {
    */
   scrollEdgeAppearance?: 'default' | 'opaque' | 'transparent';
   /**
+   * Can be used to force dark mode on tabs
+   */
+  barStyle?: 'default' | 'black';
+  /**
    * State for the tab view.
    *
    * The state should contain a `routes` prop which is an array of objects containing `key` and `title` props, such as `{ key: 'music', title: 'Music' }`.

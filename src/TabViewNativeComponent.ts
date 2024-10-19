@@ -24,6 +24,7 @@ export interface TabViewProps extends ViewProps {
   sidebarAdaptable?: boolean;
   scrollEdgeAppearance?: string;
   rippleColor?: ProcessedColorValue | null;
+  barStyle?: string;
 }
 
 export default codegenNativeComponent<TabViewProps>('RCTTabView');
