@@ -9,12 +9,14 @@ interface Props {
   ignoresTopSafeArea?: boolean;
   disablePageAnimations?: boolean;
   scrollEdgeAppearance?: 'default' | 'opaque' | 'transparent';
+  translucent?: boolean;
 }
 
 export default function FourTabs({
   ignoresTopSafeArea = false,
   disablePageAnimations = false,
   scrollEdgeAppearance = 'default',
+  translucent = true,
 }: Props) {
   const [index, setIndex] = useState(0);
   const [routes] = useState([
@@ -59,6 +61,7 @@ export default function FourTabs({
       navigationState={{ index, routes }}
       onIndexChange={setIndex}
       renderScene={renderScene}
+      translucent={translucent}
     />
   );
 }

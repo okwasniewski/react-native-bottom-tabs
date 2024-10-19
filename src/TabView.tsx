@@ -77,6 +77,11 @@ interface Props<Route extends BaseRoute> {
     route: Route;
     focused: boolean;
   }) => ImageSource | undefined;
+
+  /**
+   * A Boolean value that indicates whether the tab bar is translucent. (iOS only)
+   */
+  translucent?: boolean;
 }
 
 const ANDROID_MAX_TABS = 6;
