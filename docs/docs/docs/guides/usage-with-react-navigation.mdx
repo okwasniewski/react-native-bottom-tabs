@@ -7,7 +7,7 @@ To use this navigator, ensure that you have [`@react-navigation/native` and its 
 :::
 
 ```tsx
-import {createNativeBottomTabNavigator} from 'react-native-bottom-tabs/react-navigation';
+import { createNativeBottomTabNavigator } from 'react-native-bottom-tabs/react-navigation';
 
 const Tabs = createNativeBottomTabNavigator();
 
@@ -17,15 +17,15 @@ function NativeBottomTabs() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Home",
-          tabBarIcon: () => ({ sfSymbol: "house" }),
+          title: 'Home',
+          tabBarIcon: () => ({ sfSymbol: 'house' }),
         }}
       />
       <Tabs.Screen
         name="explore"
         options={{
-          title: "Explore",
-          tabBarIcon: () => ({ sfSymbol: "person" }),
+          title: 'Explore',
+          tabBarIcon: () => ({ sfSymbol: 'person' }),
         }}
       />
     </Tabs.Navigator>
@@ -53,6 +53,10 @@ Default options to use for the screens in the navigator.
 
 Whether to show labels in tabs. Defaults to true.
 
+#### `rippleColor`
+
+Changes ripple color on tab press. (Android Only)
+
 #### `disablePageAnimations` <Badge text="iOS" type="info" />
 
 Whether to disable page animations between tabs.
@@ -66,6 +70,7 @@ Describes the appearance attributes for the tabBar to use when an observable scr
 Background color of the tab bar.
 
 Available options:
+
 - `default` - uses default background and shadow values.
 - `transparent` - uses transparent background and no shadow.
 - `opaque` - uses set of opaque colors that are appropriate for the current theme
@@ -74,17 +79,16 @@ Available options:
 It's recommended to use `transparent` or `opaque` without lazy loading as the tab bar background flashes when a view is rendered lazily.
 :::
 
-
 #### `sidebarAdaptable` <Badge text="iOS" type="info" />
 
 A tab bar style that adapts to each platform.
 
 Tab views using the sidebar adaptable style have an appearance
+
 - iPadOS displays a top tab bar that can adapt into a sidebar.
 - iOS displays a bottom tab bar.
 - macOS and tvOS always show a sidebar.
 - visionOS shows an ornament and also shows a sidebar for secondary tabs within a `TabSection`.
-
 
 ### Options
 
@@ -101,8 +105,6 @@ Label text of the tab displayed in the navigation bar. When undefined, scene tit
 #### `tabBarIcon`
 
 Function that given `{ focused: boolean }` returns `ImageSource` or `AppleIcon` to display in the navigation bar.
-
-
 
 ```tsx
 <Tab.Screen

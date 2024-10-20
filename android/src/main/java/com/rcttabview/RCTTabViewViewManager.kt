@@ -1,5 +1,7 @@
 package com.rcttabview
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.view.View.MeasureSpec
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.common.MapBuilder
@@ -36,13 +38,13 @@ class RCTTabViewViewManager :
     val itemsArray = mutableListOf<TabInfo>()
     for (i in 0 until items.size()) {
       items.getMap(i).let { item ->
-          itemsArray.add(
-            TabInfo(
-              key = item.getString("key") ?: "",
-              title = item.getString("title") ?: "",
-              badge = item.getString("badge") ?: ""
-            )
+        itemsArray.add(
+          TabInfo(
+            key = item.getString("key") ?: "",
+            title = item.getString("title") ?: "",
+            badge = item.getString("badge") ?: ""
           )
+        )
       }
     }
     view.updateItems(itemsArray)
@@ -54,7 +56,6 @@ class RCTTabViewViewManager :
       view.selectedItemId = it
     }
   }
-
 
 
   @ReactProp(name = "labeled")
@@ -71,13 +72,21 @@ class RCTTabViewViewManager :
   fun setBarTintColor(view: ReactBottomNavigationView, color: Int?) {
     view.setBarTintColor(color)
   }
+  
+  @ReactProp(name = "rippleColor")
+  fun setRippleColor(view: ReactBottomNavigationView, rippleColor: Int?) {
+    if (rippleColor != null) {
+      val color = ColorStateList.valueOf(rippleColor)
+      view.setRippleColor(color)
+    }
+  }
 
   public override fun createViewInstance(context: ThemedReactContext): ReactBottomNavigationView {
     eventDispatcher = context.getNativeModule(UIManagerModule::class.java)!!.eventDispatcher
     val view = ReactBottomNavigationView(context)
     view.onTabSelectedListener = { data ->
       data.getString("key")?.let {
-        eventDispatcher.dispatchEvent(PageSelectedEvent(viewTag = view.id, key = it ))
+        eventDispatcher.dispatchEvent(PageSelectedEvent(viewTag = view.id, key = it))
       }
     }
     return view
@@ -138,11 +147,14 @@ class RCTTabViewViewManager :
   // iOS Props
 
   @ReactProp(name = "sidebarAdaptable")
-  fun setSidebarAdaptable(view: ReactBottomNavigationView, flag: Boolean) {}
+  fun setSidebarAdaptable(view: ReactBottomNavigationView, flag: Boolean) {
+  }
 
   @ReactProp(name = "ignoresTopSafeArea")
-  fun setIgnoresTopSafeArea(view: ReactBottomNavigationView, flag: Boolean) {}
+  fun setIgnoresTopSafeArea(view: ReactBottomNavigationView, flag: Boolean) {
+  }
 
   @ReactProp(name = "disablePageAnimations")
-  fun setDisablePageAnimations(view: ReactBottomNavigationView, flag: Boolean) {}
+  fun setDisablePageAnimations(view: ReactBottomNavigationView, flag: Boolean) {
+  }
 }

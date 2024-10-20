@@ -1,6 +1,8 @@
 package com.rcttabview
 
 import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
@@ -76,7 +78,7 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
 
   fun updateItems(items: MutableList<TabInfo>) {
     this.items = items
-    items.forEachIndexed {index, item ->
+    items.forEachIndexed { index, item ->
       val menuItem = getOrCreateItem(index, item.title)
       if (icons.containsKey(index)) {
         menuItem.icon = getDrawable(icons[index]!!)
@@ -124,6 +126,10 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
     } else {
       LABEL_VISIBILITY_AUTO
     }
+  }
+
+  fun setRippleColor(color: ColorStateList) {
+    itemRippleColor = color
   }
 
   private fun getDrawable(imageSource: ImageSource): Drawable {

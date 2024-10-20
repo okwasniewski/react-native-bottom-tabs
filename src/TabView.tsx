@@ -89,6 +89,7 @@ interface Props<Route extends BaseRoute> {
    * Background color of the tab bar.
    */
   barTintColor?: ColorValue;
+  rippleColor?: ColorValue;
 }
 
 const ANDROID_MAX_TABS = 6;
@@ -194,6 +195,7 @@ const TabView = <Route extends BaseRoute>({
       }}
       barTintColor={processColor(barTintColor)}
       {...props}
+      rippleColor={processColor(props.rippleColor)}
     >
       {trimmedRoutes.map((route) => {
         if (getLazy({ route }) !== false && !loaded.includes(route.key)) {
