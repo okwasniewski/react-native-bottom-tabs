@@ -64,7 +64,6 @@ struct TabViewImpl: View {
       }
     }
     .getSidebarAdaptable(enabled: props.sidebarAdaptable ?? false)
-    .tabBarTranslucent(props.translucent)
     .onChange(of: props.selectedPage ?? "") { newValue in
       if (props.disablePageAnimations) {
         UIView.setAnimationsEnabled(false)
@@ -74,19 +73,22 @@ struct TabViewImpl: View {
       }
       onSelect(newValue)
     }
-    .onChange(of: props.scrollEdgeAppearance) { newValue in
-      if #available(iOS 15.0, *) {
-        UITabBar.appearance().scrollEdgeAppearance = configureAppearance(for: newValue ?? "")
-      }
+    .onAppear() {
+      updateTabBarAppearance(props: props)
     }
-    .onAppear {
-        updateTabBarAppearance(with: props.barTintColor)
+    .onChange(of: props.barTintColor) { newValue in
+      updateTabBarAppearance(props: props)
+    }
+    .onChange(of: props.scrollEdgeAppearance) { newValue in
+      updateTabBarAppearance(props: props)
+    }
+    .onChange(of: props.translucent) { newValue in
+      updateTabBarAppearance(props: props)
     }
   }
 }
 
-private func configureAppearance(for appearanceType: String) -> UITabBarAppearance {
-  let appearance = UITabBarAppearance()
+private func configureAppearance(for appearanceType: String, appearance: UITabBarAppearance) -> UITabBarAppearance {
   
   switch appearanceType {
   case "opaque":
@@ -100,17 +102,24 @@ private func configureAppearance(for appearanceType: String) -> UITabBarAppearan
   return appearance
 }
 
-// Helper function to update the tab bar appearance
-private func updateTabBarAppearance(with barTintColor: UIColor?) {
-    
+private func updateTabBarAppearance(props: TabViewProps) {
   if #available(iOS 15.0, *) {
     let appearance = UITabBarAppearance()
       
-    appearance.backgroundColor = barTintColor
+    UITabBar.appearance().scrollEdgeAppearance = configureAppearance(for: props.scrollEdgeAppearance ?? "", appearance: appearance)
+    
+    if props.translucent == false {
+      appearance.configureWithOpaqueBackground()
+    }
+      
+    if props.barTintColor != nil {
+      appearance.backgroundColor = props.barTintColor
+    }
+      
     UITabBar.appearance().standardAppearance = appearance
-    UITabBar.appearance().scrollEdgeAppearance = appearance
   } else {
-    UITabBar.appearance().barTintColor = barTintColor
+    UITabBar.appearance().barTintColor = props.barTintColor
+    UITabBar.appearance().isTranslucent = props.translucent
   }
 }
 
@@ -177,15 +186,4 @@ extension View {
         .frame(idealWidth: frame.width, idealHeight: frame.height)
       }
     }
-    
-  @ViewBuilder
-  func tabBarTranslucent(_ translucent: Bool) -> some View {
-    self
-      .onAppear {
-        UITabBar.appearance().isTranslucent = translucent
-      }
-      .onChange(of: translucent) { newValue in
-        UITabBar.appearance().isTranslucent = newValue
-      }
-  }
 }
