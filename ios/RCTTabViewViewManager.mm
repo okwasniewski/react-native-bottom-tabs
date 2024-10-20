@@ -33,5 +33,6 @@ RCT_EXPORT_VIEW_PROPERTY(ignoresTopSafeArea, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(disablePageAnimations, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(scrollEdgeAppearance, NSString)
 RCT_EXPORT_VIEW_PROPERTY(barTintColor, NSNumber)
+RCT_EXPORT_VIEW_PROPERTY(translucent, BOOL)
 
 @end

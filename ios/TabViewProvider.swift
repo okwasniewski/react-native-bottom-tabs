@@ -64,6 +64,12 @@ struct TabData: Codable {
       props.scrollEdgeAppearance = scrollEdgeAppearance as? String
     }
   }
+    
+  @objc var translucent: Bool = true {
+    didSet {
+      props.translucent = translucent
+    }
+  }
   
   @objc var items: NSArray? {
     didSet {

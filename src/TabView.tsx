@@ -89,6 +89,10 @@ interface Props<Route extends BaseRoute> {
    * Background color of the tab bar.
    */
   barTintColor?: ColorValue;
+  /**
+   * A Boolean value that indicates whether the tab bar is translucent. (iOS only)
+   */
+  translucent?: boolean;
   rippleColor?: ColorValue;
 }
 
