@@ -160,14 +160,14 @@ extension View {
       }
     }
     
-    @ViewBuilder
-    func tabBarTranslucent(_ translucent: Bool) -> some View {
-        self
-            .onAppear {
-                UITabBar.appearance().isTranslucent = translucent
-            }
-            .onChange(of: translucent) { newValue in
-                UITabBar.appearance().isTranslucent = newValue
-            }
-    }
+  @ViewBuilder
+  func tabBarTranslucent(_ translucent: Bool) -> some View {
+    self
+      .onAppear {
+        UITabBar.appearance().isTranslucent = translucent
+      }
+      .onChange(of: translucent) { newValue in
+        UITabBar.appearance().isTranslucent = newValue
+      }
+  }
 }
