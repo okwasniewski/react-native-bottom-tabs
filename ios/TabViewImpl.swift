@@ -6,8 +6,8 @@ import React
  Props that component accepts. SwiftUI view gets re-rendered when ObservableObject changes.
  */
 class TabViewProps: ObservableObject {
-  @Published var children: [UIView]?
-  @Published var items: TabData?
+  @Published var children: [UIView] = []
+  @Published var items: [TabInfo] = []
   @Published var selectedPage: String?
   @Published var icons: [Int: UIImage] = [:]
   @Published var sidebarAdaptable: Bool?
@@ -15,16 +15,16 @@ class TabViewProps: ObservableObject {
   @Published var ignoresTopSafeArea: Bool?
   @Published var disablePageAnimations: Bool = false
   @Published var scrollEdgeAppearance: String?
-  @Published var barTintColor: UIColor?
   @Published var translucent: Bool = true
+  @Published var barTintColor: UIColor?
   @Published var activeTintColor: UIColor?
   @Published var inactiveTintColor: UIColor?
   
   var selectedActiveTintColor: UIColor? {
     if let selectedPage = selectedPage,
-       let tabData = items?.tabs.findByKey(selectedPage),
+       let tabData = items.findByKey(selectedPage),
        let activeTintColor = tabData.activeTintColor {
-      return RCTConvert.uiColor(activeTintColor)
+      return activeTintColor
     }
     
     return activeTintColor
@@ -54,9 +54,9 @@ struct TabViewImpl: View {
   
   var body: some View {
     TabView(selection: $props.selectedPage) {
-      ForEach(props.children?.indices ?? 0..<0, id: \.self) { index in
-        let child = props.children?[safe: index] ?? UIView()
-        let tabData = props.items?.tabs[safe: index]
+      ForEach(props.children.indices, id: \.self) { index in
+        let child = props.children[safe: index] ?? UIView()
+        let tabData = props.items[safe: index]
         let icon = props.icons[index]
         
         RepresentableView(view: child)
@@ -77,9 +77,9 @@ struct TabViewImpl: View {
       }
     }
     .onTabItemLongPress({ index in
-        if let key = props.items?.tabs[safe: index]?.key {
-          onLongPress(key)
-        }
+      if let key = props.items[safe: index]?.key {
+        onLongPress(key)
+      }
     })
     .tintColor(props.selectedActiveTintColor)
     .getSidebarAdaptable(enabled: props.sidebarAdaptable ?? false)

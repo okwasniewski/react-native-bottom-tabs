@@ -224,10 +224,10 @@ const TabView = <Route extends BaseRoute>({
         jumpTo(key);
       }}
       {...props}
-      activeTintColor={processColor(activeTintColor)}
-      inactiveTintColor={processColor(inactiveTintColor)}
-      barTintColor={processColor(barTintColor)}
-      rippleColor={processColor(rippleColor)}
+      activeTintColor={activeTintColor}
+      inactiveTintColor={inactiveTintColor}
+      barTintColor={barTintColor}
+      rippleColor={rippleColor}
     >
       {trimmedRoutes.map((route) => {
         if (getLazy({ route }) !== false && !loaded.includes(route.key)) {
@@ -235,12 +235,19 @@ const TabView = <Route extends BaseRoute>({
           if (Platform.OS === 'android') {
             return null;
           }
-          return <View key={route.key} style={styles.fullWidth} />;
+          return (
+            <View
+              key={route.key}
+              collapsable={false}
+              style={styles.fullWidth}
+            />
+          );
         }
 
         return (
           <View
             key={route.key}
+            collapsable={false}
             style={[
               styles.fullWidth,
               Platform.OS === 'android' && {

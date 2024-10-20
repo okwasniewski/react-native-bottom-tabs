@@ -1,30 +1,34 @@
 import React
 
-class TabLongPressEvent: NSObject, RCTEvent {
-  var viewTag: NSNumber
-  private var key: NSString
-  internal var coalescingKey: UInt16
 
-  var eventName: String {
+// RCTEvent is not defined for new arch.
+protocol RCTEvent {}
+
+@objc public class TabLongPressEvent: NSObject, RCTEvent {
+  public var viewTag: NSNumber
+  private var key: NSString
+  public var coalescingKey: UInt16
+
+  public var eventName: String {
     return "onTabLongPress"
   }
 
-  init(reactTag: NSNumber, key: NSString, coalescingKey: UInt16) {
+  @objc public init(reactTag: NSNumber, key: NSString, coalescingKey: UInt16) {
     self.viewTag = reactTag
     self.key = key
     self.coalescingKey = coalescingKey
     super.init()
   }
 
-  func canCoalesce() -> Bool {
+  public func canCoalesce() -> Bool {
     return false
   }
 
-  class func moduleDotMethod() -> String {
+  public class func moduleDotMethod() -> String {
     return "RCTEventEmitter.receiveEvent"
   }
 
-  func arguments() -> [Any] {
+  public func arguments() -> [Any] {
     return [
       viewTag,
       RCTNormalizeInputEventName(eventName),

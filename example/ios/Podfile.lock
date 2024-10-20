@@ -1232,7 +1232,71 @@ PODS:
     - SwiftUIIntrospect (~> 1.0)
     - Yoga
   - react-native-safe-area-context (4.11.0):
+    - DoubleConversion
+    - glog
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
     - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - react-native-safe-area-context/common (= 4.11.0)
+    - react-native-safe-area-context/fabric (= 4.11.0)
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
+  - react-native-safe-area-context/common (4.11.0):
+    - DoubleConversion
+    - glog
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
+  - react-native-safe-area-context/fabric (4.11.0):
+    - DoubleConversion
+    - glog
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - react-native-safe-area-context/common
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
   - React-nativeconfig (0.75.3)
   - React-NativeModulesApple (0.75.3):
     - glog
@@ -1491,6 +1555,7 @@ PODS:
     - React-ImageManager
     - React-jsi
     - React-NativeModulesApple
+    - React-RCTAppDelegate
     - React-RCTFabric
     - React-rendererdebug
     - React-utils
@@ -1524,6 +1589,29 @@ PODS:
     - ReactCommon/turbomodule/core
     - Yoga
   - RNScreens (3.34.0):
+    - DoubleConversion
+    - glog
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-RCTImage
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - RNScreens/common (= 3.34.0)
+    - Yoga
+  - RNScreens/common (3.34.0):
     - DoubleConversion
     - glog
     - RCT-Folly (= 2024.01.01.00)
@@ -1578,6 +1666,7 @@ DEPENDENCIES:
   - React-idlecallbacksnativemodule (from `../node_modules/react-native/ReactCommon/react/nativemodule/idlecallbacks`)
   - React-ImageManager (from `../node_modules/react-native/ReactCommon/react/renderer/imagemanager/platform/ios`)
   - React-jsc (from `../node_modules/react-native/ReactCommon/jsc`)
+  - React-jsc/Fabric (from `../node_modules/react-native/ReactCommon/jsc`)
   - React-jserrorhandler (from `../node_modules/react-native/ReactCommon/jserrorhandler`)
   - React-jsi (from `../node_modules/react-native/ReactCommon/jsi`)
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
@@ -1804,9 +1893,9 @@ SPEC CHECKSUMS:
   React-performancetimeline: d15a723422ed500f47cb271f3175abbeb217f5ba
   React-RCTActionSheet: cb2b38a53d03ec22f1159c89667b86c2c490d92d
   React-RCTAnimation: 6836c87c7364f471e9077fda80b7349bc674be33
-  React-RCTAppDelegate: fb2037d3472bda5c31ea16a04cc48e19fe81c792
+  React-RCTAppDelegate: 8939a29da847bc51a01264d020a58d9d5035e119
   React-RCTBlob: 984c80df29f3b3e3193bfbc2768bd302c889719b
-  React-RCTFabric: 5e691cfb4cd3a9060ddbfb04916284c3c6a933e8
+  React-RCTFabric: 4bb022567aacec7417d04741cba7e7baaeec6add
   React-RCTImage: 1b2c2c1716db859ffff2d7a06a30b0ec5c677fc5
   React-RCTLinking: 59c07577767e705b0ab95d11e5ad74c61bf2a022
   React-RCTNetwork: f9a827e7d6bc428e0d99cd1fbe0427854354b8c1
@@ -1834,4 +1923,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 539add55dc6c2e7f9754e288b1ce4fd8583819ae
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.14.3

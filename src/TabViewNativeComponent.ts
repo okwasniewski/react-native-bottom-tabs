@@ -1,5 +1,5 @@
 import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
-import type { ProcessedColorValue, ViewProps } from 'react-native';
+import type { ColorValue, ProcessedColorValue, ViewProps } from 'react-native';
 import type { DirectEventHandler } from 'react-native/Libraries/Types/CodegenTypes';
 //@ts-ignore
 import type { ImageSource } from 'react-native/Libraries/Image/ImageSource';
@@ -25,11 +25,13 @@ export interface TabViewProps extends ViewProps {
   labeled?: boolean;
   sidebarAdaptable?: boolean;
   scrollEdgeAppearance?: string;
-  barTintColor?: ProcessedColorValue | null;
+  barTintColor?: ColorValue;
   translucent?: boolean;
-  rippleColor?: ProcessedColorValue | null;
-  activeTintColor?: ProcessedColorValue | null;
-  inactiveTintColor?: ProcessedColorValue | null;
+  rippleColor?: ColorValue;
+  activeTintColor?: ColorValue;
+  inactiveTintColor?: ColorValue;
+  ignoresTopSafeArea?: boolean;
+  disablePageAnimations?: boolean;
 }
 
-export default codegenNativeComponent<TabViewProps>('RCTTabView');
+export default codegenNativeComponent<TabViewProps>('RNCTabView');

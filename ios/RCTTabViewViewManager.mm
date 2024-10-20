@@ -9,17 +9,22 @@
 #import "react_native_bottom_tabs-Swift.h"
 #endif
 
-@interface RCTTabView : RCTViewManager
+@interface RCTTabView : RCTViewManager <TabViewProviderDelegate>
 @end
 
-@implementation RCTTabView
+@implementation RCTTabView {
+  uint16_t _coalescingKey;
+}
 
-RCT_EXPORT_MODULE(RCTTabView)
+RCT_EXPORT_MODULE(RNCTabView)
 
-- (UIView *)view
+- (instancetype)init
 {
-  RCTImageLoader *imageLoader = [self.bridge moduleForClass:[RCTImageLoader class]];
-  return [[TabViewProvider alloc] initWithEventDispatcher:self.bridge.eventDispatcher imageLoader:imageLoader];
+  self = [super init];
+  if (self) {
+    _coalescingKey = 0;
+  }
+  return self;
 }
 
 RCT_EXPORT_VIEW_PROPERTY(items, NSArray)
@@ -37,5 +42,23 @@ RCT_EXPORT_VIEW_PROPERTY(barTintColor, NSNumber)
 RCT_EXPORT_VIEW_PROPERTY(translucent, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(activeTintColor, NSNumber)
 RCT_EXPORT_VIEW_PROPERTY(inactiveTintColor, NSNumber)
+
+//  MARK: TabViewProviderDelegate
+
+- (void)onLongPressWithKey:(NSString *)key reactTag:(NSNumber *)reactTag {
+  auto event = [[TabLongPressEvent alloc] initWithReactTag:reactTag key:key coalescingKey:_coalescingKey++];
+  [self.bridge.eventDispatcher sendEvent:event];
+}
+
+- (void)onPageSelectedWithKey:(NSString *)key reactTag:(NSNumber *)reactTag {
+  auto event = [[PageSelectedEvent alloc] initWithReactTag:reactTag key:key coalescingKey:_coalescingKey++];
+  [self.bridge.eventDispatcher sendEvent:event];
+}
+
+- (UIView *)view
+{
+  RCTImageLoader *imageLoader = [self.bridge moduleForClass:[RCTImageLoader class]];
+  return [[TabViewProvider alloc] initWithDelegate:self imageLoader:imageLoader];
+}
 
 @end
