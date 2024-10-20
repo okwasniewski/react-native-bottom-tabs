@@ -1,7 +1,7 @@
 package com.rcttabview
 
 import android.content.res.ColorStateList
-import android.view.View
+import android.graphics.Color
 import android.view.View.MeasureSpec
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.common.MapBuilder
