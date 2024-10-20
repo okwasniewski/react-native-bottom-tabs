@@ -2,84 +2,100 @@ import Foundation
 import SwiftUI
 import React
 
-struct TabInfo: Codable {
+public struct TabInfo {
   let key: String
   let title: String
   let badge: String
   let sfSymbol: String
 }
 
-struct TabData: Codable {
+struct TabData {
   let tabs: [TabInfo]
 }
 
+@objc public protocol TabViewProviderDelegate {
+  func onPageSelected(key: String)
+}
+
 @objc public class TabViewProvider: UIView {
-  var props = TabViewProps()
+  private var delegate: TabViewProviderDelegate?
+  private var props = TabViewProps()
   private var hostingController: UIHostingController<TabViewImpl>?
   private var coalescingKey: UInt16 = 0
-  private var eventDispatcher: RCTEventDispatcherProtocol?
   private var imageLoader: RCTImageLoaderProtocol?
   private var iconSize = CGSize(width: 27, height: 27)
   
+  deinit {
+    hostingController?.willMove(toParent: nil)
+    hostingController?.removeFromParent()
+    hostingController = nil
+  }
+  
   @objc var onPageSelected: RCTDirectEventBlock?
   
-  @objc var icons: NSArray? {
+  @objc public var icons: NSArray? {
     didSet {
       loadIcons(icons)
     }
   }
   
-  @objc var sidebarAdaptable: Bool = false {
+  @objc public var children: [UIView] = [] {
+    didSet {
+      props.children = children
+    }
+  }
+  
+  @objc public var sidebarAdaptable: Bool = false {
     didSet {
       props.sidebarAdaptable = sidebarAdaptable
     }
   }
   
-  @objc var disablePageAnimations: Bool = false {
+  @objc public var disablePageAnimations: Bool = false {
     didSet {
       props.disablePageAnimations = disablePageAnimations
     }
   }
 
-  @objc var labeled: Bool = true {
+  @objc public var labeled: Bool = true {
     didSet {
       props.labeled = labeled
     }
   }
   
-  @objc var ignoresTopSafeArea: Bool = false {
+  @objc public var ignoresTopSafeArea: Bool = false {
     didSet {
       props.ignoresTopSafeArea = ignoresTopSafeArea
     }
   }
   
-  @objc var selectedPage: NSString? {
+  @objc public var selectedPage: NSString? {
     didSet {
       props.selectedPage = selectedPage as? String
     }
   }
   
-  @objc var scrollEdgeAppearance: NSString? {
+  @objc public var scrollEdgeAppearance: NSString? {
     didSet {
       props.scrollEdgeAppearance = scrollEdgeAppearance as? String
     }
   }
     
-  @objc var translucent: Bool = true {
+  @objc public var translucent: Bool = true {
     didSet {
       props.translucent = translucent
     }
   }
   
-  @objc var items: NSArray? {
+  @objc public var items: NSArray? {
     didSet {
       props.items = parseTabData(from: items)
     }
   }
   
-  @objc public convenience init(eventDispatcher: RCTEventDispatcherProtocol, imageLoader: RCTImageLoader) {
+  @objc public convenience init(delegate: TabViewProviderDelegate, imageLoader: RCTImageLoader) {
     self.init()
-    self.eventDispatcher = eventDispatcher
+    self.delegate = delegate
     self.imageLoader = imageLoader
   }
   
@@ -90,7 +106,6 @@ struct TabData: Codable {
   public override func layoutSubviews() {
     super.layoutSubviews()
     setupView()
-    props.children = reactSubviews()
   }
   
   private func setupView() {
@@ -98,10 +113,12 @@ struct TabData: Codable {
       return
     }
 
-    self.hostingController = UIHostingController(rootView: TabViewImpl(props: props) { key in
-      self.coalescingKey += 1
-      self.eventDispatcher?.send(PageSelectedEvent(reactTag: self.reactTag, key: NSString(string: key), coalescingKey: self.coalescingKey))
-    })
+    self.hostingController = UIHostingController(
+      rootView: TabViewImpl(props: props) { key in
+        self.coalescingKey += 1
+        self.delegate?.onPageSelected(key: key)
+      })
+    
     if let hostingController = self.hostingController, let parentViewController = reactViewController() {
       parentViewController.addChild(hostingController)
       addSubview(hostingController.view)
@@ -121,8 +138,8 @@ struct TabData: Codable {
           with: imageSource.request,
           size: imageSource.size,
           scale: imageSource.scale,
-          clipped: true,
-          resizeMode: RCTResizeMode.contain,
+          clipped: false,
+          resizeMode: RCTResizeMode.cover,
           progressBlock: { _,_ in },
           partialLoad: { _ in },
           completionBlock: { error, image in
@@ -157,15 +174,5 @@ struct TabData: Codable {
     }
     
     return TabData(tabs: items)
-  }
-}
-
-extension UIImage {
-  func resizeImageTo(size: CGSize) -> UIImage? {
-    UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
-    self.draw(in: CGRect(origin: CGPoint.zero, size: size))
-    let resizedImage = UIGraphicsGetImageFromCurrentImageContext()!
-    UIGraphicsEndImageContext()
-    return resizedImage
   }
 }

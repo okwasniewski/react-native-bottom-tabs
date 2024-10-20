@@ -201,12 +201,19 @@ const TabView = <Route extends BaseRoute>({
           if (Platform.OS === 'android') {
             return null;
           }
-          return <View key={route.key} style={styles.fullWidth} />;
+          return (
+            <View
+              key={route.key}
+              collapsable={false}
+              style={styles.fullWidth}
+            />
+          );
         }
 
         return (
           <View
             key={route.key}
+            collapsable={false}
             style={[
               styles.fullWidth,
               Platform.OS === 'android' && {
