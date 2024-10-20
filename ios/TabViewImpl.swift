@@ -15,6 +15,7 @@ class TabViewProps: ObservableObject {
   @Published var ignoresTopSafeArea: Bool?
   @Published var disablePageAnimations: Bool = false
   @Published var scrollEdgeAppearance: String?
+  @Published var translucent: Bool = true
 }
 
 /**
@@ -62,6 +63,7 @@ struct TabViewImpl: View {
       }
     }
     .getSidebarAdaptable(enabled: props.sidebarAdaptable ?? false)
+    .tabBarTranslucent(props.translucent)
     .onChange(of: props.selectedPage ?? "") { newValue in
       if (props.disablePageAnimations) {
         UIView.setAnimationsEnabled(false)
@@ -155,6 +157,17 @@ extension View {
         .ignoresSafeArea(.container, edges: .horizontal)
         .ignoresSafeArea(.container, edges: .bottom)
         .frame(idealWidth: frame.width, idealHeight: frame.height)
+      }
     }
+    
+  @ViewBuilder
+  func tabBarTranslucent(_ translucent: Bool) -> some View {
+    self
+      .onAppear {
+        UITabBar.appearance().isTranslucent = translucent
+      }
+      .onChange(of: translucent) { newValue in
+        UITabBar.appearance().isTranslucent = newValue
+      }
   }
 }

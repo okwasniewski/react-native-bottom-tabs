@@ -85,6 +85,10 @@ interface Props<Route extends BaseRoute> {
     focused: boolean;
   }) => ImageSource | undefined;
 
+  /**
+   * A Boolean value that indicates whether the tab bar is translucent. (iOS only)
+   */
+  translucent?: boolean;
   rippleColor?: ColorValue;
 }
 

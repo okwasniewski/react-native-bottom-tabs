@@ -10,6 +10,7 @@ interface Props {
   ignoresTopSafeArea?: boolean;
   disablePageAnimations?: boolean;
   scrollEdgeAppearance?: 'default' | 'opaque' | 'transparent';
+  translucent?: boolean;
   rippleColor?: ColorValue;
 }
 
@@ -17,6 +18,7 @@ export default function FourTabs({
   ignoresTopSafeArea = false,
   disablePageAnimations = false,
   scrollEdgeAppearance = 'default',
+  translucent = true,
   rippleColor,
 }: Props) {
   const [index, setIndex] = useState(0);
@@ -62,6 +64,7 @@ export default function FourTabs({
       navigationState={{ index, routes }}
       onIndexChange={setIndex}
       renderScene={renderScene}
+      translucent={translucent}
       rippleColor={rippleColor}
     />
   );

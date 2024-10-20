@@ -76,6 +76,10 @@ class RCTTabViewViewManager :
     }
   }
 
+  @ReactProp(name = "translucent")
+  fun setTranslucentview(view: ReactBottomNavigationView, translucent: Boolean?) {
+  }
+
   public override fun createViewInstance(context: ThemedReactContext): ReactBottomNavigationView {
     eventDispatcher = context.getNativeModule(UIManagerModule::class.java)!!.eventDispatcher
     val view = ReactBottomNavigationView(context)
