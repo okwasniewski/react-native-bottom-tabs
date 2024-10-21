@@ -6,7 +6,7 @@ import React
  Props that component accepts. SwiftUI view gets re-rendered when ObservableObject changes.
  */
 class TabViewProps: ObservableObject {
-  @Published var children: [UIView]?
+  @Published var children: [UIView] = []
   @Published var items: TabData?
   @Published var selectedPage: String?
   @Published var icons: [Int: UIImage] = [:]
@@ -41,8 +41,8 @@ struct TabViewImpl: View {
   
   var body: some View {
     TabView(selection: $props.selectedPage) {
-      ForEach(props.children?.indices ?? 0..<0, id: \.self) { index in
-        let child = props.children?[safe: index] ?? UIView()
+      ForEach(props.children.indices, id: \.self) { index in
+        let child = props.children[safe: index] ?? UIView()
         let tabData = props.items?.tabs[safe: index]
         let icon = props.icons[index]
         
@@ -53,7 +53,7 @@ struct TabViewImpl: View {
           )
           .tabItem {
             TabItem(
-              title: tabData?.title,
+              title: tabData?.title ?? "Tab",
               icon: icon,
               sfSymbol: tabData?.sfSymbol,
               labeled: props.labeled

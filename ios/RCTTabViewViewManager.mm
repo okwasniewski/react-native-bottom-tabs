@@ -14,13 +14,15 @@
 
 @implementation RCTTabView
 
-RCT_EXPORT_MODULE(RCTTabView)
+RCT_EXPORT_MODULE(RNCTabView)
 
+#if !RCT_NEW_ARCH_ENABLED
 - (UIView *)view
 {
   RCTImageLoader *imageLoader = [self.bridge moduleForClass:[RCTImageLoader class]];
   return [[TabViewProvider alloc] initWithEventDispatcher:self.bridge.eventDispatcher imageLoader:imageLoader];
 }
+#endif
 
 RCT_EXPORT_VIEW_PROPERTY(items, NSArray)
 RCT_EXPORT_VIEW_PROPERTY(onPageSelected, RCTDirectEventBlock)

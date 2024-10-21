@@ -26,6 +26,8 @@ export interface TabViewProps extends ViewProps {
   barTintColor?: ProcessedColorValue | null;
   translucent?: boolean;
   rippleColor?: ProcessedColorValue | null;
+  ignoresTopSafeArea?: boolean;
+  disablePageAnimations?: boolean;
 }
 
-export default codegenNativeComponent<TabViewProps>('RCTTabView');
+export default codegenNativeComponent<TabViewProps>('RNCTabView');
