@@ -64,14 +64,22 @@ class RCTTabViewImpl {
     view.setIcons(icons)
   }
 
-
+  @ReactProp(name = "barTintColor")
+  fun setBarTintColor(view: ReactBottomNavigationView, color: Int?) {
+    view.setBarTintColor(color)
+  }
+  
+  @ReactProp(name = "rippleColor")
   fun setRippleColor(view: ReactBottomNavigationView, rippleColor: Int?) {
     if (rippleColor != null) {
       val color = ColorStateList.valueOf(rippleColor)
       view.setRippleColor(color)
     }
   }
-
+  @ReactProp(name = "translucent")
+  fun setTranslucentview(view: ReactBottomNavigationView, translucent: Boolean?) {
+  }
+  
   fun createViewInstance(context: ThemedReactContext): ReactBottomNavigationView {
     val view = ReactBottomNavigationView(context)
     tabView = view

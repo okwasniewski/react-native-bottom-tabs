@@ -85,6 +85,14 @@ interface Props<Route extends BaseRoute> {
     focused: boolean;
   }) => ImageSource | undefined;
 
+  /**
+   * Background color of the tab bar.
+   */
+  barTintColor?: ColorValue;
+  /**
+   * A Boolean value that indicates whether the tab bar is translucent. (iOS only)
+   */
+  translucent?: boolean;
   rippleColor?: ColorValue;
 }
 
@@ -102,6 +110,7 @@ const TabView = <Route extends BaseRoute>({
         ? route.focusedIcon
         : route.unfocusedIcon
       : route.focusedIcon,
+  barTintColor,
   ...props
 }: Props<Route>) => {
   // @ts-ignore
@@ -188,6 +197,7 @@ const TabView = <Route extends BaseRoute>({
       onPageSelected={({ nativeEvent: { key } }) => {
         jumpTo(key);
       }}
+      barTintColor={processColor(barTintColor)}
       {...props}
       rippleColor={processColor(props.rippleColor)}
     >

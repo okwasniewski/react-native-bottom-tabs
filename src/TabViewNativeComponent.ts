@@ -23,6 +23,8 @@ export interface TabViewProps extends ViewProps {
   labeled?: boolean;
   sidebarAdaptable?: boolean;
   scrollEdgeAppearance?: string;
+  barTintColor?: ProcessedColorValue | null;
+  translucent?: boolean;
   rippleColor?: ProcessedColorValue | null;
 }
 
