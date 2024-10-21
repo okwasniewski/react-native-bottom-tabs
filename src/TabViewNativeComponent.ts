@@ -19,6 +19,7 @@ export interface TabViewProps extends ViewProps {
   items: TabViewItems;
   selectedPage: string;
   onPageSelected?: DirectEventHandler<OnPageSelectedEventData>;
+  onTabLongPress?: DirectEventHandler<OnPageSelectedEventData>;
   icons?: ReadonlyArray<ImageSource>;
   labeled?: boolean;
   sidebarAdaptable?: boolean;

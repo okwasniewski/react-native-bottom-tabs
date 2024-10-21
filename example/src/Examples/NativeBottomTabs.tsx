@@ -9,10 +9,27 @@ const Tab = createNativeBottomTabNavigator();
 
 function NativeBottomTabs() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenListeners={{
+        tabLongPress: (data) => {
+          console.log(
+            '### JS Navigator level TabLongPress called',
+            JSON.stringify(data)
+          );
+        },
+      }}
+    >
       <Tab.Screen
         name="Article"
         component={Article}
+        listeners={{
+          tabLongPress: (data) => {
+            console.log(
+              '### JS Tab level tabLongPress called',
+              JSON.stringify(data)
+            );
+          },
+        }}
         options={{
           tabBarBadge: '10',
           tabBarIcon: ({ focused }) =>
