@@ -68,6 +68,11 @@ class RCTTabViewViewManager :
     view.setIcons(icons)
   }
 
+  @ReactProp(name = "barTintColor")
+  fun setBarTintColor(view: ReactBottomNavigationView, color: Int?) {
+    view.setBarTintColor(color)
+  }
+  
   @ReactProp(name = "rippleColor")
   fun setRippleColor(view: ReactBottomNavigationView, rippleColor: Int?) {
     if (rippleColor != null) {
