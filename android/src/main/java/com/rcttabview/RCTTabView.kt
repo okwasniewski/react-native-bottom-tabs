@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.util.TypedValue
 import android.net.Uri
+import android.util.Log
 import android.view.Choreographer
 import android.view.MenuItem
 import androidx.appcompat.content.res.AppCompatResources
@@ -130,6 +131,10 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
 
   fun setRippleColor(color: ColorStateList) {
     itemRippleColor = color
+  }
+
+  fun setBarStyle(barStyle: String?) {
+    Log.d("### Shubham barStyle ", "$barStyle" )
   }
 
   private fun getDrawable(imageSource: ImageSource): Drawable {

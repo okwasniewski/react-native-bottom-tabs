@@ -39,6 +39,10 @@ const FourTabsTransparentScrollEdgeAppearance = () => {
   return <FourTabs scrollEdgeAppearance="transparent" />;
 };
 
+const FourTabsWithBarStyle = () => {
+  return <FourTabs barStyle="default" />;
+};
+
 const FourTabsWithBarTintColor = () => {
   return <FourTabs barTintColor={'#87CEEB'} />;
 };
@@ -65,6 +69,10 @@ const examples = [
   {
     component: FourTabsTransparentScrollEdgeAppearance,
     name: 'Four Tabs - Transparent scroll edge appearance',
+  },
+  {
+    component: FourTabsWithBarStyle,
+    name: 'Four Tabs - Bar Style',
   },
   {
     component: FourTabsWithBarTintColor,

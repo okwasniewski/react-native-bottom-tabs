@@ -13,12 +13,14 @@ interface Props {
   barTintColor?: ColorValue;
   translucent?: boolean;
   rippleColor?: ColorValue;
+  barStyle?: 'default' | 'black';
 }
 
 export default function FourTabs({
   ignoresTopSafeArea = false,
   disablePageAnimations = false,
   scrollEdgeAppearance = 'default',
+  barStyle = 'default',
   barTintColor,
   translucent = true,
   rippleColor,
@@ -69,6 +71,7 @@ export default function FourTabs({
       barTintColor={barTintColor}
       translucent={translucent}
       rippleColor={rippleColor}
+      barStyle={barStyle}
     />
   );
 }

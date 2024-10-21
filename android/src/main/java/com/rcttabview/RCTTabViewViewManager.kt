@@ -81,6 +81,11 @@ class RCTTabViewViewManager :
     }
   }
 
+  @ReactProp(name = "barStyle")
+  fun setBarStyle(view: ReactBottomNavigationView, barStyle: String?) {
+    view.setBarStyle(barStyle)
+  }
+  
   @ReactProp(name = "translucent")
   fun setTranslucentview(view: ReactBottomNavigationView, translucent: Boolean?) {
   }

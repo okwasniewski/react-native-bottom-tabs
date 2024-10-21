@@ -26,6 +26,7 @@ export interface TabViewProps extends ViewProps {
   barTintColor?: ProcessedColorValue | null;
   translucent?: boolean;
   rippleColor?: ProcessedColorValue | null;
+  barStyle?: string;
 }
 
 export default codegenNativeComponent<TabViewProps>('RCTTabView');
