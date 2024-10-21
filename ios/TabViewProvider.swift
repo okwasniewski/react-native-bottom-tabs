@@ -64,10 +64,22 @@ struct TabData: Codable {
       props.scrollEdgeAppearance = scrollEdgeAppearance as? String
     }
   }
+    
+  @objc var translucent: Bool = true {
+    didSet {
+      props.translucent = translucent
+    }
+  }
   
   @objc var items: NSArray? {
     didSet {
       props.items = parseTabData(from: items)
+    }
+  }
+
+  @objc var barTintColor: NSNumber? {
+    didSet {
+      props.barTintColor = RCTConvert.uiColor(barTintColor)
     }
   }
   

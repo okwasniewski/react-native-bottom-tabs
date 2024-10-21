@@ -15,6 +15,8 @@ class TabViewProps: ObservableObject {
   @Published var ignoresTopSafeArea: Bool?
   @Published var disablePageAnimations: Bool = false
   @Published var scrollEdgeAppearance: String?
+  @Published var barTintColor: UIColor?
+  @Published var translucent: Bool = true
 }
 
 /**
@@ -71,16 +73,22 @@ struct TabViewImpl: View {
       }
       onSelect(newValue)
     }
+    .onAppear() {
+      updateTabBarAppearance(props: props)
+    }
+    .onChange(of: props.barTintColor) { newValue in
+      updateTabBarAppearance(props: props)
+    }
     .onChange(of: props.scrollEdgeAppearance) { newValue in
-      if #available(iOS 15.0, *) {
-        UITabBar.appearance().scrollEdgeAppearance = configureAppearance(for: newValue ?? "")
-      }
+      updateTabBarAppearance(props: props)
+    }
+    .onChange(of: props.translucent) { newValue in
+      updateTabBarAppearance(props: props)
     }
   }
 }
 
-private func configureAppearance(for appearanceType: String) -> UITabBarAppearance {
-  let appearance = UITabBarAppearance()
+private func configureAppearance(for appearanceType: String, appearance: UITabBarAppearance) -> UITabBarAppearance {
   
   switch appearanceType {
   case "opaque":
@@ -92,6 +100,27 @@ private func configureAppearance(for appearanceType: String) -> UITabBarAppearan
   }
   
   return appearance
+}
+
+private func updateTabBarAppearance(props: TabViewProps) {
+  if #available(iOS 15.0, *) {
+    let appearance = UITabBarAppearance()
+      
+    UITabBar.appearance().scrollEdgeAppearance = configureAppearance(for: props.scrollEdgeAppearance ?? "", appearance: appearance)
+    
+    if props.translucent == false {
+      appearance.configureWithOpaqueBackground()
+    }
+      
+    if props.barTintColor != nil {
+      appearance.backgroundColor = props.barTintColor
+    }
+      
+    UITabBar.appearance().standardAppearance = appearance
+  } else {
+    UITabBar.appearance().barTintColor = props.barTintColor
+    UITabBar.appearance().isTranslucent = props.translucent
+  }
 }
 
 struct TabItem: View {
@@ -155,6 +184,6 @@ extension View {
         .ignoresSafeArea(.container, edges: .horizontal)
         .ignoresSafeArea(.container, edges: .bottom)
         .frame(idealWidth: frame.width, idealHeight: frame.height)
+      }
     }
-  }
 }

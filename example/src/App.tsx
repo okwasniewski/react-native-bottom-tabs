@@ -43,6 +43,14 @@ const FourTabsWithBarStyle = () => {
   return <FourTabs barStyle="default" />;
 };
 
+const FourTabsWithBarTintColor = () => {
+  return <FourTabs barTintColor={'#87CEEB'} />;
+};
+
+const FourTabsTranslucent = () => {
+  return <FourTabs translucent={false} />;
+};
+
 const examples = [
   { component: ThreeTabs, name: 'Three Tabs' },
   { component: FourTabs, name: 'Four Tabs' },
@@ -65,6 +73,14 @@ const examples = [
   {
     component: FourTabsWithBarStyle,
     name: 'Four Tabs - Bar Style',
+  },
+  {
+    component: FourTabsWithBarTintColor,
+    name: 'Four Tabs - Custom Background Color of Tabs',
+  },
+  {
+    component: FourTabsTranslucent,
+    name: 'Four Tabs - Translucent tab bar',
   },
   { component: NativeBottomTabs, name: 'Native Bottom Tabs' },
   { component: JSBottomTabs, name: 'JS Bottom Tabs' },

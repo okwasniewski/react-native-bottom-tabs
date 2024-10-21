@@ -4,11 +4,14 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import android.util.TypedValue
 import android.net.Uri
 import android.util.Log
 import android.view.Choreographer
 import android.view.MenuItem
+import androidx.appcompat.content.res.AppCompatResources
 import com.facebook.common.references.CloseableReference
 import com.facebook.datasource.DataSources
 import com.facebook.drawee.backends.pipeline.Fresco
@@ -150,5 +153,24 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
   override fun onDetachedFromWindow() {
     super.onDetachedFromWindow()
     isAnimating = false
+  }
+
+  fun setBarTintColor(color: Int?) {
+    // Set the color, either using the active background color or a default color.
+    val backgroundColor = color ?: getDefaultColorFor(android.R.attr.colorPrimary) ?: return
+
+    // Apply the same color to both active and inactive states
+    val colorDrawable = ColorDrawable(backgroundColor)
+
+    itemBackground = colorDrawable
+  }
+
+  private fun getDefaultColorFor(baseColorThemeAttr: Int): Int? {
+    val value = TypedValue()
+    if (!context.theme.resolveAttribute(baseColorThemeAttr, value, true)) {
+      return null
+    }
+    val baseColor = AppCompatResources.getColorStateList(context, value.resourceId)
+    return baseColor.defaultColor
   }
 }
