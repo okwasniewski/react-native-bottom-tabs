@@ -93,6 +93,13 @@ class RCTTabViewViewManager :
         eventDispatcher.dispatchEvent(PageSelectedEvent(viewTag = view.id, key = it))
       }
     }
+
+    view.onTabLongPressedListener = { data ->
+      data.getString("key")?.let {
+        eventDispatcher.dispatchEvent(TabLongPressEvent(viewTag = view.id, key = it))
+      }
+    }
+
     return view
   }
 
@@ -145,6 +152,8 @@ class RCTTabViewViewManager :
     return MapBuilder.of(
       PageSelectedEvent.EVENT_NAME,
       MapBuilder.of("registrationName", "onPageSelected"),
+      TabLongPressEvent.EVENT_NAME,
+      MapBuilder.of("registrationName", "onTabLongPress")
     )
   }
 

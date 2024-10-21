@@ -8,8 +8,10 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.util.TypedValue
 import android.net.Uri
+import android.util.Log
 import android.view.Choreographer
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
 import com.facebook.common.references.CloseableReference
 import com.facebook.datasource.DataSources
@@ -29,6 +31,7 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
   private var isLayoutEnqueued = false
   var items: MutableList<TabInfo>? = null
   var onTabSelectedListener: ((WritableMap) -> Unit)? = null
+  var onTabLongPressedListener: ((WritableMap) -> Unit)? = null
   private var isAnimating = false
 
   private val layoutCallback = Choreographer.FrameCallback {
@@ -44,6 +47,26 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
     setOnItemSelectedListener { item ->
       onTabSelected(item)
       true
+    }
+    // Register long press listener for each tab
+    post {
+      for (i in 0 until menu.size()) {
+        val menuItem = menu.getItem(i)
+        findViewById<View>(menuItem.itemId).setOnLongClickListener {
+          onTabLongPressed(menuItem)
+          true
+        }
+      }
+    }
+  }
+
+  private fun onTabLongPressed(item: MenuItem) {
+    val longPressedItem = items?.firstOrNull { it.title == item.title }
+    longPressedItem?.let {
+      val event = Arguments.createMap().apply {
+        putString("key", longPressedItem.key)
+      }
+      onTabLongPressedListener?.invoke(event)
     }
   }
 
