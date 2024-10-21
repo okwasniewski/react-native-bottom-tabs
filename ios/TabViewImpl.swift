@@ -16,6 +16,7 @@ class TabViewProps: ObservableObject {
   @Published var disablePageAnimations: Bool = false
   @Published var scrollEdgeAppearance: String?
   @Published var barTintColor: UIColor?
+  @Published var barStyle: String?
   @Published var translucent: Bool = true
 }
 
@@ -102,7 +103,19 @@ private func configureAppearance(for appearanceType: String, appearance: UITabBa
   return appearance
 }
 
+private func ConvertBarStyleToUIBarStyle(for barStyle: String) -> UIBarStyle {
+    switch barStyle {
+    case "black":
+        return UIBarStyle.black
+    case "default":
+        return UIBarStyle.default
+    default:
+        return UIBarStyle.default
+    }
+}
+
 private func updateTabBarAppearance(props: TabViewProps) {
+    print("### Shubham updateTabBarAppearance", props.barStyle ?? "")
   if #available(iOS 15.0, *) {
     let appearance = UITabBarAppearance()
       
@@ -116,10 +129,15 @@ private func updateTabBarAppearance(props: TabViewProps) {
       appearance.backgroundColor = props.barTintColor
     }
       
+    if props.barStyle != nil {
+        
+    }
+      UITabBar.appearance().barStyle = ConvertBarStyleToUIBarStyle(for: props.barStyle ?? "")
     UITabBar.appearance().standardAppearance = appearance
   } else {
     UITabBar.appearance().barTintColor = props.barTintColor
     UITabBar.appearance().isTranslucent = props.translucent
+      UITabBar.appearance().barStyle = ConvertBarStyleToUIBarStyle(for: props.barStyle ?? "")
   }
 }
 

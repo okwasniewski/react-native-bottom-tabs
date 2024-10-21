@@ -82,6 +82,12 @@ struct TabData: Codable {
       props.barTintColor = RCTConvert.uiColor(barTintColor)
     }
   }
+    
+  @objc var barStyle: NSString? {
+    didSet {
+      props.barStyle = barStyle as? String
+    }
+  }
   
   @objc public convenience init(eventDispatcher: RCTEventDispatcherProtocol, imageLoader: RCTImageLoader) {
     self.init()
