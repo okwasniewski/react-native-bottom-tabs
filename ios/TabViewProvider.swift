@@ -23,6 +23,9 @@ struct TabData: Codable {
 
   @objc var onPageSelected: RCTDirectEventBlock?
 
+  @objc var onTabLongPress: RCTDirectEventBlock?
+    
+  
   @objc var icons: NSArray? {
     didSet {
       loadIcons(icons)

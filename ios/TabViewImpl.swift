@@ -38,6 +38,7 @@ struct RepresentableView: UIViewRepresentable {
 struct TabViewImpl: View {
   @ObservedObject var props: TabViewProps
   var onSelect: (_ key: String) -> Void
+  var onLongPress: (_ key: String) -> Void
   
   var body: some View {
     TabView(selection: $props.selectedPage) {
@@ -58,6 +59,12 @@ struct TabViewImpl: View {
               sfSymbol: tabData?.sfSymbol,
               labeled: props.labeled
             )
+          }
+          .onLongPressGesture {
+              print("### Shubham iOS Side onLongPressGesture called")
+              if let key = tabData?.key {
+                  onLongPress(key)
+              }
           }
           .tag(tabData?.key)
           .tabBadge(tabData?.badge)
