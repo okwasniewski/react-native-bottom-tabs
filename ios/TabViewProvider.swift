@@ -110,6 +110,9 @@ struct TabData: Codable {
     self.hostingController = UIHostingController(rootView: TabViewImpl(props: props) { key in
       self.coalescingKey += 1
       self.eventDispatcher?.send(PageSelectedEvent(reactTag: self.reactTag, key: NSString(string: key), coalescingKey: self.coalescingKey))
+    } onLongPress: { key in
+        self.coalescingKey += 1
+        self.eventDispatcher?.send(TabLongPressEvent(reactTag: self.reactTag, key: NSString(string: key), coalescingKey: self.coalescingKey))
     })
     if let hostingController = self.hostingController, let parentViewController = reactViewController() {
       parentViewController.addChild(hostingController)
