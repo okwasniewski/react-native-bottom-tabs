@@ -4,15 +4,35 @@ import { Contacts } from '../Screens/Contacts';
 import { Chat } from '../Screens/Chat';
 // This import works properly when library is published
 import createNativeBottomTabNavigator from '../../../src/react-navigation/navigators/createNativeBottomTabNavigator';
+import { Platform } from 'react-native';
 
 const Tab = createNativeBottomTabNavigator();
 
 function NativeBottomTabs() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      tabBarInactiveTintColor="#C57B57"
+      tabBarActiveTintColor="#F7DBA7"
+      barTintColor="#1E2D2F"
+      rippleColor="#041F1E"
+      screenListeners={{
+        tabLongPress: (data) => {
+          console.log(
+            `${Platform.OS}: Long press detected on tab with key ${data.target} at the navigator level.`
+          );
+        },
+      }}
+    >
       <Tab.Screen
         name="Article"
         component={Article}
+        listeners={{
+          tabLongPress: (data) => {
+            console.log(
+              `${Platform.OS}: Long press detected on tab with key ${data.target} at the screen level.`
+            );
+          },
+        }}
         options={{
           tabBarBadge: '10',
           tabBarIcon: ({ focused }) =>
@@ -33,6 +53,7 @@ function NativeBottomTabs() {
         component={Contacts}
         options={{
           tabBarIcon: () => require('../../assets/icons/person_dark.png'),
+          tabBarActiveTintColor: 'yellow',
         }}
       />
       <Tab.Screen
@@ -40,6 +61,7 @@ function NativeBottomTabs() {
         component={Chat}
         options={{
           tabBarIcon: () => require('../../assets/icons/chat_dark.png'),
+          tabBarActiveTintColor: 'white',
         }}
       />
     </Tab.Navigator>

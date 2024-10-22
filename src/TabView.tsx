@@ -48,6 +48,14 @@ interface Props<Route extends BaseRoute> {
    */
   scrollEdgeAppearance?: 'default' | 'opaque' | 'transparent';
   /**
+   * Active tab color.
+   */
+  tabBarActiveTintColor?: ColorValue;
+  /**
+   * Inactive tab color.
+   */
+  tabBarInactiveTintColor?: ColorValue;
+  /**
    * State for the tab view.
    *
    * The state should contain a `routes` prop which is an array of objects containing `key` and `title` props, such as `{ key: 'music', title: 'Music' }`.
@@ -66,6 +74,10 @@ interface Props<Route extends BaseRoute> {
    */
   onIndexChange: (index: number) => void;
   /**
+   * Callback which is called on long press on tab, receives the index of the tab as argument.
+   */
+  onTabLongPress?: (index: number) => void;
+  /**
    * Get lazy for the current screen. Uses true by default.
    */
   getLazy?: (props: { route: Route }) => boolean | undefined;
@@ -77,6 +89,10 @@ interface Props<Route extends BaseRoute> {
    * Get badge for the tab, uses `route.badge` by default.
    */
   getBadge?: (props: { route: Route }) => string | undefined;
+  /**
+   * Get active tint color for the tab, uses `route.activeTintColor` by default.
+   */
+  getActiveTintColor?: (props: { route: Route }) => ColorValue | undefined;
   /**
    * Get icon for the tab, uses `route.focusedIcon` by default.
    */
@@ -102,6 +118,7 @@ const TabView = <Route extends BaseRoute>({
   navigationState,
   renderScene,
   onIndexChange,
+  onTabLongPress,
   getLazy = ({ route }: { route: Route }) => route.lazy,
   getLabelText = ({ route }: { route: Route }) => route.title,
   getIcon = ({ route, focused }: { route: Route; focused: boolean }) =>
@@ -111,6 +128,10 @@ const TabView = <Route extends BaseRoute>({
         : route.unfocusedIcon
       : route.focusedIcon,
   barTintColor,
+  getActiveTintColor = ({ route }: { route: Route }) => route.activeTintColor,
+  tabBarActiveTintColor: activeTintColor,
+  tabBarInactiveTintColor: inactiveTintColor,
+  rippleColor,
   ...props
 }: Props<Route>) => {
   // @ts-ignore
@@ -166,9 +187,10 @@ const TabView = <Route extends BaseRoute>({
           title: getLabelText({ route }) ?? route.key,
           sfSymbol: isSfSymbol ? icon.sfSymbol : undefined,
           badge: props.getBadge?.({ route }),
+          activeTintColor: processColor(getActiveTintColor({ route })),
         };
       }),
-    [getLabelText, icons, trimmedRoutes, props]
+    [trimmedRoutes, icons, getLabelText, props, getActiveTintColor]
   );
 
   const resolvedIconAssets: ImageSource[] = useMemo(
@@ -194,12 +216,18 @@ const TabView = <Route extends BaseRoute>({
       items={items}
       icons={resolvedIconAssets}
       selectedPage={focusedKey}
+      onTabLongPress={({ nativeEvent: { key } }) => {
+        const index = trimmedRoutes.findIndex((route) => route.key === key);
+        onTabLongPress?.(index);
+      }}
       onPageSelected={({ nativeEvent: { key } }) => {
         jumpTo(key);
       }}
-      barTintColor={processColor(barTintColor)}
       {...props}
-      rippleColor={processColor(props.rippleColor)}
+      activeTintColor={activeTintColor}
+      inactiveTintColor={inactiveTintColor}
+      barTintColor={barTintColor}
+      rippleColor={rippleColor}
     >
       {trimmedRoutes.map((route) => {
         if (getLazy({ route }) !== false && !loaded.includes(route.key)) {
@@ -207,12 +235,19 @@ const TabView = <Route extends BaseRoute>({
           if (Platform.OS === 'android') {
             return null;
           }
-          return <View key={route.key} style={styles.fullWidth} />;
+          return (
+            <View
+              key={route.key}
+              collapsable={false}
+              style={styles.fullWidth}
+            />
+          );
         }
 
         return (
           <View
             key={route.key}
+            collapsable={false}
             style={[
               styles.fullWidth,
               Platform.OS === 'android' && {

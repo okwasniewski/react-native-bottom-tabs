@@ -1,12 +1,16 @@
 import React
 
-@objc public class PageSelectedEvent: NSObject, RCTEvent {
+
+// RCTEvent is not defined for new arch.
+protocol RCTEvent {}
+
+@objc public class TabLongPressEvent: NSObject, RCTEvent {
   private var key: NSString
   @objc public var viewTag: NSNumber
   @objc public var coalescingKey: UInt16
 
   @objc public var eventName: String {
-    return "onPageSelected"
+    return "onTabLongPress"
   }
 
   @objc public init(reactTag: NSNumber, key: NSString, coalescingKey: UInt16) {

@@ -65,6 +65,14 @@ Whether to disable page animations between tabs.
 
 Describes the appearance attributes for the tabBar to use when an observable scroll view is scrolled to the bottom.
 
+### `tabBarActiveTintColor`
+
+Color for the active tab.
+
+### `tabBarInactiveTintColor`
+
+Color for the inactive tabs.
+
 #### `barTintColor`
 
 Background color of the tab bar.
@@ -106,6 +114,14 @@ Title text for the screen.
 
 Label text of the tab displayed in the navigation bar. When undefined, scene title is used.
 
+#### `tabBarActiveTintColor`
+
+Color for the active tab.
+
+:::note
+The `tabBarInactiveTintColor` is not supported on route level due to native limitations. Use `inactiveTintColor` in the `Tab.Navigator` instead.
+:::
+
 #### `tabBarIcon`
 
 Function that given `{ focused: boolean }` returns `ImageSource` or `AppleIcon` to display in the navigation bar.
@@ -133,3 +149,23 @@ Badge to show on the tab icon.
 #### `lazy`
 
 Whether this screens should render the first time it's accessed. Defaults to true. Set it to false if you want to render the screen on initial render.
+
+### Events
+
+The navigator can emit events on certain actions. Supported events are:
+
+#### `tabLongPress`
+
+This event is fired when the user presses the tab button for the current screen in the tab bar for an extended period.
+
+Example:
+
+```tsx
+React.useEffect(() => {
+  const unsubscribe = navigation.addListener('tabLongPress', (e) => {
+    // Do something
+  });
+
+  return unsubscribe;
+}, [navigation]);
+```

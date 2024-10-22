@@ -12,6 +12,7 @@ export type BaseRoute = {
   lazy?: boolean;
   focusedIcon?: ImageSourcePropType | AppleIcon;
   unfocusedIcon?: ImageSourcePropType | AppleIcon;
+  activeTintColor?: string;
 };
 
 export type NavigationState<Route extends BaseRoute> = {
