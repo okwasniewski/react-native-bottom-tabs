@@ -26,11 +26,11 @@ class TabViewProps: ObservableObject {
  */
 struct RepresentableView: UIViewRepresentable {
   var view: UIView
-
+  
   func makeUIView(context: Context) -> UIView {
     return view
   }
-
+  
   func updateUIView(_ uiView: UIView, context: Context) {}
 }
 
@@ -40,7 +40,7 @@ struct RepresentableView: UIViewRepresentable {
 struct TabViewImpl: View {
   @ObservedObject var props: TabViewProps
   var onSelect: (_ key: String) -> Void
-
+  
   var selectedActiveTintColor: UIColor? {
     // check first in selected tab
     let selectedPage = props.selectedPage
@@ -51,21 +51,21 @@ struct TabViewImpl: View {
         }
       }
     }
-
+    
     if let activeTintColor = props.activeTintColor {
       return activeTintColor
     }
-
+    
     return nil
   }
-
+  
   var body: some View {
     TabView(selection: $props.selectedPage) {
       ForEach(props.children?.indices ?? 0..<0, id: \.self) { index in
         let child = props.children?[safe: index] ?? UIView()
         let tabData = props.items?.tabs[safe: index]
         let icon = props.icons[index]
-
+        
         RepresentableView(view: child)
           .ignoresTopSafeArea(
             props.ignoresTopSafeArea ?? false,
@@ -92,37 +92,31 @@ struct TabViewImpl: View {
           UIView.setAnimationsEnabled(true)
         }
       }
-
-      // to apply active tint color per tab
-      let scrollEdgeAppearance = configureAppearance(for: props.scrollEdgeAppearance ?? "")
-      let colorTintAppearance = configureAppearance(appearance: scrollEdgeAppearance, inactiveTint: props.inactiveTintColor, activeTint: selectedActiveTintColor)
-      setupTabBarAppearance(colorTintAppearance)
-
+      
       onSelect(newValue)
     }
     .onAppear() {
-      updateTabBarAppearance(props: props)
+      updateTabBarAppearance(props: props, selectedActiveTintColor: selectedActiveTintColor)
     }
     .onChange(of: props.barTintColor) { newValue in
-      updateTabBarAppearance(props: props)
+      updateTabBarAppearance(props: props, selectedActiveTintColor: selectedActiveTintColor)
     }
     .onChange(of: props.scrollEdgeAppearance) { newValue in
-      updateTabBarAppearance(props: props)
+      updateTabBarAppearance(props: props, selectedActiveTintColor: selectedActiveTintColor)
     }
     .onChange(of: props.translucent) { newValue in
-      updateTabBarAppearance(props: props)
+      updateTabBarAppearance(props: props, selectedActiveTintColor: selectedActiveTintColor)
     }
-    .onAppear {
-      // we have to keep onAppear to setup the appearance for the first render.
-      let scrollEdgeAppearance = configureAppearance(for: props.scrollEdgeAppearance ?? "")
-      let colorTintAppearance = configureAppearance(appearance: scrollEdgeAppearance, inactiveTint: props.inactiveTintColor, activeTint: selectedActiveTintColor)
-      setupTabBarAppearance(colorTintAppearance)
+    .onChange(of: props.inactiveTintColor) { newValue in
+      updateTabBarAppearance(props: props, selectedActiveTintColor: selectedActiveTintColor)
+    }
+    .onChange(of: selectedActiveTintColor) { newValue in
+      updateTabBarAppearance(props: props, selectedActiveTintColor: selectedActiveTintColor)
     }
   }
 }
 
 private func configureAppearance(for appearanceType: String, appearance: UITabBarAppearance) -> UITabBarAppearance {
-
   switch appearanceType {
   case "opaque":
     appearance.configureWithOpaqueBackground()
@@ -131,53 +125,8 @@ private func configureAppearance(for appearanceType: String, appearance: UITabBa
   default:
     appearance.configureWithDefaultBackground()
   }
-
+  
   return appearance
-}
-
-private func configureAppearance(appearance: UITabBarAppearance, inactiveTint inactiveTintColor: UIColor?, activeTint activeTintColor: UIColor?) -> UITabBarAppearance {
-  // @see https://stackoverflow.com/a/71934882
-  if let inactiveTintColor {
-    setTabBarItemColors(appearance.stackedLayoutAppearance, inactiveColor: inactiveTintColor)
-    setTabBarItemColors(appearance.inlineLayoutAppearance, inactiveColor: inactiveTintColor)
-    setTabBarItemColors(appearance.compactInlineLayoutAppearance, inactiveColor: inactiveTintColor)
-  }
-
-  if let activeTintColor {
-    setTabBarItemColors(appearance.stackedLayoutAppearance, activeColor: activeTintColor)
-    setTabBarItemColors(appearance.inlineLayoutAppearance, activeColor: activeTintColor)
-    setTabBarItemColors(appearance.compactInlineLayoutAppearance, activeColor: activeTintColor)
-  }
-
-  return appearance
-}
-
-private func updateTabBarAppearance(props: TabViewProps) {
-  if #available(iOS 15.0, *) {
-    let appearance = UITabBarAppearance()
-
-    UITabBar.appearance().scrollEdgeAppearance = configureAppearance(for: props.scrollEdgeAppearance ?? "", appearance: appearance)
-
-    if props.translucent == false {
-      appearance.configureWithOpaqueBackground()
-    }
-
-    if props.barTintColor != nil {
-      appearance.backgroundColor = props.barTintColor
-    }
-
-    UITabBar.appearance().standardAppearance = appearance
-  } else {
-    UITabBar.appearance().barTintColor = props.barTintColor
-    UITabBar.appearance().isTranslucent = props.translucent
-  }
-}
-
-private func setupTabBarAppearance(_ appearance: UITabBarAppearance) {
-      if #available(iOS 15.0, *) {
-      UITabBar.appearance().scrollEdgeAppearance = appearance
-    }
-    UITabBar.appearance().standardAppearance = appearance
 }
 
 private func setTabBarItemColors(_ itemAppearance: UITabBarItemAppearance, inactiveColor: UIColor) {
@@ -191,6 +140,45 @@ private func setTabBarItemColors(_ itemAppearance: UITabBarItemAppearance, activ
   itemAppearance.selected.titleTextAttributes = [.foregroundColor: activeColor]
 }
 
+private func configureAppearance(inactiveTint inactiveTintColor: UIColor?, activeTint activeTintColor: UIColor?, appearance: UITabBarAppearance) -> UITabBarAppearance {
+  // @see https://stackoverflow.com/a/71934882
+  if let inactiveTintColor {
+    setTabBarItemColors(appearance.stackedLayoutAppearance, inactiveColor: inactiveTintColor)
+    setTabBarItemColors(appearance.inlineLayoutAppearance, inactiveColor: inactiveTintColor)
+    setTabBarItemColors(appearance.compactInlineLayoutAppearance, inactiveColor: inactiveTintColor)
+  }
+  
+  if let activeTintColor {
+    setTabBarItemColors(appearance.stackedLayoutAppearance, activeColor: activeTintColor)
+    setTabBarItemColors(appearance.inlineLayoutAppearance, activeColor: activeTintColor)
+    setTabBarItemColors(appearance.compactInlineLayoutAppearance, activeColor: activeTintColor)
+  }
+  
+  return appearance
+}
+
+private func updateTabBarAppearance(props: TabViewProps, selectedActiveTintColor: UIColor?) {
+  var appearance = UITabBarAppearance()
+  appearance = configureAppearance(for: props.scrollEdgeAppearance ?? "", appearance: appearance)
+  appearance = configureAppearance(inactiveTint: props.inactiveTintColor, activeTint: selectedActiveTintColor, appearance: appearance)
+  
+  if #available(iOS 15.0, *) {
+    UITabBar.appearance().scrollEdgeAppearance = appearance
+    
+    if props.translucent == false {
+      appearance.configureWithOpaqueBackground()
+    }
+    
+    if props.barTintColor != nil {
+      appearance.backgroundColor = props.barTintColor
+    }
+  } else {
+    UITabBar.appearance().barTintColor = props.barTintColor
+    UITabBar.appearance().isTranslucent = props.translucent
+  }
+  
+  UITabBar.appearance().standardAppearance = appearance
+}
 
 
 struct TabItem: View {
@@ -198,7 +186,7 @@ struct TabItem: View {
   var icon: UIImage?
   var sfSymbol: String?
   var labeled: Bool?
-
+  
   var body: some View {
     if let icon {
       Image(uiImage: icon)
@@ -226,7 +214,7 @@ extension View {
       self
     }
   }
-
+  
   @ViewBuilder
   func tabBadge(_ data: String?) -> some View {
     if #available(iOS 15.0, macOS 15.0, visionOS 2.0, *) {
@@ -239,7 +227,7 @@ extension View {
       self
     }
   }
-
+  
   @ViewBuilder
   func ignoresTopSafeArea(
     _ flag: Bool,
@@ -254,10 +242,9 @@ extension View {
         .ignoresSafeArea(.container, edges: .horizontal)
         .ignoresSafeArea(.container, edges: .bottom)
         .frame(idealWidth: frame.width, idealHeight: frame.height)
-      }
     }
   }
-
+  
   @ViewBuilder
   func tintColor(_ color: UIColor?) -> some View {
     if let color {
