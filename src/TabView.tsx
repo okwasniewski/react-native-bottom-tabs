@@ -174,6 +174,7 @@ const TabView = <Route extends BaseRoute>({
           title: getLabelText({ route }) ?? route.key,
           sfSymbol: isSfSymbol ? icon.sfSymbol : undefined,
           badge: props.getBadge?.({ route }),
+          activeTintColor: processColor(route.activeTintColor),
         };
       }),
     [getLabelText, icons, trimmedRoutes, props]

@@ -20,6 +20,7 @@ export default function TintColorsExample() {
       title: 'Albums',
       focusedIcon: require('../../assets/icons/grid_dark.png'),
       badge: '5',
+      activeTintColor: 'green',
     },
     {
       key: 'contacts',
@@ -46,8 +47,8 @@ export default function TintColorsExample() {
       navigationState={{ index, routes }}
       onIndexChange={setIndex}
       renderScene={renderScene}
-      activeTintColor="red"
-      inactiveTintColor="blue"
+      inactiveTintColor="red"
+      scrollEdgeAppearance="default"
     />
   );
 }

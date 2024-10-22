@@ -13,6 +13,7 @@ export type TabViewItems = ReadonlyArray<{
   title: string;
   sfSymbol?: string;
   badge?: string;
+  activeTintColor?: ProcessedColorValue | null;
 }>;
 
 export interface TabViewProps extends ViewProps {
