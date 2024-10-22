@@ -48,16 +48,6 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
       onTabSelected(item)
       true
     }
-    // Register long press listener for each tab
-    post {
-      for (i in 0 until menu.size()) {
-        val menuItem = menu.getItem(i)
-        findViewById<View>(menuItem.itemId).setOnLongClickListener {
-          onTabLongPressed(menuItem)
-          true
-        }
-      }
-    }
   }
 
   private fun onTabLongPressed(item: MenuItem) {
@@ -112,6 +102,12 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
         badge.text = item.badge
       } else {
         removeBadge(index)
+      }
+      post {
+        findViewById<View>(menuItem.itemId).setOnLongClickListener {
+          onTabLongPressed(menuItem)
+          true
+        }
       }
     }
   }
