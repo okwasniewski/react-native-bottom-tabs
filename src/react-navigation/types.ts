@@ -17,7 +17,7 @@ export type NativeBottomTabNavigationEventMap = {
    */
   tabPress: { data: undefined };
   /**
-   * Event which fires on long press on tab bar.s
+   * Event which fires on long press on tab bar.
    */
   tabLongPress: { data: undefined };
 };
