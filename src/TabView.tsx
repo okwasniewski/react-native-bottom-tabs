@@ -48,6 +48,14 @@ interface Props<Route extends BaseRoute> {
    */
   scrollEdgeAppearance?: 'default' | 'opaque' | 'transparent';
   /**
+   * Active tab color.
+   */
+  tabBarActiveTintColor?: ColorValue;
+  /**
+   * Inactive tab color.
+   */
+  tabBarInactiveTintColor?: ColorValue;
+  /**
    * State for the tab view.
    *
    * The state should contain a `routes` prop which is an array of objects containing `key` and `title` props, such as `{ key: 'music', title: 'Music' }`.
@@ -81,6 +89,10 @@ interface Props<Route extends BaseRoute> {
    * Get badge for the tab, uses `route.badge` by default.
    */
   getBadge?: (props: { route: Route }) => string | undefined;
+  /**
+   * Get active tint color for the tab, uses `route.activeTintColor` by default.
+   */
+  getActiveTintColor?: (props: { route: Route }) => ColorValue | undefined;
   /**
    * Get icon for the tab, uses `route.focusedIcon` by default.
    */
@@ -116,6 +128,10 @@ const TabView = <Route extends BaseRoute>({
         : route.unfocusedIcon
       : route.focusedIcon,
   barTintColor,
+  getActiveTintColor = ({ route }: { route: Route }) => route.activeTintColor,
+  tabBarActiveTintColor: activeTintColor,
+  tabBarInactiveTintColor: inactiveTintColor,
+  rippleColor,
   ...props
 }: Props<Route>) => {
   // @ts-ignore
@@ -171,9 +187,10 @@ const TabView = <Route extends BaseRoute>({
           title: getLabelText({ route }) ?? route.key,
           sfSymbol: isSfSymbol ? icon.sfSymbol : undefined,
           badge: props.getBadge?.({ route }),
+          activeTintColor: processColor(getActiveTintColor({ route })),
         };
       }),
-    [getLabelText, icons, trimmedRoutes, props]
+    [trimmedRoutes, icons, getLabelText, props, getActiveTintColor]
   );
 
   const resolvedIconAssets: ImageSource[] = useMemo(
@@ -205,9 +222,11 @@ const TabView = <Route extends BaseRoute>({
       onPageSelected={({ nativeEvent: { key } }) => {
         jumpTo(key);
       }}
-      barTintColor={processColor(barTintColor)}
       {...props}
-      rippleColor={processColor(props.rippleColor)}
+      activeTintColor={processColor(activeTintColor)}
+      inactiveTintColor={processColor(inactiveTintColor)}
+      barTintColor={processColor(barTintColor)}
+      rippleColor={processColor(rippleColor)}
     >
       {trimmedRoutes.map((route) => {
         if (getLazy({ route }) !== false && !loaded.includes(route.key)) {

@@ -8,6 +8,15 @@ extension Collection {
   }
 }
 
+
+extension Collection where Element == TabInfo {
+  func findByKey(_ key: String?) -> Element? {
+    guard let key else { return nil }
+    guard !isEmpty else { return nil }
+    return first(where: { $0.key == key })
+  }
+}
+
 extension UIView {
   func pinEdges(to other: UIView) {
     NSLayoutConstraint.activate([

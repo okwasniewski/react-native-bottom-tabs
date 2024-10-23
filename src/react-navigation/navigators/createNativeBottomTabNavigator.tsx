@@ -9,7 +9,9 @@ import {
   TabRouter,
   createNavigatorFactory,
   useNavigationBuilder,
+  useTheme,
 } from '@react-navigation/native';
+import Color from 'color';
 
 import type {
   NativeBottomTabNavigationConfig,
@@ -34,8 +36,21 @@ function NativeBottomTabNavigator({
   children,
   screenListeners,
   screenOptions,
+  tabBarActiveTintColor: customActiveTintColor,
+  tabBarInactiveTintColor: customInactiveTintColor,
   ...rest
 }: NativeBottomTabNavigatorProps) {
+  const { colors } = useTheme();
+  const activeTintColor =
+    customActiveTintColor === undefined
+      ? colors.primary
+      : customActiveTintColor;
+
+  const inactiveTintColor =
+    customInactiveTintColor === undefined
+      ? Color(colors.text).mix(Color(colors.card), 0.5).hex()
+      : customInactiveTintColor;
+
   const { state, descriptors, navigation, NavigationContent } =
     useNavigationBuilder<
       TabNavigationState<ParamListBase>,
@@ -56,6 +71,8 @@ function NativeBottomTabNavigator({
     <NavigationContent>
       <NativeBottomTabView
         {...rest}
+        tabBarActiveTintColor={activeTintColor}
+        tabBarInactiveTintColor={inactiveTintColor}
         state={state}
         navigation={navigation}
         descriptors={descriptors}

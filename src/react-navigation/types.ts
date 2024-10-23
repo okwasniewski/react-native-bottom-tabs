@@ -76,6 +76,11 @@ export type NativeBottomTabNavigationOptions = {
    * Whether this screens should render the first time it's accessed. Defaults to true. Set it to false if you want to render the screen on initial render.
    */
   lazy?: boolean;
+
+  /**
+   * Active tab color.
+   */
+  tabBarActiveTintColor?: string;
 };
 
 export type NativeBottomTabDescriptor = Descriptor<
@@ -100,5 +105,6 @@ export type NativeBottomTabNavigationConfig = Partial<
     | 'getLabelText'
     | 'getBadge'
     | 'onTabLongPress'
+    | 'getActiveTintColor'
   >
 >;

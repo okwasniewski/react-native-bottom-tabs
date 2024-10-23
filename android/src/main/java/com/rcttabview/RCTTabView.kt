@@ -32,6 +32,10 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
   var onTabSelectedListener: ((WritableMap) -> Unit)? = null
   var onTabLongPressedListener: ((WritableMap) -> Unit)? = null
   private var isAnimating = false
+  private var activeTintColor: Int? = null
+  private var inactiveTintColor: Int? = null
+  private val checkedStateSet = intArrayOf(android.R.attr.state_checked)
+  private val uncheckedStateSet = intArrayOf(-android.R.attr.state_checked)
 
   private val layoutCallback = Choreographer.FrameCallback {
     isLayoutEnqueued = false
@@ -45,6 +49,7 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
   init {
     setOnItemSelectedListener { item ->
       onTabSelected(item)
+      updateTintColors(item)
       true
     }
   }
@@ -178,12 +183,41 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
     itemBackground = colorDrawable
   }
 
+  fun setActiveTintColor(color: Int?) {
+    activeTintColor = color
+    updateTintColors()
+  }
+
+  fun setInactiveTintColor(color: Int?) {
+    inactiveTintColor = color
+    updateTintColors()
+  }
+
+  private fun updateTintColors(item: MenuItem? = null) {
+    // First let's check current item color.
+    val currentItemTintColor = items?.find { it.title == item?.title }?.activeTintColor
+
+    // getDeaultColor will always return a valid color but to satisfy the compiler we need to check for null
+    val colorPrimary = currentItemTintColor ?: activeTintColor ?: getDefaultColorFor(android.R.attr.colorPrimary) ?: return
+    val colorSecondary =
+      inactiveTintColor ?: getDefaultColorFor(android.R.attr.textColorSecondary) ?: return
+    val states = arrayOf(uncheckedStateSet, checkedStateSet)
+    val colors = intArrayOf(colorSecondary, colorPrimary)
+
+    ColorStateList(states, colors).apply {
+      this@ReactBottomNavigationView.itemTextColor = this
+      this@ReactBottomNavigationView.itemIconTintList = this
+    }
+  }
+
   private fun getDefaultColorFor(baseColorThemeAttr: Int): Int? {
     val value = TypedValue()
     if (!context.theme.resolveAttribute(baseColorThemeAttr, value, true)) {
       return null
     }
-    val baseColor = AppCompatResources.getColorStateList(context, value.resourceId)
+    val baseColor = AppCompatResources.getColorStateList(
+      context, value.resourceId
+    )
     return baseColor.defaultColor
   }
 }

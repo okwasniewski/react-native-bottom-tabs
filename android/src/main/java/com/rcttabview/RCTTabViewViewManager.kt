@@ -21,7 +21,8 @@ import com.facebook.yoga.YogaNode
 data class TabInfo(
   val key: String,
   val title: String,
-  val badge: String
+  val badge: String,
+  val activeTintColor: Int?
 )
 
 @ReactModule(name = RCTTabViewViewManager.NAME)
@@ -42,7 +43,8 @@ class RCTTabViewViewManager :
           TabInfo(
             key = item.getString("key") ?: "",
             title = item.getString("title") ?: "",
-            badge = item.getString("badge") ?: ""
+            badge = item.getString("badge") ?: "",
+            activeTintColor = if (item.hasKey("activeTintColor")) item.getInt("activeTintColor") else null
           )
         )
       }
@@ -56,7 +58,6 @@ class RCTTabViewViewManager :
       view.selectedItemId = it
     }
   }
-
 
   @ReactProp(name = "labeled")
   fun setLabeled(view: ReactBottomNavigationView, flag: Boolean?) {
@@ -72,7 +73,7 @@ class RCTTabViewViewManager :
   fun setBarTintColor(view: ReactBottomNavigationView, color: Int?) {
     view.setBarTintColor(color)
   }
-  
+
   @ReactProp(name = "rippleColor")
   fun setRippleColor(view: ReactBottomNavigationView, rippleColor: Int?) {
     if (rippleColor != null) {
@@ -81,8 +82,14 @@ class RCTTabViewViewManager :
     }
   }
 
-  @ReactProp(name = "translucent")
-  fun setTranslucentview(view: ReactBottomNavigationView, translucent: Boolean?) {
+  @ReactProp(name = "activeTintColor")
+  fun setActiveTintColor(view: ReactBottomNavigationView, color: Int?) {
+    view.setActiveTintColor(color)
+  }
+
+  @ReactProp(name = "inactiveTintColor")
+  fun setInactiveTintColor(view: ReactBottomNavigationView, color: Int?) {
+    view.setInactiveTintColor(color)
   }
 
   public override fun createViewInstance(context: ThemedReactContext): ReactBottomNavigationView {
@@ -102,7 +109,6 @@ class RCTTabViewViewManager :
 
     return view
   }
-
 
   class TabViewShadowNode() : LayoutShadowNode(),
     YogaMeasureFunction {
@@ -169,5 +175,9 @@ class RCTTabViewViewManager :
 
   @ReactProp(name = "disablePageAnimations")
   fun setDisablePageAnimations(view: ReactBottomNavigationView, flag: Boolean) {
+  }
+
+  @ReactProp(name = "translucent")
+  fun setTranslucentview(view: ReactBottomNavigationView, translucent: Boolean?) {
   }
 }
