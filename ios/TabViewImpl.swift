@@ -17,6 +17,18 @@ class TabViewProps: ObservableObject {
   @Published var scrollEdgeAppearance: String?
   @Published var barTintColor: UIColor?
   @Published var translucent: Bool = true
+  @Published var activeTintColor: UIColor?
+  @Published var inactiveTintColor: UIColor?
+  
+  var selectedActiveTintColor: UIColor? {
+    if let selectedPage = selectedPage,
+       let tabData = items?.tabs.findByKey(selectedPage),
+       let activeTintColor = tabData.activeTintColor {
+      return RCTConvert.uiColor(activeTintColor)
+    }
+    
+    return activeTintColor
+  }
 }
 
 /**
@@ -63,7 +75,9 @@ struct TabViewImpl: View {
           .tabBadge(tabData?.badge)
       }
     }
+    .tintColor(props.selectedActiveTintColor)
     .getSidebarAdaptable(enabled: props.sidebarAdaptable ?? false)
+    .configureAppearance(props: props)
     .onChange(of: props.selectedPage ?? "") { newValue in
       if (props.disablePageAnimations) {
         UIView.setAnimationsEnabled(false)
@@ -71,25 +85,13 @@ struct TabViewImpl: View {
           UIView.setAnimationsEnabled(true)
         }
       }
+      
       onSelect(newValue)
-    }
-    .onAppear() {
-      updateTabBarAppearance(props: props)
-    }
-    .onChange(of: props.barTintColor) { newValue in
-      updateTabBarAppearance(props: props)
-    }
-    .onChange(of: props.scrollEdgeAppearance) { newValue in
-      updateTabBarAppearance(props: props)
-    }
-    .onChange(of: props.translucent) { newValue in
-      updateTabBarAppearance(props: props)
     }
   }
 }
 
 private func configureAppearance(for appearanceType: String, appearance: UITabBarAppearance) -> UITabBarAppearance {
-  
   switch appearanceType {
   case "opaque":
     appearance.configureWithOpaqueBackground()
@@ -102,25 +104,46 @@ private func configureAppearance(for appearanceType: String, appearance: UITabBa
   return appearance
 }
 
+private func setTabBarItemColors(_ itemAppearance: UITabBarItemAppearance, inactiveColor: UIColor) {
+  itemAppearance.normal.iconColor = inactiveColor
+  itemAppearance.normal.titleTextAttributes = [.foregroundColor: inactiveColor]
+}
+
+private func configureAppearance(inactiveTint inactiveTintColor: UIColor?, appearance: UITabBarAppearance) -> UITabBarAppearance {
+  // @see https://stackoverflow.com/a/71934882
+  if let inactiveTintColor {
+    setTabBarItemColors(appearance.stackedLayoutAppearance, inactiveColor: inactiveTintColor)
+    setTabBarItemColors(appearance.inlineLayoutAppearance, inactiveColor: inactiveTintColor)
+    setTabBarItemColors(appearance.compactInlineLayoutAppearance, inactiveColor: inactiveTintColor)
+  }
+  
+  return appearance
+}
+
 private func updateTabBarAppearance(props: TabViewProps) {
+  var appearance = UITabBarAppearance()
+  appearance = configureAppearance(for: props.scrollEdgeAppearance ?? "", appearance: appearance)
+  appearance = configureAppearance(
+    inactiveTint: props.inactiveTintColor,
+    appearance: appearance
+  )
+  
   if #available(iOS 15.0, *) {
-    let appearance = UITabBarAppearance()
-      
-    UITabBar.appearance().scrollEdgeAppearance = configureAppearance(for: props.scrollEdgeAppearance ?? "", appearance: appearance)
+    UITabBar.appearance().scrollEdgeAppearance = appearance
     
     if props.translucent == false {
       appearance.configureWithOpaqueBackground()
     }
-      
+    
     if props.barTintColor != nil {
       appearance.backgroundColor = props.barTintColor
     }
-      
-    UITabBar.appearance().standardAppearance = appearance
   } else {
     UITabBar.appearance().barTintColor = props.barTintColor
     UITabBar.appearance().isTranslucent = props.translucent
   }
+  
+  UITabBar.appearance().standardAppearance = appearance
 }
 
 struct TabItem: View {
@@ -184,6 +207,43 @@ extension View {
         .ignoresSafeArea(.container, edges: .horizontal)
         .ignoresSafeArea(.container, edges: .bottom)
         .frame(idealWidth: frame.width, idealHeight: frame.height)
-      }
     }
+  }
+  
+  @ViewBuilder
+  func configureAppearance(props: TabViewProps) -> some View {
+    self
+      .onAppear() {
+        updateTabBarAppearance(props: props)
+      }
+      .onChange(of: props.barTintColor) { newValue in
+        updateTabBarAppearance(props: props)
+      }
+      .onChange(of: props.scrollEdgeAppearance) { newValue in
+        updateTabBarAppearance(props: props)
+      }
+      .onChange(of: props.translucent) { newValue in
+        updateTabBarAppearance(props: props)
+      }
+      .onChange(of: props.inactiveTintColor) { newValue in
+        updateTabBarAppearance(props: props)
+      }
+      .onChange(of: props.selectedActiveTintColor) { newValue in
+        updateTabBarAppearance(props: props)
+      }
+  }
+  
+  @ViewBuilder
+  func tintColor(_ color: UIColor?) -> some View {
+    if let color {
+      let color = Color(color)
+      if #available(iOS 16.0, *) {
+        self.tint(color)
+      } else {
+        self.accentColor(color)
+      }
+    } else {
+      self
+    }
+  }
 }

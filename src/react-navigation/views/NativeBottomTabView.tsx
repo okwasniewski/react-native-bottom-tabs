@@ -27,6 +27,9 @@ export default function NativeBottomTabView({
       {...rest}
       navigationState={state}
       renderScene={({ route }) => descriptors[route.key]?.render()}
+      getActiveTintColor={({ route }) => {
+        return descriptors[route.key]?.options.tabBarActiveTintColor;
+      }}
       getLabelText={({ route }) => {
         const options = descriptors[route.key]?.options;
 

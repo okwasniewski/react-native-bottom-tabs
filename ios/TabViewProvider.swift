@@ -7,6 +7,7 @@ struct TabInfo: Codable {
   let title: String
   let badge: String
   let sfSymbol: String
+  let activeTintColor: Int?
 }
 
 struct TabData: Codable {
@@ -80,6 +81,18 @@ struct TabData: Codable {
   @objc var barTintColor: NSNumber? {
     didSet {
       props.barTintColor = RCTConvert.uiColor(barTintColor)
+      }
+  }
+
+  @objc var activeTintColor: NSNumber? {
+    didSet {
+      props.activeTintColor = RCTConvert.uiColor(activeTintColor)
+    }
+  }
+
+  @objc var inactiveTintColor: NSNumber? {
+    didSet {
+      props.inactiveTintColor = RCTConvert.uiColor(inactiveTintColor)
     }
   }
 
@@ -156,7 +169,8 @@ struct TabData: Codable {
             key: itemDict["key"] as? String ?? "",
             title: itemDict["title"] as? String ?? "",
             badge: itemDict["badge"] as? String ?? "",
-            sfSymbol: itemDict["sfSymbol"] as? String ?? ""
+            sfSymbol: itemDict["sfSymbol"] as? String ?? "",
+            activeTintColor: itemDict["activeTintColor"] as? Int
           )
         )
       }

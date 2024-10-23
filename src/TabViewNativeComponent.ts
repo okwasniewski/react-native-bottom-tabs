@@ -1,5 +1,5 @@
 import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
-import type { ViewProps, ProcessedColorValue } from 'react-native';
+import type { ProcessedColorValue, ViewProps } from 'react-native';
 import type { DirectEventHandler } from 'react-native/Libraries/Types/CodegenTypes';
 //@ts-ignore
 import type { ImageSource } from 'react-native/Libraries/Image/ImageSource';
@@ -13,6 +13,7 @@ export type TabViewItems = ReadonlyArray<{
   title: string;
   sfSymbol?: string;
   badge?: string;
+  activeTintColor?: ProcessedColorValue | null;
 }>;
 
 export interface TabViewProps extends ViewProps {
@@ -26,6 +27,8 @@ export interface TabViewProps extends ViewProps {
   barTintColor?: ProcessedColorValue | null;
   translucent?: boolean;
   rippleColor?: ProcessedColorValue | null;
+  activeTintColor?: ProcessedColorValue | null;
+  inactiveTintColor?: ProcessedColorValue | null;
 }
 
 export default codegenNativeComponent<TabViewProps>('RCTTabView');

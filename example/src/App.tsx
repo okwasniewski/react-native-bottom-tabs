@@ -10,8 +10,14 @@ import {
   TouchableOpacity,
   Button,
   Alert,
+  useColorScheme,
 } from 'react-native';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import {
+  DarkTheme,
+  DefaultTheme,
+  NavigationContainer,
+  useNavigation,
+} from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -22,6 +28,7 @@ import MaterialBottomTabs from './Examples/MaterialBottomTabs';
 import SFSymbols from './Examples/SFSymbols';
 import LabeledTabs from './Examples/Labeled';
 import NativeBottomTabs from './Examples/NativeBottomTabs';
+import TintColorsExample from './Examples/TintColors';
 
 const FourTabsIgnoreSafeArea = () => {
   return <FourTabs ignoresTopSafeArea />;
@@ -82,6 +89,7 @@ const examples = [
     screenOptions: { headerShown: false },
   },
   { component: MaterialBottomTabs, name: 'Material (JS) Bottom Tabs' },
+  { component: TintColorsExample, name: 'Tint Colors' },
 ];
 
 function App() {
@@ -112,9 +120,12 @@ const NativeStack = createNativeStackNavigator();
 export default function Navigation() {
   const [mode, setMode] = React.useState<'native' | 'js'>('native');
   const NavigationStack = mode === 'js' ? Stack : NativeStack;
+  const colorScheme = useColorScheme();
+  const theme = colorScheme === 'dark' ? DarkTheme : DefaultTheme;
+
   return (
     <SafeAreaProvider>
-      <NavigationContainer>
+      <NavigationContainer theme={theme}>
         <NavigationStack.Navigator initialRouteName="BottomTabs Example">
           <NavigationStack.Screen
             name="BottomTabs Example"

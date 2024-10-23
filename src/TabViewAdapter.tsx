@@ -1,6 +1,6 @@
-import NativeTabView, { type TabViewProps } from './TabViewNativeComponent';
+import NativeTabView, { TabViewProps } from './TabViewNativeComponent';
 
-const TabViewAdapter = ({ ...props }: TabViewProps) => {
+const TabViewAdapter = (props: TabViewProps) => {
   return <NativeTabView {...props} />;
 };
 
