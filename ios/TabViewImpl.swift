@@ -60,16 +60,15 @@ struct TabViewImpl: View {
               labeled: props.labeled
             )
           }
-          .onLongPressGesture {
-              print("### Shubham iOS Side onLongPressGesture called")
-              if let key = tabData?.key {
-                  onLongPress(key)
-              }
-          }
           .tag(tabData?.key)
           .tabBadge(tabData?.badge)
       }
     }
+    .onTabItemLongPress({ index in
+        if let key = props.items?.tabs[safe: index]?.key {
+          onLongPress(key)
+        }
+    })
     .getSidebarAdaptable(enabled: props.sidebarAdaptable ?? false)
     .onChange(of: props.selectedPage ?? "") { newValue in
       if (props.disablePageAnimations) {
