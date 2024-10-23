@@ -36,8 +36,8 @@ function NativeBottomTabNavigator({
   children,
   screenListeners,
   screenOptions,
-  activeTintColor: customActiveTintColor,
-  inactiveTintColor: customInactiveTintColor,
+  tabBarActiveTintColor: customActiveTintColor,
+  tabBarInactiveTintColor: customInactiveTintColor,
   ...rest
 }: NativeBottomTabNavigatorProps) {
   const { colors } = useTheme();
@@ -71,8 +71,8 @@ function NativeBottomTabNavigator({
     <NavigationContent>
       <NativeBottomTabView
         {...rest}
-        activeTintColor={activeTintColor}
-        inactiveTintColor={inactiveTintColor}
+        tabBarActiveTintColor={activeTintColor}
+        tabBarInactiveTintColor={inactiveTintColor}
         state={state}
         navigation={navigation}
         descriptors={descriptors}

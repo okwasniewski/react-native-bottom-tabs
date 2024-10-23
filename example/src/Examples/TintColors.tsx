@@ -48,8 +48,8 @@ export default function TintColorsExample() {
       navigationState={{ index, routes }}
       onIndexChange={setIndex}
       renderScene={renderScene}
-      inactiveTintColor="red"
-      activeTintColor="orange"
+      tabBarActiveTintColor="red"
+      tabBarInactiveTintColor="orange"
       scrollEdgeAppearance="default"
     />
   );

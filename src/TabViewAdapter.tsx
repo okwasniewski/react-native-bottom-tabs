@@ -1,18 +1,7 @@
-import { processColor } from 'react-native';
-import NativeTabView, { TabViewNativeProps } from './TabViewNativeComponent';
+import NativeTabView, { TabViewProps } from './TabViewNativeComponent';
 
-const TabViewAdapter = ({
-  activeTintColor,
-  inactiveTintColor,
-  ...props
-}: TabViewNativeProps) => {
-  return (
-    <NativeTabView
-      {...props}
-      activeTintColor={processColor(activeTintColor)}
-      inactiveTintColor={processColor(inactiveTintColor)}
-    />
-  );
+const TabViewAdapter = (props: TabViewProps) => {
+  return <NativeTabView {...props} />;
 };
 
 export default TabViewAdapter;

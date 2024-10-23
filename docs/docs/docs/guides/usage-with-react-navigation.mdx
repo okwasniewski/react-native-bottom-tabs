@@ -65,11 +65,11 @@ Whether to disable page animations between tabs.
 
 Describes the appearance attributes for the tabBar to use when an observable scroll view is scrolled to the bottom.
 
-### `activeTintColor`
+### `tabBarActiveTintColor`
 
 Color for the active tab.
 
-### `inactiveTintColor`
+### `tabBarInactiveTintColor`
 
 Color for the inactive tabs.
 
@@ -119,7 +119,7 @@ Label text of the tab displayed in the navigation bar. When undefined, scene tit
 Color for the active tab.
 
 :::note
-The `tabBarInactiveTintColor` is not supported due to native limitations. Use `inactiveTintColor` in the `Tab.Navigator` instead.
+The `tabBarInactiveTintColor` is not supported on route level due to native limitations. Use `inactiveTintColor` in the `Tab.Navigator` instead.
 :::
 
 #### `tabBarIcon`

@@ -50,11 +50,11 @@ interface Props<Route extends BaseRoute> {
   /**
    * Active tab color.
    */
-  activeTintColor?: ColorValue;
+  tabBarActiveTintColor?: ColorValue;
   /**
    * Inactive tab color.
    */
-  inactiveTintColor?: ColorValue;
+  tabBarInactiveTintColor?: ColorValue;
   /**
    * State for the tab view.
    *
@@ -124,6 +124,9 @@ const TabView = <Route extends BaseRoute>({
       : route.focusedIcon,
   barTintColor,
   getActiveTintColor = ({ route }: { route: Route }) => route.activeTintColor,
+  tabBarActiveTintColor: activeTintColor,
+  tabBarInactiveTintColor: inactiveTintColor,
+  rippleColor,
   ...props
 }: Props<Route>) => {
   // @ts-ignore
@@ -211,9 +214,11 @@ const TabView = <Route extends BaseRoute>({
       onPageSelected={({ nativeEvent: { key } }) => {
         jumpTo(key);
       }}
-      barTintColor={processColor(barTintColor)}
       {...props}
-      rippleColor={processColor(props.rippleColor)}
+      activeTintColor={processColor(activeTintColor)}
+      inactiveTintColor={processColor(inactiveTintColor)}
+      barTintColor={processColor(barTintColor)}
+      rippleColor={processColor(rippleColor)}
     >
       {trimmedRoutes.map((route) => {
         if (getLazy({ route }) !== false && !loaded.includes(route.key)) {

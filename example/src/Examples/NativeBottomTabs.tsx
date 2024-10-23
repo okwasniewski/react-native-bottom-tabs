@@ -9,7 +9,7 @@ const Tab = createNativeBottomTabNavigator();
 
 function NativeBottomTabs() {
   return (
-    <Tab.Navigator inactiveTintColor="red" activeTintColor="orange">
+    <Tab.Navigator tabBarInactiveTintColor="red" tabBarActiveTintColor="orange">
       <Tab.Screen
         name="Article"
         component={Article}
@@ -41,6 +41,7 @@ function NativeBottomTabs() {
         component={Chat}
         options={{
           tabBarIcon: () => require('../../assets/icons/chat_dark.png'),
+          tabBarActiveTintColor: 'purple',
         }}
       />
     </Tab.Navigator>
