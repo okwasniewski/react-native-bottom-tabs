@@ -113,6 +113,14 @@
     "example",
     "docs"
   ],
+  "codegenConfig": {
+    "name": "RCTTabView",
+    "type": "components",
+    "jsSrcsDir": "src",
+    "android": {
+      "javaPackageName": "com.rcttabview"
+    }
+  },
   "packageManager": "yarn@3.6.1",
   "jest": {
     "preset": "react-native",

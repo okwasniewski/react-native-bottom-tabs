@@ -28,4 +28,6 @@ export interface TabViewProps extends ViewProps {
   rippleColor?: ProcessedColorValue | null;
 }
 
-export default codegenNativeComponent<TabViewProps>('RCTTabView');
+export default codegenNativeComponent<TabViewProps>('RCTTabView',{
+  interfaceOnly: true,
+});
