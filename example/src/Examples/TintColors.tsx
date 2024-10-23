@@ -26,6 +26,7 @@ export default function TintColorsExample() {
       key: 'contacts',
       focusedIcon: require('../../assets/icons/person_dark.png'),
       title: 'Contacts',
+      activeTintColor: 'yellow',
     },
     {
       key: 'chat',
@@ -48,6 +49,7 @@ export default function TintColorsExample() {
       onIndexChange={setIndex}
       renderScene={renderScene}
       inactiveTintColor="red"
+      activeTintColor="orange"
       scrollEdgeAppearance="default"
     />
   );

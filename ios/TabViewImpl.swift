@@ -19,6 +19,16 @@ class TabViewProps: ObservableObject {
   @Published var translucent: Bool = true
   @Published var activeTintColor: UIColor?
   @Published var inactiveTintColor: UIColor?
+  
+  var selectedActiveTintColor: UIColor? {
+    if let selectedPage = selectedPage,
+       let tabData = items?.tabs.findByKey(selectedPage),
+       let activeTintColor = tabData.activeTintColor {
+      return RCTConvert.uiColor(activeTintColor)
+    }
+    
+    return activeTintColor
+  }
 }
 
 /**
@@ -40,24 +50,6 @@ struct RepresentableView: UIViewRepresentable {
 struct TabViewImpl: View {
   @ObservedObject var props: TabViewProps
   var onSelect: (_ key: String) -> Void
-  
-  var selectedActiveTintColor: UIColor? {
-    // check first in selected tab
-    let selectedPage = props.selectedPage
-    if let selectedPage {
-      if let tabData = props.items?.tabs.findByKey(selectedPage) {
-        if let activeTintColor = tabData.activeTintColor {
-          return RCTConvert.uiColor(activeTintColor)
-        }
-      }
-    }
-    
-    if let activeTintColor = props.activeTintColor {
-      return activeTintColor
-    }
-    
-    return nil
-  }
   
   var body: some View {
     TabView(selection: $props.selectedPage) {
@@ -83,8 +75,9 @@ struct TabViewImpl: View {
           .tabBadge(tabData?.badge)
       }
     }
-    .tintColor(selectedActiveTintColor)
+    .tintColor(props.selectedActiveTintColor)
     .getSidebarAdaptable(enabled: props.sidebarAdaptable ?? false)
+    .configureAppearance(props: props)
     .onChange(of: props.selectedPage ?? "") { newValue in
       if (props.disablePageAnimations) {
         UIView.setAnimationsEnabled(false)
@@ -94,24 +87,6 @@ struct TabViewImpl: View {
       }
       
       onSelect(newValue)
-    }
-    .onAppear() {
-      updateTabBarAppearance(props: props, selectedActiveTintColor: selectedActiveTintColor)
-    }
-    .onChange(of: props.barTintColor) { newValue in
-      updateTabBarAppearance(props: props, selectedActiveTintColor: selectedActiveTintColor)
-    }
-    .onChange(of: props.scrollEdgeAppearance) { newValue in
-      updateTabBarAppearance(props: props, selectedActiveTintColor: selectedActiveTintColor)
-    }
-    .onChange(of: props.translucent) { newValue in
-      updateTabBarAppearance(props: props, selectedActiveTintColor: selectedActiveTintColor)
-    }
-    .onChange(of: props.inactiveTintColor) { newValue in
-      updateTabBarAppearance(props: props, selectedActiveTintColor: selectedActiveTintColor)
-    }
-    .onChange(of: selectedActiveTintColor) { newValue in
-      updateTabBarAppearance(props: props, selectedActiveTintColor: selectedActiveTintColor)
     }
   }
 }
@@ -134,13 +109,7 @@ private func setTabBarItemColors(_ itemAppearance: UITabBarItemAppearance, inact
   itemAppearance.normal.titleTextAttributes = [.foregroundColor: inactiveColor]
 }
 
-
-private func setTabBarItemColors(_ itemAppearance: UITabBarItemAppearance, activeColor: UIColor) {
-  itemAppearance.selected.iconColor = activeColor
-  itemAppearance.selected.titleTextAttributes = [.foregroundColor: activeColor]
-}
-
-private func configureAppearance(inactiveTint inactiveTintColor: UIColor?, activeTint activeTintColor: UIColor?, appearance: UITabBarAppearance) -> UITabBarAppearance {
+private func configureAppearance(inactiveTint inactiveTintColor: UIColor?, appearance: UITabBarAppearance) -> UITabBarAppearance {
   // @see https://stackoverflow.com/a/71934882
   if let inactiveTintColor {
     setTabBarItemColors(appearance.stackedLayoutAppearance, inactiveColor: inactiveTintColor)
@@ -148,19 +117,16 @@ private func configureAppearance(inactiveTint inactiveTintColor: UIColor?, activ
     setTabBarItemColors(appearance.compactInlineLayoutAppearance, inactiveColor: inactiveTintColor)
   }
   
-  if let activeTintColor {
-    setTabBarItemColors(appearance.stackedLayoutAppearance, activeColor: activeTintColor)
-    setTabBarItemColors(appearance.inlineLayoutAppearance, activeColor: activeTintColor)
-    setTabBarItemColors(appearance.compactInlineLayoutAppearance, activeColor: activeTintColor)
-  }
-  
   return appearance
 }
 
-private func updateTabBarAppearance(props: TabViewProps, selectedActiveTintColor: UIColor?) {
+private func updateTabBarAppearance(props: TabViewProps) {
   var appearance = UITabBarAppearance()
   appearance = configureAppearance(for: props.scrollEdgeAppearance ?? "", appearance: appearance)
-  appearance = configureAppearance(inactiveTint: props.inactiveTintColor, activeTint: selectedActiveTintColor, appearance: appearance)
+  appearance = configureAppearance(
+    inactiveTint: props.inactiveTintColor,
+    appearance: appearance
+  )
   
   if #available(iOS 15.0, *) {
     UITabBar.appearance().scrollEdgeAppearance = appearance
@@ -179,7 +145,6 @@ private func updateTabBarAppearance(props: TabViewProps, selectedActiveTintColor
   
   UITabBar.appearance().standardAppearance = appearance
 }
-
 
 struct TabItem: View {
   var title: String?
@@ -243,6 +208,29 @@ extension View {
         .ignoresSafeArea(.container, edges: .bottom)
         .frame(idealWidth: frame.width, idealHeight: frame.height)
     }
+  }
+  
+  @ViewBuilder
+  func configureAppearance(props: TabViewProps) -> some View {
+    self
+      .onAppear() {
+        updateTabBarAppearance(props: props)
+      }
+      .onChange(of: props.barTintColor) { newValue in
+        updateTabBarAppearance(props: props)
+      }
+      .onChange(of: props.scrollEdgeAppearance) { newValue in
+        updateTabBarAppearance(props: props)
+      }
+      .onChange(of: props.translucent) { newValue in
+        updateTabBarAppearance(props: props)
+      }
+      .onChange(of: props.inactiveTintColor) { newValue in
+        updateTabBarAppearance(props: props)
+      }
+      .onChange(of: props.selectedActiveTintColor) { newValue in
+        updateTabBarAppearance(props: props)
+      }
   }
   
   @ViewBuilder

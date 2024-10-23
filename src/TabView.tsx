@@ -86,6 +86,10 @@ interface Props<Route extends BaseRoute> {
    */
   getBadge?: (props: { route: Route }) => string | undefined;
   /**
+   * Get active tint color for the tab, uses `route.activeTintColor` by default.
+   */
+  getActiveTintColor?: (props: { route: Route }) => ColorValue | undefined;
+  /**
    * Get icon for the tab, uses `route.focusedIcon` by default.
    */
   getIcon?: (props: {
@@ -119,6 +123,7 @@ const TabView = <Route extends BaseRoute>({
         : route.unfocusedIcon
       : route.focusedIcon,
   barTintColor,
+  getActiveTintColor = ({ route }: { route: Route }) => route.activeTintColor,
   ...props
 }: Props<Route>) => {
   // @ts-ignore
@@ -174,10 +179,10 @@ const TabView = <Route extends BaseRoute>({
           title: getLabelText({ route }) ?? route.key,
           sfSymbol: isSfSymbol ? icon.sfSymbol : undefined,
           badge: props.getBadge?.({ route }),
-          activeTintColor: processColor(route.activeTintColor),
+          activeTintColor: processColor(getActiveTintColor({ route })),
         };
       }),
-    [getLabelText, icons, trimmedRoutes, props]
+    [trimmedRoutes, icons, getLabelText, props, getActiveTintColor]
   );
 
   const resolvedIconAssets: ImageSource[] = useMemo(

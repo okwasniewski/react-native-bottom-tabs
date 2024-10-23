@@ -34,8 +34,6 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
   private var inactiveTintColor: Int? = null
   private val checkedStateSet = intArrayOf(android.R.attr.state_checked)
   private val uncheckedStateSet = intArrayOf(-android.R.attr.state_checked)
-  private val disabledStateSet = intArrayOf(-android.R.attr.state_enabled)
-
 
   private val layoutCallback = Choreographer.FrameCallback {
     isLayoutEnqueued = false
@@ -49,6 +47,7 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
   init {
     setOnItemSelectedListener { item ->
       onTabSelected(item)
+      updateTintColors(item)
       true
     }
   }
@@ -176,9 +175,12 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
     updateTintColors()
   }
 
-  private fun updateTintColors() {
+  private fun updateTintColors(item: MenuItem? = null) {
+    // First let's check current item color.
+    val currentItemTintColor = items?.find { it.title == item?.title }?.activeTintColor
+
     // getDeaultColor will always return a valid color but to satisfy the compiler we need to check for null
-    val colorPrimary = activeTintColor ?: getDefaultColorFor(android.R.attr.colorPrimary) ?: return
+    val colorPrimary = currentItemTintColor ?: activeTintColor ?: getDefaultColorFor(android.R.attr.colorPrimary) ?: return
     val colorSecondary =
       inactiveTintColor ?: getDefaultColorFor(android.R.attr.textColorSecondary) ?: return
     val states = arrayOf(uncheckedStateSet, checkedStateSet)
