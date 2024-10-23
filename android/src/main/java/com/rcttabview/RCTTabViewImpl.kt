@@ -20,7 +20,8 @@ import com.facebook.yoga.YogaNode
 data class TabInfo(
   val key: String,
   val title: String,
-  val badge: String
+  val badge: String,
+  val activeTintColor: Int?
 )
 
 class RCTTabViewImpl {
@@ -39,7 +40,8 @@ class RCTTabViewImpl {
           TabInfo(
             key = item.getString("key") ?: "",
             title = item.getString("title") ?: "",
-            badge = item.getString("badge") ?: ""
+            badge = item.getString("badge") ?: "",
+            activeTintColor = if (item.hasKey("activeTintColor")) item.getInt("activeTintColor") else null
           )
         )
       }
@@ -64,20 +66,27 @@ class RCTTabViewImpl {
     view.setIcons(icons)
   }
 
-  @ReactProp(name = "barTintColor")
+  @ReactProp(name = "barTintColor", customType = "Color")
   fun setBarTintColor(view: ReactBottomNavigationView, color: Int?) {
     view.setBarTintColor(color)
   }
-  
-  @ReactProp(name = "rippleColor")
+
+  @ReactProp(name = "rippleColor", customType = "Color")
   fun setRippleColor(view: ReactBottomNavigationView, rippleColor: Int?) {
     if (rippleColor != null) {
       val color = ColorStateList.valueOf(rippleColor)
       view.setRippleColor(color)
     }
   }
-  @ReactProp(name = "translucent")
-  fun setTranslucentview(view: ReactBottomNavigationView, translucent: Boolean?) {
+
+  @ReactProp(name = "activeTintColor", customType = "Color")
+  fun setActiveTintColor(view: ReactBottomNavigationView, color: Int?) {
+    view.setActiveTintColor(color)
+  }
+
+  @ReactProp(name = "inactiveTintColor", customType = "Color")
+  fun setInactiveTintColor(view: ReactBottomNavigationView, color: Int?) {
+    view.setInactiveTintColor(color)
   }
   
   fun createViewInstance(context: ThemedReactContext): ReactBottomNavigationView {
@@ -89,6 +98,13 @@ class RCTTabViewImpl {
         eventDispatcher.dispatchEvent(PageSelectedEvent(viewTag = view.id, key = it))
       }
     }
+
+    view.onTabLongPressedListener = { data ->
+      data.getString("key")?.let {
+        eventDispatcher.dispatchEvent(TabLongPressEvent(viewTag = view.id, key = it))
+      }
+    }
+
     return view
   }
 
@@ -100,7 +116,7 @@ class RCTTabViewImpl {
   }
 
   companion object {
-    const val NAME = "RCTTabView"
+    const val NAME = "RNCTabView"
   }
   // iOS Props
 
@@ -116,5 +132,9 @@ class RCTTabViewImpl {
 
 
   fun setDisablePageAnimations(view: ReactBottomNavigationView, flag: Boolean) {
+  }
+
+  @ReactProp(name = "translucent")
+  fun setTranslucentview(view: ReactBottomNavigationView, translucent: Boolean?) {
   }
 }

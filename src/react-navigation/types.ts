@@ -16,6 +16,10 @@ export type NativeBottomTabNavigationEventMap = {
    * Event which fires on tapping on the tab in the tab bar.
    */
   tabPress: { data: undefined };
+  /**
+   * Event which fires on long press on tab bar.
+   */
+  tabLongPress: { data: undefined };
 };
 
 export type NativeBottomTabNavigationHelpers = NavigationHelpers<
@@ -72,6 +76,11 @@ export type NativeBottomTabNavigationOptions = {
    * Whether this screens should render the first time it's accessed. Defaults to true. Set it to false if you want to render the screen on initial render.
    */
   lazy?: boolean;
+
+  /**
+   * Active tab color.
+   */
+  tabBarActiveTintColor?: string;
 };
 
 export type NativeBottomTabDescriptor = Descriptor<
@@ -95,5 +104,7 @@ export type NativeBottomTabNavigationConfig = Partial<
     | 'getIcon'
     | 'getLabelText'
     | 'getBadge'
+    | 'onTabLongPress'
+    | 'getActiveTintColor'
   >
 >;

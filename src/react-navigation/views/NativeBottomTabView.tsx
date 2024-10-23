@@ -27,6 +27,9 @@ export default function NativeBottomTabView({
       {...rest}
       navigationState={state}
       renderScene={({ route }) => descriptors[route.key]?.render()}
+      getActiveTintColor={({ route }) => {
+        return descriptors[route.key]?.options.tabBarActiveTintColor;
+      }}
       getLabelText={({ route }) => {
         const options = descriptors[route.key]?.options;
 
@@ -48,6 +51,17 @@ export default function NativeBottomTabView({
         return null;
       }}
       getLazy={({ route }) => descriptors[route.key]?.options.lazy ?? true}
+      onTabLongPress={(index) => {
+        const route = state.routes[index];
+        if (!route) {
+          return;
+        }
+
+        navigation.emit({
+          type: 'tabLongPress',
+          target: route.key,
+        });
+      }}
       onIndexChange={(index) => {
         const route = state.routes[index];
         if (!route) {
@@ -58,7 +72,7 @@ export default function NativeBottomTabView({
           type: 'tabPress',
           target: route.key,
         });
-        navigation.navigate({ key: route.key, merge: true });
+        navigation.navigate({ key: route.key, name: route.name, merge: true });
       }}
     />
   );
