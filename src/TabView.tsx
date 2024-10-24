@@ -74,9 +74,9 @@ interface Props<Route extends BaseRoute> {
    */
   onIndexChange: (index: number) => void;
   /**
-   * Callback which is called on long press on tab, receives the key of tab as argument.
+   * Callback which is called on long press on tab, receives the index of the tab as argument.
    */
-  onTabLongPress?: (key: string) => void;
+  onTabLongPress?: (index: number) => void;
   /**
    * Get lazy for the current screen. Uses true by default.
    */
@@ -217,7 +217,8 @@ const TabView = <Route extends BaseRoute>({
       icons={resolvedIconAssets}
       selectedPage={focusedKey}
       onTabLongPress={({ nativeEvent: { key } }) => {
-        onTabLongPress?.(key);
+        const index = trimmedRoutes.findIndex((route) => route.key === key);
+        onTabLongPress?.(index);
       }}
       onPageSelected={({ nativeEvent: { key } }) => {
         jumpTo(key);
