@@ -51,10 +51,15 @@ export default function NativeBottomTabView({
         return null;
       }}
       getLazy={({ route }) => descriptors[route.key]?.options.lazy ?? true}
-      onTabLongPress={(key) => {
+      onTabLongPress={(index) => {
+        const route = state.routes[index];
+        if (!route) {
+          return;
+        }
+
         navigation.emit({
           type: 'tabLongPress',
-          target: key,
+          target: route.key,
         });
       }}
       onIndexChange={(index) => {
