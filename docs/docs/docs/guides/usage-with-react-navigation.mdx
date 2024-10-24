@@ -149,3 +149,23 @@ Badge to show on the tab icon.
 #### `lazy`
 
 Whether this screens should render the first time it's accessed. Defaults to true. Set it to false if you want to render the screen on initial render.
+
+### Events
+
+The navigator can emit events on certain actions. Supported events are:
+
+#### `tabLongPress`
+
+This event is fired when the user presses the tab button for the current screen in the tab bar for an extended period.
+
+Example:
+
+```tsx
+React.useEffect(() => {
+  const unsubscribe = navigation.addListener('tabLongPress', (e) => {
+    // Do something
+  });
+
+  return unsubscribe;
+}, [navigation]);
+```

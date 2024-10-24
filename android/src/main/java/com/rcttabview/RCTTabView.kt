@@ -10,6 +10,7 @@ import android.util.TypedValue
 import android.net.Uri
 import android.view.Choreographer
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
 import com.facebook.common.references.CloseableReference
 import com.facebook.datasource.DataSources
@@ -29,6 +30,7 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
   private var isLayoutEnqueued = false
   var items: MutableList<TabInfo>? = null
   var onTabSelectedListener: ((WritableMap) -> Unit)? = null
+  var onTabLongPressedListener: ((WritableMap) -> Unit)? = null
   private var isAnimating = false
   private var activeTintColor: Int? = null
   private var inactiveTintColor: Int? = null
@@ -49,6 +51,16 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
       onTabSelected(item)
       updateTintColors(item)
       true
+    }
+  }
+
+  private fun onTabLongPressed(item: MenuItem) {
+    val longPressedItem = items?.firstOrNull { it.title == item.title }
+    longPressedItem?.let {
+      val event = Arguments.createMap().apply {
+        putString("key", longPressedItem.key)
+      }
+      onTabLongPressedListener?.invoke(event)
     }
   }
 
@@ -94,6 +106,12 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
         badge.text = item.badge
       } else {
         removeBadge(index)
+      }
+      post {
+        findViewById<View>(menuItem.itemId).setOnLongClickListener {
+          onTabLongPressed(menuItem)
+          true
+        }
       }
     }
   }

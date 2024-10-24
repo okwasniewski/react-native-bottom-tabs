@@ -74,6 +74,10 @@ interface Props<Route extends BaseRoute> {
    */
   onIndexChange: (index: number) => void;
   /**
+   * Callback which is called on long press on tab, receives the index of the tab as argument.
+   */
+  onTabLongPress?: (index: number) => void;
+  /**
    * Get lazy for the current screen. Uses true by default.
    */
   getLazy?: (props: { route: Route }) => boolean | undefined;
@@ -114,6 +118,7 @@ const TabView = <Route extends BaseRoute>({
   navigationState,
   renderScene,
   onIndexChange,
+  onTabLongPress,
   getLazy = ({ route }: { route: Route }) => route.lazy,
   getLabelText = ({ route }: { route: Route }) => route.title,
   getIcon = ({ route, focused }: { route: Route; focused: boolean }) =>
@@ -211,6 +216,10 @@ const TabView = <Route extends BaseRoute>({
       items={items}
       icons={resolvedIconAssets}
       selectedPage={focusedKey}
+      onTabLongPress={({ nativeEvent: { key } }) => {
+        const index = trimmedRoutes.findIndex((route) => route.key === key);
+        onTabLongPress?.(index);
+      }}
       onPageSelected={({ nativeEvent: { key } }) => {
         jumpTo(key);
       }}
