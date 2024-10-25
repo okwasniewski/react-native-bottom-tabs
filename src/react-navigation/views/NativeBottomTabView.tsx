@@ -72,7 +72,7 @@ export default function NativeBottomTabView({
           type: 'tabPress',
           target: route.key,
         });
-        navigation.navigate({ key: route.key, merge: true });
+        navigation.navigate({ key: route.key, name: route.name, merge: true });
       }}
     />
   );
