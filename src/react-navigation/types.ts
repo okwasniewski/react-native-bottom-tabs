@@ -16,6 +16,10 @@ export type NativeBottomTabNavigationEventMap = {
    * Event which fires on tapping on the tab in the tab bar.
    */
   tabPress: { data: undefined };
+  /**
+   * Event which fires on long press on tab bar.
+   */
+  tabLongPress: { data: undefined };
 };
 
 export type NativeBottomTabNavigationHelpers = NavigationHelpers<
@@ -100,6 +104,7 @@ export type NativeBottomTabNavigationConfig = Partial<
     | 'getIcon'
     | 'getLabelText'
     | 'getBadge'
+    | 'onTabLongPress'
     | 'getActiveTintColor'
   >
 >;

@@ -50,6 +50,7 @@ struct RepresentableView: UIViewRepresentable {
 struct TabViewImpl: View {
   @ObservedObject var props: TabViewProps
   var onSelect: (_ key: String) -> Void
+  var onLongPress: (_ key: String) -> Void
   
   var body: some View {
     TabView(selection: $props.selectedPage) {
@@ -75,6 +76,11 @@ struct TabViewImpl: View {
           .tabBadge(tabData?.badge)
       }
     }
+    .onTabItemLongPress({ index in
+        if let key = props.items?.tabs[safe: index]?.key {
+          onLongPress(key)
+        }
+    })
     .tintColor(props.selectedActiveTintColor)
     .getSidebarAdaptable(enabled: props.sidebarAdaptable ?? false)
     .configureAppearance(props: props)
