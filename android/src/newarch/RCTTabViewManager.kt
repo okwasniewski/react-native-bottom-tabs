@@ -13,8 +13,8 @@ import com.facebook.react.uimanager.PixelUtil.toDIPFromPixel
 import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.ViewManagerDelegate
-import com.facebook.react.viewmanagers.TabViewManagerDelegate
-import com.facebook.react.viewmanagers.TabViewManagerInterface
+import com.facebook.react.viewmanagers.RNCTabViewManagerDelegate
+import com.facebook.react.viewmanagers.RNCTabViewManagerInterface
 import com.facebook.yoga.YogaMeasureMode
 import com.facebook.yoga.YogaMeasureOutput
 
@@ -22,13 +22,13 @@ import com.facebook.yoga.YogaMeasureOutput
 @ReactModule(name = RCTTabViewManager.NAME)
 class RCTTabViewManager(context: ReactApplicationContext) :
   SimpleViewManager<ReactBottomNavigationView>(),
-  TabViewManagerInterface<ReactBottomNavigationView> {
+  RNCTabViewManagerInterface<ReactBottomNavigationView> {
     private val contextInner: ReactApplicationContext = context
-  private val delegate: TabViewManagerDelegate<ReactBottomNavigationView, RCTTabViewManager> =
-    TabViewManagerDelegate(this)
+  private val delegate: RNCTabViewManagerDelegate<ReactBottomNavigationView, RCTTabViewManager> =
+    RNCTabViewManagerDelegate(this)
   private val tabViewImpl: RCTTabViewImpl = RCTTabViewImpl()
   companion object {
-    const val NAME = "RCTTabView"
+    const val NAME = "RNCTabView"
   }
   override fun getDelegate(): ViewManagerDelegate<ReactBottomNavigationView>? {
     return delegate
@@ -118,6 +118,22 @@ class RCTTabViewManager(context: ReactApplicationContext) :
   }
 
   override fun setTranslucent(view: ReactBottomNavigationView?, value: Boolean) {
+  }
+
+  override fun setActiveTintColor(view: ReactBottomNavigationView?, value: Int?) {
+    TODO("Not yet implemented")
+  }
+
+  override fun setInactiveTintColor(view: ReactBottomNavigationView?, value: Int?) {
+    TODO("Not yet implemented")
+  }
+
+  override fun setIgnoresTopSafeArea(view: ReactBottomNavigationView?, value: Boolean) {
+    TODO("Not yet implemented")
+  }
+
+  override fun setDisablePageAnimations(view: ReactBottomNavigationView?, value: Boolean) {
+    TODO("Not yet implemented")
   }
 
 }

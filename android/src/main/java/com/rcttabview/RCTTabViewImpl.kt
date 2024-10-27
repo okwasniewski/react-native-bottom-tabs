@@ -88,7 +88,7 @@ class RCTTabViewImpl {
   fun setInactiveTintColor(view: ReactBottomNavigationView, color: Int?) {
     view.setInactiveTintColor(color)
   }
-  
+
   fun createViewInstance(context: ThemedReactContext): ReactBottomNavigationView {
     val view = ReactBottomNavigationView(context)
     tabView = view
@@ -101,7 +101,7 @@ class RCTTabViewImpl {
 
     view.onTabLongPressedListener = { data ->
       data.getString("key")?.let {
-        eventDispatcher.dispatchEvent(TabLongPressEvent(viewTag = view.id, key = it))
+//        eventDispatcher.dispatchEvent(TabLongPressEvent(viewTag = view.id, key = it))
       }
     }
 

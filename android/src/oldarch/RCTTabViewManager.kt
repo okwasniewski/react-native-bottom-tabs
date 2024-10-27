@@ -62,7 +62,7 @@ class RCTTabViewManager(context: ReactApplicationContext) :
   }
 
   companion object {
-    const val NAME = "RCTTabView"
+    const val NAME = "RNCTabView"
   }
 
   override fun getExportedCustomDirectEventTypeConstants(): MutableMap<String, Any>? {

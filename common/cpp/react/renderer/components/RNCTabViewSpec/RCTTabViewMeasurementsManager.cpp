@@ -40,7 +40,7 @@ namespace facebook::react
         auto minimumSize = layoutConstraints.minimumSize;
         auto maximumSize = layoutConstraints.maximumSize;
 
-        local_ref<JString> componentName = make_jstring("RCTTabView");
+        local_ref<JString> componentName = make_jstring("RNCTabView");
 
         auto measurement = yogaMeassureToSize(measure(
             fabricUIManager,
