@@ -1,3 +1,6 @@
+#ifdef __cplusplus
+
+#ifdef ANDROID
 #pragma once
 #include <react/renderer/core/ConcreteComponentDescriptor.h>
 #include <react/renderer/core/LayoutConstraints.h>
@@ -6,10 +9,10 @@
 namespace facebook::react
 {
 
-    class RCTTabViewMeasurementsManagerNew
+    class RNCTabViewMeasurementsManager
     {
     public:
-        RCTTabViewMeasurementsManagerNew(
+        RNCTabViewMeasurementsManager(
             const ContextContainer::Shared &contextContainer)
             : contextContainer_(contextContainer) {}
 
@@ -22,3 +25,7 @@ namespace facebook::react
         mutable Size cachedMeasurement_{};
     };
 }
+
+#endif
+
+#endif

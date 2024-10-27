@@ -1,14 +1,11 @@
 package com.rcttabview
 
-import android.content.res.ColorStateList
 import android.view.View.MeasureSpec
 import com.facebook.react.bridge.ReadableArray
-import com.facebook.react.common.MapBuilder
 import com.facebook.react.module.annotations.ReactModule
 import com.facebook.react.uimanager.LayoutShadowNode
 import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.ThemedReactContext
-import com.facebook.react.uimanager.UIManagerModule
 import com.facebook.react.uimanager.annotations.ReactProp
 import com.facebook.react.uimanager.events.EventDispatcher
 import com.facebook.yoga.YogaMeasureFunction
@@ -16,15 +13,40 @@ import com.facebook.yoga.YogaMeasureMode
 import com.facebook.yoga.YogaMeasureOutput
 import com.facebook.yoga.YogaNode
 import com.facebook.react.bridge.ReactApplicationContext
+import com.facebook.react.uimanager.UIManagerModule
 
-
-
-class RCTTabViewManager(context: ReactApplicationContext) :
-  SimpleViewManager<ReactBottomNavigationView>() {
+@ReactModule(name = RCTTabViewImpl.NAME)
+class RCTTabViewManager(context: ReactApplicationContext) : SimpleViewManager<ReactBottomNavigationView>() {
   private lateinit var eventDispatcher: EventDispatcher
   private var tabViewImpl = RCTTabViewImpl()
+
   override fun getName(): String {
-    return NAME
+    return tabViewImpl.getName()
+  }
+
+  public override fun createViewInstance(context: ThemedReactContext): ReactBottomNavigationView {
+    eventDispatcher = context.getNativeModule(UIManagerModule::class.java)!!.eventDispatcher
+    val view = ReactBottomNavigationView(context)
+    view.onTabSelectedListener = { data ->
+      data.getString("key")?.let {
+        eventDispatcher.dispatchEvent(PageSelectedEvent(viewTag = view.id, key = it))
+      }
+    }
+
+    view.onTabLongPressedListener = { data ->
+      data.getString("key")?.let {
+        eventDispatcher.dispatchEvent(TabLongPressEvent(viewTag = view.id, key = it))
+      }
+    }
+    return view
+  }
+
+  override fun createShadowNodeInstance(): LayoutShadowNode {
+    return TabViewShadowNode()
+  }
+
+  override fun getExportedCustomDirectEventTypeConstants(): MutableMap<String, Any>? {
+    return tabViewImpl.getExportedCustomDirectEventTypeConstants()
   }
 
   @ReactProp(name = "items")
@@ -48,28 +70,24 @@ class RCTTabViewManager(context: ReactApplicationContext) :
     tabViewImpl.setIcons(view, icons)
   }
 
-  @ReactProp(name = "rippleColor")
+  @ReactProp(name = "barTintColor", customType = "Color")
+  fun setBarTintColor(view: ReactBottomNavigationView, color: Int?) {
+    tabViewImpl.setBarTintColor(view, color)
+  }
+
+  @ReactProp(name = "rippleColor", customType = "Color")
   fun setRippleColor(view: ReactBottomNavigationView, rippleColor: Int?) {
-  tabViewImpl.setRippleColor(view, rippleColor)
+    tabViewImpl.setRippleColor(view, rippleColor)
   }
 
-  public override fun createViewInstance(context: ThemedReactContext): ReactBottomNavigationView {
-    return tabViewImpl.createViewInstance(context)
+  @ReactProp(name = "activeTintColor", customType = "Color")
+  fun setActiveTintColor(view: ReactBottomNavigationView, color: Int?) {
+    tabViewImpl.setActiveTintColor(view, color)
   }
 
-  override fun createShadowNodeInstance(): LayoutShadowNode {
-    return TabViewShadowNode(tabViewImpl.getViewInstance())
-  }
-
-  companion object {
-    const val NAME = "RNCTabView"
-  }
-
-  override fun getExportedCustomDirectEventTypeConstants(): MutableMap<String, Any>? {
-    return MapBuilder.of(
-      PageSelectedEvent.EVENT_NAME,
-      MapBuilder.of("registrationName", "onPageSelected"),
-    )
+  @ReactProp(name = "inactiveTintColor", customType = "Color")
+  fun setInactiveTintColor(view: ReactBottomNavigationView, color: Int?) {
+    tabViewImpl.setInactiveTintColor(view, color)
   }
 
   // iOS Props
@@ -84,5 +102,41 @@ class RCTTabViewManager(context: ReactApplicationContext) :
 
   @ReactProp(name = "disablePageAnimations")
   fun setDisablePageAnimations(view: ReactBottomNavigationView, flag: Boolean) {
+  }
+
+  class TabViewShadowNode() : LayoutShadowNode(),
+    YogaMeasureFunction {
+    private var mWidth = 0
+    private var mHeight = 0
+    private var mMeasured = false
+
+    init {
+      initMeasureFunction()
+    }
+
+    private fun initMeasureFunction() {
+      setMeasureFunction(this)
+    }
+
+    override fun measure(
+      node: YogaNode,
+      width: Float,
+      widthMode: YogaMeasureMode,
+      height: Float,
+      heightMode: YogaMeasureMode
+    ): Long {
+      if (mMeasured) {
+        return YogaMeasureOutput.make(mWidth, mHeight)
+      }
+
+      val tabView = ReactBottomNavigationView(themedContext)
+      val spec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED)
+      tabView.measure(spec, spec)
+      this.mWidth = tabView.measuredWidth
+      this.mHeight = tabView.measuredHeight
+      this.mMeasured = true
+
+      return YogaMeasureOutput.make(mWidth, mHeight)
+    }
   }
 }

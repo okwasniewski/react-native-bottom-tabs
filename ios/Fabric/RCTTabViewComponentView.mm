@@ -1,10 +1,11 @@
 #ifdef RCT_NEW_ARCH_ENABLED
 #import "RCTTabViewComponentView.h"
 
-#import <react/renderer/components/RNCTabViewSpec/ComponentDescriptors.h>
-#import <react/renderer/components/RNCTabViewSpec/EventEmitters.h>
-#import <react/renderer/components/RNCTabViewSpec/Props.h>
-#import <react/renderer/components/RNCTabViewSpec/RCTComponentViewHelpers.h>
+#import <react/renderer/components/RNCTabView/ComponentDescriptors.h>
+#import <react/renderer/components/RNCTabView/RNCTabViewComponentDescriptor.h>
+#import <react/renderer/components/RNCTabView/EventEmitters.h>
+#import <react/renderer/components/RNCTabView/Props.h>
+#import <react/renderer/components/RNCTabView/RCTComponentViewHelpers.h>
 
 #import <React/RCTFabricComponentsPlugins.h>
 
