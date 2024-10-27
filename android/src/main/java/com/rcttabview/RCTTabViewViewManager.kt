@@ -69,12 +69,12 @@ class RCTTabViewViewManager :
     view.setIcons(icons)
   }
 
-  @ReactProp(name = "barTintColor")
+  @ReactProp(name = "barTintColor", customType = "Color")
   fun setBarTintColor(view: ReactBottomNavigationView, color: Int?) {
     view.setBarTintColor(color)
   }
 
-  @ReactProp(name = "rippleColor")
+  @ReactProp(name = "rippleColor", customType = "Color")
   fun setRippleColor(view: ReactBottomNavigationView, rippleColor: Int?) {
     if (rippleColor != null) {
       val color = ColorStateList.valueOf(rippleColor)
@@ -82,12 +82,12 @@ class RCTTabViewViewManager :
     }
   }
 
-  @ReactProp(name = "activeTintColor")
+  @ReactProp(name = "activeTintColor", customType = "Color")
   fun setActiveTintColor(view: ReactBottomNavigationView, color: Int?) {
     view.setActiveTintColor(color)
   }
 
-  @ReactProp(name = "inactiveTintColor")
+  @ReactProp(name = "inactiveTintColor", customType = "Color")
   fun setInactiveTintColor(view: ReactBottomNavigationView, color: Int?) {
     view.setInactiveTintColor(color)
   }
@@ -151,7 +151,7 @@ class RCTTabViewViewManager :
   }
 
   companion object {
-    const val NAME = "RCTTabView"
+    const val NAME = "RNCTabView"
   }
 
   override fun getExportedCustomDirectEventTypeConstants(): MutableMap<String, Any>? {

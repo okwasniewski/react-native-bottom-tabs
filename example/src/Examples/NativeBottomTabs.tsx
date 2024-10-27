@@ -11,8 +11,10 @@ const Tab = createNativeBottomTabNavigator();
 function NativeBottomTabs() {
   return (
     <Tab.Navigator
-      tabBarInactiveTintColor="red"
-      tabBarActiveTintColor="orange"
+      tabBarInactiveTintColor="#C57B57"
+      tabBarActiveTintColor="#F7DBA7"
+      barTintColor="#1E2D2F"
+      rippleColor="#041F1E"
       screenListeners={{
         tabLongPress: (data) => {
           console.log(
@@ -59,7 +61,7 @@ function NativeBottomTabs() {
         component={Chat}
         options={{
           tabBarIcon: () => require('../../assets/icons/chat_dark.png'),
-          tabBarActiveTintColor: 'purple',
+          tabBarActiveTintColor: 'white',
         }}
       />
     </Tab.Navigator>

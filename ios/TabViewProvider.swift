@@ -104,21 +104,21 @@ import React
     }
   }
   
-  @objc var barTintColor: NSNumber? {
+  @objc public var barTintColor: UIColor? {
     didSet {
-      props.barTintColor = RCTConvert.uiColor(barTintColor)
+      props.barTintColor = barTintColor
     }
   }
   
-  @objc var activeTintColor: NSNumber? {
+  @objc public var activeTintColor: UIColor? {
     didSet {
-      props.activeTintColor = RCTConvert.uiColor(activeTintColor)
+      props.activeTintColor = activeTintColor
     }
   }
   
-  @objc var inactiveTintColor: NSNumber? {
+  @objc public var inactiveTintColor: UIColor? {
     didSet {
-      props.inactiveTintColor = RCTConvert.uiColor(inactiveTintColor)
+      props.inactiveTintColor = inactiveTintColor
     }
   }
   
@@ -127,24 +127,6 @@ import React
   @objc public var itemsData: [TabInfo] = [] {
     didSet {
       props.items = itemsData
-    }
-  }
-
-  @objc public var barTintUIColor: UIColor? {
-    didSet {
-      props.barTintColor = barTintUIColor
-    }
-  }
-
-  @objc public var activeTintUIColor: UIColor? {
-    didSet {
-      props.activeTintColor = activeTintUIColor
-    }
-  }
-
-  @objc public var inactiveTintUIColor: UIColor? {
-    didSet {
-      props.inactiveTintColor = inactiveTintUIColor
     }
   }
 

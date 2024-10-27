@@ -131,15 +131,15 @@ using namespace facebook::react;
   }
   
   if (oldViewProps.barTintColor != newViewProps.barTintColor) {
-    _tabViewProvider.barTintUIColor = RCTUIColorFromSharedColor(newViewProps.barTintColor);
+    _tabViewProvider.barTintColor = RCTUIColorFromSharedColor(newViewProps.barTintColor);
   }
   
   if (oldViewProps.activeTintColor != newViewProps.activeTintColor) {
-    _tabViewProvider.activeTintUIColor = RCTUIColorFromSharedColor(newViewProps.activeTintColor);
+    _tabViewProvider.activeTintColor = RCTUIColorFromSharedColor(newViewProps.activeTintColor);
   }
   
   if (oldViewProps.inactiveTintColor != newViewProps.inactiveTintColor) {
-    _tabViewProvider.inactiveTintUIColor =  RCTUIColorFromSharedColor(newViewProps.inactiveTintColor);
+    _tabViewProvider.inactiveTintColor =  RCTUIColorFromSharedColor(newViewProps.inactiveTintColor);
   }
   
   [super updateProps:props oldProps:oldProps];

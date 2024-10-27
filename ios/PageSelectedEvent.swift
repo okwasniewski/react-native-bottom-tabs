@@ -1,11 +1,11 @@
 import React
 
 @objc public class PageSelectedEvent: NSObject, RCTEvent {
-  public var viewTag: NSNumber
   private var key: NSString
-  public var coalescingKey: UInt16
+  @objc public var viewTag: NSNumber
+  @objc public var coalescingKey: UInt16
 
-  public var eventName: String {
+  @objc public var eventName: String {
     return "onPageSelected"
   }
 
@@ -16,15 +16,15 @@ import React
     super.init()
   }
 
-  public func canCoalesce() -> Bool {
+  @objc public func canCoalesce() -> Bool {
     return false
   }
 
-  public class func moduleDotMethod() -> String {
+  @objc public class func moduleDotMethod() -> String {
     return "RCTEventEmitter.receiveEvent"
   }
 
-  public func arguments() -> [Any] {
+  @objc public func arguments() -> [Any] {
     return [
       viewTag,
       RCTNormalizeInputEventName(eventName),
