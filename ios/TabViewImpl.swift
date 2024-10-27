@@ -188,9 +188,11 @@ extension View {
   
   @ViewBuilder
   func tabBadge(_ data: String?) -> some View {
-    if #available(iOS 15.0, macOS 15.0, visionOS 2.0, *) {
+    if #available(iOS 15.0, macOS 15.0, visionOS 2.0, tvOS 15.0, *) {
       if let data = data, !data.isEmpty {
+        #if !os(tvOS)
         self.badge(data)
+        #endif
       } else {
         self
       }
