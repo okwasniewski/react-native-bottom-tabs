@@ -203,5 +203,10 @@
     "color": "^4.2.3",
     "sf-symbols-typescript": "^2.0.0",
     "use-latest-callback": "^0.2.1"
+  },
+  "codegenConfig": {
+    "name": "RNCTabViewSpec",
+    "type": "components",
+    "jsSrcsDir": "src"
   }
 }
