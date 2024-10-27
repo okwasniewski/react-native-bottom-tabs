@@ -6,6 +6,10 @@
   <strong>Bottom Tabs that use native platform primitives.</strong><br>
 </p>
 
+[![mit licence](https://img.shields.io/dub/l/vibe-d.svg?style=for-the-badge)](https://github.com/okwasniewski/react-native-bottom-tabs/blob/main/LICENSE)
+[![npm version](https://img.shields.io/npm/v/react-native-edge-to-edge?style=for-the-badge)](https://www.npmjs.org/package/react-native-bottom-tabs)
+[![npm downloads](https://img.shields.io/npm/dt/react-native-bottom-tabs.svg?label=downloads&style=for-the-badge)](https://www.npmjs.org/package/react-native-bottom-tabs)
+
 > [!CAUTION]
 > This library is in early development and not ready for production use.
 
