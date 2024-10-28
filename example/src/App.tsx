@@ -54,6 +54,10 @@ const FourTabsTranslucent = () => {
   return <FourTabs translucent={false} />;
 };
 
+const FourTabsActiveIndicatorColor = () => {
+  return <FourTabs activeIndicatorColor={'#87CEEB'} />;
+};
+
 const examples = [
   { component: ThreeTabs, name: 'Three Tabs' },
   { component: FourTabs, name: 'Four Tabs' },
@@ -80,6 +84,10 @@ const examples = [
   {
     component: FourTabsTranslucent,
     name: 'Four Tabs - Translucent tab bar',
+  },
+  {
+    component: FourTabsActiveIndicatorColor,
+    name: 'Four Tabs - Active Indicator color',
   },
   { component: NativeBottomTabs, name: 'Native Bottom Tabs' },
   { component: JSBottomTabs, name: 'JS Bottom Tabs' },
