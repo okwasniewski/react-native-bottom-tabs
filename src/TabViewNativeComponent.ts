@@ -35,4 +35,6 @@ export interface TabViewProps extends ViewProps {
   activeIndicatorColor?: ColorValue;
 }
 
-export default codegenNativeComponent<TabViewProps>('RNCTabView');
+export default codegenNativeComponent<TabViewProps>('RNCTabView', {
+  interfaceOnly: true,
+});
