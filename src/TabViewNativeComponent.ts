@@ -32,6 +32,7 @@ export interface TabViewProps extends ViewProps {
   inactiveTintColor?: ColorValue;
   ignoresTopSafeArea?: boolean;
   disablePageAnimations?: boolean;
+  activeIndicatorColor?: ColorValue;
 }
 
 export default codegenNativeComponent<TabViewProps>('RNCTabView');

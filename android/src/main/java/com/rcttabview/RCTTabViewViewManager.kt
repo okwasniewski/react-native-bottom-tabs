@@ -92,6 +92,13 @@ class RCTTabViewViewManager :
     view.setInactiveTintColor(color)
   }
 
+  @ReactProp(name = "activeIndicatorColor", customType = "Color")
+  fun setActiveIndicatorColor(view: ReactBottomNavigationView, color: Int?) {
+    if (color != null) {
+      view.setActiveIndicatorColor(color)
+    }
+  }
+
   public override fun createViewInstance(context: ThemedReactContext): ReactBottomNavigationView {
     eventDispatcher = context.getNativeModule(UIManagerModule::class.java)!!.eventDispatcher
     val view = ReactBottomNavigationView(context)
