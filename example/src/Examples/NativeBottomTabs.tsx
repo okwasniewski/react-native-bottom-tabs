@@ -13,7 +13,6 @@ function NativeBottomTabs() {
     <Tab.Navigator
       tabBarInactiveTintColor="#C57B57"
       tabBarActiveTintColor="#F7DBA7"
-      activeIndicatorColor={'yellow'}
       barTintColor="#1E2D2F"
       rippleColor="#041F1E"
       screenListeners={{
