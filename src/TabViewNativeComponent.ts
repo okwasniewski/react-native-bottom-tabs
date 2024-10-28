@@ -34,4 +34,6 @@ export interface TabViewProps extends ViewProps {
   disablePageAnimations?: boolean;
 }
 
-export default codegenNativeComponent<TabViewProps>('RNCTabView');
+export default codegenNativeComponent<TabViewProps>('RNCTabView', {
+  interfaceOnly: true,
+});
