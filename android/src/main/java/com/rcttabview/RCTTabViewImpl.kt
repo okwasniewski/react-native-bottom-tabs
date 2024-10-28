@@ -62,6 +62,13 @@ class RCTTabViewImpl {
     }
   }
 
+  fun setActiveIndicatorColor(view: ReactBottomNavigationView, color: Int?) {
+    if (color != null) {
+      val color = ColorStateList.valueOf(color)
+      view.setActiveIndicatorColor(color)
+    }
+  }
+
   fun setActiveTintColor(view: ReactBottomNavigationView, color: Int?) {
     view.setActiveTintColor(color)
   }

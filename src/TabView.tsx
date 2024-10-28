@@ -110,6 +110,10 @@ interface Props<Route extends BaseRoute> {
    */
   translucent?: boolean;
   rippleColor?: ColorValue;
+  /**
+   * Color of tab indicator. (Android only)
+   */
+  activeIndicatorColor?: ColorValue;
 }
 
 const ANDROID_MAX_TABS = 6;

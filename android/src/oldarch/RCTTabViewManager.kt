@@ -90,6 +90,11 @@ class RCTTabViewManager(context: ReactApplicationContext) : SimpleViewManager<Re
     tabViewImpl.setInactiveTintColor(view, color)
   }
 
+  @ReactProp(name = "activeIndicatorColor", customType = "Color")
+  fun setActiveIndicatorColor(view: ReactBottomNavigationView, color: Int?) {
+    tabViewImpl.setActiveIndicatorColor(view, color)
+  }
+
   // iOS Props
 
   @ReactProp(name = "sidebarAdaptable")

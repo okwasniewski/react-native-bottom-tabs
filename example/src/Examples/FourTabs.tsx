@@ -13,6 +13,7 @@ interface Props {
   barTintColor?: ColorValue;
   translucent?: boolean;
   rippleColor?: ColorValue;
+  activeIndicatorColor?: ColorValue;
 }
 
 export default function FourTabs({
@@ -22,6 +23,7 @@ export default function FourTabs({
   barTintColor,
   translucent = true,
   rippleColor,
+  activeIndicatorColor,
 }: Props) {
   const [index, setIndex] = useState(0);
   const [routes] = useState([
@@ -69,6 +71,7 @@ export default function FourTabs({
       barTintColor={barTintColor}
       translucent={translucent}
       rippleColor={rippleColor}
+      activeIndicatorColor={activeIndicatorColor}
     />
   );
 }

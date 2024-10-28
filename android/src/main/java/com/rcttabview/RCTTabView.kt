@@ -193,6 +193,10 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
     updateTintColors()
   }
 
+  fun setActiveIndicatorColor(color: ColorStateList) {
+    itemActiveIndicatorColor = color
+  }
+
   private fun updateTintColors(item: MenuItem? = null) {
     // First let's check current item color.
     val currentItemTintColor = items?.find { it.title == item?.title }?.activeTintColor
