@@ -192,6 +192,8 @@ extension View {
       if let data = data, !data.isEmpty {
         #if !os(tvOS)
         self.badge(data)
+        #else
+        self
         #endif
       } else {
         self
