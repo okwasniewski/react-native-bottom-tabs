@@ -14,9 +14,6 @@
 
 </div>
 
-> [!CAUTION]
-> This library is in early development and not ready for production use.
-
 https://github.com/user-attachments/assets/fbdd9ce2-f4b9-4d0c-bd91-2e62bb422d69
 
 ## Documentation
