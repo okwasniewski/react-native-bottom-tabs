@@ -1,6 +1,6 @@
 {
   "name": "react-native-bottom-tabs",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Native Bottom Tabs for React Native",
   "source": "./src/index.tsx",
   "main": "./lib/commonjs/index.js",
@@ -26,7 +26,8 @@
         "types": "./lib/typescript/commonjs/src/react-navigation/index.d.ts",
         "default": "./lib/commonjs/react-navigation/index.js"
       }
-    }
+    },
+    "./package.json": "./package.json"
   },
   "files": [
     "src",
@@ -208,7 +209,7 @@
   "codegenConfig": {
     "name": "RNCTabView",
     "type": "components",
-    "jsSrcsDir": "src",
+    "jsSrcsDir": "./src",
     "android": {
       "javaPackageName": "com.rcttabview"
     }
