@@ -1,6 +1,6 @@
 {
   "name": "react-native-bottom-tabs",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Native Bottom Tabs for React Native",
   "source": "./src/index.tsx",
   "main": "./lib/commonjs/index.js",
