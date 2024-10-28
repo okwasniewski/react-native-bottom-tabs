@@ -24,13 +24,6 @@ class RCTTabViewManager(context: ReactApplicationContext) : SimpleViewManager<Re
     return tabViewImpl.getName()
   }
 
-  @ReactProp(name = "activeIndicatorColor", customType = "Color")
-  fun setActiveIndicatorColor(view: ReactBottomNavigationView, color: Int?) {
-    if (color != null) {
-      view.setActiveIndicatorColor(color)
-    }
-  }
-
   public override fun createViewInstance(context: ThemedReactContext): ReactBottomNavigationView {
     eventDispatcher = context.getNativeModule(UIManagerModule::class.java)!!.eventDispatcher
     val view = ReactBottomNavigationView(context)
@@ -95,6 +88,11 @@ class RCTTabViewManager(context: ReactApplicationContext) : SimpleViewManager<Re
   @ReactProp(name = "inactiveTintColor", customType = "Color")
   fun setInactiveTintColor(view: ReactBottomNavigationView, color: Int?) {
     tabViewImpl.setInactiveTintColor(view, color)
+  }
+
+  @ReactProp(name = "activeIndicatorColor", customType = "Color")
+  fun setActiveIndicatorColor(view: ReactBottomNavigationView, color: Int?) {
+    tabViewImpl.setActiveIndicatorColor(view, color)
   }
 
   // iOS Props

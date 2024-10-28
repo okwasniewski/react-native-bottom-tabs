@@ -89,6 +89,11 @@ class RCTTabViewManager(context: ReactApplicationContext) :
       tabViewImpl.setInactiveTintColor(view, value)
   }
 
+  override fun setActiveIndicatorColor(view: ReactBottomNavigationView?, value: Int?) {
+    if (view != null && value != null)
+      tabViewImpl.setActiveIndicatorColor(view, value)
+  }
+
   override fun getDelegate(): ViewManagerDelegate<ReactBottomNavigationView> {
     return delegate
   }
