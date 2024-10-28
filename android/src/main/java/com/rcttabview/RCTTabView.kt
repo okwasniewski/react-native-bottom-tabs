@@ -2,12 +2,10 @@ package com.rcttabview
 
 import android.content.Context
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.util.TypedValue
-import android.net.Uri
 import android.view.Choreographer
 import android.view.MenuItem
 import android.view.View
