@@ -1,10 +1,11 @@
 #ifdef RCT_NEW_ARCH_ENABLED
 #import "RCTTabViewComponentView.h"
 
-#import <react/renderer/components/RNCTabViewSpec/ComponentDescriptors.h>
-#import <react/renderer/components/RNCTabViewSpec/EventEmitters.h>
-#import <react/renderer/components/RNCTabViewSpec/Props.h>
-#import <react/renderer/components/RNCTabViewSpec/RCTComponentViewHelpers.h>
+#import <react/renderer/components/RNCTabView/ComponentDescriptors.h>
+#import <react/renderer/components/RNCTabView/RNCTabViewComponentDescriptor.h>
+#import <react/renderer/components/RNCTabView/EventEmitters.h>
+#import <react/renderer/components/RNCTabView/Props.h>
+#import <react/renderer/components/RNCTabView/RCTComponentViewHelpers.h>
 
 #import <React/RCTFabricComponentsPlugins.h>
 
@@ -48,7 +49,7 @@ using namespace facebook::react;
     self.contentView = _tabViewProvider;
     _props = defaultProps;
   }
-  
+
   return self;
 }
 
@@ -75,7 +76,7 @@ using namespace facebook::react;
 
 - (void)unmountChildComponentView:(UIView<RCTComponentViewProtocol> *)childComponentView index:(NSInteger)index {
   [_reactSubviews removeObjectAtIndex:index];
-  
+
   [childComponentView removeFromSuperview];
 }
 
@@ -83,65 +84,65 @@ using namespace facebook::react;
 {
   const auto &oldViewProps = *std::static_pointer_cast<RNCTabViewProps const>(_props);
   const auto &newViewProps = *std::static_pointer_cast<RNCTabViewProps const>(props);
-  
+
   if (haveTabItemsChanged(oldViewProps.items, newViewProps.items)) {
     _tabViewProvider.itemsData = convertItemsToArray(newViewProps.items);
   }
-  
+
   if (oldViewProps.translucent != newViewProps.translucent) {
     _tabViewProvider.translucent = newViewProps.translucent;
   }
-  
+
   if (oldViewProps.icons != newViewProps.icons) {
     auto iconsArray = [[NSMutableArray alloc] init];
     for (auto &source: newViewProps.icons) {
       auto imageSource = [[RCTImageSource alloc] initWithURLRequest:NSURLRequestFromImageSource(source) size:CGSizeMake(source.size.width, source.size.height) scale:source.scale];
       [iconsArray addObject:imageSource];
     }
-    
+
     _tabViewProvider.icons = iconsArray;
   }
-  
+
   if (oldViewProps.sidebarAdaptable != newViewProps.sidebarAdaptable) {
     _tabViewProvider.sidebarAdaptable = newViewProps.sidebarAdaptable;
   }
-  
+
   if (oldViewProps.disablePageAnimations != newViewProps.disablePageAnimations) {
     _tabViewProvider.disablePageAnimations = newViewProps.disablePageAnimations;
   }
-  
+
   if (oldViewProps.labeled != newViewProps.labeled) {
     _tabViewProvider.labeled = newViewProps.labeled;
   }
-  
+
   if (oldViewProps.ignoresTopSafeArea != newViewProps.ignoresTopSafeArea) {
     _tabViewProvider.ignoresTopSafeArea = newViewProps.ignoresTopSafeArea;
   }
-  
+
   if (oldViewProps.selectedPage != newViewProps.selectedPage) {
     _tabViewProvider.selectedPage = RCTNSStringFromString(newViewProps.selectedPage);
   }
-  
+
   if (oldViewProps.scrollEdgeAppearance != newViewProps.scrollEdgeAppearance) {
     _tabViewProvider.scrollEdgeAppearance = RCTNSStringFromString(newViewProps.scrollEdgeAppearance);
   }
-  
+
   if (oldViewProps.labeled != newViewProps.labeled) {
     _tabViewProvider.labeled = newViewProps.labeled;
   }
-  
+
   if (oldViewProps.barTintColor != newViewProps.barTintColor) {
     _tabViewProvider.barTintColor = RCTUIColorFromSharedColor(newViewProps.barTintColor);
   }
-  
+
   if (oldViewProps.activeTintColor != newViewProps.activeTintColor) {
     _tabViewProvider.activeTintColor = RCTUIColorFromSharedColor(newViewProps.activeTintColor);
   }
-  
+
   if (oldViewProps.inactiveTintColor != newViewProps.inactiveTintColor) {
     _tabViewProvider.inactiveTintColor =  RCTUIColorFromSharedColor(newViewProps.inactiveTintColor);
   }
-  
+
   [super updateProps:props oldProps:oldProps];
 }
 
@@ -155,29 +156,29 @@ bool areTabItemsEqual(const RNCTabViewItemsStruct& lhs, const RNCTabViewItemsStr
 
 bool haveTabItemsChanged(const std::vector<RNCTabViewItemsStruct>& oldItems,
                          const std::vector<RNCTabViewItemsStruct>& newItems) {
-  
+
   if (oldItems.size() != newItems.size()) {
     return true;
   }
-  
+
   for (size_t i = 0; i < oldItems.size(); ++i) {
     if (!areTabItemsEqual(oldItems[i], newItems[i])) {
       return true;
     }
   }
-  
+
   return false;
 }
 
 NSArray* convertItemsToArray(const std::vector<RNCTabViewItemsStruct>& items) {
   NSMutableArray<TabInfo *> *result = [NSMutableArray array];
-  
+
   for (const auto& item : items) {
     auto tabInfo = [[TabInfo alloc] initWithKey:RCTNSStringFromString(item.key) title:RCTNSStringFromString(item.title) badge:RCTNSStringFromString(item.badge) sfSymbol:RCTNSStringFromString(item.sfSymbol) activeTintColor:RCTUIColorFromSharedColor(item.activeTintColor)];
-    
+
     [result addObject:tabInfo];
   }
-  
+
   return result;
 }
 

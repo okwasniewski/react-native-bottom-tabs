@@ -205,8 +205,11 @@
     "use-latest-callback": "^0.2.1"
   },
   "codegenConfig": {
-    "name": "RNCTabViewSpec",
+    "name": "RNCTabView",
     "type": "components",
-    "jsSrcsDir": "src"
+    "jsSrcsDir": "src",
+    "android": {
+      "javaPackageName": "com.rcttabview"
+    }
   }
 }
