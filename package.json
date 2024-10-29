@@ -37,6 +37,7 @@
     "react-navigation",
     "ios",
     "cpp",
+    "react-native.config.js",
     "*.podspec",
     "!ios/build",
     "!android/build",
