@@ -27,7 +27,8 @@
         "default": "./lib/commonjs/react-navigation/index.js"
       }
     },
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./app.plugin.js": "./app.plugin.js"
   },
   "files": [
     "src",
@@ -38,6 +39,7 @@
     "ios",
     "cpp",
     "react-native.config.js",
+    "app.plugin.js",
     "*.podspec",
     "!ios/build",
     "!android/build",
@@ -81,6 +83,7 @@
   "devDependencies": {
     "@commitlint/config-conventional": "^17.0.2",
     "@evilmartians/lefthook": "^1.5.0",
+    "@expo/config-plugins": "^8.0.10",
     "@react-native/babel-preset": "0.75.3",
     "@react-native/eslint-config": "^0.73.1",
     "@react-navigation/native": "^6.1.18",
