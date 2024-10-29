@@ -3,7 +3,6 @@
 #pragma once
 
 #include <jsi/jsi.h>
-#include <react/renderer/components/rncore/EventEmitters.h>
 #include <react/renderer/components/RNCTabView/RNCTabViewState.h>
 #include <react/renderer/components/RNCTabView/Props.h>
 #include <react/renderer/components/RNCTabView/EventEmitters.h>
