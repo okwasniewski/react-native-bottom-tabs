@@ -2007,7 +2007,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@expo/config-plugins@npm:^8.0.10":
+"@expo/config-plugins@npm:^7.0.0 || ^8.0.0":
   version: 8.0.10
   resolution: "@expo/config-plugins@npm:8.0.10"
   dependencies:
@@ -13736,7 +13736,7 @@ __metadata:
   dependencies:
     "@commitlint/config-conventional": ^17.0.2
     "@evilmartians/lefthook": ^1.5.0
-    "@expo/config-plugins": ^8.0.10
+    "@expo/config-plugins": ^7.0.0 || ^8.0.0
     "@react-native/babel-preset": 0.75.3
     "@react-native/eslint-config": ^0.73.1
     "@react-navigation/native": ^6.1.18
