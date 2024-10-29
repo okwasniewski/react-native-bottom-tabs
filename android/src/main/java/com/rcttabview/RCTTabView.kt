@@ -125,11 +125,15 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
 
     for (idx in 0 until icons.size()) {
       val source = icons.getMap(idx)
+      val uri = source.getString("uri")
+      if (uri.isNullOrEmpty()) {
+        continue
+      }
       val imageSource =
-        ImageSource(
-          context,
-          source.getString("uri")
-        )
+      ImageSource(
+        context,
+        uri
+      )
       this.icons[idx] = imageSource
 
       // Update existing item if exists.
