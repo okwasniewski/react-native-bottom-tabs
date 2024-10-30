@@ -1,9 +1,6 @@
 package com.rcttabview
 
-import android.graphics.Color
 import android.view.View.MeasureSpec
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.module.annotations.ReactModule
 import com.facebook.react.uimanager.LayoutShadowNode
