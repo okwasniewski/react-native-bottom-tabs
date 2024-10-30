@@ -18,7 +18,7 @@ export default function SFSymbols() {
         : { sfSymbol: 'document.fill' },
       unfocusedIcon: isAndroid
         ? require('../../assets/icons/chat_dark.png')
-        : { sfSymbol: 'bubble.left.fill' },
+        : { sfSymbol: 'document' },
       badge: '!',
     },
     {
