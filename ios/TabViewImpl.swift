@@ -75,6 +75,7 @@ struct TabViewImpl: View {
           .tag(tabData?.key)
           .tabBadge(tabData?.badge)
       }
+      
     }
     .onTabItemLongPress({ index in
       if let key = props.items[safe: index]?.key {
@@ -163,6 +164,7 @@ struct TabItem: View {
       Image(uiImage: icon)
     } else if let sfSymbol, !sfSymbol.isEmpty {
       Image(systemName: sfSymbol)
+        .noneSymbolVariant()
     }
     if (labeled != false) {
       Text(title ?? "")
@@ -190,11 +192,11 @@ extension View {
   func tabBadge(_ data: String?) -> some View {
     if #available(iOS 15.0, macOS 15.0, visionOS 2.0, tvOS 15.0, *) {
       if let data = data, !data.isEmpty {
-        #if !os(tvOS)
+#if !os(tvOS)
         self.badge(data)
-        #else
+#else
         self
-        #endif
+#endif
       } else {
         self
       }
@@ -252,6 +254,18 @@ extension View {
       } else {
         self.accentColor(color)
       }
+    } else {
+      self
+    }
+  }
+  
+  // Allows TabView to use unfilled SFSymbols.
+  // By default they are always filled.
+  @ViewBuilder
+  func noneSymbolVariant() -> some View {
+    if #available(iOS 15.0, *) {
+      self
+        .environment(\.symbolVariants, .none)
     } else {
       self
     }
