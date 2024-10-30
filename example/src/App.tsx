@@ -29,6 +29,7 @@ import SFSymbols from './Examples/SFSymbols';
 import LabeledTabs from './Examples/Labeled';
 import NativeBottomTabs from './Examples/NativeBottomTabs';
 import TintColorsExample from './Examples/TintColors';
+import NativeBottomTabsVectorIcons from './Examples/NativeBottomTabsVectorIcons';
 
 const FourTabsIgnoreSafeArea = () => {
   return <FourTabs ignoresTopSafeArea />;
@@ -88,6 +89,10 @@ const examples = [
   {
     component: FourTabsActiveIndicatorColor,
     name: 'Four Tabs - Active Indicator color',
+  },
+  {
+    component: NativeBottomTabsVectorIcons,
+    name: 'Native Bottom Tabs with Vector Icons',
   },
   { component: NativeBottomTabs, name: 'Native Bottom Tabs' },
   { component: JSBottomTabs, name: 'JS Bottom Tabs' },
