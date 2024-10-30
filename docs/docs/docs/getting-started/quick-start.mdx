@@ -6,7 +6,8 @@ import { PackageManagerTabs } from '@theme';
 
 <PackageManagerTabs command="install react-native-bottom-tabs" />
 
-If you use React Native version 0.75 or lower:
+<details>
+  <summary>If you use React Native <b>version 0.75 or lower</b></summary>
 
 - For `@react-native-community/cli` users, open Podfile in ios folder and change minimum iOS version to `14.0` before `pod install`
 
@@ -33,6 +34,44 @@ If you use React Native version 0.75 or lower:
   }
 }
 ```
+
+</details>
+
+
+
+### Expo
+
+Add the library plugin in your `app.json` config file and [create a new build](https://docs.expo.dev/develop/development-builds/create-a-build/):
+
+```diff
+  "expo": {
++   "plugins": ["react-native-bottom-tabs"]
+  }
+}
+```
+
+:::warning
+
+This library is not supported in [Expo Go](https://expo.dev/go).
+
+:::
+
+### React Native Community CLI users
+
+Edit `android/app/src/main/res/values/styles.xml` to inherit from provided theme in order to customize the appearance of the native bottom tabs.
+
+
+```diff
+<resources>
+- <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
++ <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
+    <!-- … -->
+  </style>
+</resources>
+```
+
+Here you can read more about [Android Native Styling](/docs/guides/android-native-styling).
+
 
 ## Example usage
 
