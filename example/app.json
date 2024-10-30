@@ -12,11 +12,13 @@
   "resources": {
     "android": [
       "dist/res",
-      "dist/main.android.jsbundle"
+      "dist/main.android.jsbundle",
+      "./node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"
     ],
     "ios": [
       "dist/assets",
-      "dist/main.ios.jsbundle"
+      "dist/main.ios.jsbundle",
+      "./node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"
     ],
     "macos": [
       "dist/assets",
