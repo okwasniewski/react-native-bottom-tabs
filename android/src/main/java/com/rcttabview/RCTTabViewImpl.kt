@@ -1,6 +1,10 @@
 package com.rcttabview
 
 import android.content.res.ColorStateList
+import android.graphics.Color
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import com.facebook.react.bridge.ReactContext
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.common.MapBuilder
 
@@ -18,6 +22,17 @@ class RCTTabViewImpl {
 
   companion object {
     const val NAME = "RNCTabView"
+    fun getNavigationBarInset(context: ReactContext): Int {
+      val window = context.currentActivity?.window
+      val isSystemBarTransparent = window?.navigationBarColor == Color.TRANSPARENT
+
+      if (!isSystemBarTransparent) {
+        return 0
+      }
+
+      val windowInsets = ViewCompat.getRootWindowInsets(window?.decorView ?: return 0)
+      return windowInsets?.getInsets(WindowInsetsCompat.Type.navigationBars())?.bottom ?: 0
+    }
   }
 
   fun setItems(view: ReactBottomNavigationView, items: ReadableArray) {
@@ -76,6 +91,8 @@ class RCTTabViewImpl {
   fun setInactiveTintColor(view: ReactBottomNavigationView, color: Int?) {
     view.setInactiveTintColor(color)
   }
+
+
 
   fun getExportedCustomDirectEventTypeConstants(): MutableMap<String, Any>? {
     return MapBuilder.of(

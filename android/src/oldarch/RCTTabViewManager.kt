@@ -1,6 +1,9 @@
 package com.rcttabview
 
+import android.graphics.Color
 import android.view.View.MeasureSpec
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.module.annotations.ReactModule
 import com.facebook.react.uimanager.LayoutShadowNode
@@ -133,12 +136,14 @@ class RCTTabViewManager(context: ReactApplicationContext) : SimpleViewManager<Re
       if (mMeasured) {
         return YogaMeasureOutput.make(mWidth, mHeight)
       }
-
       val tabView = ReactBottomNavigationView(themedContext)
       val spec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED)
+
+      val navigationBarInset = RCTTabViewImpl.getNavigationBarInset(themedContext)
       tabView.measure(spec, spec)
       this.mWidth = tabView.measuredWidth
-      this.mHeight = tabView.measuredHeight
+      this.mHeight = tabView.measuredHeight + navigationBarInset
+
       this.mMeasured = true
 
       return YogaMeasureOutput.make(mWidth, mHeight)

@@ -1,7 +1,10 @@
 package com.rcttabview
 
 import android.content.Context
+import android.graphics.Color
 import android.view.View
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.ReadableMap
@@ -113,9 +116,11 @@ class RCTTabViewManager(context: ReactApplicationContext) :
     val measureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
     view.measure(measureSpec, measureSpec)
 
+    val bottomInset = RCTTabViewImpl.getNavigationBarInset(contextInner)
+
     return YogaMeasureOutput.make(
       toDIPFromPixel(view.measuredWidth.toFloat()),
-      toDIPFromPixel(view.measuredHeight.toFloat())
+      toDIPFromPixel(view.measuredHeight.toFloat() + bottomInset)
     )
   }
 
