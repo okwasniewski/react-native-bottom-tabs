@@ -24,7 +24,14 @@ class RCTTabViewImpl {
     const val NAME = "RNCTabView"
     fun getNavigationBarInset(context: ReactContext): Int {
       val window = context.currentActivity?.window
-      val isSystemBarTransparent = window?.navigationBarColor == Color.TRANSPARENT
+
+      val isSystemBarTransparent = try {
+        // Detect `react-native-edge-to-edge` (https://github.com/zoontek/react-native-edge-to-edge)
+        Class.forName("com.zoontek.rnedgetoedge.EdgeToEdgePackage")
+        true
+      } catch (exception: ClassNotFoundException) {
+        window?.navigationBarColor == Color.TRANSPARENT // fallback to best-effort detection
+      }
 
       if (!isSystemBarTransparent) {
         return 0
