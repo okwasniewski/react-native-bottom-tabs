@@ -1,6 +1,10 @@
 package com.rcttabview
 
 import android.content.res.ColorStateList
+import android.graphics.Color
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import com.facebook.react.bridge.ReactContext
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.common.MapBuilder
 
@@ -14,10 +18,6 @@ data class TabInfo(
 class RCTTabViewImpl {
   fun getName(): String {
     return NAME
-  }
-
-  companion object {
-    const val NAME = "RNCTabView"
   }
 
   fun setItems(view: ReactBottomNavigationView, items: ReadableArray) {
@@ -84,5 +84,30 @@ class RCTTabViewImpl {
       TabLongPressEvent.EVENT_NAME,
       MapBuilder.of("registrationName", "onTabLongPress")
     )
+  }
+
+  companion object {
+    const val NAME = "RNCTabView"
+
+    // Detect `react-native-edge-to-edge` (https://github.com/zoontek/react-native-edge-to-edge)
+    private val EDGE_TO_EDGE = try {
+      Class.forName("com.zoontek.rnedgetoedge.EdgeToEdgePackage")
+      true
+    } catch (exception: ClassNotFoundException) {
+      false
+    }
+
+    fun getNavigationBarInset(context: ReactContext): Int {
+      val window = context.currentActivity?.window
+
+      val isSystemBarTransparent = EDGE_TO_EDGE || window?.navigationBarColor == Color.TRANSPARENT
+
+      if (!isSystemBarTransparent) {
+        return 0
+      }
+
+      val windowInsets = ViewCompat.getRootWindowInsets(window?.decorView ?: return 0)
+      return windowInsets?.getInsets(WindowInsetsCompat.Type.navigationBars())?.bottom ?: 0
+    }
   }
 }

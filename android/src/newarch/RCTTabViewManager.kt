@@ -113,9 +113,11 @@ class RCTTabViewManager(context: ReactApplicationContext) :
     val measureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
     view.measure(measureSpec, measureSpec)
 
+    val bottomInset = RCTTabViewImpl.getNavigationBarInset(contextInner)
+
     return YogaMeasureOutput.make(
       toDIPFromPixel(view.measuredWidth.toFloat()),
-      toDIPFromPixel(view.measuredHeight.toFloat())
+      toDIPFromPixel(view.measuredHeight.toFloat() + bottomInset)
     )
   }
 

@@ -183,6 +183,7 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
     val colorDrawable = ColorDrawable(backgroundColor)
 
     itemBackground = colorDrawable
+    backgroundTintList = ColorStateList.valueOf(backgroundColor)
   }
 
   fun setActiveTintColor(color: Int?) {

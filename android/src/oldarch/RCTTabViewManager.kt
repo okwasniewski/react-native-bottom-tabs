@@ -133,12 +133,13 @@ class RCTTabViewManager(context: ReactApplicationContext) : SimpleViewManager<Re
       if (mMeasured) {
         return YogaMeasureOutput.make(mWidth, mHeight)
       }
-
       val tabView = ReactBottomNavigationView(themedContext)
       val spec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED)
+
+      val navigationBarInset = RCTTabViewImpl.getNavigationBarInset(themedContext)
       tabView.measure(spec, spec)
       this.mWidth = tabView.measuredWidth
-      this.mHeight = tabView.measuredHeight
+      this.mHeight = tabView.measuredHeight + navigationBarInset
       this.mMeasured = true
 
       return YogaMeasureOutput.make(mWidth, mHeight)
