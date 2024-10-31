@@ -49,6 +49,18 @@ The name of the route to render on first load of the navigator.
 
 Default options to use for the screens in the navigator.
 
+#### `backBehavior`
+
+This controls what happens when `goBack` is called in the navigator. This includes pressing the device's back button or back gesture on Android.
+
+It supports the following values:
+
+- `firstRoute` - return to the first screen defined in the navigator (default)
+- `initialRoute` - return to initial screen passed in `initialRouteName` prop, if not passed, defaults to the first screen
+- `order` - return to screen defined before the focused screen
+- `history` - return to last visited screen in the navigator; if the same screen is visited multiple times, the older entries are dropped from the history
+- `none` - do not handle back button
+
 #### `labeled`
 
 Whether to show labels in tabs. Defaults to true.
