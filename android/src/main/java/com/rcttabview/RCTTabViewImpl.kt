@@ -20,28 +20,6 @@ class RCTTabViewImpl {
     return NAME
   }
 
-  companion object {
-    const val NAME = "RNCTabView"
-    fun getNavigationBarInset(context: ReactContext): Int {
-      val window = context.currentActivity?.window
-
-      val isSystemBarTransparent = try {
-        // Detect `react-native-edge-to-edge` (https://github.com/zoontek/react-native-edge-to-edge)
-        Class.forName("com.zoontek.rnedgetoedge.EdgeToEdgePackage")
-        true
-      } catch (exception: ClassNotFoundException) {
-        window?.navigationBarColor == Color.TRANSPARENT // fallback to best-effort detection
-      }
-
-      if (!isSystemBarTransparent) {
-        return 0
-      }
-
-      val windowInsets = ViewCompat.getRootWindowInsets(window?.decorView ?: return 0)
-      return windowInsets?.getInsets(WindowInsetsCompat.Type.navigationBars())?.bottom ?: 0
-    }
-  }
-
   fun setItems(view: ReactBottomNavigationView, items: ReadableArray) {
     val itemsArray = mutableListOf<TabInfo>()
     for (i in 0 until items.size()) {
@@ -99,8 +77,6 @@ class RCTTabViewImpl {
     view.setInactiveTintColor(color)
   }
 
-
-
   fun getExportedCustomDirectEventTypeConstants(): MutableMap<String, Any>? {
     return MapBuilder.of(
       PageSelectedEvent.EVENT_NAME,
@@ -108,5 +84,30 @@ class RCTTabViewImpl {
       TabLongPressEvent.EVENT_NAME,
       MapBuilder.of("registrationName", "onTabLongPress")
     )
+  }
+
+  companion object {
+    const val NAME = "RNCTabView"
+
+    // Detect `react-native-edge-to-edge` (https://github.com/zoontek/react-native-edge-to-edge)
+    private val EDGE_TO_EDGE = try {
+      Class.forName("com.zoontek.rnedgetoedge.EdgeToEdgePackage")
+      true
+    } catch (exception: ClassNotFoundException) {
+      false
+    }
+
+    fun getNavigationBarInset(context: ReactContext): Int {
+      val window = context.currentActivity?.window
+
+      val isSystemBarTransparent = EDGE_TO_EDGE || window?.navigationBarColor == Color.TRANSPARENT
+
+      if (!isSystemBarTransparent) {
+        return 0
+      }
+
+      val windowInsets = ViewCompat.getRootWindowInsets(window?.decorView ?: return 0)
+      return windowInsets?.getInsets(WindowInsetsCompat.Type.navigationBars())?.bottom ?: 0
+    }
   }
 }

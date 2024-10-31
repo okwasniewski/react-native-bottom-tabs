@@ -140,7 +140,6 @@ class RCTTabViewManager(context: ReactApplicationContext) : SimpleViewManager<Re
       tabView.measure(spec, spec)
       this.mWidth = tabView.measuredWidth
       this.mHeight = tabView.measuredHeight + navigationBarInset
-
       this.mMeasured = true
 
       return YogaMeasureOutput.make(mWidth, mHeight)
