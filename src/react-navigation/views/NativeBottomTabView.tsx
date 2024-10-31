@@ -1,7 +1,8 @@
-import type {
-  ParamListBase,
-  TabNavigationState,
-  Route,
+import {
+  type ParamListBase,
+  type TabNavigationState,
+  type Route,
+  CommonActions,
 } from '@react-navigation/native';
 import type {
   NativeBottomTabDescriptorMap,
@@ -26,7 +27,7 @@ export default function NativeBottomTabView({
     <TabView
       {...rest}
       navigationState={state}
-      renderScene={({ route }) => descriptors[route.key]?.render()}
+      renderScene={({ route }) => <>{descriptors[route.key]?.render()}</>}
       getActiveTintColor={({ route }) => {
         return descriptors[route.key]?.options.tabBarActiveTintColor;
       }}
@@ -72,7 +73,11 @@ export default function NativeBottomTabView({
           type: 'tabPress',
           target: route.key,
         });
-        navigation.navigate({ key: route.key, name: route.name, merge: true });
+
+        navigation.dispatch({
+          ...CommonActions.navigate(route),
+          target: state.key,
+        });
       }}
     />
   );

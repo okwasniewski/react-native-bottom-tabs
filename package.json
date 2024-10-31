@@ -86,7 +86,7 @@
     "@expo/config-plugins": "^7.0.0 || ^8.0.0",
     "@react-native/babel-preset": "0.75.3",
     "@react-native/eslint-config": "^0.73.1",
-    "@react-navigation/native": "^6.1.18",
+    "@react-navigation/native": "next",
     "@types/color": "^3.0.6",
     "@types/jest": "^29.5.5",
     "@types/react": "^18.2.44",
@@ -209,6 +209,7 @@
     "version": "0.41.2"
   },
   "dependencies": {
+    "@react-navigation/elements": "next",
     "color": "^4.2.3",
     "sf-symbols-typescript": "^2.0.0",
     "use-latest-callback": "^0.2.1"
