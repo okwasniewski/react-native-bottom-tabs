@@ -86,6 +86,12 @@ import React
     }
   }
   
+  @objc public var hapticFeedbackEnabled: Bool = true {
+    didSet {
+      props.hapticFeedbackEnabled = hapticFeedbackEnabled
+    }
+  }
+  
   @objc public var scrollEdgeAppearance: NSString? {
     didSet {
       props.scrollEdgeAppearance = scrollEdgeAppearance as? String

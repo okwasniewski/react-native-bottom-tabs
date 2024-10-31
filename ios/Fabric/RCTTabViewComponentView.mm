@@ -140,7 +140,11 @@ using namespace facebook::react;
   }
 
   if (oldViewProps.inactiveTintColor != newViewProps.inactiveTintColor) {
-    _tabViewProvider.inactiveTintColor =  RCTUIColorFromSharedColor(newViewProps.inactiveTintColor);
+    _tabViewProvider.inactiveTintColor = RCTUIColorFromSharedColor(newViewProps.inactiveTintColor);
+  }
+  
+  if (oldViewProps.hapticFeedbackEnabled != newViewProps.hapticFeedbackEnabled) {
+    _tabViewProvider.hapticFeedbackEnabled = newViewProps.hapticFeedbackEnabled;
   }
 
   [super updateProps:props oldProps:oldProps];

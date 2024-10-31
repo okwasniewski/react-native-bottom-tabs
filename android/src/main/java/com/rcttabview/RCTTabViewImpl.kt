@@ -77,6 +77,10 @@ class RCTTabViewImpl {
     view.setInactiveTintColor(color)
   }
 
+  fun setHapticFeedbackEnabled(view: ReactBottomNavigationView, enabled: Boolean) {
+   view.setHapticFeedback(enabled)
+  }
+
   fun getExportedCustomDirectEventTypeConstants(): MutableMap<String, Any>? {
     return MapBuilder.of(
       PageSelectedEvent.EVENT_NAME,

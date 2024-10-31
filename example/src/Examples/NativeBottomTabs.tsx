@@ -11,6 +11,7 @@ const Tab = createNativeBottomTabNavigator();
 function NativeBottomTabs() {
   return (
     <Tab.Navigator
+      hapticFeedbackEnabled={false}
       tabBarInactiveTintColor="#C57B57"
       tabBarActiveTintColor="#F7DBA7"
       barTintColor="#1E2D2F"

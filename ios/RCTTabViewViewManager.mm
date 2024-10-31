@@ -42,6 +42,7 @@ RCT_EXPORT_VIEW_PROPERTY(translucent, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(barTintColor, UIColor)
 RCT_EXPORT_VIEW_PROPERTY(activeTintColor, UIColor)
 RCT_EXPORT_VIEW_PROPERTY(inactiveTintColor, UIColor)
+RCT_EXPORT_VIEW_PROPERTY(hapticFeedbackEnabled, BOOL)
 
 //  MARK: TabViewProviderDelegate
 

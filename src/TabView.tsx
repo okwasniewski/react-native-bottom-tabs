@@ -38,11 +38,14 @@ interface Props<Route extends BaseRoute> {
    * Whether to ignore the top safe area. (iOS only)
    */
   ignoresTopSafeArea?: boolean;
-
   /**
    * Whether to disable page animations between tabs. (iOS only)
    */
   disablePageAnimations?: boolean;
+  /**
+   * Whether to enable haptic feedback. Defaults to `true`.
+   */
+  hapticFeedbackEnabled?: boolean;
   /**
    * Describes the appearance attributes for the tabBar to use when an observable scroll view is scrolled to the bottom. (iOS only)
    */
@@ -135,6 +138,7 @@ const TabView = <Route extends BaseRoute>({
   getActiveTintColor = ({ route }: { route: Route }) => route.activeTintColor,
   tabBarActiveTintColor: activeTintColor,
   tabBarInactiveTintColor: inactiveTintColor,
+  hapticFeedbackEnabled = true,
   rippleColor,
   ...props
 }: Props<Route>) => {
@@ -216,6 +220,7 @@ const TabView = <Route extends BaseRoute>({
 
   return (
     <TabViewAdapter
+      {...props}
       style={styles.fullWidth}
       items={items}
       icons={resolvedIconAssets}
@@ -227,7 +232,7 @@ const TabView = <Route extends BaseRoute>({
       onPageSelected={({ nativeEvent: { key } }) => {
         jumpTo(key);
       }}
-      {...props}
+      hapticFeedbackEnabled={hapticFeedbackEnabled}
       activeTintColor={activeTintColor}
       inactiveTintColor={inactiveTintColor}
       barTintColor={barTintColor}

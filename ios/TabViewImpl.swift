@@ -19,6 +19,7 @@ class TabViewProps: ObservableObject {
   @Published var barTintColor: UIColor?
   @Published var activeTintColor: UIColor?
   @Published var inactiveTintColor: UIColor?
+  @Published var hapticFeedbackEnabled: Bool = true
   
   var selectedActiveTintColor: UIColor? {
     if let selectedPage = selectedPage,
@@ -80,6 +81,7 @@ struct TabViewImpl: View {
     .onTabItemLongPress({ index in
       if let key = props.items[safe: index]?.key {
         onLongPress(key)
+        emitHapticFeedback(longPress: true)
       }
     })
     .tintColor(props.selectedActiveTintColor)
@@ -94,7 +96,22 @@ struct TabViewImpl: View {
       }
       
       onSelect(newValue)
+      emitHapticFeedback()
     }
+  }
+  
+  func emitHapticFeedback(longPress: Bool = false) {
+#if os(iOS)
+    if !props.hapticFeedbackEnabled {
+      return
+    }
+    
+    if longPress {
+      UINotificationFeedbackGenerator().notificationOccurred(.success)
+    } else {
+      UISelectionFeedbackGenerator().selectionChanged()
+    }
+#endif
   }
 }
 

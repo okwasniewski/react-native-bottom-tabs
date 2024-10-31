@@ -33,6 +33,7 @@ export interface TabViewProps extends ViewProps {
   ignoresTopSafeArea?: boolean;
   disablePageAnimations?: boolean;
   activeIndicatorColor?: ColorValue;
+  hapticFeedbackEnabled?: boolean;
 }
 
 export default codegenNativeComponent<TabViewProps>('RNCTabView', {
