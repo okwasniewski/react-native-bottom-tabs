@@ -6,8 +6,6 @@ In order to enable edge-to-edge follow installation instructions for [react-nati
 
 Once this package is installed, this library will automatically use it to enable edge-to-edge navigation on Android.
 
-### Before
-
 | Before | After |
 |:---:|:---:|
 | ![Before](../../public/img/no-edge-to-edge.png) | ![After](../../public/img/edge-to-edge.png) |
