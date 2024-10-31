@@ -1,1 +1,1 @@
-["usage-with-react-navigation", "usage-with-expo-router", "usage-with-one", "standalone-usage", "android-native-styling", "handling-scrollview-insets", "usage-with-vector-icons"]
+["usage-with-react-navigation", "usage-with-expo-router", "usage-with-one", "standalone-usage", {"type": "divider"}, "handling-scrollview-insets",  "usage-with-vector-icons", {"type": "divider"}, "android-native-styling", "edge-to-edge-support"]
