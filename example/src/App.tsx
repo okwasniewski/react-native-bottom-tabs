@@ -11,6 +11,7 @@ import {
   Button,
   Alert,
   useColorScheme,
+  Platform,
 } from 'react-native';
 import {
   DarkTheme,
@@ -47,6 +48,10 @@ const FourTabsTransparentScrollEdgeAppearance = () => {
   return <FourTabs scrollEdgeAppearance="transparent" />;
 };
 
+const FourTabsOpaqueScrollEdgeAppearance = () => {
+  return <FourTabs scrollEdgeAppearance="opaque" />;
+};
+
 const FourTabsWithBarTintColor = () => {
   return <FourTabs barTintColor={'#87CEEB'} />;
 };
@@ -63,20 +68,32 @@ const examples = [
   { component: ThreeTabs, name: 'Three Tabs' },
   { component: FourTabs, name: 'Four Tabs' },
   { component: SFSymbols, name: 'SF Symbols' },
-  { component: LabeledTabs, name: 'Labeled Tabs' },
+  { component: LabeledTabs, name: 'Labeled Tabs', platform: 'android' },
   {
     component: FourTabsIgnoreSafeArea,
     name: 'Four Tabs - No header',
+    platform: 'ios',
     screenOptions: { headerShown: false },
   },
   {
     component: FourTabsRippleColor,
     name: 'Four Tabs with ripple Color',
+    platform: 'android',
   },
-  { component: FourTabsNoAnimations, name: 'Four Tabs - no animations' },
+  {
+    component: FourTabsNoAnimations,
+    name: 'Four Tabs - no animations',
+    platform: 'ios',
+  },
   {
     component: FourTabsTransparentScrollEdgeAppearance,
     name: 'Four Tabs - Transparent scroll edge appearance',
+    platform: 'ios',
+  },
+  {
+    component: FourTabsOpaqueScrollEdgeAppearance,
+    name: 'Four Tabs - Opaque scroll edge appearance',
+    platform: 'ios',
   },
   {
     component: FourTabsWithBarTintColor,
@@ -85,6 +102,7 @@ const examples = [
   {
     component: FourTabsTranslucent,
     name: 'Four Tabs - Translucent tab bar',
+    platform: 'android',
   },
   {
     component: FourTabsActiveIndicatorColor,
@@ -109,19 +127,23 @@ function App() {
   const navigation = useNavigation();
   return (
     <ScrollView>
-      {examples.map((example) => (
-        <TouchableOpacity
-          key={example.name}
-          testID={example.name}
-          style={styles.exampleTouchable}
-          onPress={() => {
-            //@ts-ignore
-            navigation.navigate(example.name);
-          }}
-        >
-          <Text style={styles.exampleText}>{example.name}</Text>
-        </TouchableOpacity>
-      ))}
+      {examples
+        .filter((example) =>
+          'platform' in example ? example?.platform === Platform.OS : example
+        )
+        .map((example) => (
+          <TouchableOpacity
+            key={example.name}
+            testID={example.name}
+            style={styles.exampleTouchable}
+            onPress={() => {
+              //@ts-ignore
+              navigation.navigate(example.name);
+            }}
+          >
+            <Text style={styles.exampleText}>{example.name}</Text>
+          </TouchableOpacity>
+        ))}
     </ScrollView>
   );
 }
@@ -169,14 +191,20 @@ export default function Navigation() {
               ),
             }}
           />
-          {examples.map((example, index) => (
-            <NavigationStack.Screen
-              key={index}
-              name={example.name}
-              component={example.component}
-              options={example.screenOptions}
-            />
-          ))}
+          {examples
+            .filter((example) =>
+              'platform' in example
+                ? example?.platform === Platform.OS
+                : example
+            )
+            .map((example, index) => (
+              <NavigationStack.Screen
+                key={index}
+                name={example.name}
+                component={example.component}
+                options={example.screenOptions}
+              />
+            ))}
         </NavigationStack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

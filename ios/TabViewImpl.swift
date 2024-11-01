@@ -75,6 +75,19 @@ struct TabViewImpl: View {
           }
           .tag(tabData?.key)
           .tabBadge(tabData?.badge)
+#if os(iOS)
+          .onAppear {
+            // SwiftUI doesn't change `selection` when clicked on items from the "More" list.
+            // More tab is visible only if we have more than 5 items.
+            // This is a workaround that fixes the "More" feature.
+            if index < 4 {
+              return
+            }
+            if let key = tabData?.key, props.selectedPage != key {
+              onSelect(key)
+            }
+          }
+#endif
       }
       
     }
