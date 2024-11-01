@@ -128,15 +128,20 @@ struct TabViewImpl: View {
   }
 }
 
+@available(iOS 15.0, *)
 private func configureAppearance(for appearanceType: String, appearance: UITabBarAppearance) -> UITabBarAppearance {
+  if (appearanceType == "transparent") {
+    return appearance
+  }
+  
   switch appearanceType {
   case "opaque":
     appearance.configureWithOpaqueBackground()
-  case "transparent":
-    appearance.configureWithTransparentBackground()
   default:
     appearance.configureWithDefaultBackground()
   }
+  
+  UITabBar.appearance().scrollEdgeAppearance = appearance
   
   return appearance
 }
@@ -159,14 +164,14 @@ private func configureAppearance(inactiveTint inactiveTintColor: UIColor?, appea
 
 private func updateTabBarAppearance(props: TabViewProps) {
   var appearance = UITabBarAppearance()
-  appearance = configureAppearance(for: props.scrollEdgeAppearance ?? "", appearance: appearance)
   appearance = configureAppearance(
     inactiveTint: props.inactiveTintColor,
     appearance: appearance
   )
   
+  
   if #available(iOS 15.0, *) {
-    UITabBar.appearance().scrollEdgeAppearance = appearance
+    appearance = configureAppearance(for: props.scrollEdgeAppearance ?? "", appearance: appearance)
     
     if props.translucent == false {
       appearance.configureWithOpaqueBackground()
