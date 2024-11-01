@@ -10,23 +10,30 @@ React Navigation already has Bottom Tabs implementation, so you might wonder wha
 
 ## Distinctive features
 
-
 ### Animations handled by the system
 
 Thanks to TabView being native **all tab bar animations are driven by the system** meaning there is less work for the JavaScript thread to handle making the animations smoother.
-
 
 <video controls width="100%" src="https://github.com/user-attachments/assets/a2835833-9589-4fd6-b760-e73a5025ca4c" />
 
 ### Multi platform support
 
-Native Bottom tabs adapt to platform apperance on multiple platforms:
+Native Bottom tabs adapt to platform apperance on multiple platforms. You always get natively looking tabs!
 
-- iOS
-- Android
-- visionOS
-- macOS (coming soon)
-- tvOS (coming soon)
+| Platform |  |
+|:---:|:---:|
+| **iOS** | <img src="../../public/img/ios-tabs.jpeg" width="400" /> |
+| **Android** | <img src="../../public/img/android-tabs.jpeg" width="400" /> |
+| **iPadOS** | <img src="../../public/img/ipadOS-tabs.jpeg" width="400" /> |
+| **visionOS** | <img src="../../public/img/visionos-tabs.jpeg" width="400" /> |
+| **tvOS** | <img src="../../public/img/tvos-tabs.jpeg" width="400" /> |
+| **macOS** | Coming soon |
+
+### Automatic scroll to top
+
+iOS TabView automatically scrolls to top when ScrollView is embeded inside of it.
+
+No need for custom scroll to top handling.
 
 ### Sidebar Adaptable
 
