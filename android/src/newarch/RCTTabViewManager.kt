@@ -98,6 +98,11 @@ class RCTTabViewManager(context: ReactApplicationContext) :
     return delegate
   }
 
+  override fun setHapticFeedbackEnabled(view: ReactBottomNavigationView?, value: Boolean) {
+    if (view != null)
+      tabViewImpl.setHapticFeedbackEnabled(view, value)
+  }
+
   public override fun measure(
     context: Context?,
     localData: ReadableMap?,

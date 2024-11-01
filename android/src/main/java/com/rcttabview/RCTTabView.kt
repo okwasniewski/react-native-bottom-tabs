@@ -5,8 +5,10 @@ import android.content.res.ColorStateList
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.util.TypedValue
 import android.view.Choreographer
+import android.view.HapticFeedbackConstants
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
@@ -34,6 +36,7 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
   private var inactiveTintColor: Int? = null
   private val checkedStateSet = intArrayOf(android.R.attr.state_checked)
   private val uncheckedStateSet = intArrayOf(-android.R.attr.state_checked)
+  private var hapticFeedbackEnabled = true
 
   private val layoutCallback = Choreographer.FrameCallback {
     isLayoutEnqueued = false
@@ -59,6 +62,7 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
         putString("key", longPressedItem.key)
       }
       onTabLongPressedListener?.invoke(event)
+      emitHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
     }
   }
 
@@ -88,6 +92,7 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
         putString("key", selectedItem.key)
       }
       onTabSelectedListener?.invoke(event)
+      emitHapticFeedback(HapticFeedbackConstants.CONTEXT_CLICK)
     }
   }
 
@@ -198,6 +203,16 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
 
   fun setActiveIndicatorColor(color: ColorStateList) {
     itemActiveIndicatorColor = color
+  }
+
+  fun setHapticFeedback(enabled: Boolean) {
+    hapticFeedbackEnabled = enabled
+  }
+
+  fun emitHapticFeedback(feedbackConstants: Int) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && hapticFeedbackEnabled) {
+      this.performHapticFeedback(feedbackConstants)
+    }
   }
 
   private fun updateTintColors(item: MenuItem? = null) {

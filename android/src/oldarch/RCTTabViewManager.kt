@@ -109,6 +109,11 @@ class RCTTabViewManager(context: ReactApplicationContext) : SimpleViewManager<Re
   fun setDisablePageAnimations(view: ReactBottomNavigationView, flag: Boolean) {
   }
 
+  @ReactProp(name = "hapticFeedbackEnabled")
+  fun setHapticFeedbackEnabled(view: ReactBottomNavigationView, value: Boolean) {
+      tabViewImpl.setHapticFeedbackEnabled(view, value)
+  }
+
   class TabViewShadowNode() : LayoutShadowNode(),
     YogaMeasureFunction {
     private var mWidth = 0
