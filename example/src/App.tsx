@@ -37,6 +37,10 @@ const FourTabsIgnoreSafeArea = () => {
   return <FourTabs ignoresTopSafeArea />;
 };
 
+const HiddenTab = () => {
+  return <FourTabs hideOneTab />;
+};
+
 const FourTabsRippleColor = () => {
   return <FourTabs rippleColor={'#00ff00'} />;
 };
@@ -113,6 +117,10 @@ const examples = [
   {
     component: FourTabsActiveIndicatorColor,
     name: 'Four Tabs - Active Indicator color',
+  },
+  {
+    component: HiddenTab,
+    name: 'Four Tabs - With Hidden Tab',
   },
   {
     component: NativeBottomTabsVectorIcons,

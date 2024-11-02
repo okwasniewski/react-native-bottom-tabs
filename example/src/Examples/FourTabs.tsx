@@ -12,6 +12,7 @@ interface Props {
   scrollEdgeAppearance?: 'default' | 'opaque' | 'transparent';
   barTintColor?: ColorValue;
   translucent?: boolean;
+  hideOneTab?: boolean;
   rippleColor?: ColorValue;
   activeIndicatorColor?: ColorValue;
 }
@@ -22,6 +23,7 @@ export default function FourTabs({
   scrollEdgeAppearance = 'default',
   barTintColor,
   translucent = true,
+  hideOneTab = false,
   rippleColor,
   activeIndicatorColor,
 }: Props) {
@@ -39,6 +41,7 @@ export default function FourTabs({
       title: 'Albums',
       focusedIcon: require('../../assets/icons/grid_dark.png'),
       badge: '5',
+      hidden: hideOneTab,
     },
     {
       key: 'contacts',

@@ -68,6 +68,17 @@ export type NativeBottomTabNavigationOptions = {
   tabBarIcon?: (props: { focused: boolean }) => ImageSourcePropType | AppleIcon;
 
   /**
+   * Whether the tab bar item is visible when this screen is active.
+   * Used for compatibility with JS Tabs. Prefer using `tabBarItemHidden` as this API may be removed in the future.
+   */
+  tabBarButton?: () => null;
+
+  /**
+   * Whether the tab bar item is visible. Defaults to true.
+   */
+  tabBarItemHidden?: boolean;
+
+  /**
    * Badge to show on the tab icon.
    */
   tabBarBadge?: string;
