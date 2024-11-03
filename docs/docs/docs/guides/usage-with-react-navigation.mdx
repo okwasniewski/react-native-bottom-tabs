@@ -178,6 +178,26 @@ Whether this screens should render the first time it's accessed. Defaults to tru
 
 The navigator can emit events on certain actions. Supported events are:
 
+#### `tabPress`
+
+This event is fired when the user presses the tab button for the current screen in the tab bar.
+
+To prevent the default behavior, you can call `event.preventDefault`:
+
+```tsx`
+React.useEffect(() => {
+  const unsubscribe = navigation.addListener('tabPress', (e) => {
+    // Prevent default behavior
+    e.preventDefault();
+
+    // Do something manually
+    // ...
+  });
+
+  return unsubscribe;
+}, [navigation]);
+```
+
 #### `tabLongPress`
 
 This event is fired when the user presses the tab button for the current screen in the tab bar for an extended period.
