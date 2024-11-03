@@ -126,6 +126,10 @@ Tab views using the sidebar adaptable style have an appearance
 
 Whether to enable haptic feedback on tab press. Defaults to true.
 
+#### `detachInactiveScreens`
+
+Boolean used to indicate whether inactive screens should be detached from the view hierarchy to save memory. This enables integration with `react-native-screens`. Defaults to `true`.
+
 ### Options
 
 The following options can be used to configure the screens in the navigator. These can be specified under `screenOptions` prop of `Tab.navigator` or `options` prop of `Tab.Screen`.
@@ -173,6 +177,14 @@ Badge to show on the tab icon.
 #### `lazy`
 
 Whether this screens should render the first time it's accessed. Defaults to true. Set it to false if you want to render the screen on initial render.
+
+#### `freezeOnBlur`
+
+Boolean indicating whether to prevent inactive screens from re-rendering. Defaults to `false`. Defaults to `true` when `enableFreeze()` from `react-native-screens` package is run at the top of the application.
+
+Requires `react-native-screens` version >=3.16.0.
+
+Only supported on iOS and Android.
 
 ### Events
 
