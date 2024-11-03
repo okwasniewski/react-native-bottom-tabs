@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import createNativeBottomTabNavigator from '../../../src/react-navigation/navigators/createNativeBottomTabNavigator';
 
 const store = new Set<Dispatch>();
@@ -24,13 +24,7 @@ function useValue() {
 
 function HomeScreen() {
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
+    <View style={styles.screenContainer}>
       <Text>Home!</Text>
     </View>
   );
@@ -41,13 +35,7 @@ function DetailsScreen() {
   // only 1 'render' should appear at the time
   console.log('Details Screen render', value);
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
+    <View style={styles.screenContainer}>
       <Text>Details!</Text>
       <Text style={{ alignSelf: 'center' }}>Details Screen {value}</Text>
     </View>
@@ -102,3 +90,11 @@ export default function NativeBottomTabsFreezeOnBlur() {
     </Tab.Navigator>
   );
 }
+
+const styles = StyleSheet.create({
+  screenContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
