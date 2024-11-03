@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleProp, View, ViewStyle } from 'react-native';
+import { StyleProp, View, ViewProps, ViewStyle } from 'react-native';
 
 type Props = {
   visible: boolean;
@@ -17,6 +17,21 @@ try {
 } catch (e) {
   // Ignore
 }
+
+export const MaybeScreenContainer = ({
+  enabled,
+  ...rest
+}: ViewProps & {
+  enabled: boolean;
+  hasTwoStates: boolean;
+  children: React.ReactNode;
+}) => {
+  if (Screens?.screensEnabled?.()) {
+    return <Screens.ScreenContainer enabled={enabled} {...rest} />;
+  }
+
+  return <View {...rest} />;
+};
 
 export function MaybeScreen({ visible, children, ...rest }: Props) {
   if (Screens?.screensEnabled?.()) {

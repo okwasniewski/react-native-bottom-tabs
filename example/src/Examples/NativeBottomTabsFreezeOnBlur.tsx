@@ -1,15 +1,13 @@
 import * as React from 'react';
 import { Text, View } from 'react-native';
 import createNativeBottomTabNavigator from '../../../src/react-navigation/navigators/createNativeBottomTabNavigator';
-// import { enableFreeze } from 'react-native-screens';
 
 const store = new Set<Dispatch>();
-// enableFreeze(true)
 
 type Dispatch = (value: number) => void;
 
 function useValue() {
-  const [value, setValue] = React.useState<number>(0); // integer state
+  const [value, setValue] = React.useState<number>(0);
 
   React.useEffect(() => {
     const dispatch = (value: number) => {
@@ -28,8 +26,6 @@ function HomeScreen() {
   return (
     <View
       style={{
-        borderWidth: 2,
-        borderColor: 'blue',
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
@@ -42,23 +38,18 @@ function HomeScreen() {
 
 function DetailsScreen() {
   const value = useValue();
-  const random = React.useRef(Math.random());
   // only 1 'render' should appear at the time
-  console.log('Details Screen render', value, random);
+  console.log('Details Screen render', value);
   return (
     <View
       style={{
-        borderWidth: 2,
-        borderColor: 'pink',
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
       }}
     >
       <Text>Details!</Text>
-      <Text style={{ alignSelf: 'center' }}>
-        Details Screen {value + random.current}
-      </Text>
+      <Text style={{ alignSelf: 'center' }}>Details Screen {value}</Text>
     </View>
   );
 }
@@ -75,11 +66,39 @@ export default function NativeBottomTabsFreezeOnBlur() {
   }, []);
 
   return (
-    <Tab.Navigator screenOptions={{}}>
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Details" component={DetailsScreen} />
-      <Tab.Screen name="Settings" component={DetailsScreen} />
-      <Tab.Screen name="Profile" component={DetailsScreen} />
+    <Tab.Navigator
+      screenOptions={{
+        freezeOnBlur: true,
+      }}
+    >
+      <Tab.Screen
+        name="Article"
+        component={HomeScreen}
+        options={{
+          tabBarIcon: () => require('../../assets/icons/article_dark.png'),
+        }}
+      />
+      <Tab.Screen
+        name="Albums"
+        component={DetailsScreen}
+        options={{
+          tabBarIcon: () => require('../../assets/icons/grid_dark.png'),
+        }}
+      />
+      <Tab.Screen
+        name="Contact"
+        component={DetailsScreen}
+        options={{
+          tabBarIcon: () => require('../../assets/icons/person_dark.png'),
+        }}
+      />
+      <Tab.Screen
+        name="Chat"
+        component={DetailsScreen}
+        options={{
+          tabBarIcon: () => require('../../assets/icons/chat_dark.png'),
+        }}
+      />
     </Tab.Navigator>
   );
 }

@@ -14,7 +14,10 @@ import TabViewAdapter from './TabViewAdapter';
 import useLatestCallback from 'use-latest-callback';
 import { useMemo, useState } from 'react';
 import type { BaseRoute, NavigationState } from './types';
-import { MaybeScreen } from './react-navigation/views/ScreenFallback';
+import {
+  MaybeScreen,
+  MaybeScreenContainer,
+} from './react-navigation/views/ScreenFallback';
 
 const isAppleSymbol = (icon: any): icon is { sfSymbol: string } =>
   icon?.sfSymbol;
@@ -125,6 +128,13 @@ interface Props<Route extends BaseRoute> {
    * Color of tab indicator. (Android only)
    */
   activeIndicatorColor?: ColorValue;
+
+  /**
+   * Whether inactive screens should be detached from the view hierarchy to save memory.
+   * Make sure to call `enableScreens` from `react-native-screens` to make it work.
+   * Defaults to `true` on Android.
+   */
+  detachInactiveScreens?: boolean;
 }
 
 const ANDROID_MAX_TABS = 6;
@@ -145,6 +155,9 @@ const TabView = <Route extends BaseRoute>({
   barTintColor,
   getActiveTintColor = ({ route }: { route: Route }) => route.activeTintColor,
   getFreezeOnBlur = ({ route }: { route: Route }) => route.freezeOnBlur,
+  detachInactiveScreens = Platform.OS === 'web' ||
+    Platform.OS === 'android' ||
+    Platform.OS === 'ios',
   tabBarActiveTintColor: activeTintColor,
   tabBarInactiveTintColor: inactiveTintColor,
   hapticFeedbackEnabled = true,
@@ -247,45 +260,51 @@ const TabView = <Route extends BaseRoute>({
       barTintColor={barTintColor}
       rippleColor={rippleColor}
     >
-      {trimmedRoutes.map((route) => {
-        if (getLazy({ route }) !== false && !loaded.includes(route.key)) {
-          // Don't render a screen if we've never navigated to it
-          if (Platform.OS === 'android') {
-            return null;
+      <MaybeScreenContainer
+        enabled={detachInactiveScreens}
+        hasTwoStates
+        style={styles.container}
+      >
+        {trimmedRoutes.map((route) => {
+          if (getLazy({ route }) !== false && !loaded.includes(route.key)) {
+            // Don't render a screen if we've never navigated to it
+            if (Platform.OS === 'android') {
+              return null;
+            }
+            return (
+              <View
+                key={route.key}
+                collapsable={false}
+                style={styles.fullWidth}
+              />
+            );
           }
+
+          const freezeOnBlur = getFreezeOnBlur({ route });
+          const isFocused = route.key === focusedKey;
+
           return (
-            <View
+            <MaybeScreen
               key={route.key}
+              visible={isFocused}
+              enabled={detachInactiveScreens}
+              freezeOnBlur={freezeOnBlur}
               collapsable={false}
-              style={styles.fullWidth}
-            />
+              style={[
+                styles.fullWidth,
+                Platform.OS === 'android' && {
+                  display: isFocused ? 'flex' : 'none',
+                },
+              ]}
+            >
+              {renderScene({
+                route,
+                jumpTo,
+              })}
+            </MaybeScreen>
           );
-        }
-
-        const freezeOnBlur = getFreezeOnBlur({ route });
-        const isFocused = route.key === focusedKey;
-
-        return (
-          <MaybeScreen
-            key={route.key}
-            visible={isFocused}
-            enabled={false}
-            freezeOnBlur={freezeOnBlur}
-            collapsable={false}
-            style={[
-              styles.fullWidth,
-              Platform.OS === 'android' && {
-                display: isFocused ? 'flex' : 'none',
-              },
-            ]}
-          >
-            {renderScene({
-              route,
-              jumpTo,
-            })}
-          </MaybeScreen>
-        );
-      })}
+        })}
+      </MaybeScreenContainer>
     </TabViewAdapter>
   );
 };
@@ -294,6 +313,10 @@ const styles = StyleSheet.create({
   fullWidth: {
     width: '100%',
     height: '100%',
+  },
+  container: {
+    flex: 1,
+    overflow: 'hidden',
   },
 });
 
