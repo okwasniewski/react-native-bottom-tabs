@@ -13786,6 +13786,7 @@ __metadata:
     react: 18.3.1
     react-native: 0.75.3
     react-native-builder-bob: ^0.30.2
+    react-native-screens: ^3.16.0
     release-it: ^15.0.0
     sf-symbols-typescript: ^2.0.0
     turbo: ^1.10.7
@@ -13795,8 +13796,11 @@ __metadata:
     "@react-navigation/native": ">=6"
     react: "*"
     react-native: "*"
+    react-native-screens: ">=3.16.0"
   peerDependenciesMeta:
     "@react-navigation/native":
+      optional: true
+    react-native-screens:
       optional: true
   languageName: unknown
   linkType: soft
@@ -13871,6 +13875,19 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 6d6af265ecf1b9cb45e042a335f2c5da472ad41eb5d4fda8e31a1607b344726f0f4f9501ef3a3a731cec3784ba93485b44cbdafbf5f13055caa130c703bbd307
+  languageName: node
+  linkType: hard
+
+"react-native-screens@npm:^3.16.0":
+  version: 3.35.0
+  resolution: "react-native-screens@npm:3.35.0"
+  dependencies:
+    react-freeze: ^1.0.0
+    warn-once: ^0.1.0
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: cb8a0c8d8a41a8a1065cc2253e4272a970366a7d80bc54e889b2f48de7ccccd3e828e2701de39c0453a67956ec0cad140fb506324cce04419b5e2eb495c038c2
   languageName: node
   linkType: hard
 

@@ -14,6 +14,7 @@ import TabViewAdapter from './TabViewAdapter';
 import useLatestCallback from 'use-latest-callback';
 import { useMemo, useState } from 'react';
 import type { BaseRoute, NavigationState } from './types';
+import { MaybeScreen } from './react-navigation/views/ScreenFallback';
 
 const isAppleSymbol = (icon: any): icon is { sfSymbol: string } =>
   icon?.sfSymbol;
@@ -105,6 +106,13 @@ interface Props<Route extends BaseRoute> {
   }) => ImageSource | undefined;
 
   /**
+   * Get freezeOnBlur for the current screen. Uses false by default.
+   * Defaults to `true` when `enableFreeze()` is run at the top of the application.
+   *
+   */
+  getFreezeOnBlur?: (props: { route: Route }) => boolean | undefined;
+
+  /**
    * Background color of the tab bar.
    */
   barTintColor?: ColorValue;
@@ -136,6 +144,7 @@ const TabView = <Route extends BaseRoute>({
       : route.focusedIcon,
   barTintColor,
   getActiveTintColor = ({ route }: { route: Route }) => route.activeTintColor,
+  getFreezeOnBlur = ({ route }: { route: Route }) => route.freezeOnBlur,
   tabBarActiveTintColor: activeTintColor,
   tabBarInactiveTintColor: inactiveTintColor,
   hapticFeedbackEnabled = true,
@@ -253,14 +262,20 @@ const TabView = <Route extends BaseRoute>({
           );
         }
 
+        const freezeOnBlur = getFreezeOnBlur({ route });
+        const isFocused = route.key === focusedKey;
+
         return (
-          <View
+          <MaybeScreen
             key={route.key}
+            visible={isFocused}
+            enabled={false}
+            freezeOnBlur={freezeOnBlur}
             collapsable={false}
             style={[
               styles.fullWidth,
               Platform.OS === 'android' && {
-                display: route.key === focusedKey ? 'flex' : 'none',
+                display: isFocused ? 'flex' : 'none',
               },
             ]}
           >
@@ -268,7 +283,7 @@ const TabView = <Route extends BaseRoute>({
               route,
               jumpTo,
             })}
-          </View>
+          </MaybeScreen>
         );
       })}
     </TabViewAdapter>
