@@ -68,11 +68,21 @@ export default function NativeBottomTabView({
           return;
         }
 
-        navigation.emit({
+        const event = navigation.emit({
           type: 'tabPress',
           target: route.key,
+          canPreventDefault: true,
         });
-        navigation.navigate({ key: route.key, name: route.name, merge: true });
+
+        if (event.defaultPrevented) {
+          return;
+        } else {
+          navigation.navigate({
+            key: route.key,
+            name: route.name,
+            merge: true,
+          });
+        }
       }}
     />
   );

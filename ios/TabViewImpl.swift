@@ -91,10 +91,15 @@ struct TabViewImpl: View {
       }
       
     }
-    .onTabItemLongPress({ index in
+    .onTabItemEvent({ index, isLongPress in
       if let key = props.items[safe: index]?.key {
-        onLongPress(key)
-        emitHapticFeedback(longPress: true)
+        if isLongPress {
+          onLongPress(key)
+          emitHapticFeedback(longPress: true)
+        } else {
+          onSelect(key)
+          emitHapticFeedback()
+        }
       }
     })
     .tintColor(props.selectedActiveTintColor)
@@ -107,9 +112,6 @@ struct TabViewImpl: View {
           UIView.setAnimationsEnabled(true)
         }
       }
-      
-      onSelect(newValue)
-      emitHapticFeedback()
     }
   }
   

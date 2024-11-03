@@ -11,6 +11,8 @@ const Tab = createNativeBottomTabNavigator();
 function NativeBottomTabs() {
   return (
     <Tab.Navigator
+      initialRouteName="Chat"
+      labeled={true}
       hapticFeedbackEnabled={false}
       tabBarInactiveTintColor="#C57B57"
       tabBarActiveTintColor="#F7DBA7"
@@ -53,6 +55,12 @@ function NativeBottomTabs() {
       <Tab.Screen
         name="Contacts"
         component={Contacts}
+        listeners={{
+          tabPress: (e) => {
+            e.preventDefault();
+            console.log('Contacts tab press prevented');
+          },
+        }}
         options={{
           tabBarIcon: () => require('../../assets/icons/person_dark.png'),
           tabBarActiveTintColor: 'yellow',
@@ -61,6 +69,11 @@ function NativeBottomTabs() {
       <Tab.Screen
         name="Chat"
         component={Chat}
+        listeners={{
+          tabPress: () => {
+            console.log('Chat tab pressed');
+          },
+        }}
         options={{
           tabBarIcon: () => require('../../assets/icons/chat_dark.png'),
           tabBarActiveTintColor: 'white',

@@ -47,14 +47,6 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
     layout(left, top, right, bottom)
   }
 
-  init {
-    setOnItemSelectedListener { item ->
-      onTabSelected(item)
-      updateTintColors(item)
-      true
-    }
-  }
-
   private fun onTabLongPressed(item: MenuItem) {
     val longPressedItem = items?.firstOrNull { it.title == item.title }
     longPressedItem?.let {
@@ -114,6 +106,10 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
         findViewById<View>(menuItem.itemId).setOnLongClickListener {
           onTabLongPressed(menuItem)
           true
+        }
+        findViewById<View>(menuItem.itemId).setOnClickListener {
+          onTabSelected(menuItem)
+          updateTintColors(menuItem)
         }
       }
     }
