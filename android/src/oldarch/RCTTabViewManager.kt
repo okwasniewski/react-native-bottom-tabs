@@ -143,7 +143,8 @@ class RCTTabViewManager(context: ReactApplicationContext) : SimpleViewManager<Re
 
       val navigationBarInset = RCTTabViewImpl.getNavigationBarInset(themedContext)
       tabView.measure(spec, spec)
-      this.mWidth = tabView.measuredWidth
+      // TabBar should always stretch to the width of the screen.
+      this.mWidth = width.toInt()
       this.mHeight = tabView.measuredHeight + navigationBarInset
       this.mMeasured = true
 
