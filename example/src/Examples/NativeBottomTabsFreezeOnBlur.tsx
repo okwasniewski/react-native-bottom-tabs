@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 import createNativeBottomTabNavigator from '../../../src/react-navigation/navigators/createNativeBottomTabNavigator';
 
 const store = new Set<Dispatch>();
@@ -33,7 +33,7 @@ function HomeScreen() {
 function DetailsScreen() {
   const value = useValue();
   // only 1 'render' should appear at the time
-  console.log('Details Screen render', value);
+  console.log(`${Platform.OS} Details Screen render ${value}`);
   return (
     <View style={styles.screenContainer}>
       <Text>Details!</Text>

@@ -4,7 +4,6 @@ import {
   Image,
   Platform,
   StyleSheet,
-  View,
   processColor,
 } from 'react-native';
 
@@ -266,22 +265,25 @@ const TabView = <Route extends BaseRoute>({
         style={styles.container}
       >
         {trimmedRoutes.map((route) => {
+          const isFocused = route.key === focusedKey;
+
           if (getLazy({ route }) !== false && !loaded.includes(route.key)) {
             // Don't render a screen if we've never navigated to it
             if (Platform.OS === 'android') {
               return null;
             }
             return (
-              <View
+              <MaybeScreen
                 key={route.key}
-                collapsable={false}
+                visible={isFocused}
+                enabled={detachInactiveScreens}
                 style={styles.fullWidth}
+                collapsable={false}
               />
             );
           }
 
           const freezeOnBlur = getFreezeOnBlur({ route });
-          const isFocused = route.key === focusedKey;
 
           return (
             <MaybeScreen

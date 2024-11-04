@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { StyleProp, View, ViewProps, ViewStyle } from 'react-native';
+import { Platform, StyleProp, View, ViewProps, ViewStyle } from 'react-native';
 
 type Props = {
   visible: boolean;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   enabled: boolean;
   freezeOnBlur?: boolean;
   style?: StyleProp<ViewStyle>;
@@ -20,26 +20,27 @@ try {
 
 export const MaybeScreenContainer = ({
   enabled,
+  children,
   ...rest
 }: ViewProps & {
   enabled: boolean;
   hasTwoStates: boolean;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }) => {
-  if (Screens?.screensEnabled?.()) {
-    return <Screens.ScreenContainer enabled={enabled} {...rest} />;
-  }
-
-  return <View {...rest} />;
-};
-
-export function MaybeScreen({ visible, children, ...rest }: Props) {
-  if (Screens?.screensEnabled?.()) {
+  if (Platform.OS === 'android' && Screens?.screensEnabled()) {
     return (
-      <Screens.Screen activityState={visible ? 2 : 0} {...rest}>
+      <Screens.ScreenContainer enabled={enabled} {...rest}>
         {children}
-      </Screens.Screen>
+      </Screens.ScreenContainer>
     );
   }
-  return <View {...rest}>{children}</View>;
+
+  return <>{children}</>;
+};
+
+export function MaybeScreen({ visible, ...rest }: Props) {
+  if (Screens?.screensEnabled()) {
+    return <Screens.Screen activityState={visible ? 2 : 0} {...rest} />;
+  }
+  return <View {...rest} />;
 }
