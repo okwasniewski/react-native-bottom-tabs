@@ -121,7 +121,8 @@ class RCTTabViewManager(context: ReactApplicationContext) :
     val bottomInset = RCTTabViewImpl.getNavigationBarInset(contextInner)
 
     return YogaMeasureOutput.make(
-      toDIPFromPixel(view.measuredWidth.toFloat()),
+      // TabBar should always stretch to the width of the screen.
+      toDIPFromPixel(width),
       toDIPFromPixel(view.measuredHeight.toFloat() + bottomInset)
     )
   }
