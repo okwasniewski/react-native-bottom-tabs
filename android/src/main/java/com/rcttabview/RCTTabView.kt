@@ -158,17 +158,22 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
     itemRippleColor = color
   }
 
-  private fun getDrawable(imageSource: ImageSource): Drawable {
-    // TODO: Check if this can be done using some built-in React Native class
-    val imageRequest = ImageRequestBuilder.newBuilderWithSource(imageSource.uri).build()
-    val dataSource = Fresco.getImagePipeline().fetchDecodedImage(imageRequest, context)
-    val result = DataSources.waitForFinalResult(dataSource) as CloseableReference<CloseableBitmap>
-    val bitmap = result.get().underlyingBitmap
+  private fun getDrawable(imageSource: ImageSource): Drawable? {
+    try {
+      val imageRequest = ImageRequestBuilder.newBuilderWithSource(imageSource.uri).build()
+      val dataSource = Fresco.getImagePipeline().fetchDecodedImage(imageRequest, context)
+      val result = DataSources.waitForFinalResult(dataSource) as CloseableReference<CloseableBitmap>
+      val bitmap = result.get().underlyingBitmap
 
-    CloseableReference.closeSafely(result)
-    dataSource.close()
+      CloseableReference.closeSafely(result)
+      dataSource.close()
 
-    return BitmapDrawable(resources, bitmap)
+      return BitmapDrawable(resources, bitmap)
+    } catch (_: Exception) {
+      // Asset doesn't exist
+    }
+
+    return null
   }
 
   override fun onDetachedFromWindow() {
