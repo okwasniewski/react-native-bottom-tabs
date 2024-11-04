@@ -184,7 +184,7 @@ This event is fired when the user presses the tab button for the current screen 
 
 To prevent the default behavior, you can call `event.preventDefault`:
 
-```tsx`
+```tsx
 React.useEffect(() => {
   const unsubscribe = navigation.addListener('tabPress', (e) => {
     // Prevent default behavior
