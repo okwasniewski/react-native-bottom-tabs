@@ -21,21 +21,21 @@ const Tabs = createNativeBottomTabNavigator();
 
 function NativeBottomTabs() {
   return (
-    <Tabs.Navigator>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: () => homeIcon,
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: () => exploreIcon,
-        }}
-      />
+    <Tabs.Navigator ignoresTopSafeArea>
+        <Tabs.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{
+            tabBarIcon: () => homeIcon,
+          }}
+        />
+        <Tabs.Screen
+          name="Explore"
+          component={ExploreScreen}
+          options={{
+            tabBarIcon: () => exploreIcon,
+          }}
+        />
     </Tabs.Navigator>
   );
 }
