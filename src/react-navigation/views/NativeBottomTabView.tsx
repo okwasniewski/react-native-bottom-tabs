@@ -50,6 +50,9 @@ export default function NativeBottomTabView({
 
         return null;
       }}
+      getFreezeOnBlur={({ route }) =>
+        descriptors[route.key]?.options.freezeOnBlur
+      }
       getLazy={({ route }) => descriptors[route.key]?.options.lazy ?? true}
       onTabLongPress={(index) => {
         const route = state.routes[index];
