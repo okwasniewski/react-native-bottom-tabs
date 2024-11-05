@@ -254,7 +254,7 @@ const TabView = <Route extends BaseRoute>({
         }
 
         const focused = route.key === focusedKey;
-        const zIndex = focused ? 1 : 0;
+        const zIndex = focused ? 0 : -1;
 
         return (
           <View
