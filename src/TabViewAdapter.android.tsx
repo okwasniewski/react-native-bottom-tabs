@@ -2,11 +2,11 @@ import NativeTabView from './TabViewNativeComponent';
 import type { TabViewProps } from './TabViewNativeComponent';
 import { StyleSheet, View } from 'react-native';
 
-const TabViewAdapter = ({ children, ...props }: TabViewProps) => {
+const TabViewAdapter = ({ children, style: _, ...props }: TabViewProps) => {
   return (
     <>
       <View style={styles.content}>{children}</View>
-      <NativeTabView {...props} style={styles.tabBar} />
+      <NativeTabView {...props} />
     </>
   );
 };
@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
-  tabBar: {},
 });
 
 export default TabViewAdapter;
