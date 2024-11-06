@@ -1,6 +1,9 @@
 import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
 import type { ColorValue, ProcessedColorValue, ViewProps } from 'react-native';
-import type { DirectEventHandler } from 'react-native/Libraries/Types/CodegenTypes';
+import type {
+  DirectEventHandler,
+  WithDefault,
+} from 'react-native/Libraries/Types/CodegenTypes';
 //@ts-ignore
 import type { ImageSource } from 'react-native/Libraries/Image/ImageSource';
 
@@ -31,7 +34,7 @@ export interface TabViewProps extends ViewProps {
   rippleColor?: ColorValue;
   activeTintColor?: ColorValue;
   inactiveTintColor?: ColorValue;
-  ignoresTopSafeArea?: boolean;
+  ignoresTopSafeArea?: WithDefault<boolean, true>;
   disablePageAnimations?: boolean;
   activeIndicatorColor?: ColorValue;
   hapticFeedbackEnabled?: boolean;

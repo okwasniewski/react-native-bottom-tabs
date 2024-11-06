@@ -67,7 +67,7 @@ function ChatStackScreen() {
 
 function NativeBottomTabsEmbeddedStacks() {
   return (
-    <Tab.Navigator ignoresTopSafeArea>
+    <Tab.Navigator>
       <Tab.Screen
         name="Article"
         component={ArticleStackScreen}

@@ -12,22 +12,22 @@ class TabViewProps: ObservableObject {
   @Published var icons: [Int: UIImage] = [:]
   @Published var sidebarAdaptable: Bool?
   @Published var labeled: Bool?
-  @Published var ignoresTopSafeArea: Bool?
-  @Published var disablePageAnimations: Bool = false
   @Published var scrollEdgeAppearance: String?
-  @Published var translucent: Bool = true
   @Published var barTintColor: UIColor?
   @Published var activeTintColor: UIColor?
   @Published var inactiveTintColor: UIColor?
+  @Published var translucent: Bool = true
+  @Published var ignoresTopSafeArea: Bool = true
+  @Published var disablePageAnimations: Bool = false
   @Published var hapticFeedbackEnabled: Bool = true
-  
+
   var selectedActiveTintColor: UIColor? {
     if let selectedPage = selectedPage,
        let tabData = items.findByKey(selectedPage),
        let activeTintColor = tabData.activeTintColor {
       return activeTintColor
     }
-    
+
     return activeTintColor
   }
 }
@@ -37,11 +37,11 @@ class TabViewProps: ObservableObject {
  */
 struct RepresentableView: UIViewRepresentable {
   var view: UIView
-  
+
   func makeUIView(context: Context) -> UIView {
     return view
   }
-  
+
   func updateUIView(_ uiView: UIView, context: Context) {}
 }
 
@@ -52,7 +52,7 @@ struct TabViewImpl: View {
   @ObservedObject var props: TabViewProps
   var onSelect: (_ key: String) -> Void
   var onLongPress: (_ key: String) -> Void
-  
+
   var body: some View {
     TabView(selection: $props.selectedPage) {
       ForEach(props.children.indices, id: \.self) { index in
@@ -63,7 +63,7 @@ struct TabViewImpl: View {
       guard let key = props.items.filter({
         !$0.hidden || $0.key == props.selectedPage
       })[safe: index]?.key else { return }
-      
+
       if isLongPress {
         onLongPress(key)
         emitHapticFeedback(longPress: true)
@@ -84,20 +84,20 @@ struct TabViewImpl: View {
       }
     }
   }
-  
+
   @ViewBuilder
   private func renderTabItem(at index: Int) -> some View {
     let tabData = props.items[safe: index]
     let isHidden = tabData?.hidden ?? false
     let isFocused = props.selectedPage == tabData?.key
-    
+
     if !isHidden || isFocused {
       let child = props.children[safe: index] ?? UIView()
       let icon = props.icons[index]
-      
+
       RepresentableView(view: child)
         .ignoresTopSafeArea(
-          props.ignoresTopSafeArea ?? false,
+          props.ignoresTopSafeArea,
           frame: child.frame
         )
         .tabItem {
@@ -120,13 +120,13 @@ struct TabViewImpl: View {
 #endif
     }
   }
-  
+
   func emitHapticFeedback(longPress: Bool = false) {
 #if os(iOS)
     if !props.hapticFeedbackEnabled {
       return
     }
-    
+
     if longPress {
       UINotificationFeedbackGenerator().notificationOccurred(.success)
     } else {
@@ -141,16 +141,16 @@ private func configureAppearance(for appearanceType: String, appearance: UITabBa
   if (appearanceType == "transparent") {
     return appearance
   }
-  
+
   switch appearanceType {
   case "opaque":
     appearance.configureWithOpaqueBackground()
   default:
     appearance.configureWithDefaultBackground()
   }
-  
+
   UITabBar.appearance().scrollEdgeAppearance = appearance
-  
+
   return appearance
 }
 
@@ -166,7 +166,7 @@ private func configureAppearance(inactiveTint inactiveTintColor: UIColor?, appea
     setTabBarItemColors(appearance.inlineLayoutAppearance, inactiveColor: inactiveTintColor)
     setTabBarItemColors(appearance.compactInlineLayoutAppearance, inactiveColor: inactiveTintColor)
   }
-  
+
   return appearance
 }
 
@@ -176,15 +176,15 @@ private func updateTabBarAppearance(props: TabViewProps) {
     inactiveTint: props.inactiveTintColor,
     appearance: appearance
   )
-  
-  
+
+
   if #available(iOS 15.0, *) {
     appearance = configureAppearance(for: props.scrollEdgeAppearance ?? "", appearance: appearance)
-    
+
     if props.translucent == false {
       appearance.configureWithOpaqueBackground()
     }
-    
+
     if props.barTintColor != nil {
       appearance.backgroundColor = props.barTintColor
     }
@@ -192,7 +192,7 @@ private func updateTabBarAppearance(props: TabViewProps) {
     UITabBar.appearance().barTintColor = props.barTintColor
     UITabBar.appearance().isTranslucent = props.translucent
   }
-  
+
   UITabBar.appearance().standardAppearance = appearance
 }
 
@@ -201,7 +201,7 @@ struct TabItem: View {
   var icon: UIImage?
   var sfSymbol: String?
   var labeled: Bool?
-  
+
   var body: some View {
     if let icon {
       Image(uiImage: icon)
@@ -230,7 +230,7 @@ extension View {
       self
     }
   }
-  
+
   @ViewBuilder
   func tabBadge(_ data: String?) -> some View {
     if #available(iOS 15.0, macOS 15.0, visionOS 2.0, tvOS 15.0, *) {
@@ -247,7 +247,7 @@ extension View {
       self
     }
   }
-  
+
   @ViewBuilder
   func ignoresTopSafeArea(
     _ flag: Bool,
@@ -264,7 +264,7 @@ extension View {
         .frame(idealWidth: frame.width, idealHeight: frame.height)
     }
   }
-  
+
   @ViewBuilder
   func configureAppearance(props: TabViewProps) -> some View {
     self
@@ -287,7 +287,7 @@ extension View {
         updateTabBarAppearance(props: props)
       }
   }
-  
+
   @ViewBuilder
   func tintColor(_ color: UIColor?) -> some View {
     if let color {
@@ -301,7 +301,7 @@ extension View {
       self
     }
   }
-  
+
   // Allows TabView to use unfilled SFSymbols.
   // By default they are always filled.
   @ViewBuilder
