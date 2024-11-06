@@ -200,4 +200,12 @@ Function to get the active tint color for a tab.
 #### `getIcon`
 
 Function to get the icon for a tab.
+
 - Default: Uses `route.focusedIcon` and `route.unfocusedIcon`
+
+
+#### `getHidden`
+
+Function to determine if a tab should be hidden.
+
+- Default: Uses `route.hidden`

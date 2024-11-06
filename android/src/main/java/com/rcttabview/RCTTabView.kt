@@ -92,6 +92,7 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
     this.items = items
     items.forEachIndexed { index, item ->
       val menuItem = getOrCreateItem(index, item.title)
+      menuItem.isVisible = !item.hidden
       if (icons.containsKey(index)) {
         menuItem.icon = getDrawable(icons[index]!!)
       }

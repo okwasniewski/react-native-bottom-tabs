@@ -69,6 +69,7 @@ function NativeBottomTabsVectorIcons() {
         options={{
           tabBarIcon: () => messageIcon,
           tabBarActiveTintColor: 'white',
+          tabBarItemHidden: true,
         }}
       />
     </Tab.Navigator>

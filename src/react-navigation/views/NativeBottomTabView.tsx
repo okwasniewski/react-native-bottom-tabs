@@ -40,6 +40,14 @@ export default function NativeBottomTabView({
             : (route as Route<string>).name;
       }}
       getBadge={({ route }) => descriptors[route.key]?.options.tabBarBadge}
+      getHidden={({ route }) => {
+        const options = descriptors[route.key]?.options;
+
+        return (
+          options?.tabBarItemHidden === true ||
+          options?.tabBarButton?.() === null
+        );
+      }}
       getIcon={({ route, focused }) => {
         const options = descriptors[route.key]?.options;
 

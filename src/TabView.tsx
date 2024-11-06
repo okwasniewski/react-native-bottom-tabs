@@ -105,6 +105,12 @@ interface Props<Route extends BaseRoute> {
   }) => ImageSource | undefined;
 
   /**
+   * Get hidden for the tab, uses `route.hidden` by default.
+   * If `true`, the tab will be hidden.
+   */
+  getHidden?: (props: { route: Route }) => boolean | undefined;
+
+  /**
    * Background color of the tab bar.
    */
   barTintColor?: ColorValue;
@@ -126,6 +132,10 @@ const TabView = <Route extends BaseRoute>({
   renderScene,
   onIndexChange,
   onTabLongPress,
+  getBadge,
+  rippleColor,
+  tabBarActiveTintColor: activeTintColor,
+  tabBarInactiveTintColor: inactiveTintColor,
   getLazy = ({ route }: { route: Route }) => route.lazy,
   getLabelText = ({ route }: { route: Route }) => route.title,
   getIcon = ({ route, focused }: { route: Route; focused: boolean }) =>
@@ -135,11 +145,9 @@ const TabView = <Route extends BaseRoute>({
         : route.unfocusedIcon
       : route.focusedIcon,
   barTintColor,
+  getHidden = ({ route }: { route: Route }) => route.hidden,
   getActiveTintColor = ({ route }: { route: Route }) => route.activeTintColor,
-  tabBarActiveTintColor: activeTintColor,
-  tabBarInactiveTintColor: inactiveTintColor,
   hapticFeedbackEnabled = true,
-  rippleColor,
   ...props
 }: Props<Route>) => {
   // @ts-ignore
@@ -190,15 +198,24 @@ const TabView = <Route extends BaseRoute>({
             'SF Symbols are not supported on Android. Use require() or pass uri to load an image instead.'
           );
         }
+
         return {
           key: route.key,
           title: getLabelText({ route }) ?? route.key,
           sfSymbol: isSfSymbol ? icon.sfSymbol : undefined,
-          badge: props.getBadge?.({ route }),
+          badge: getBadge?.({ route }),
           activeTintColor: processColor(getActiveTintColor({ route })),
+          hidden: getHidden?.({ route }),
         };
       }),
-    [trimmedRoutes, icons, getLabelText, props, getActiveTintColor]
+    [
+      trimmedRoutes,
+      icons,
+      getLabelText,
+      getBadge,
+      getActiveTintColor,
+      getHidden,
+    ]
   );
 
   const resolvedIconAssets: ImageSource[] = useMemo(

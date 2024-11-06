@@ -8,6 +8,7 @@ import React
   @objc public let badge: String
   @objc public let sfSymbol: String
   @objc public let activeTintColor: UIColor?
+  @objc public let hidden: Bool
   
   @objc
   public init(
@@ -15,13 +16,15 @@ import React
     title: String,
     badge: String,
     sfSymbol: String,
-    activeTintColor: UIColor?
+    activeTintColor: UIColor?,
+    hidden: Bool
   ) {
     self.key = key
     self.title = title
     self.badge = badge
     self.sfSymbol = sfSymbol
     self.activeTintColor = activeTintColor
+    self.hidden = hidden
     super.init()
   }
 }
@@ -210,7 +213,8 @@ import React
             title: itemDict["title"] as? String ?? "",
             badge: itemDict["badge"] as? String ?? "",
             sfSymbol: itemDict["sfSymbol"] as? String ?? "",
-            activeTintColor: RCTConvert.uiColor(itemDict["activeTintColor"] as? NSNumber)
+            activeTintColor: RCTConvert.uiColor(itemDict["activeTintColor"] as? NSNumber),
+            hidden: itemDict["hidden"] as? Bool ?? false
           )
         )
       }
