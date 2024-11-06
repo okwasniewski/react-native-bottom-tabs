@@ -1,3 +1,4 @@
+import { useScrollToTop } from '@react-navigation/native';
 import * as React from 'react';
 import {
   Button,
@@ -46,6 +47,8 @@ export function Article({
   ...rest
 }: Props) {
   const ref = React.useRef<ScrollView>(null);
+
+  useScrollToTop(ref);
 
   console.log(Platform.OS, ' Rendering Article');
   return (

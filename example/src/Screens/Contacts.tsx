@@ -1,3 +1,4 @@
+import { useScrollToTop } from '@react-navigation/native';
 import * as React from 'react';
 import {
   FlatList,
@@ -96,9 +97,13 @@ export function Contacts({ query, ...rest }: Props) {
   console.log(Platform.OS, ' Rendering Contacts');
   const renderItem = ({ item }: { item: Item }) => <ContactItem item={item} />;
 
+  const ref = React.useRef<FlatList>(null);
+  useScrollToTop(ref);
+
   return (
     <SafeAreaView>
       <FlatList
+        ref={ref}
         contentInsetAdjustmentBehavior="automatic"
         {...rest}
         data={

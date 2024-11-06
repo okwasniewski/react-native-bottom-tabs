@@ -31,6 +31,7 @@ import LabeledTabs from './Examples/Labeled';
 import NativeBottomTabs from './Examples/NativeBottomTabs';
 import TintColorsExample from './Examples/TintColors';
 import NativeBottomTabsVectorIcons from './Examples/NativeBottomTabsVectorIcons';
+import NativeBottomTabsEmbeddedStacks from './Examples/NativeBottomTabsEmbeddedStacks';
 
 const FourTabsIgnoreSafeArea = () => {
   return <FourTabs ignoresTopSafeArea />;
@@ -69,6 +70,11 @@ const examples = [
   { component: FourTabs, name: 'Four Tabs' },
   { component: SFSymbols, name: 'SF Symbols' },
   { component: LabeledTabs, name: 'Labeled Tabs', platform: 'android' },
+  {
+    component: NativeBottomTabsEmbeddedStacks,
+    name: 'Embedded stacks',
+    screenOptions: { headerShown: false },
+  },
   {
     component: FourTabsIgnoreSafeArea,
     name: 'Four Tabs - No header',

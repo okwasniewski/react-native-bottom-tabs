@@ -1,3 +1,5 @@
+import { useScrollToTop } from '@react-navigation/native';
+import React from 'react';
 import {
   Image,
   Platform,
@@ -41,8 +43,13 @@ export function Albums(props: Partial<ScrollViewProps>) {
   console.log(Platform.OS, ' Rendering Albums');
   const itemSize = dimensions.width / Math.floor(dimensions.width / 150);
 
+  const ref = React.useRef<ScrollView>(null);
+
+  useScrollToTop(ref);
+
   return (
     <ScrollView
+      ref={ref}
       contentContainerStyle={styles.content}
       contentInsetAdjustmentBehavior="automatic"
       {...props}
