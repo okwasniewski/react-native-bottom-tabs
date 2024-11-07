@@ -41,98 +41,98 @@ import React
   private var coalescingKey: UInt16 = 0
   private var imageLoader: RCTImageLoaderProtocol?
   private var iconSize = CGSize(width: 27, height: 27)
-  
+
   @objc var onPageSelected: RCTDirectEventBlock?
-  
+
   @objc var onTabLongPress: RCTDirectEventBlock?
-  
+
   @objc public var icons: NSArray? {
     didSet {
       loadIcons(icons)
     }
   }
-  
+
   @objc public var children: [UIView] = [] {
     didSet {
       props.children = children
     }
   }
-  
+
   @objc public var sidebarAdaptable: Bool = false {
     didSet {
       props.sidebarAdaptable = sidebarAdaptable
     }
   }
-  
-  
+
+
   @objc public var disablePageAnimations: Bool = false {
     didSet {
       props.disablePageAnimations = disablePageAnimations
     }
   }
-  
+
   @objc public var labeled: Bool = true {
     didSet {
       props.labeled = labeled
     }
   }
-  
-  @objc public var ignoresTopSafeArea: Bool = false {
+
+  @objc public var ignoresTopSafeArea: Bool = true {
     didSet {
       props.ignoresTopSafeArea = ignoresTopSafeArea
     }
   }
-  
+
   @objc public var selectedPage: NSString? {
     didSet {
       props.selectedPage = selectedPage as? String
     }
   }
-  
+
   @objc public var hapticFeedbackEnabled: Bool = true {
     didSet {
       props.hapticFeedbackEnabled = hapticFeedbackEnabled
     }
   }
-  
+
   @objc public var scrollEdgeAppearance: NSString? {
     didSet {
       props.scrollEdgeAppearance = scrollEdgeAppearance as? String
     }
   }
-  
+
   @objc public var translucent: Bool = true {
     didSet {
       props.translucent = translucent
     }
   }
-  
+
   @objc var items: NSArray? {
     didSet {
       props.items = parseTabData(from: items)
     }
   }
-  
+
   @objc public var barTintColor: UIColor? {
     didSet {
       props.barTintColor = barTintColor
     }
   }
-  
+
   @objc public var activeTintColor: UIColor? {
     didSet {
       props.activeTintColor = activeTintColor
     }
   }
-  
+
   @objc public var inactiveTintColor: UIColor? {
     didSet {
       props.inactiveTintColor = inactiveTintColor
     }
   }
-  
+
   // New arch specific properties
-  
+
   @objc public var itemsData: [TabInfo] = [] {
     didSet {
       props.items = itemsData
@@ -144,21 +144,21 @@ import React
     self.delegate = delegate
     self.imageLoader = imageLoader
   }
-  
+
   public override func didUpdateReactSubviews() {
     props.children = reactSubviews()
   }
-  
+
   public override func layoutSubviews() {
     super.layoutSubviews()
     setupView()
   }
-  
+
   private func setupView() {
     if self.hostingController != nil {
       return
     }
-    
+
     self.hostingController = UIHostingController(rootView: TabViewImpl(props: props) { key in
       self.delegate?.onPageSelected(key: key, reactTag: self.reactTag)
     } onLongPress: { key in
@@ -172,7 +172,7 @@ import React
       hostingController.didMove(toParent: parentViewController)
     }
   }
-  
+
   private func loadIcons(_ icons: NSArray?) {
     // TODO: Diff the arrays and update only changed items.
     // Now if the user passes `unfocusedIcon` we update every item.
@@ -200,11 +200,11 @@ import React
       }
     }
   }
-  
+
   private func parseTabData(from array: NSArray?) -> [TabInfo] {
     guard let array else { return [] }
     var items: [TabInfo] = []
-    
+
     for value in array {
       if let itemDict = value as? [String: Any] {
         items.append(
@@ -219,7 +219,7 @@ import React
         )
       }
     }
-    
+
     return items
   }
 }

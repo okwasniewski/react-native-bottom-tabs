@@ -35,7 +35,7 @@ function SettingsScreen() {
 export default function App() {
   return (
     <NavigationContainer>
-      <Tab.Navigator ignoresTopSafeArea>
+      <Tab.Navigator>
         <Tab.Screen
           name="Home"
           component={HomeScreen}
@@ -70,7 +70,7 @@ The name of the route to render on first load of the navigator.
 
 #### `ignoresTopSafeArea` <Badge text="iOS" type="info" />
 
-Whether to ignore the top safe area.
+Whether to ignore the top safe area. Defaults to `true`.
 
 #### `screenOptions`
 
