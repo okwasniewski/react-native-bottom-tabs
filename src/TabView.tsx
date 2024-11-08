@@ -271,6 +271,7 @@ const TabView = <Route extends BaseRoute>({
         }
 
         const focused = route.key === focusedKey;
+        const opacity = focused ? 1 : 0;
         const zIndex = focused ? 0 : -1;
 
         return (
@@ -282,7 +283,7 @@ const TabView = <Route extends BaseRoute>({
             importantForAccessibility={focused ? 'auto' : 'no-hide-descendants'}
             style={
               Platform.OS === 'android'
-                ? [StyleSheet.absoluteFill, { zIndex }]
+                ? [StyleSheet.absoluteFill, { zIndex, opacity }]
                 : styles.fullWidth
             }
           >
