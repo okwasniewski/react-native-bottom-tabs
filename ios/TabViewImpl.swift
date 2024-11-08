@@ -222,6 +222,8 @@ extension View {
       if (enabled) {
 #if compiler(>=6.0)
         self.tabViewStyle(.sidebarAdaptable)
+#else
+        self
 #endif
       } else {
         self
