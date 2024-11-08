@@ -219,10 +219,12 @@ extension View {
   @ViewBuilder
   func getSidebarAdaptable(enabled: Bool) -> some View {
     if #available(iOS 18.0, macOS 15.0, tvOS 18.0, visionOS 2.0, *) {
-      if (enabled) {
-#if compiler(>=6.0)
-        self.tabViewStyle(.sidebarAdaptable)
-#endif
+      if enabled {
+        if UIDevice.current.userInterfaceIdiom == .pad {
+          self.tabViewStyle(.sidebarAdaptable)
+        } else {
+          self
+        }
       } else {
         self
       }
@@ -230,6 +232,7 @@ extension View {
       self
     }
   }
+  func getSidebarAdaptable(enabled: Bool) -> some View {
 
   @ViewBuilder
   func tabBadge(_ data: String?) -> some View {
