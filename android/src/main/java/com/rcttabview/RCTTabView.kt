@@ -7,6 +7,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Build
+import android.util.Log
 import android.util.TypedValue
 import android.view.Choreographer
 import android.view.HapticFeedbackConstants
@@ -15,11 +16,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
-import com.facebook.common.references.CloseableReference
-import com.facebook.datasource.DataSources
-import com.facebook.drawee.backends.pipeline.Fresco
-import com.facebook.imagepipeline.image.CloseableBitmap
-import com.facebook.imagepipeline.request.ImageRequestBuilder
+import androidx.core.graphics.drawable.DrawableCompat
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.DecodeFormat
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.WritableMap
@@ -28,6 +30,8 @@ import com.facebook.react.modules.core.ReactChoreographer
 import com.facebook.react.views.imagehelper.ImageSource
 import com.facebook.react.views.text.ReactTypefaceUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 
 
 class ReactBottomNavigationView(context: Context) : BottomNavigationView(context) {
@@ -170,21 +174,37 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
   }
 
   private fun getDrawable(imageSource: ImageSource): Drawable? {
-    try {
-      val imageRequest = ImageRequestBuilder.newBuilderWithSource(imageSource.uri).build()
-      val dataSource = Fresco.getImagePipeline().fetchDecodedImage(imageRequest, context)
-      val result = DataSources.waitForFinalResult(dataSource) as CloseableReference<CloseableBitmap>
-      val bitmap = result.get().underlyingBitmap
+    val uri = imageSource.uri.toString()
+    val isSvg = uri.contains(".svg", ignoreCase = true)
+    Log.d("ReactBottomNav", "Loading image: $uri, isSvg: $isSvg")
 
-      CloseableReference.closeSafely(result)
-      dataSource.close()
+    return try {
+      runBlocking(Dispatchers.IO) {
+        val drawable = GlideApp.with(context)
+          .`as`(Drawable::class.java)
+          .load(imageSource.uri)
+          .apply {
+            if (isSvg) {
+              override(200, 200)
+            }
+          }
+          .submit()
+          .get()
 
-      return BitmapDrawable(resources, bitmap)
-    } catch (_: Exception) {
-      // Asset doesn't exist
+        // Make the drawable tintable
+        if (isSvg && drawable != null) {
+          DrawableCompat.wrap(drawable.mutate()).apply {
+            DrawableCompat.setTintList(this, null) // Clear any existing tint
+            alpha = 255
+          }
+        } else {
+          drawable
+        }
+      }
+    } catch (e: Exception) {
+      Log.e("ReactBottomNav", "Error loading image: $uri", e)
+      null
     }
-
-    return null
   }
 
   override fun onDetachedFromWindow() {
