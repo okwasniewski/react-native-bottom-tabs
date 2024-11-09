@@ -63,7 +63,7 @@ struct TabViewImpl: View {
         renderTabItem(at: index)
       }
     }
-    #if !os(tvOS)
+#if !os(tvOS)
     .onTabItemEvent({ index, isLongPress in
       guard let key = props.items.filter({
         !$0.hidden || $0.key == props.selectedPage
@@ -77,7 +77,7 @@ struct TabViewImpl: View {
         emitHapticFeedback()
       }
     })
-    #endif
+#endif
     .introspectTabView(closure: { tabController in
       tabBar = tabController.tabBar
     })
@@ -94,9 +94,9 @@ struct TabViewImpl: View {
           UIView.setAnimationsEnabled(true)
         }
       }
-      #if os(tvOS)
+#if os(tvOS)
       onSelect(newValue)
-      #endif
+#endif
     }
   }
 
