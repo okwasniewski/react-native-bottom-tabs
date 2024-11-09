@@ -18,12 +18,9 @@ struct TabItemEventModifier: ViewModifier {
   
   func body(content: Content) -> some View {
     content
-      .introspect(.tabView, on: .iOS(.v14, .v15, .v16, .v17, .v18)) { tabController in
+      .introspectTabView(closure: { tabController in
         handle(tabController: tabController)
-      }
-      .introspect(.tabView, on: .tvOS(.v14, .v15, .v16, .v17, .v18)) { tabController in
-        handle(tabController: tabController)
-      }
+      })
   }
   
   func handle(tabController: UITabBarController) {
