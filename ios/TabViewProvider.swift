@@ -130,6 +130,24 @@ import React
       props.inactiveTintColor = inactiveTintColor
     }
   }
+  
+  @objc public var fontFamily: NSString? {
+    didSet {
+      props.fontFamily = fontFamily as? String
+    }
+  }
+  
+  @objc public var fontWeigth: NSString? {
+    didSet {
+      props.fontWeight = fontWeigth as? String
+    }
+  }
+  
+  @objc public var fontSize: NSNumber? {
+    didSet {
+      props.fontSize = fontSize as? Int
+    }
+  }
 
   // New arch specific properties
 

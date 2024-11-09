@@ -127,6 +127,18 @@ class RCTTabViewManager(context: ReactApplicationContext) :
     )
   }
 
+  override fun setFontFamily(view: ReactBottomNavigationView?, value: String?) {
+    view?.setFontFamily(value)
+  }
+
+  override fun setFontWeight(view: ReactBottomNavigationView?, value: String?) {
+    view?.setFontWeight(value)
+  }
+
+  override fun setFontSize(view: ReactBottomNavigationView?, value: Int) {
+    view?.setFontSize(value)
+  }
+
   // iOS Methods
 
   override fun setTranslucent(view: ReactBottomNavigationView?, value: Boolean) {
@@ -143,4 +155,6 @@ class RCTTabViewManager(context: ReactApplicationContext) :
 
   override fun setScrollEdgeAppearance(view: ReactBottomNavigationView?, value: String?) {
   }
+
+
 }

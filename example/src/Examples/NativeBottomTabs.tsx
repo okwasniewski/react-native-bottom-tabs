@@ -18,6 +18,8 @@ function NativeBottomTabs() {
       tabBarActiveTintColor="#F7DBA7"
       barTintColor="#1E2D2F"
       rippleColor="#F7DBA7"
+      fontFamily="Avenir"
+      fontSize={15}
       activeIndicatorColor="#041F1E"
       screenListeners={{
         tabLongPress: (data) => {

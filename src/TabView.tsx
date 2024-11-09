@@ -123,6 +123,18 @@ interface Props<Route extends BaseRoute> {
    * Color of tab indicator. (Android only)
    */
   activeIndicatorColor?: ColorValue;
+  /**
+   * Font family for the tab labels.
+   */
+  fontFamily?: string;
+  /**
+   * Font weight for the tab labels.
+   */
+  fontWeight?: string;
+  /**
+   * Font size for the tab labels.
+   */
+  fontSize?: number;
 }
 
 const ANDROID_MAX_TABS = 6;
