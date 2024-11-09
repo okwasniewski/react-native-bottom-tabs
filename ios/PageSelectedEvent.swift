@@ -27,7 +27,7 @@ import React
   @objc public func arguments() -> [Any] {
     return [
       viewTag,
-      RCTNormalizeInputEventName(eventName),
+      RCTNormalizeInputEventName(eventName) ?? eventName,
       [
         "key": key
       ]

@@ -63,6 +63,7 @@ struct TabViewImpl: View {
         renderTabItem(at: index)
       }
     }
+#if !os(tvOS)
     .onTabItemEvent({ index, isLongPress in
       guard let key = props.items.filter({
         !$0.hidden || $0.key == props.selectedPage
@@ -76,6 +77,7 @@ struct TabViewImpl: View {
         emitHapticFeedback()
       }
     })
+#endif
     .introspectTabView(closure: { tabController in
       tabBar = tabController.tabBar
     })
@@ -92,6 +94,9 @@ struct TabViewImpl: View {
           UIView.setAnimationsEnabled(true)
         }
       }
+#if os(tvOS)
+      onSelect(newValue)
+#endif
     }
   }
 
@@ -278,7 +283,7 @@ extension View {
   func tintColor(_ color: UIColor?) -> some View {
     if let color {
       let color = Color(color)
-      if #available(iOS 16.0, *) {
+      if #available(iOS 16.0, tvOS 16.0, *) {
         self.tint(color)
       } else {
         self.accentColor(color)
@@ -292,7 +297,7 @@ extension View {
   // By default they are always filled.
   @ViewBuilder
   func noneSymbolVariant() -> some View {
-    if #available(iOS 15.0, *) {
+    if #available(iOS 15.0, tvOS 15.0, *) {
       self
         .environment(\.symbolVariants, .none)
     } else {
