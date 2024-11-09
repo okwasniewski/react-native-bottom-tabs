@@ -170,12 +170,12 @@ struct TabItem: View {
 
 private func updateTabBarAppearance(props: TabViewProps, tabBar: UITabBar?) {
     guard let tabBar else { return }
-    
+
     if props.scrollEdgeAppearance == "transparent" {
         configureTransparentAppearance(tabBar: tabBar, props: props)
         return
     }
-    
+
     configureStandardAppearance(tabBar: tabBar, props: props)
 }
 
@@ -186,11 +186,11 @@ private func createFontAttributes(
   inactiveTintColor: UIColor?
 ) -> [NSAttributedString.Key: Any] {
   var attributes: [NSAttributedString.Key: Any] = [:]
-  
+
   if let inactiveTintColor {
     attributes[.foregroundColor] = inactiveTintColor
   }
-  
+
   if family != nil || weight != nil {
     attributes[.font] = RCTFont.update(
       nil,
@@ -204,7 +204,7 @@ private func createFontAttributes(
   } else {
     attributes[.font] = UIFont.boldSystemFont(ofSize: size)
   }
-  
+
   return attributes
 }
 
@@ -212,17 +212,17 @@ private func configureTransparentAppearance(tabBar: UITabBar, props: TabViewProp
   tabBar.barTintColor = props.barTintColor
   tabBar.isTranslucent = props.translucent
   tabBar.unselectedItemTintColor = props.inactiveTintColor
-  
+
   guard let items = tabBar.items else { return }
-  
-  let fontSize = props.fontSize ?? 14
+
+  let fontSize = props.fontSize != nil ? CGFloat(props.fontSize!) : UIFont.smallSystemFontSize
   let attributes = createFontAttributes(
-    size: CGFloat(fontSize),
+    size: fontSize,
     family: props.fontFamily,
     weight: props.fontWeight,
     inactiveTintColor: props.inactiveTintColor
   )
-  
+
   items.forEach { item in
     item.setTitleTextAttributes(attributes, for: .normal)
   }
@@ -230,7 +230,7 @@ private func configureTransparentAppearance(tabBar: UITabBar, props: TabViewProp
 
 private func configureStandardAppearance(tabBar: UITabBar, props: TabViewProps) {
   let appearance = UITabBarAppearance()
-  
+
   // Configure background
   switch props.scrollEdgeAppearance {
   case "opaque":
@@ -239,29 +239,29 @@ private func configureStandardAppearance(tabBar: UITabBar, props: TabViewProps) 
     appearance.configureWithDefaultBackground()
   }
   appearance.backgroundColor = props.barTintColor
-  
+
   // Configure item appearance
   let itemAppearance = UITabBarItemAppearance()
   let fontSize = props.fontSize != nil ? CGFloat(props.fontSize!) : UIFont.smallSystemFontSize
-  
+
   let attributes = createFontAttributes(
     size: fontSize,
     family: props.fontFamily,
     weight: props.fontWeight,
     inactiveTintColor: props.inactiveTintColor
   )
-  
+
   if let inactiveTintColor = props.inactiveTintColor {
     itemAppearance.normal.iconColor = inactiveTintColor
   }
-  
+
   itemAppearance.normal.titleTextAttributes = attributes
-  
+
   // Apply item appearance to all layouts
   appearance.stackedLayoutAppearance = itemAppearance
   appearance.inlineLayoutAppearance = itemAppearance
   appearance.compactInlineLayoutAppearance = itemAppearance
-  
+
   // Apply final appearance
   tabBar.standardAppearance = appearance
   if #available(iOS 15.0, *) {

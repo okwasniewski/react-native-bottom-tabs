@@ -133,6 +133,15 @@ Whether to enable haptic feedback on tab press.
 - Type: `boolean`
 - Default: `true`
 
+
+#### `tabLabelStyle`
+
+Object containing styles for the tab label.
+Supported properties:
+- `fontFamily`
+- `fontSize`
+- `fontWeight`
+
 #### `scrollEdgeAppearance` <Badge text="iOS" type="info" />
 
 Appearance attributes for the tab bar when a scroll view is at the bottom.
