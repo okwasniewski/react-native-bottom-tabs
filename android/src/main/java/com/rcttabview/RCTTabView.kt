@@ -2,6 +2,7 @@ package com.rcttabview
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.Typeface
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
@@ -11,6 +12,8 @@ import android.view.Choreographer
 import android.view.HapticFeedbackConstants
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import com.facebook.common.references.CloseableReference
 import com.facebook.datasource.DataSources
@@ -20,8 +23,10 @@ import com.facebook.imagepipeline.request.ImageRequestBuilder
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.WritableMap
+import com.facebook.react.common.assets.ReactFontManager
 import com.facebook.react.modules.core.ReactChoreographer
 import com.facebook.react.views.imagehelper.ImageSource
+import com.facebook.react.views.text.ReactTypefaceUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
@@ -37,6 +42,9 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
   private val checkedStateSet = intArrayOf(android.R.attr.state_checked)
   private val uncheckedStateSet = intArrayOf(-android.R.attr.state_checked)
   private var hapticFeedbackEnabled = true
+  private var fontSize: Int? = null
+  private var fontFamily: String? = null
+  private var fontWeight: Int? = null
 
   private val layoutCallback = Choreographer.FrameCallback {
     isLayoutEnqueued = false
@@ -96,6 +104,7 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
       if (icons.containsKey(index)) {
         menuItem.icon = getDrawable(icons[index]!!)
       }
+
       if (item.badge.isNotEmpty()) {
         val badge = this.getOrCreateBadge(index)
         badge.isVisible = true
@@ -112,6 +121,7 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
           onTabSelected(menuItem)
           updateTintColors(menuItem)
         }
+        updateTextAppearance()
       }
     }
   }
@@ -211,7 +221,55 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
     hapticFeedbackEnabled = enabled
   }
 
-  fun emitHapticFeedback(feedbackConstants: Int) {
+  fun setFontSize(size: Int) {
+    fontSize = size
+    updateTextAppearance()
+  }
+
+  fun setFontFamily(family: String?) {
+    fontFamily = family
+    updateTextAppearance()
+  }
+
+ fun setFontWeight(weight: String?) {
+   val fontWeight = ReactTypefaceUtils.parseFontWeight(weight)
+   this.fontWeight = fontWeight
+   updateTextAppearance()
+  }
+
+  private fun getTypefaceStyle(weight: Int?) = when (weight) {
+    700 -> Typeface.BOLD
+    else -> Typeface.NORMAL
+  }
+
+  private fun updateTextAppearance() {
+    if (fontSize != null || fontFamily != null || fontWeight != null) {
+      val menuView = getChildAt(0) as? ViewGroup ?: return
+      val size = fontSize?.toFloat()?.takeIf { it > 0 } ?: 12f
+      val typeface = ReactFontManager.getInstance().getTypeface(
+        fontFamily ?: "",
+        getTypefaceStyle(fontWeight),
+        context.assets
+      )
+
+      for (i in 0 until menuView.childCount) {
+        val item = menuView.getChildAt(i)
+        val largeLabel =
+          item.findViewById<TextView>(com.google.android.material.R.id.navigation_bar_item_large_label_view)
+        val smallLabel =
+          item.findViewById<TextView>(com.google.android.material.R.id.navigation_bar_item_small_label_view)
+
+        listOf(largeLabel, smallLabel).forEach { label ->
+          label?.apply {
+            setTextSize(TypedValue.COMPLEX_UNIT_SP, size)
+            setTypeface(typeface)
+          }
+        }
+      }
+    }
+  }
+
+  private fun emitHapticFeedback(feedbackConstants: Int) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && hapticFeedbackEnabled) {
       this.performHapticFeedback(feedbackConstants)
     }

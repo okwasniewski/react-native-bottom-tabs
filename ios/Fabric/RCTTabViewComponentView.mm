@@ -146,6 +146,18 @@ using namespace facebook::react;
   if (oldViewProps.hapticFeedbackEnabled != newViewProps.hapticFeedbackEnabled) {
     _tabViewProvider.hapticFeedbackEnabled = newViewProps.hapticFeedbackEnabled;
   }
+  
+  if (oldViewProps.fontSize != newViewProps.fontSize) {
+    _tabViewProvider.fontSize = [NSNumber numberWithInt:newViewProps.fontSize];
+  }
+  
+  if (oldViewProps.fontWeight != newViewProps.fontWeight) {
+    _tabViewProvider.fontWeigth = RCTNSStringFromStringNilIfEmpty(newViewProps.fontWeight);
+  }
+  
+  if (oldViewProps.fontFamily != newViewProps.fontFamily) {
+    _tabViewProvider.fontFamily = RCTNSStringFromStringNilIfEmpty(newViewProps.fontFamily);
+  }
 
   [super updateProps:props oldProps:oldProps];
 }
@@ -179,7 +191,12 @@ NSArray* convertItemsToArray(const std::vector<RNCTabViewItemsStruct>& items) {
   NSMutableArray<TabInfo *> *result = [NSMutableArray array];
 
   for (const auto& item : items) {
-    auto tabInfo = [[TabInfo alloc] initWithKey:RCTNSStringFromString(item.key) title:RCTNSStringFromString(item.title) badge:RCTNSStringFromString(item.badge) sfSymbol:RCTNSStringFromString(item.sfSymbol) activeTintColor:RCTUIColorFromSharedColor(item.activeTintColor) hidden:item.hidden];
+    auto tabInfo = [[TabInfo alloc] initWithKey:RCTNSStringFromString(item.key)
+                                          title:RCTNSStringFromString(item.title)
+                                          badge:RCTNSStringFromStringNilIfEmpty(item.badge)
+                                       sfSymbol:RCTNSStringFromStringNilIfEmpty(item.sfSymbol)
+                                activeTintColor:RCTUIColorFromSharedColor(item.activeTintColor)
+                                         hidden:item.hidden];
 
     [result addObject:tabInfo];
   }

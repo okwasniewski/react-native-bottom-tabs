@@ -114,6 +114,21 @@ class RCTTabViewManager(context: ReactApplicationContext) : SimpleViewManager<Re
       tabViewImpl.setHapticFeedbackEnabled(view, value)
   }
 
+  @ReactProp(name = "fontFamily")
+  fun setFontFamily(view: ReactBottomNavigationView?, value: String?) {
+    view?.setFontFamily(value)
+  }
+
+  @ReactProp(name = "fontWeight")
+  fun setFontWeight(view: ReactBottomNavigationView?, value: String?) {
+    view?.setFontWeight(value)
+  }
+
+  @ReactProp(name = "fontSize")
+  fun setFontSize(view: ReactBottomNavigationView?, value: Int) {
+    view?.setFontSize(value)
+  }
+
   class TabViewShadowNode() : LayoutShadowNode(),
     YogaMeasureFunction {
     private var mWidth = 0

@@ -22,6 +22,9 @@ class TabViewProps: ObservableObject {
   @Published var ignoresTopSafeArea: Bool = true
   @Published var disablePageAnimations: Bool = false
   @Published var hapticFeedbackEnabled: Bool = true
+  @Published var fontSize: Int?
+  @Published var fontFamily: String?
+  @Published var fontWeight: String?
 
   var selectedActiveTintColor: UIColor? {
     if let selectedPage = selectedPage,
@@ -171,19 +174,70 @@ struct TabItem: View {
 }
 
 private func updateTabBarAppearance(props: TabViewProps, tabBar: UITabBar?) {
-  guard let tabBar else { return }
-  let appearanceType = props.scrollEdgeAppearance
+    guard let tabBar else { return }
 
-  if (appearanceType == "transparent") {
-    tabBar.barTintColor = props.barTintColor
-    tabBar.isTranslucent = props.translucent
-    tabBar.unselectedItemTintColor = props.inactiveTintColor
-    return
+    if props.scrollEdgeAppearance == "transparent" {
+        configureTransparentAppearance(tabBar: tabBar, props: props)
+        return
+    }
+
+    configureStandardAppearance(tabBar: tabBar, props: props)
+}
+
+private func createFontAttributes(
+  size: CGFloat,
+  family: String?,
+  weight: String?,
+  inactiveTintColor: UIColor?
+) -> [NSAttributedString.Key: Any] {
+  var attributes: [NSAttributedString.Key: Any] = [:]
+
+  if let inactiveTintColor {
+    attributes[.foregroundColor] = inactiveTintColor
   }
 
+  if family != nil || weight != nil {
+    attributes[.font] = RCTFont.update(
+      nil,
+      withFamily: family,
+      size: NSNumber(value: size),
+      weight: weight,
+      style: nil,
+      variant: nil,
+      scaleMultiplier: 1.0
+    )
+  } else {
+    attributes[.font] = UIFont.boldSystemFont(ofSize: size)
+  }
+
+  return attributes
+}
+
+private func configureTransparentAppearance(tabBar: UITabBar, props: TabViewProps) {
+  tabBar.barTintColor = props.barTintColor
+  tabBar.isTranslucent = props.translucent
+  tabBar.unselectedItemTintColor = props.inactiveTintColor
+
+  guard let items = tabBar.items else { return }
+
+  let fontSize = props.fontSize != nil ? CGFloat(props.fontSize!) : UIFont.smallSystemFontSize
+  let attributes = createFontAttributes(
+    size: fontSize,
+    family: props.fontFamily,
+    weight: props.fontWeight,
+    inactiveTintColor: props.inactiveTintColor
+  )
+
+  items.forEach { item in
+    item.setTitleTextAttributes(attributes, for: .normal)
+  }
+}
+
+private func configureStandardAppearance(tabBar: UITabBar, props: TabViewProps) {
   let appearance = UITabBarAppearance()
-  
-  switch appearanceType {
+
+  // Configure background
+  switch props.scrollEdgeAppearance {
   case "opaque":
     appearance.configureWithOpaqueBackground()
   default:
@@ -191,16 +245,29 @@ private func updateTabBarAppearance(props: TabViewProps, tabBar: UITabBar?) {
   }
   appearance.backgroundColor = props.barTintColor
 
-  if let inactiveTintColor = props.inactiveTintColor {
-    let itemAppearance = UITabBarItemAppearance()
-    itemAppearance.normal.iconColor = inactiveTintColor
-    itemAppearance.normal.titleTextAttributes = [.foregroundColor: inactiveTintColor]
+  // Configure item appearance
+  let itemAppearance = UITabBarItemAppearance()
+  let fontSize = props.fontSize != nil ? CGFloat(props.fontSize!) : UIFont.smallSystemFontSize
 
-    appearance.stackedLayoutAppearance = itemAppearance
-    appearance.inlineLayoutAppearance = itemAppearance
-    appearance.compactInlineLayoutAppearance = itemAppearance
+  let attributes = createFontAttributes(
+    size: fontSize,
+    family: props.fontFamily,
+    weight: props.fontWeight,
+    inactiveTintColor: props.inactiveTintColor
+  )
+
+  if let inactiveTintColor = props.inactiveTintColor {
+    itemAppearance.normal.iconColor = inactiveTintColor
   }
 
+  itemAppearance.normal.titleTextAttributes = attributes
+
+  // Apply item appearance to all layouts
+  appearance.stackedLayoutAppearance = itemAppearance
+  appearance.inlineLayoutAppearance = itemAppearance
+  appearance.compactInlineLayoutAppearance = itemAppearance
+
+  // Apply final appearance
   tabBar.standardAppearance = appearance
   if #available(iOS 15.0, *) {
     tabBar.scrollEdgeAppearance = appearance.copy()
@@ -275,6 +342,15 @@ extension View {
         updateTabBarAppearance(props: props, tabBar: tabBar)
       }
       .onChange(of: props.selectedActiveTintColor) { newValue in
+        updateTabBarAppearance(props: props, tabBar: tabBar)
+      }
+      .onChange(of: props.fontSize) { newValue in
+        updateTabBarAppearance(props: props, tabBar: tabBar)
+      }
+      .onChange(of: props.fontFamily) { newValue in
+        updateTabBarAppearance(props: props, tabBar: tabBar)
+      }
+      .onChange(of: props.fontWeight) { newValue in
         updateTabBarAppearance(props: props, tabBar: tabBar)
       }
   }

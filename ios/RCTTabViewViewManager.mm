@@ -43,6 +43,9 @@ RCT_EXPORT_VIEW_PROPERTY(barTintColor, UIColor)
 RCT_EXPORT_VIEW_PROPERTY(activeTintColor, UIColor)
 RCT_EXPORT_VIEW_PROPERTY(inactiveTintColor, UIColor)
 RCT_EXPORT_VIEW_PROPERTY(hapticFeedbackEnabled, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(fontFamily, NSString)
+RCT_EXPORT_VIEW_PROPERTY(fontWeight, NSString)
+RCT_EXPORT_VIEW_PROPERTY(fontSize, NSNumber)
 
 //  MARK: TabViewProviderDelegate
 

@@ -123,6 +123,22 @@ interface Props<Route extends BaseRoute> {
    * Color of tab indicator. (Android only)
    */
   activeIndicatorColor?: ColorValue;
+  tabLabelStyle?: {
+    /**
+     * Font family for the tab labels.
+     */
+    fontFamily?: string;
+
+    /**
+     * Font weight for the tab labels.
+     */
+    fontWeight?: string;
+
+    /**
+     * Font size for the tab labels.
+     */
+    fontSize?: number;
+  };
 }
 
 const ANDROID_MAX_TABS = 6;
@@ -148,6 +164,7 @@ const TabView = <Route extends BaseRoute>({
   getHidden = ({ route }: { route: Route }) => route.hidden,
   getActiveTintColor = ({ route }: { route: Route }) => route.activeTintColor,
   hapticFeedbackEnabled = true,
+  tabLabelStyle,
   ...props
 }: Props<Route>) => {
   // @ts-ignore
@@ -238,6 +255,7 @@ const TabView = <Route extends BaseRoute>({
   return (
     <TabViewAdapter
       {...props}
+      {...tabLabelStyle}
       style={styles.fullWidth}
       items={items}
       icons={resolvedIconAssets}

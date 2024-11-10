@@ -2,6 +2,7 @@ import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNati
 import type { ColorValue, ProcessedColorValue, ViewProps } from 'react-native';
 import type {
   DirectEventHandler,
+  Int32,
   WithDefault,
 } from 'react-native/Libraries/Types/CodegenTypes';
 //@ts-ignore
@@ -38,6 +39,9 @@ export interface TabViewProps extends ViewProps {
   disablePageAnimations?: boolean;
   activeIndicatorColor?: ColorValue;
   hapticFeedbackEnabled?: boolean;
+  fontFamily?: string;
+  fontWeight?: string;
+  fontSize?: Int32;
 }
 
 export default codegenNativeComponent<TabViewProps>('RNCTabView', {
