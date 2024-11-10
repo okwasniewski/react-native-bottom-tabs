@@ -123,8 +123,6 @@ dependencies {
   kapt "com.github.bumptech.glide:compiler:${GLIDE_VERSION}"
 
   api 'com.caverock:androidsvg-aar:1.4'
-//  implementation 'com.github.bumptech.glide:glide:4.15.1'
-//  implementation 'com.github.bumptech.glide:svg:4.15.1'
 }
 
 if (isNewArchitectureEnabled()) {

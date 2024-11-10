@@ -94,7 +94,8 @@ function NativeBottomTabsEmbeddedStacks() {
         name="Chat"
         component={ChatStackScreen}
         options={{
-          tabBarIcon: () => require('../../assets/setttings.svg'),
+          tabBarIcon: () =>
+            require('../../assets/icons/message-circle-code.svg'),
         }}
       />
     </Tab.Navigator>

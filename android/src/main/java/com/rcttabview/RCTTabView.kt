@@ -1,5 +1,6 @@
 package com.rcttabview
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Typeface
@@ -16,9 +17,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.graphics.drawable.DrawableCompat
 import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
@@ -30,8 +29,6 @@ import com.facebook.react.modules.core.ReactChoreographer
 import com.facebook.react.views.imagehelper.ImageSource
 import com.facebook.react.views.text.ReactTypefaceUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
 
 
 class ReactBottomNavigationView(context: Context) : BottomNavigationView(context) {
@@ -73,6 +70,7 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
   override fun requestLayout() {
     super.requestLayout()
     @Suppress("SENSELESS_COMPARISON") // layoutCallback can be null here since this method can be called in init
+
     if (!isLayoutEnqueued && layoutCallback != null) {
       isLayoutEnqueued = true
       // we use NATIVE_ANIMATED_MODULE choreographer queue because it allows us to catch the current
@@ -106,7 +104,9 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
       val menuItem = getOrCreateItem(index, item.title)
       menuItem.isVisible = !item.hidden
       if (icons.containsKey(index)) {
-        menuItem.icon = getDrawable(icons[index]!!)
+        getDrawable(icons[index]!!)  {
+          menuItem.icon = it
+        }
       }
 
       if (item.badge.isNotEmpty()) {
@@ -154,7 +154,9 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
 
       // Update existing item if exists.
       menu.findItem(idx)?.let { menuItem ->
-        menuItem.icon = getDrawable(imageSource)
+        getDrawable(imageSource)  {
+          menuItem.icon = it
+        }
       }
     }
   }
@@ -173,38 +175,35 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
     itemRippleColor = color
   }
 
-  private fun getDrawable(imageSource: ImageSource): Drawable? {
-    val uri = imageSource.uri.toString()
-    val isSvg = uri.contains(".svg", ignoreCase = true)
-    Log.d("ReactBottomNav", "Loading image: $uri, isSvg: $isSvg")
-
-    return try {
-      runBlocking(Dispatchers.IO) {
-        val drawable = GlideApp.with(context)
-          .`as`(Drawable::class.java)
-          .load(imageSource.uri)
-          .apply {
-            if (isSvg) {
-              override(200, 200)
-            }
-          }
-          .submit()
-          .get()
-
-        // Make the drawable tintable
-        if (isSvg && drawable != null) {
-          DrawableCompat.wrap(drawable.mutate()).apply {
-            DrawableCompat.setTintList(this, null) // Clear any existing tint
-            alpha = 255
-          }
-        } else {
-          drawable
+  @SuppressLint("CheckResult")
+  private fun getDrawable(imageSource: ImageSource, onDrawableReady: (Drawable?) -> Unit) {
+    GlideApp.with(context)
+      .`as`(Drawable::class.java)
+      .load(imageSource.uri)
+      .listener(object : RequestListener<Drawable> {
+        override fun onLoadFailed(
+          e: GlideException?,
+          model: Any?,
+          target: Target<Drawable>,
+          isFirstResource: Boolean
+        ): Boolean {
+          Log.e("RCTTabView", "Error loading image: ${imageSource.uri}", e)
+          return false
         }
-      }
-    } catch (e: Exception) {
-      Log.e("ReactBottomNav", "Error loading image: $uri", e)
-      null
-    }
+
+        override fun onResourceReady(
+          resource: Drawable,
+          model: Any,
+          target: Target<Drawable>?,
+          dataSource: DataSource,
+          isFirstResource: Boolean
+        ): Boolean {
+          // Update images on the main queue.
+          post { onDrawableReady(resource) }
+          return true
+        }
+      })
+      .submit()
   }
 
   override fun onDetachedFromWindow() {

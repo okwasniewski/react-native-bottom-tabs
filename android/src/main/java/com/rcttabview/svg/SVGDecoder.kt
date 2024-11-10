@@ -1,4 +1,4 @@
-package com.rcttabview
+package com.rcttabview.svg
 
 import com.bumptech.glide.load.Options
 import com.bumptech.glide.load.ResourceDecoder
@@ -9,15 +9,19 @@ import com.caverock.androidsvg.SVGParseException
 import java.io.IOException
 import java.io.InputStream
 
+
 class SVGDecoder : ResourceDecoder<InputStream, SVG> {
   override fun handles(source: InputStream, options: Options) = true
+
+  companion object {
+    const val DEFAULT_SIZE = 40f
+  }
 
   @Throws(IOException::class)
   override fun decode(source: InputStream, width: Int, height: Int, options: Options): Resource<SVG>? {
     return try {
       val svg: SVG = SVG.getFromInputStream(source)
-      // Use document width and height if view box is not set.
-      // Later, we will override the document width and height with the dimensions of the native view.
+      // Taken from https://github.com/expo/expo/blob/215d8a13a7ef3f0b36b14eead41291e2d2d6cd0c/packages/expo-image/android/src/main/java/expo/modules/image/svg/SVGDecoder.kt#L28
       if (svg.documentViewBox == null) {
         val documentWidth = svg.documentWidth
         val documentHeight = svg.documentHeight
@@ -25,8 +29,9 @@ class SVGDecoder : ResourceDecoder<InputStream, SVG> {
           svg.setDocumentViewBox(0f, 0f, documentWidth, documentHeight)
         }
       }
-      svg.documentWidth = width.toFloat()
-      svg.documentHeight = height.toFloat()
+
+      svg.documentWidth = DEFAULT_SIZE
+      svg.documentHeight = DEFAULT_SIZE
       SimpleResource(svg)
     } catch (ex: SVGParseException) {
       throw IOException("Cannot load SVG from stream", ex)

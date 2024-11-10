@@ -1,4 +1,4 @@
-package com.rcttabview
+package com.rcttabview.svg
 
 import android.content.Context
 import android.graphics.drawable.Drawable
