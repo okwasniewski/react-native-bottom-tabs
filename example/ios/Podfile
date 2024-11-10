@@ -6,8 +6,8 @@ require "#{ws_dir}/node_modules/react-native-test-app/test_app.rb"
 
 workspace 'ReactNativeBottomTabsExample.xcworkspace'
 
-use_frameworks! :linkage => :static
-
 use_test_app! do |test_app|
+  pod 'SDWebImage', :modular_headers => true
+  pod 'SDWebImageSVGCoder', :modular_headers => true
 end
 
