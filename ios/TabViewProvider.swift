@@ -9,7 +9,8 @@ import React
   @objc public let sfSymbol: String
   @objc public let activeTintColor: UIColor?
   @objc public let hidden: Bool
-  
+  @objc public let tabBarHidden: Bool
+
   @objc
   public init(
     key: String,
@@ -17,7 +18,8 @@ import React
     badge: String,
     sfSymbol: String,
     activeTintColor: UIColor?,
-    hidden: Bool
+    hidden: Bool,
+    tabBarHidden: Bool
   ) {
     self.key = key
     self.title = title
@@ -25,6 +27,7 @@ import React
     self.sfSymbol = sfSymbol
     self.activeTintColor = activeTintColor
     self.hidden = hidden
+    self.tabBarHidden = tabBarHidden
     super.init()
   }
 }
@@ -232,7 +235,8 @@ import React
             badge: itemDict["badge"] as? String ?? "",
             sfSymbol: itemDict["sfSymbol"] as? String ?? "",
             activeTintColor: RCTConvert.uiColor(itemDict["activeTintColor"] as? NSNumber),
-            hidden: itemDict["hidden"] as? Bool ?? false
+            hidden: itemDict["hidden"] as? Bool ?? false,
+            tabBarHidden: itemDict["tabBarHidden"] as? Bool ?? false
           )
         )
       }

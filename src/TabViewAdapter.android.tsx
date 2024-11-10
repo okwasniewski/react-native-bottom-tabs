@@ -3,10 +3,17 @@ import type { TabViewProps } from './TabViewNativeComponent';
 import { StyleSheet, View } from 'react-native';
 
 const TabViewAdapter = ({ children, style: _, ...props }: TabViewProps) => {
+  const hidesTabBar = props.items.find(
+    (item) => item.key === props.selectedPage
+  )?.tabBarHidden;
+
   return (
     <>
       <View style={styles.content}>{children}</View>
-      <NativeTabView {...props} />
+      <NativeTabView
+        {...props}
+        style={{ display: hidesTabBar ? 'none' : 'flex' }}
+      />
     </>
   );
 };

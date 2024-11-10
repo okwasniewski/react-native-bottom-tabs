@@ -35,6 +35,12 @@ class TabViewProps: ObservableObject {
 
     return activeTintColor
   }
+  
+  var filteredItems: [TabInfo] {
+    items.filter({
+      !$0.hidden || $0.key == selectedPage
+    })
+  }
 }
 
 /**
@@ -68,10 +74,10 @@ struct TabViewImpl: View {
     }
 #if !os(tvOS)
     .onTabItemEvent({ index, isLongPress in
-      guard let key = props.items.filter({
-        !$0.hidden || $0.key == props.selectedPage
-      })[safe: index]?.key else { return }
-
+      let item = props.filteredItems[safe: index]
+      guard let key = item?.key else { return }
+     
+      
       if isLongPress {
         onLongPress(key)
         emitHapticFeedback(longPress: true)
@@ -86,6 +92,7 @@ struct TabViewImpl: View {
     })
     .onChange(of: tabBar) { newValue in
       updateTabBarAppearance(props: props, tabBar: tabBar)
+      hideTabBarIfNeeded()
     }
     .configureAppearance(props: props, tabBar: tabBar)
     .tintColor(props.selectedActiveTintColor)
@@ -100,6 +107,7 @@ struct TabViewImpl: View {
 #if os(tvOS)
       onSelect(newValue)
 #endif
+      hideTabBarIfNeeded()
     }
   }
 
@@ -151,6 +159,12 @@ struct TabViewImpl: View {
       UISelectionFeedbackGenerator().selectionChanged()
     }
 #endif
+  }
+  
+  func hideTabBarIfNeeded() {
+    let item = props.filteredItems.first {$0.key == props.selectedPage}
+    let tabBarHidden = item?.tabBarHidden ?? false
+    tabBar?.isHidden = tabBarHidden
   }
 }
 

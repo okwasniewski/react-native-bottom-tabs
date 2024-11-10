@@ -19,6 +19,7 @@ export type TabViewItems = ReadonlyArray<{
   badge?: string;
   activeTintColor?: ProcessedColorValue | null;
   hidden?: boolean;
+  tabBarHidden?: boolean;
 }>;
 
 export interface TabViewProps extends ViewProps {

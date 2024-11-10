@@ -223,6 +223,7 @@ const TabView = <Route extends BaseRoute>({
           badge: getBadge?.({ route }),
           activeTintColor: processColor(getActiveTintColor({ route })),
           hidden: getHidden?.({ route }),
+          tabBarHidden: route.tabBarHidden,
         };
       }),
     [
