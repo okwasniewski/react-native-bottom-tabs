@@ -1,6 +1,8 @@
 import Foundation
 import SwiftUI
 import React
+import SDWebImage
+import SDWebImageSVGCoder
 
 @objc public final class TabInfo: NSObject {
   @objc public let key: String
@@ -161,6 +163,7 @@ import React
     self.init()
     self.delegate = delegate
     self.imageLoader = imageLoader
+    SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
   }
 
   public override func didUpdateReactSubviews() {
@@ -194,27 +197,43 @@ import React
   private func loadIcons(_ icons: NSArray?) {
     // TODO: Diff the arrays and update only changed items.
     // Now if the user passes `unfocusedIcon` we update every item.
-    if let imageSources = icons as? [RCTImageSource?] {
-      for (index, imageSource) in imageSources.enumerated() {
-        guard let imageSource, let imageLoader else { continue }
-        imageLoader.loadImage(
-          with: imageSource.request,
-          size: imageSource.size,
-          scale: imageSource.scale,
-          clipped: false,
-          resizeMode: RCTResizeMode.cover,
-          progressBlock: { _,_ in },
-          partialLoad: { _ in },
-          completionBlock: { error, image in
-            if error != nil {
-              print("[TabView] Error loading image: \(error!.localizedDescription)")
-              return
-            }
-            guard let image else { return }
-            DispatchQueue.main.async {
+    guard let imageSources = icons as? [RCTImageSource?] else { return }
+    
+    for (index, imageSource) in imageSources.enumerated() {
+      guard let imageSource = imageSource,
+            let url = imageSource.request.url else { continue }
+      
+      let isSVG = url.pathExtension.lowercased() == "svg"
+      
+      var options: SDWebImageOptions = [.continueInBackground,
+                                        .scaleDownLargeImages,
+                                        .avoidDecodeImage,
+                                        .highPriority]
+      
+      if isSVG {
+        options.insert(.decodeFirstFrameOnly)
+      }
+      
+      let context: [SDWebImageContextOption: Any]? = isSVG ? [
+        .imageThumbnailPixelSize: iconSize
+      ] : nil
+      
+      SDWebImageManager.shared.loadImage(
+        with: url,
+        options: options,
+        context: context,
+        progress: nil
+      ) { [weak self] (image, _, _, _, _, _) in
+        guard let self = self else { return }
+        DispatchQueue.main.async {
+          if let image {
+            if isSVG {
+              self.props.icons[index] = image
+            } else {
               self.props.icons[index] = image.resizeImageTo(size: self.iconSize)
             }
-          })
+          }
+        }
       }
     }
   }

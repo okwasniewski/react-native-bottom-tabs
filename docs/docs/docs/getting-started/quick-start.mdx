@@ -41,7 +41,8 @@ import { PackageManagerTabs } from '@theme';
 
 ### Expo
 
-Add the library plugin in your `app.json` config file and [create a new build](https://docs.expo.dev/develop/development-builds/create-a-build/):
+Add the library plugin in your `app.json` config file and [create a new build](https://docs.expo.dev/develop/development-builds/create-a-build/).
+
 
 ```diff
   "expo": {
@@ -49,6 +50,27 @@ Add the library plugin in your `app.json` config file and [create a new build](h
   }
 }
 ```
+
+You also need to enable static linking for iOS by adding `"useFrameworks": "static"` in the `expo-build-properties` plugin.
+
+```diff
+{
+  "expo": {
+    "plugins": [
+       "react-native-bottom-tabs",
++      [
++        "expo-build-properties",
++        {
++          "ios": {
++            "useFrameworks": "static"
++          }
++        }
++      ]
++    ]
+  }
+}
+```
+
 
 :::warning
 
@@ -71,6 +93,12 @@ Edit `android/app/src/main/res/values/styles.xml` to inherit from provided theme
 ```
 
 Here you can read more about [Android Native Styling](/docs/guides/android-native-styling).
+
+To enable static linking for iOS, Open the `./ios/Podfile` file and add the following:
+
+```ruby
+use_frameworks!, :linkage => :static
+```
 
 
 ## Example usage

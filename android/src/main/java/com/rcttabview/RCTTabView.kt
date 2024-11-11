@@ -1,5 +1,6 @@
 package com.rcttabview
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Typeface
@@ -7,6 +8,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Build
+import android.util.Log
 import android.util.TypedValue
 import android.view.Choreographer
 import android.view.HapticFeedbackConstants
@@ -15,11 +17,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
-import com.facebook.common.references.CloseableReference
-import com.facebook.datasource.DataSources
-import com.facebook.drawee.backends.pipeline.Fresco
-import com.facebook.imagepipeline.image.CloseableBitmap
-import com.facebook.imagepipeline.request.ImageRequestBuilder
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.WritableMap
@@ -69,6 +70,7 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
   override fun requestLayout() {
     super.requestLayout()
     @Suppress("SENSELESS_COMPARISON") // layoutCallback can be null here since this method can be called in init
+
     if (!isLayoutEnqueued && layoutCallback != null) {
       isLayoutEnqueued = true
       // we use NATIVE_ANIMATED_MODULE choreographer queue because it allows us to catch the current
@@ -102,7 +104,9 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
       val menuItem = getOrCreateItem(index, item.title)
       menuItem.isVisible = !item.hidden
       if (icons.containsKey(index)) {
-        menuItem.icon = getDrawable(icons[index]!!)
+        getDrawable(icons[index]!!)  {
+          menuItem.icon = it
+        }
       }
 
       if (item.badge.isNotEmpty()) {
@@ -150,7 +154,9 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
 
       // Update existing item if exists.
       menu.findItem(idx)?.let { menuItem ->
-        menuItem.icon = getDrawable(imageSource)
+        getDrawable(imageSource)  {
+          menuItem.icon = it
+        }
       }
     }
   }
@@ -169,22 +175,35 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
     itemRippleColor = color
   }
 
-  private fun getDrawable(imageSource: ImageSource): Drawable? {
-    try {
-      val imageRequest = ImageRequestBuilder.newBuilderWithSource(imageSource.uri).build()
-      val dataSource = Fresco.getImagePipeline().fetchDecodedImage(imageRequest, context)
-      val result = DataSources.waitForFinalResult(dataSource) as CloseableReference<CloseableBitmap>
-      val bitmap = result.get().underlyingBitmap
+  @SuppressLint("CheckResult")
+  private fun getDrawable(imageSource: ImageSource, onDrawableReady: (Drawable?) -> Unit) {
+    GlideApp.with(context)
+      .`as`(Drawable::class.java)
+      .load(imageSource.uri)
+      .listener(object : RequestListener<Drawable> {
+        override fun onLoadFailed(
+          e: GlideException?,
+          model: Any?,
+          target: Target<Drawable>,
+          isFirstResource: Boolean
+        ): Boolean {
+          Log.e("RCTTabView", "Error loading image: ${imageSource.uri}", e)
+          return false
+        }
 
-      CloseableReference.closeSafely(result)
-      dataSource.close()
-
-      return BitmapDrawable(resources, bitmap)
-    } catch (_: Exception) {
-      // Asset doesn't exist
-    }
-
-    return null
+        override fun onResourceReady(
+          resource: Drawable,
+          model: Any,
+          target: Target<Drawable>?,
+          dataSource: DataSource,
+          isFirstResource: Boolean
+        ): Boolean {
+          // Update images on the main queue.
+          post { onDrawableReady(resource) }
+          return true
+        }
+      })
+      .submit()
   }
 
   override fun onDetachedFromWindow() {

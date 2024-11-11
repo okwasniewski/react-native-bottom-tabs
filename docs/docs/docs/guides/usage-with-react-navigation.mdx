@@ -189,8 +189,12 @@ Function that given `{ focused: boolean }` returns `ImageSource` or `AppleIcon` 
   component={Albums}
   options={{
     tabBarIcon: () => require('person.png'),
+    // SVG is also supported
+    tabBarIcon: () => require('person.svg'),
     // or
     tabBarIcon: () => ({ sfSymbol: 'person' }),
+    // You can also pass a URL
+    tabBarIcon: () => ({ uri: 'https://example.com/icon.png' }),
   }}
 />
 ```

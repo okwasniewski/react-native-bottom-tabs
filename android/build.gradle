@@ -25,6 +25,7 @@ def isNewArchitectureEnabled() {
 
 apply plugin: "com.android.library"
 apply plugin: "kotlin-android"
+apply plugin: "kotlin-kapt"
 
 if (isNewArchitectureEnabled()) {
   apply plugin: "com.facebook.react"
@@ -110,12 +111,18 @@ repositories {
 def kotlin_version = getExtOrDefault("kotlinVersion")
 
 dependencies {
+  def GLIDE_VERSION = "4.16.0"
   // For < 0.71, this will be from the local maven repo
   // For > 0.71, this will be replaced by `com.facebook.react:react-android:$version` by react gradle plugin
   //noinspection GradleDynamicVersion
   implementation "com.facebook.react:react-native:+"
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
   implementation 'com.google.android.material:material:1.13.0-alpha06'
+
+  api "com.github.bumptech.glide:glide:${GLIDE_VERSION}"
+  kapt "com.github.bumptech.glide:compiler:${GLIDE_VERSION}"
+
+  api 'com.caverock:androidsvg-aar:1.4'
 }
 
 if (isNewArchitectureEnabled()) {

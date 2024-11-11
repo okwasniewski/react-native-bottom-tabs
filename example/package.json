@@ -38,7 +38,7 @@
     "@rnx-kit/metro-config": "^2.0.0",
     "@types/react-native-vector-icons": "^6.4.18",
     "react-native-builder-bob": "^0.30.2",
-    "react-native-test-app": "^3.10.10"
+    "react-native-test-app": "^3.10.21"
   },
   "engines": {
     "node": ">=18"
