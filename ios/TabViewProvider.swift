@@ -198,27 +198,26 @@ import SDWebImageSVGCoder
     // TODO: Diff the arrays and update only changed items.
     // Now if the user passes `unfocusedIcon` we update every item.
     guard let imageSources = icons as? [RCTImageSource?] else { return }
-
-
+    
     for (index, imageSource) in imageSources.enumerated() {
       guard let imageSource = imageSource,
-            let urlString = imageSource.request.url?.absoluteString else { continue }
-
-      let url = URL(string: urlString)
-      let isSVG = url?.pathExtension.lowercased() == "svg"
-
-      // Configure SVG specific options if needed
-      var options: SDWebImageOptions = [.continueInBackground]
+            let url = imageSource.request.url else { continue }
+      
+      let isSVG = url.pathExtension.lowercased() == "svg"
+      
+      var options: SDWebImageOptions = [.continueInBackground,
+                                        .scaleDownLargeImages,
+                                        .avoidDecodeImage,
+                                        .highPriority]
+      
       if isSVG {
         options.insert(.decodeFirstFrameOnly)
       }
-
-      // Create context options for SVG rendering
+      
       let context: [SDWebImageContextOption: Any]? = isSVG ? [
-        .svgImageSize: iconSize,
         .imageThumbnailPixelSize: iconSize
       ] : nil
-
+      
       SDWebImageManager.shared.loadImage(
         with: url,
         options: options,
@@ -226,26 +225,17 @@ import SDWebImageSVGCoder
         progress: nil
       ) { [weak self] (image, _, _, _, _, _) in
         guard let self = self else { return }
-
         DispatchQueue.main.async {
-          if let image = image {
+          if let image {
             if isSVG {
-              // SVG images are already sized correctly through the context options
               self.props.icons[index] = image
             } else {
-              // Resize non-SVG images
-              if let resizedImage = image.sd_resizedImage(
-                with: self.iconSize,
-                scaleMode: .aspectFit
-              ) {
-                self.props.icons[index] = resizedImage
-              }
+              self.props.icons[index] = image.resizeImageTo(size: self.iconSize)
             }
           }
         }
       }
     }
-
   }
 
   private func parseTabData(from array: NSArray?) -> [TabInfo] {
