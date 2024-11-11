@@ -33,6 +33,7 @@ import TintColorsExample from './Examples/TintColors';
 import NativeBottomTabsVectorIcons from './Examples/NativeBottomTabsVectorIcons';
 import NativeBottomTabsEmbeddedStacks from './Examples/NativeBottomTabsEmbeddedStacks';
 import NativeBottomTabsSVGs from './Examples/NativeBottomTabsSVGs';
+import NativeBottomTabsRemoteIcons from './Examples/NativeBottomTabsRemoteIcons';
 
 const FourTabsIgnoreSafeArea = () => {
   return <FourTabs ignoresTopSafeArea />;
@@ -130,6 +131,10 @@ const examples = [
   {
     component: NativeBottomTabsSVGs,
     name: 'Native Bottom Tabs with SVG Icons',
+  },
+  {
+    component: NativeBottomTabsRemoteIcons,
+    name: 'Native Bottom Tabs with SVG Remote Icons',
   },
   { component: NativeBottomTabs, name: 'Native Bottom Tabs' },
   { component: JSBottomTabs, name: 'JS Bottom Tabs' },
