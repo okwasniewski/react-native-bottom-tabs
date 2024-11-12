@@ -39,6 +39,7 @@ extension UIImage {
 }
 
 extension View {
+  @MainActor
   @ViewBuilder
   func introspectTabView(closure: @escaping (UITabBarController) -> Void) -> some View {
     self
