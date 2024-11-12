@@ -125,15 +125,18 @@ struct TabViewImpl: View {
         }
         .tag(tabData?.key)
         .tabBadge(tabData?.badge)
-#if os(iOS)
         .onAppear {
           updateTabBarAppearance(props: props, tabBar: tabBar)
           guard index >= 4,
                 let key = tabData?.key,
                 props.selectedPage != key else { return }
           onSelect(key)
+          #endif
+          #if os(tvOS)
+          // TV needs this to correctly update appearance on first render
+          updateTabBarAppearance(props: props, tabBar: tabBar)
+          #endif
         }
-#endif
     }
   }
 
@@ -211,6 +214,12 @@ private func createFontAttributes(
   return attributes
 }
 
+#if os(tvOS)
+let tabBarDefaultFontSize: CGFloat = 30.0
+#else
+let tabBarDefaultFontSize: CGFloat = UIFont.smallSystemFontSize
+#endif
+
 private func configureTransparentAppearance(tabBar: UITabBar, props: TabViewProps) {
   tabBar.barTintColor = props.barTintColor
   tabBar.isTranslucent = props.translucent
@@ -218,7 +227,7 @@ private func configureTransparentAppearance(tabBar: UITabBar, props: TabViewProp
 
   guard let items = tabBar.items else { return }
 
-  let fontSize = props.fontSize != nil ? CGFloat(props.fontSize!) : UIFont.smallSystemFontSize
+  let fontSize = props.fontSize != nil ? CGFloat(props.fontSize!) : tabBarDefaultFontSize
   let attributes = createFontAttributes(
     size: fontSize,
     family: props.fontFamily,
@@ -245,7 +254,7 @@ private func configureStandardAppearance(tabBar: UITabBar, props: TabViewProps) 
 
   // Configure item appearance
   let itemAppearance = UITabBarItemAppearance()
-  let fontSize = props.fontSize != nil ? CGFloat(props.fontSize!) : UIFont.smallSystemFontSize
+  let fontSize = props.fontSize != nil ? CGFloat(props.fontSize!) : tabBarDefaultFontSize
 
   let attributes = createFontAttributes(
     size: fontSize,
