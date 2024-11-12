@@ -1209,7 +1209,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - react-native-bottom-tabs (0.4.0):
+  - react-native-bottom-tabs (0.5.0):
     - DoubleConversion
     - glog
     - RCT-Folly (= 2024.01.01.00)
@@ -1222,7 +1222,7 @@ PODS:
     - React-graphics
     - React-ImageManager
     - React-jsi
-    - react-native-bottom-tabs/common (= 0.4.0)
+    - react-native-bottom-tabs/common (= 0.5.0)
     - React-NativeModulesApple
     - React-RCTFabric
     - React-rendererdebug
@@ -1230,11 +1230,11 @@ PODS:
     - ReactCodegen
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
-    - SDWebImage (~> 5.11.1)
-    - SDWebImageSVGCoder (~> 1.7.0)
+    - SDWebImage (>= 5.19.1)
+    - SDWebImageSVGCoder (>= 1.7.0)
     - SwiftUIIntrospect (~> 1.0)
     - Yoga
-  - react-native-bottom-tabs/common (0.4.0):
+  - react-native-bottom-tabs/common (0.5.0):
     - DoubleConversion
     - glog
     - RCT-Folly (= 2024.01.01.00)
@@ -1254,8 +1254,8 @@ PODS:
     - ReactCodegen
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
-    - SDWebImage (~> 5.11.1)
-    - SDWebImageSVGCoder (~> 1.7.0)
+    - SDWebImage (>= 5.19.1)
+    - SDWebImageSVGCoder (>= 1.7.0)
     - SwiftUIIntrospect (~> 1.0)
     - Yoga
   - react-native-safe-area-context (4.11.0):
@@ -1681,9 +1681,9 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - SDWebImage (5.11.1):
-    - SDWebImage/Core (= 5.11.1)
-  - SDWebImage/Core (5.11.1)
+  - SDWebImage (5.20.0):
+    - SDWebImage/Core (= 5.20.0)
+  - SDWebImage/Core (5.20.0)
   - SDWebImageSVGCoder (1.7.0):
     - SDWebImage/Core (~> 5.6)
   - SocketRocket (0.7.0)
@@ -1945,7 +1945,7 @@ SPEC CHECKSUMS:
   React-logger: 4072f39df335ca443932e0ccece41fbeb5ca8404
   React-Mapbuffer: 714f2fae68edcabfc332b754e9fbaa8cfc68fdd4
   React-microtasksnativemodule: 2eb1a69d35e700f752944644c0295cf7161d06c5
-  react-native-bottom-tabs: 930f7bdb6e9122a519f7a50a83908e6fe04090e6
+  react-native-bottom-tabs: fde2fbce1c50e4df9288e0d4f983301e02e88d81
   react-native-safe-area-context: c6e59b0ac0acb3ddc3247235215775441ca1b2ff
   React-nativeconfig: 4a9543185905fe41014c06776bf126083795aed9
   React-NativeModulesApple: 651670a799672bd54469f2981d91493dda361ddf
@@ -1978,12 +1978,12 @@ SPEC CHECKSUMS:
   RNGestureHandler: 6a34af1ea5d9321af615933c271b0c37a00ff473
   RNScreens: d4551ceaec50b2fd6648e36d2e47dd42ef9ccfef
   RNVectorIcons: a1344e212e80e6e0f4537a9960148201175f4225
-  SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
+  SDWebImage: 73c6079366fea25fa4bb9640d5fb58f0893facd8
   SDWebImageSVGCoder: 15a300a97ec1c8ac958f009c02220ac0402e936c
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
   SwiftUIIntrospect: fee9aa07293ee280373a591e1824e8ddc869ba5d
   Yoga: 4ef80d96a5534f0e01b3055f17d1e19a9fc61b63
 
-PODFILE CHECKSUM: ec8970ff5a624fb462d3b2cd6e966645a41c4daa
+PODFILE CHECKSUM: 1c1dbca3e400ef935aa9a150cb2dcb58fb8c4536
 
 COCOAPODS: 1.15.2

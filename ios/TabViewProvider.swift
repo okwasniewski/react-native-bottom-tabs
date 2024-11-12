@@ -215,7 +215,8 @@ import SDWebImageSVGCoder
       }
       
       let context: [SDWebImageContextOption: Any]? = isSVG ? [
-        .imageThumbnailPixelSize: iconSize
+        .imageThumbnailPixelSize: iconSize,
+        .imagePreserveAspectRatio: true
       ] : nil
       
       SDWebImageManager.shared.loadImage(
@@ -227,11 +228,7 @@ import SDWebImageSVGCoder
         guard let self = self else { return }
         DispatchQueue.main.async {
           if let image {
-            if isSVG {
-              self.props.icons[index] = image
-            } else {
-              self.props.icons[index] = image.resizeImageTo(size: self.iconSize)
-            }
+            self.props.icons[index] = image.resizeImageTo(size: self.iconSize)
           }
         }
       }

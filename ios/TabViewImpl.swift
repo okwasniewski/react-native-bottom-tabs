@@ -84,9 +84,6 @@ struct TabViewImpl: View {
     .introspectTabView(closure: { tabController in
       tabBar = tabController.tabBar
     })
-    .onChange(of: tabBar) { newValue in
-      updateTabBarAppearance(props: props, tabBar: tabBar)
-    }
     .configureAppearance(props: props, tabBar: tabBar)
     .tintColor(props.selectedActiveTintColor)
     .getSidebarAdaptable(enabled: props.sidebarAdaptable ?? false)
@@ -130,6 +127,7 @@ struct TabViewImpl: View {
         .tabBadge(tabData?.badge)
 #if os(iOS)
         .onAppear {
+          updateTabBarAppearance(props: props, tabBar: tabBar)
           guard index >= 4,
                 let key = tabData?.key,
                 props.selectedPage != key else { return }
