@@ -127,15 +127,13 @@ struct TabViewImpl: View {
         .tabBadge(tabData?.badge)
         .onAppear {
           updateTabBarAppearance(props: props, tabBar: tabBar)
+
+#if os(iOS)
           guard index >= 4,
                 let key = tabData?.key,
                 props.selectedPage != key else { return }
           onSelect(key)
-          #endif
-          #if os(tvOS)
-          // TV needs this to correctly update appearance on first render
-          updateTabBarAppearance(props: props, tabBar: tabBar)
-          #endif
+#endif
         }
     }
   }
