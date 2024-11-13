@@ -16,11 +16,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
+import coil3.ImageLoader
+import coil3.asDrawable
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.WritableMap
@@ -29,6 +26,8 @@ import com.facebook.react.modules.core.ReactChoreographer
 import com.facebook.react.views.imagehelper.ImageSource
 import com.facebook.react.views.text.ReactTypefaceUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import coil3.request.ImageRequest
+import coil3.svg.SvgDecoder
 
 
 class ReactBottomNavigationView(context: Context) : BottomNavigationView(context) {
@@ -46,6 +45,12 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
   private var fontSize: Int? = null
   private var fontFamily: String? = null
   private var fontWeight: Int? = null
+
+  private val imageLoader = ImageLoader.Builder(context)
+    .components {
+      add(SvgDecoder.Factory())
+    }
+    .build()
 
   private val layoutCallback = Choreographer.FrameCallback {
     isLayoutEnqueued = false
@@ -177,33 +182,19 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
 
   @SuppressLint("CheckResult")
   private fun getDrawable(imageSource: ImageSource, onDrawableReady: (Drawable?) -> Unit) {
-    Glide.with(context)
-      .`as`(Drawable::class.java)
-      .load(imageSource.uri)
-      .listener(object : RequestListener<Drawable> {
-        override fun onLoadFailed(
-          e: GlideException?,
-          model: Any?,
-          target: Target<Drawable>,
-          isFirstResource: Boolean
-        ): Boolean {
-          Log.e("RCTTabView", "Error loading image: ${imageSource.uri}", e)
-          return false
+    val request = ImageRequest.Builder(context)
+      .data(imageSource.uri)
+      .target { drawable ->
+        post { onDrawableReady(drawable.asDrawable(context.resources)) }
+      }
+      .listener(
+        onError = { _, result ->
+          Log.e("RCTTabView", "Error loading image: ${imageSource.uri}", result.throwable)
         }
+      )
+      .build()
 
-        override fun onResourceReady(
-          resource: Drawable,
-          model: Any,
-          target: Target<Drawable>?,
-          dataSource: DataSource,
-          isFirstResource: Boolean
-        ): Boolean {
-          // Update images on the main queue.
-          post { onDrawableReady(resource) }
-          return true
-        }
-      })
-      .submit()
+    imageLoader.enqueue(request)
   }
 
   override fun onDetachedFromWindow() {
