@@ -1,3 +1,4 @@
+import React from 'react';
 import type { TabViewItems } from './TabViewNativeComponent';
 import {
   ColorValue,
@@ -12,7 +13,6 @@ import {
 import type { ImageSource } from 'react-native/Libraries/Image/ImageSource';
 import TabViewAdapter from './TabViewAdapter';
 import useLatestCallback from 'use-latest-callback';
-import { useMemo, useState } from 'react';
 import type { BaseRoute, NavigationState } from './types';
 
 const isAppleSymbol = (icon: any): icon is { sfSymbol: string } =>
@@ -170,7 +170,7 @@ const TabView = <Route extends BaseRoute>({
   // @ts-ignore
   const focusedKey = navigationState.routes[navigationState.index].key;
 
-  const trimmedRoutes = useMemo(() => {
+  const trimmedRoutes = React.useMemo(() => {
     if (
       Platform.OS === 'android' &&
       navigationState.routes.length > ANDROID_MAX_TABS
@@ -186,14 +186,14 @@ const TabView = <Route extends BaseRoute>({
   /**
    * List of loaded tabs, tabs will be loaded when navigated to.
    */
-  const [loaded, setLoaded] = useState<string[]>([focusedKey]);
+  const [loaded, setLoaded] = React.useState<string[]>([focusedKey]);
 
   if (!loaded.includes(focusedKey)) {
     // Set the current tab to be loaded if it was not loaded before
     setLoaded((loaded) => [...loaded, focusedKey]);
   }
 
-  const icons = useMemo(
+  const icons = React.useMemo(
     () =>
       trimmedRoutes.map((route) =>
         getIcon({
@@ -204,7 +204,7 @@ const TabView = <Route extends BaseRoute>({
     [focusedKey, getIcon, trimmedRoutes]
   );
 
-  const items: TabViewItems = useMemo(
+  const items: TabViewItems = React.useMemo(
     () =>
       trimmedRoutes.map((route, index) => {
         const icon = icons[index];
@@ -235,7 +235,7 @@ const TabView = <Route extends BaseRoute>({
     ]
   );
 
-  const resolvedIconAssets: ImageSource[] = useMemo(
+  const resolvedIconAssets: ImageSource[] = React.useMemo(
     () =>
       // Pass empty object for icons that are not provided to avoid index mismatch on native side.
       icons.map((icon) =>

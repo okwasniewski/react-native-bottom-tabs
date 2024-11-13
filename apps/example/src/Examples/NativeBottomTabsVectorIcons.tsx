@@ -1,9 +1,10 @@
+import * as React from 'react';
 import { Article } from '../Screens/Article';
 import { Albums } from '../Screens/Albums';
 import { Contacts } from '../Screens/Contacts';
 import { Chat } from '../Screens/Chat';
 // This import works properly when library is published
-import createNativeBottomTabNavigator from '../../../src/react-navigation/navigators/createNativeBottomTabNavigator';
+import createNativeBottomTabNavigator from '../../../../packages/react-native-bottom-tabs/src/react-navigation/navigators/createNativeBottomTabNavigator';
 import { Platform } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
