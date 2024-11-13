@@ -1,0 +1,74 @@
+name: 🐛 Bug report
+description: Report a reproducible bug or regression in this library.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # Bug report
+
+        👋 Hi!
+
+        **Please fill the following carefully before opening a new issue ??**
+        *(Your issue may be closed if it doesn't provide the required pieces of information)*
+  - type: checkboxes
+    attributes:
+      label: Before submitting a new issue
+      description: Please perform simple checks first.
+      options:
+        - label: I tested using the latest version of the library, as the bug might be already fixed.
+          required: true
+        - label: I tested using a [supported version](https://github.com/reactwg/react-native-releases/blob/main/docs/support.md) of react native.
+          required: true
+        - label: I checked for possible duplicate issues, with possible answers.
+          required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: Bug summary
+      description: |
+        Provide a clear and concise description of what the bug is.
+        If needed, you can also provide other samples: error messages / stack traces, screenshots, gifs, etc.
+    validations:
+      required: true
+  - type: input
+    id: library-version
+    attributes:
+      label: Library version
+      description: What version of the library are you using?
+      placeholder: "x.x.x"
+    validations:
+      required: true
+  - type: textarea
+    id: react-native-info
+    attributes:
+      label: Environment info
+      description: Run `react-native info` in your terminal and paste the results here.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to reproduce
+      description: |
+        - You must provide a clear list of steps and code to reproduce the problem.
+        - Keep the code reproducing the bug as simple as possible, with the minimum amount of code required to reproduce the issue. See https://stackoverflow.com/help/mcve.
+        - Is the issue happening on iOS, Android or both?
+        - Do you run your app on a simulator (which OS version?) or on a physical device (which one? which OS version?)
+        - If this library has additional install steps, describe them (e.g., pod install? jetify? etc).
+        - Either re-create the bug using the repository's example app or link to a GitHub repository with code that reproduces the bug.
+        - Explain the steps we need to take to reproduce the issue:
+      value: |
+        1. …
+        2. …
+    validations:
+      required: true
+  - type: textarea
+    id: reproducible-sample-code
+    attributes:
+      label: Reproducible sample code
+      description: Please add minimal runnable repro as explained above so that the bug can be tested in isolation.
+      render: js
+    validations:
+      required: true
