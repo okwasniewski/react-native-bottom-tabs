@@ -10,7 +10,8 @@
   
 [![mit licence](https://img.shields.io/dub/l/vibe-d.svg?style=for-the-badge)](https://github.com/okwasniewski/react-native-bottom-tabs/blob/main/LICENSE)
 [![npm version](https://img.shields.io/npm/v/react-native-bottom-tabs?style=for-the-badge)](https://www.npmjs.org/package/react-native-bottom-tabs)
-[![npm downloads](https://img.shields.io/npm/dt/react-native-bottom-tabs.svg?label=downloads&style=for-the-badge)](https://www.npmjs.org/package/react-native-bottom-tabs)
+[![npm downloads](https://img.shields.io/npm/dt/react-native-bottom-tabs.svg?style=for-the-badge)](https://www.npmjs.org/package/react-native-bottom-tabs)
+[![npm downloads](https://img.shields.io/npm/dm/react-native-bottom-tabs.svg?style=for-the-badge)](https://www.npmjs.org/package/react-native-bottom-tabs)
 
 </div>
 
