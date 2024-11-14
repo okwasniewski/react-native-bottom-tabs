@@ -1,5 +1,5 @@
 {
-  "name": "bottom-tabs/monorepo",
+  "name": "@native-tabs/monorepo",
   "private": true,
   "workspaces": [
     "packages/*",

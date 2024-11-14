@@ -2453,6 +2453,14 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@native-tabs/monorepo@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "@native-tabs/monorepo@workspace:."
+  dependencies:
+    turbo: ^2.1.0
+  languageName: unknown
+  linkType: soft
+
 "@nicolo-ribaudo/eslint-scope-5-internals@npm:5.1.1-v1":
   version: 5.1.1-v1
   resolution: "@nicolo-ribaudo/eslint-scope-5-internals@npm:5.1.1-v1"
@@ -12036,14 +12044,6 @@ __metadata:
   checksum: 3ea587b981a19016297edb96d1ffe48af7e6af69660e3b371dbfc73722a73a0b0e9be5c88089fbeeb866c389c1098e07f64929c7414290504b855f54f901ab10
   languageName: node
   linkType: hard
-
-"root-workspace-0b6124@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "root-workspace-0b6124@workspace:."
-  dependencies:
-    turbo: ^2.1.0
-  languageName: unknown
-  linkType: soft
 
 "run-applescript@npm:^5.0.0":
   version: 5.0.0
