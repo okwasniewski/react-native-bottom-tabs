@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Article } from '../Screens/Article';
 import { Albums } from '../Screens/Albums';

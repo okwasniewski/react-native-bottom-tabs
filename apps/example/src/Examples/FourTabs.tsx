@@ -4,7 +4,7 @@ import { Article } from '../Screens/Article';
 import { Albums } from '../Screens/Albums';
 import { Contacts } from '../Screens/Contacts';
 import { Chat } from '../Screens/Chat';
-import { ColorValue } from 'react-native';
+import type { ColorValue } from 'react-native';
 
 interface Props {
   ignoresTopSafeArea?: boolean;

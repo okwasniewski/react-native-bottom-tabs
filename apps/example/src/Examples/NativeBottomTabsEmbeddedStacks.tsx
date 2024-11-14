@@ -2,7 +2,7 @@ import { Article } from '../Screens/Article';
 import { Albums } from '../Screens/Albums';
 import { Contacts } from '../Screens/Contacts';
 import { Chat } from '../Screens/Chat';
-import createNativeBottomTabNavigator from '../../../src/react-navigation/navigators/createNativeBottomTabNavigator';
+import createNativeBottomTabNavigator from '../../../../packages/react-native-bottom-tabs/src/react-navigation/navigators/createNativeBottomTabNavigator';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const headerOptions = {
