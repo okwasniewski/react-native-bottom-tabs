@@ -7,6 +7,9 @@
   ],
   "scripts": {
     "lint": "turbo run lint",
+    "test": "turbo run test",
+    "typecheck": "turbo run typecheck",
+    "prepare": "turbo run prepare",
     "build:android": "turbo run build:android",
     "build:android:fabric": "turbo run build:android:fabric",
     "build:ios": "turbo run build:ios"

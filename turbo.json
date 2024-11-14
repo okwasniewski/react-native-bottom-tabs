@@ -1,15 +1,22 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
-    "lint": {},
+    "lint": {
+      "inputs": ["**/*.ts", "**/*.tsx", "**/*.js"]
+    },
+    "typecheck": {
+      "inputs": ["**/*.ts", "**/*.tsx"]
+    },
+    "test": {},
+    "prepare": {},
     "build:android": {
-      "env": ["ORG_GRADLE_PROJECT_newArchEnabled"],
+      "env": ["JAVA_HOME", "ANDROID_NDK", "ANDROID_SDK", "ANDROID_HOME"],
       "inputs": [
-        "packages/*/package.json",
-        "packages/*/android",
-        "!android/build",
-        "packages/*/src/*.ts",
-        "packages/*/src/*.tsx",
+        "packages/react-native-bottom-tabs/package.json",
+        "packages/react-native-bottom-tabs/android",
+        "packages/react-native-bottom-tabs/!android/build",
+        "packages/react-native-bottom-tabs/src/*.ts",
+        "packages/react-native-bottom-tabs/src/*.tsx",
         "apps/example/package.json",
         "apps/example/android",
         "!apps/example/android/.gradle",
@@ -19,13 +26,13 @@
       "outputs": []
     },
     "build:android:fabric": {
-      "env": ["ORG_GRADLE_PROJECT_newArchEnabled"],
+      "env": ["JAVA_HOME", "ANDROID_NDK", "ANDROID_SDK", "ANDROID_HOME"],
       "inputs": [
-        "packages/*/package.json",
-        "packages/*/android",
-        "!android/build",
-        "packages/*/src/*.ts",
-        "packages/*/src/*.tsx",
+        "packages/react-native-bottom-tabs/package.json",
+        "packages/react-native-bottom-tabs/android",
+        "packages/react-native-bottom-tabs/!android/build",
+        "packages/react-native-bottom-tabs/src/*.ts",
+        "packages/react-native-bottom-tabs/src/*.tsx",
         "apps/example/package.json",
         "apps/example/android",
         "!apps/example/android/.gradle",
