@@ -7,7 +7,7 @@ If you don't use React Navigation, you can use the `TabView` component directly.
 ```tsx
 import * as React from 'react';
 import { View, Text } from 'react-native';
-import TabView from 'react-native-bottom-tabs';
+import TabView, { SceneMap } from 'react-native-bottom-tabs';
 
 const HomeScreen = () => (
   <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>

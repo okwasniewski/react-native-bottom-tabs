@@ -1,11 +1,13 @@
 {
   "name": "@native-tabs/monorepo",
   "private": true,
-  "workspaces": [
-    "packages/*",
-    "apps/*",
-    "docs"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/*",
+      "apps/*",
+      "docs"
+    ]
+  },
   "scripts": {
     "lint": "turbo run lint",
     "test": "turbo run test",
@@ -15,8 +17,30 @@
     "build:android:fabric": "turbo run build:android:fabric",
     "build:ios": "turbo run build:ios"
   },
+  "resolutions": {
+    "@types/react": "^18.2.44"
+  },
   "packageManager": "yarn@3.6.1",
   "devDependencies": {
-    "turbo": "^2.1.0"
+    "@commitlint/config-conventional": "^17.0.2",
+    "commitlint": "^17.0.2",
+    "eslint": "^8.51.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "prettier": "^3.0.3",
+    "turbo": "^2.1.0",
+    "typescript": "^5.2.2"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "prettier": {
+    "quoteProps": "consistent",
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "es5",
+    "useTabs": false
   }
 }
