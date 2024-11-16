@@ -4,7 +4,6 @@ const pak = require('../../packages/react-native-bottom-tabs/package.json');
 module.exports = {
   presets: ['babel-preset-expo'],
   plugins: [
-    'react-native-reanimated/plugin',
     [
       'module-resolver',
       {

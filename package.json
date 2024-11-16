@@ -15,7 +15,9 @@
     "prepare": "turbo run prepare",
     "build:android": "turbo run build:android",
     "build:android:fabric": "turbo run build:android:fabric",
-    "build:ios": "turbo run build:ios"
+    "build:ios": "turbo run build:ios",
+    "build:ios-expo": "turbo run build:ios-expo",
+    "build:android-expo": "turbo run build:android-expo"
   },
   "resolutions": {
     "@types/react": "^18.2.44"

@@ -7,7 +7,6 @@
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.anonymous.bottomtabs"
@@ -40,10 +39,12 @@
         "expo-build-properties",
         {
           "ios": {
+            "deploymentTarget": "14.0",
             "useFrameworks": "static"
           }
         }
-      ]
+      ],
+      "expo-font"
     ],
     "experiments": {
       "typedRoutes": true
