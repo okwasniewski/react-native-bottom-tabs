@@ -7,7 +7,7 @@
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
     "build:android-expo": "expo prebuild --clean --platform android ; cd android ; ./gradlew assembleRelease",
-    "build:ios-expo": "expo prebuild --clean --platform ios && expo run:ios",
+    "build:ios-expo": "expo prebuild --clean --platform ios ; expo run:ios",
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
