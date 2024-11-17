@@ -2999,6 +2999,7 @@ __metadata:
   dependencies:
     "@commitlint/config-conventional": ^17.0.2
     commitlint: ^17.0.2
+    devmoji: ^2.3.0
     eslint: ^8.51.0
     eslint-config-prettier: ^9.0.0
     eslint-plugin-prettier: ^5.0.1
@@ -7149,7 +7150,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:4, chalk@npm:^4.0.0, chalk@npm:^4.1.0, chalk@npm:^4.1.2":
+"chalk@npm:4, chalk@npm:^4.0.0, chalk@npm:^4.1.0, chalk@npm:^4.1.1, chalk@npm:^4.1.2":
   version: 4.1.2
   resolution: "chalk@npm:4.1.2"
   dependencies:
@@ -7588,6 +7589,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"commander@npm:7.2.0, commander@npm:^7.2.0":
+  version: 7.2.0
+  resolution: "commander@npm:7.2.0"
+  checksum: 53501cbeee61d5157546c0bef0fedb6cdfc763a882136284bed9a07225f09a14b82d2a84e7637edfd1a679fb35ed9502fd58ef1d091e6287f60d790147f68ddc
+  languageName: node
+  linkType: hard
+
 "commander@npm:^2.20.0":
   version: 2.20.3
   resolution: "commander@npm:2.20.3"
@@ -7606,13 +7614,6 @@ __metadata:
   version: 6.2.1
   resolution: "commander@npm:6.2.1"
   checksum: d7090410c0de6bc5c67d3ca41c41760d6d268f3c799e530aafb73b7437d1826bbf0d2a3edac33f8b57cc9887b4a986dce307fa5557e109be40eadb7c43b21742
-  languageName: node
-  linkType: hard
-
-"commander@npm:^7.2.0":
-  version: 7.2.0
-  resolution: "commander@npm:7.2.0"
-  checksum: 53501cbeee61d5157546c0bef0fedb6cdfc763a882136284bed9a07225f09a14b82d2a84e7637edfd1a679fb35ed9502fd58ef1d091e6287f60d790147f68ddc
   languageName: node
   linkType: hard
 
@@ -8421,6 +8422,19 @@ __metadata:
   dependencies:
     dequal: ^2.0.0
   checksum: d2ff650bac0bb6ef08c48f3ba98640bb5fec5cce81e9957eb620408d1bab1204d382a45b785c6b3314dc867bb0684936b84c6867820da6db97cbb5d3c15dd185
+  languageName: node
+  linkType: hard
+
+"devmoji@npm:^2.3.0":
+  version: 2.3.0
+  resolution: "devmoji@npm:2.3.0"
+  dependencies:
+    chalk: ^4.1.1
+    commander: 7.2.0
+    ts-interface-checker: 1.0.0
+  bin:
+    devmoji: bin/devmoji.js
+  checksum: 8b13866422085ac6834ffcd66fc342bb56b3128d0909647c00b475d29e11be83e6035f7ffcfeca3bcfec7299a0d3e3b3b84265993885d1aff33e3fc5467f2687
   languageName: node
   linkType: hard
 
@@ -19307,6 +19321,13 @@ __metadata:
   peerDependencies:
     typescript: ">=4.2.0"
   checksum: 477601317dc8a6d961788663ee76984005ed20c70689bd6f807eed2cad258d3731edcc4162d438ce04782ca62a05373ba51e484180fc2a081d8dab2bf693a5af
+  languageName: node
+  linkType: hard
+
+"ts-interface-checker@npm:1.0.0":
+  version: 1.0.0
+  resolution: "ts-interface-checker@npm:1.0.0"
+  checksum: 3cf0b6037f3ccd6f6df1c963ce4dcff4ab540129b24d4f662b4df82abdd287276b2795824221b4bc1ae68244f03f37de90458f256e94e9de572d00ddaa023ff7
   languageName: node
   linkType: hard
 

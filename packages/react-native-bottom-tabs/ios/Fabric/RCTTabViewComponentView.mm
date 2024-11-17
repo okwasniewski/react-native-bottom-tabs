@@ -44,8 +44,7 @@ using namespace facebook::react;
   if (self = [super initWithFrame:frame]) {
     static const auto defaultProps = std::make_shared<const RNCTabViewProps>();
     _reactSubviews = [NSMutableArray new];
-    RCTImageLoader *imageLoader = [[RCTBridge currentBridge] moduleForName:@"ImageLoader"];
-    _tabViewProvider = [[TabViewProvider alloc] initWithDelegate:self imageLoader:imageLoader];
+    _tabViewProvider = [[TabViewProvider alloc] initWithDelegate:self];
     self.contentView = _tabViewProvider;
     _props = defaultProps;
   }

@@ -11,4 +11,4 @@ commit-msg:
   parallel: true
   commands:
     commitlint:
-      run: npx commitlint --edit
+      run: npx commitlint --edit && npx devmoji -e --lint
