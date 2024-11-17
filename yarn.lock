@@ -1728,6 +1728,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@bottom-tabs/react-navigation@*, @bottom-tabs/react-navigation@workspace:packages/react-navigation":
+  version: 0.0.0-use.local
+  resolution: "@bottom-tabs/react-navigation@workspace:packages/react-navigation"
+  dependencies:
+    "@react-navigation/native": ^6.1.18
+    "@types/color": ^3.0.6
+    color: ^4.2.3
+    jest: ^29.7.0
+    react: 18.3.1
+    react-native: 0.75.4
+    react-native-bottom-tabs: "*"
+    react-native-builder-bob: ^0.30.2
+    release-it: ^15.0.0
+    typescript: ^5.2.2
+  peerDependencies:
+    "@react-navigation/native": ">=6"
+    react: "*"
+    react-native: "*"
+    react-native-bottom-tabs: "*"
+  languageName: unknown
+  linkType: soft
+
 "@bufbuild/protobuf@npm:^2.0.0":
   version: 2.2.2
   resolution: "@bufbuild/protobuf@npm:2.2.2"
@@ -4462,7 +4484,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-navigation/bottom-tabs@npm:^6.1.18, @react-navigation/bottom-tabs@npm:^6.6.1":
+"@react-navigation/bottom-tabs@npm:^6.6.1":
   version: 6.6.1
   resolution: "@react-navigation/bottom-tabs@npm:6.6.1"
   dependencies:
@@ -9379,9 +9401,9 @@ __metadata:
   resolution: "example-expo@workspace:apps/example-expo"
   dependencies:
     "@babel/core": ^7.25.2
+    "@bottom-tabs/react-navigation": "*"
     "@expo/vector-icons": ^14.0.2
     "@react-native/metro-config": ^0.75.4
-    "@react-navigation/bottom-tabs": ^6.1.18
     "@react-navigation/native": ^6.1.18
     "@types/jest": ^29.5.12
     "@types/react": ~18.2.79
@@ -16509,6 +16531,7 @@ __metadata:
     "@babel/core": ^7.20.0
     "@babel/preset-env": ^7.20.0
     "@babel/runtime": ^7.20.0
+    "@bottom-tabs/react-navigation": "*"
     "@callstack/react-native-visionos": ^0.75.0
     "@react-native-community/cli": ^15.1.2
     "@react-native/babel-preset": 0.75.4
@@ -16544,10 +16567,8 @@ __metadata:
     "@react-native/babel-preset": 0.76.2
     "@react-native/eslint-config": 0.76.2
     "@react-navigation/native": ^6.1.18
-    "@types/color": ^3.0.6
     "@types/jest": ^29.5.5
     "@types/react": ^18.2.44
-    color: ^4.2.3
     commitlint: ^17.0.2
     del-cli: ^5.1.0
     jest: ^29.7.0
@@ -16559,12 +16580,8 @@ __metadata:
     typescript: ^5.2.2
     use-latest-callback: ^0.2.1
   peerDependencies:
-    "@react-navigation/native": ">=6"
     react: "*"
     react-native: "*"
-  peerDependenciesMeta:
-    "@react-navigation/native":
-      optional: true
   languageName: unknown
   linkType: soft
 

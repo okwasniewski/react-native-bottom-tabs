@@ -3,8 +3,7 @@ import { Article } from '../Screens/Article';
 import { Albums } from '../Screens/Albums';
 import { Contacts } from '../Screens/Contacts';
 import { Chat } from '../Screens/Chat';
-// This import works properly when library is published
-import createNativeBottomTabNavigator from '../../../../packages/react-native-bottom-tabs/src/react-navigation/navigators/createNativeBottomTabNavigator';
+import { createNativeBottomTabNavigator } from '@bottom-tabs/react-navigation';
 import { Platform } from 'react-native';
 
 const Tab = createNativeBottomTabNavigator();

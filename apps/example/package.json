@@ -14,6 +14,7 @@
     "visionos": "react-native run-visionos"
   },
   "dependencies": {
+    "@bottom-tabs/react-navigation": "*",
     "@callstack/react-native-visionos": "^0.75.0",
     "@react-navigation/bottom-tabs": "^6.6.1",
     "@react-navigation/native": "^6.1.18",

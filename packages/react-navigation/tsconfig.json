@@ -1,10 +1,8 @@
 {
   "compilerOptions": {
+    "rootDir": ".",
     "paths": {
-      "react-native-bottom-tabs": ["../../packages/react-native-bottom-tabs/src/index"],
-      "@bottom-tabs/react-navigation": [
-        "../../packages/react-navigation/src/index"
-      ]
+      "@bottom-tabs/react-navigation": ["./src/index"],
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
@@ -14,6 +12,7 @@
     "lib": ["ESNext"],
     "module": "ESNext",
     "moduleResolution": "Bundler",
+    "noEmit": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
     "noImplicitUseStrict": false,
@@ -24,7 +23,6 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "ESNext",
-    "verbatimModuleSyntax": true
+    "target": "ESNext"
   }
 }
