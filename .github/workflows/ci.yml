@@ -50,6 +50,9 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
 
+      - name: Build package
+        run: yarn prepare
+
       - name: Cache turborepo for Android
         uses: actions/cache@v3
         with:
@@ -105,6 +108,9 @@ jobs:
 
       - name: Setup
         uses: ./.github/actions/setup
+
+      - name: Build package
+        run: yarn prepare
 
       - name: Cache turborepo for Android new arch
         uses: actions/cache@v3
@@ -162,6 +168,9 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
 
+      - name: Build package
+        run: yarn prepare
+
       - name: Cache turborepo for iOS
         uses: actions/cache@v3
         with:
@@ -201,6 +210,9 @@ jobs:
 
       - name: Setup
         uses: ./.github/actions/setup
+
+      - name: Build package
+        run: yarn prepare
 
       - name: Cache turborepo for iOS
         uses: actions/cache@v3
