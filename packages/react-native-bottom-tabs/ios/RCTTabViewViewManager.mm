@@ -61,8 +61,7 @@ RCT_EXPORT_VIEW_PROPERTY(fontSize, NSNumber)
 
 - (UIView *)view
 {
-  RCTImageLoader *imageLoader = [self.bridge moduleForClass:[RCTImageLoader class]];
-  return [[TabViewProvider alloc] initWithDelegate:self imageLoader:imageLoader];
+  return [[TabViewProvider alloc] initWithDelegate:self];
 }
 
 @end

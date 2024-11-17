@@ -41,7 +41,6 @@ import SDWebImageSVGCoder
   private var props = TabViewProps()
   private var hostingController: UIHostingController<TabViewImpl>?
   private var coalescingKey: UInt16 = 0
-  private var imageLoader: RCTImageLoaderProtocol?
   private var iconSize = CGSize(width: 27, height: 27)
 
   @objc var onPageSelected: RCTDirectEventBlock?
@@ -159,10 +158,9 @@ import SDWebImageSVGCoder
     }
   }
 
-  @objc public convenience init(delegate: TabViewProviderDelegate, imageLoader: RCTImageLoader) {
+  @objc public convenience init(delegate: TabViewProviderDelegate) {
     self.init()
     self.delegate = delegate
-    self.imageLoader = imageLoader
     SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
   }
 
