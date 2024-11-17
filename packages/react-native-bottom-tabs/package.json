@@ -78,17 +78,11 @@
     "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
-    "@commitlint/config-conventional": "^17.0.2",
-    "@evilmartians/lefthook": "^1.5.0",
     "@expo/config-plugins": "^7.0.0 || ^8.0.0",
     "@react-native/babel-preset": "0.76.2",
     "@react-native/eslint-config": "0.76.2",
-    "@react-navigation/native": "^6.1.18",
     "@types/jest": "^29.5.5",
     "@types/react": "^18.2.44",
-    "commitlint": "^17.0.2",
-    "del-cli": "^5.1.0",
-    "jest": "^29.7.0",
     "react": "18.3.1",
     "react-native": "0.75.4",
     "react-native-builder-bob": "^0.30.2",
@@ -98,19 +92,6 @@
   "peerDependencies": {
     "react": "*",
     "react-native": "*"
-  },
-  "packageManager": "yarn@3.6.1",
-  "jest": {
-    "preset": "react-native",
-    "modulePathIgnorePatterns": [
-      "<rootDir>/example/node_modules",
-      "<rootDir>/lib/"
-    ]
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
   },
   "release-it": {
     "git": {

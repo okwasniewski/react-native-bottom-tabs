@@ -3,7 +3,7 @@ const tabView = require('../../packages/react-native-bottom-tabs/package.json');
 const reactNavigationIntegration = require('../../packages/react-navigation/package.json');
 
 module.exports = {
-  presets: ['module:@react-native/babel-preset'],
+  presets: ['babel-preset-expo'],
   plugins: [
     [
       'module-resolver',
