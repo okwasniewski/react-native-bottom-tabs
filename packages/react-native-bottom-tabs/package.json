@@ -5,7 +5,8 @@
   "source": "./src/index.tsx",
   "main": "./lib/commonjs/index.js",
   "module": "./lib/module/index.js",
-  "types": "./lib/typescript/module/src/index.d.ts",
+  "types": "./lib/typescript/commonjs/src/index.d.ts",
+  "sideEffects": false,
   "exports": {
     ".": {
       "import": {
@@ -15,16 +16,6 @@
       "require": {
         "types": "./lib/typescript/commonjs/src/index.d.ts",
         "default": "./lib/commonjs/index.js"
-      }
-    },
-    "./react-navigation": {
-      "import": {
-        "types": "./lib/typescript/module/src/react-navigation/index.d.ts",
-        "default": "./lib/module/react-navigation/index.js"
-      },
-      "require": {
-        "types": "./lib/typescript/commonjs/src/react-navigation/index.d.ts",
-        "default": "./lib/commonjs/react-navigation/index.js"
       }
     },
     "./package.json": "./package.json",
