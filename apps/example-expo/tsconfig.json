@@ -1,18 +1,15 @@
 {
-  "extends": "expo/tsconfig.base",
-  "compilerOptions": {
-    "strict": true,
-    "paths": {
-      "react-native-bottom-tabs": [
-        "../../packages/react-native-bottom-tabs/src/index"
-      ],
-      "react-native-bottom-tabs/react-navigation": [
-        "../../packages/react-native-bottom-tabs/src/react-navigation/index"
-      ],
-      "@/*": [
-        "./*"
-      ]
+  "extends": "../../tsconfig.json",
+  "references": [
+    {
+      "path": "../../packages/react-native-bottom-tabs"
+    },
+    {
+      "path": "../../packages/react-navigation"
     }
+  ],
+  "compilerOptions": {
+    "rootDir": "."
   },
   "include": [
     "**/*.ts",

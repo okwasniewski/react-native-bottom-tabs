@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { withLayoutContext } from 'expo-router';
-import createNativeBottomTabNavigator from '../../../../packages/react-native-bottom-tabs/src/react-navigation/navigators/createNativeBottomTabNavigator';
+import { createNativeBottomTabNavigator } from '@bottom-tabs/react-navigation';
 
 const Tabs = withLayoutContext(createNativeBottomTabNavigator().Navigator);
 

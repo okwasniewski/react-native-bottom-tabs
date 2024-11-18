@@ -8,8 +8,8 @@ import type {
   TabNavigationState,
 } from '@react-navigation/native';
 import type { ImageSourcePropType } from 'react-native';
-import type TabView from '../TabView';
-import type { AppleIcon } from '../types';
+import type TabView from 'react-native-bottom-tabs';
+import type { AppleIcon } from 'react-native-bottom-tabs';
 
 export type NativeBottomTabNavigationEventMap = {
   /**

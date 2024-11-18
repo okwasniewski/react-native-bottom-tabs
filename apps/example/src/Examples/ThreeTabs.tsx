@@ -1,4 +1,3 @@
-import * as React from 'react';
 import TabView, { SceneMap } from 'react-native-bottom-tabs';
 import { useState } from 'react';
 import { Article } from '../Screens/Article';

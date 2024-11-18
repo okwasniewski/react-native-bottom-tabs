@@ -1,7 +1,7 @@
 {
-  "name": "react-native-bottom-tabs",
+  "name": "@bottom-tabs/react-navigation",
   "version": "0.5.2",
-  "description": "Native Bottom Tabs for React Native",
+  "description": "React Native Bottom Tabs React Navigation integration",
   "source": "./src/index.tsx",
   "main": "./lib/commonjs/index.js",
   "module": "./lib/module/index.js",
@@ -18,26 +18,11 @@
         "default": "./lib/commonjs/index.js"
       }
     },
-    "./package.json": "./package.json",
-    "./app.plugin.js": "./app.plugin.js"
+    "./package.json": "./package.json"
   },
   "files": [
     "src",
     "lib",
-    "common",
-    "android",
-    "react-navigation",
-    "ios",
-    "cpp",
-    "react-native.config.js",
-    "app.plugin.js",
-    "*.podspec",
-    "!ios/build",
-    "!android/build",
-    "!android/gradle",
-    "!android/gradlew",
-    "!android/gradlew.bat",
-    "!android/local.properties",
     "!**/__tests__",
     "!**/__fixtures__",
     "!**/__mocks__",
@@ -53,7 +38,9 @@
   "keywords": [
     "react-native",
     "ios",
-    "android"
+    "android",
+    "react-navigation",
+    "expo-router"
   ],
   "repository": {
     "type": "git",
@@ -69,20 +56,32 @@
     "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
-    "@expo/config-plugins": "^7.0.0 || ^8.0.0",
-    "@react-native/babel-preset": "0.76.2",
-    "@react-native/eslint-config": "0.76.2",
-    "@types/jest": "^29.5.5",
-    "@types/react": "^18.2.44",
+    "@react-navigation/native": "^6.1.18",
+    "@types/color": "^3.0.6",
+    "jest": "^29.7.0",
     "react": "18.3.1",
     "react-native": "0.75.4",
+    "react-native-bottom-tabs": "*",
     "react-native-builder-bob": "^0.30.2",
     "release-it": "^15.0.0",
     "typescript": "^5.2.2"
   },
+  "dependencies": {
+    "color": "^4.2.3"
+  },
   "peerDependencies": {
+    "@react-navigation/native": ">=6",
     "react": "*",
-    "react-native": "*"
+    "react-native": "*",
+    "react-native-bottom-tabs": "*"
+  },
+  "packageManager": "yarn@3.6.1",
+  "jest": {
+    "preset": "react-native",
+    "modulePathIgnorePatterns": [
+      "<rootDir>/example/node_modules",
+      "<rootDir>/lib/"
+    ]
   },
   "release-it": {
     "git": {
@@ -122,21 +121,5 @@
         }
       ]
     ]
-  },
-  "create-react-native-library": {
-    "type": "view-mixed",
-    "version": "0.41.2"
-  },
-  "dependencies": {
-    "sf-symbols-typescript": "^2.0.0",
-    "use-latest-callback": "^0.2.1"
-  },
-  "codegenConfig": {
-    "name": "RNCTabView",
-    "type": "components",
-    "jsSrcsDir": "./src",
-    "android": {
-      "javaPackageName": "com.rcttabview"
-    }
   }
 }

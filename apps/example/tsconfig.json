@@ -1,30 +1,10 @@
 {
+  "extends": "../../tsconfig",
+  "references": [
+    { "path": "../../packages/react-native-bottom-tabs" },
+    { "path": "../../packages/react-navigation" },
+  ],
   "compilerOptions": {
-    "paths": {
-      "react-native-bottom-tabs": ["../../packages/react-native-bottom-tabs/src/index"],
-"react-native-bottom-tabs/react-navigation": [
-        "../../packages/react-native-bottom-tabs/src/react-navigation/index"
-      ]
-    },
-    "allowUnreachableCode": false,
-    "allowUnusedLabels": false,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "jsx": "react-jsx",
-    "lib": ["ESNext"],
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitReturns": true,
-    "noImplicitUseStrict": false,
-    "noStrictGenericChecks": false,
-    "noUncheckedIndexedAccess": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "target": "ESNext",
-    "verbatimModuleSyntax": true
+    "rootDir": "."
   }
 }
