@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Article } from '../Screens/Article';
 import { Albums } from '../Screens/Albums';
 import { Contacts } from '../Screens/Contacts';

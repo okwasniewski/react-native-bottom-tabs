@@ -1,9 +1,9 @@
 import { StyleSheet, Image } from 'react-native';
 
-import { Collapsible } from '@/components/Collapsible';
-import { ExternalLink } from '@/components/ExternalLink';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import { Collapsible } from '../../components/Collapsible';
+import { ExternalLink } from '../../components/ExternalLink';
+import { ThemedText } from '../../components/ThemedText';
+import { ThemedView } from '../../components/ThemedView';
 import { ScrollView } from 'react-native-gesture-handler';
 
 function TabTwoScreen() {
@@ -46,7 +46,7 @@ function TabTwoScreen() {
           provide files for different screen densities
         </ThemedText>
         <Image
-          source={require('@/assets/images/react-logo.png')}
+          source={require('../../assets/images/react-logo.png')}
           style={{ alignSelf: 'center' }}
         />
         <ExternalLink href="https://reactnative.dev/docs/images">

@@ -1,5 +1,5 @@
 {
-  "extends": "../tsconfig",
+  "extends": "../../tsconfig",
   "references": [
     { "path": "../../packages/react-native-bottom-tabs" },
     { "path": "../../packages/react-navigation" },

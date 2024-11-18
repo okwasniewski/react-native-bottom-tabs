@@ -1,27 +1,43 @@
 const path = require('path');
-const tabView = require('../../packages/react-native-bottom-tabs/package.json');
-const reactNavigationIntegration = require('../../packages/react-navigation/package.json');
+const fs = require('fs');
 
-module.exports = {
-  presets: ['babel-preset-expo'],
-  plugins: [
-    [
-      'module-resolver',
+const packages = path.resolve(__dirname, '..', '..', 'packages');
+
+/** @type {import('@babel/core').TransformOptions} */
+module.exports = function (api) {
+  api.cache(true);
+
+  const alias = Object.fromEntries(
+    fs
+      .readdirSync(packages)
+      .filter((name) => !name.startsWith('.'))
+      .map((name) => {
+        const pak = require(`../../packages/${name}/package.json`);
+
+        if (pak.source == null) {
+          return null;
+        }
+
+        return [pak.name, path.resolve(packages, name, pak.source)];
+      })
+      .filter(Boolean)
+  );
+
+  return {
+    presets: ['babel-preset-expo'],
+    overrides: [
       {
-        extensions: ['.tsx', '.ts', '.js', '.json'],
-        alias: {
-          'react-native-bottom-tabs': path.join(
-            __dirname,
-            '../../packages/react-native-bottom-tabs',
-            tabView.source
-          ),
-          '@bottom-tabs/react-navigation': path.join(
-            __dirname,
-            '../../packages/react-navigation',
-            reactNavigationIntegration.source
-          ),
-        },
+        exclude: /\/node_modules\//,
+        plugins: [
+          [
+            'module-resolver',
+            {
+              extensions: ['.tsx', '.ts', '.js', '.json'],
+              alias,
+            },
+          ],
+        ],
       },
     ],
-  ],
+  };
 };

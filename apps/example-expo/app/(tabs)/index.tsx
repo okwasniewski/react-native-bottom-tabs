@@ -1,7 +1,7 @@
 import { ScrollView, StyleSheet, Platform } from 'react-native';
 
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import { ThemedText } from '../../components/ThemedText';
+import { ThemedView } from '../../components/ThemedView';
 
 function HomeScreen() {
   return (
