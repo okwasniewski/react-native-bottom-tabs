@@ -3,6 +3,7 @@ import type { ColorValue, ProcessedColorValue, ViewProps } from 'react-native';
 import type {
   DirectEventHandler,
   Int32,
+  Double,
   WithDefault,
 } from 'react-native/Libraries/Types/CodegenTypes';
 //@ts-ignore
@@ -10,6 +11,11 @@ import type { ImageSource } from 'react-native/Libraries/Image/ImageSource';
 
 export type OnPageSelectedEventData = Readonly<{
   key: string;
+}>;
+
+export type OnTabViewLayoutEventdata = Readonly<{
+  width: Double;
+  height: Double;
 }>;
 
 export type TabViewItems = ReadonlyArray<{
@@ -26,6 +32,7 @@ export interface TabViewProps extends ViewProps {
   selectedPage: string;
   onPageSelected?: DirectEventHandler<OnPageSelectedEventData>;
   onTabLongPress?: DirectEventHandler<OnPageSelectedEventData>;
+  onTabViewLayout?: DirectEventHandler<OnTabViewLayoutEventdata>;
   icons?: ReadonlyArray<ImageSource>;
   labeled?: boolean;
   sidebarAdaptable?: boolean;

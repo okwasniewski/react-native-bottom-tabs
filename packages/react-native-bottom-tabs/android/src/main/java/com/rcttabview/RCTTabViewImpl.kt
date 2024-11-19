@@ -40,9 +40,10 @@ class RCTTabViewImpl {
   }
 
   fun setSelectedPage(view: ReactBottomNavigationView, key: String) {
-    view.items?.indexOfFirst { it.key == key }?.let {
-      view.selectedItemId = it
-    }
+    view.setSelectedPage(key)
+//    view.items?.indexOfFirst { it.key == key }?.let {
+//      view.selectedItemId = it
+//    }
   }
 
   fun setLabeled(view: ReactBottomNavigationView, flag: Boolean?) {
@@ -88,32 +89,13 @@ class RCTTabViewImpl {
       PageSelectedEvent.EVENT_NAME,
       MapBuilder.of("registrationName", "onPageSelected"),
       TabLongPressEvent.EVENT_NAME,
-      MapBuilder.of("registrationName", "onTabLongPress")
+      MapBuilder.of("registrationName", "onTabLongPress"),
+      OnLayoutEvent.EVENT_NAME,
+      MapBuilder.of("registrationName", "onTabViewLayout")
     )
   }
 
   companion object {
     const val NAME = "RNCTabView"
-
-    // Detect `react-native-edge-to-edge` (https://github.com/zoontek/react-native-edge-to-edge)
-    private val EDGE_TO_EDGE = try {
-      Class.forName("com.zoontek.rnedgetoedge.EdgeToEdgePackage")
-      true
-    } catch (exception: ClassNotFoundException) {
-      false
-    }
-
-    fun getNavigationBarInset(context: ReactContext): Int {
-      val window = context.currentActivity?.window
-
-      val isSystemBarTransparent = EDGE_TO_EDGE || window?.navigationBarColor == Color.TRANSPARENT
-
-      if (!isSystemBarTransparent) {
-        return 0
-      }
-
-      val windowInsets = ViewCompat.getRootWindowInsets(window?.decorView ?: return 0)
-      return windowInsets?.getInsets(WindowInsetsCompat.Type.navigationBars())?.bottom ?: 0
-    }
   }
 }

@@ -169,6 +169,10 @@ const TabView = <Route extends BaseRoute>({
 }: Props<Route>) => {
   // @ts-ignore
   const focusedKey = navigationState.routes[navigationState.index].key;
+  const [measuredLayout, setMeasuredLayout] = React.useState<{
+    width: number;
+    height: number;
+  } | null>(null);
 
   const trimmedRoutes = React.useMemo(() => {
     if (
@@ -267,6 +271,10 @@ const TabView = <Route extends BaseRoute>({
       onPageSelected={({ nativeEvent: { key } }) => {
         jumpTo(key);
       }}
+      onTabViewLayout={({ nativeEvent: { width, height } }) => {
+        console.log('onTabViewLayout', width, height);
+        setMeasuredLayout({ width, height });
+      }}
       hapticFeedbackEnabled={hapticFeedbackEnabled}
       activeTintColor={activeTintColor}
       inactiveTintColor={inactiveTintColor}
@@ -276,9 +284,6 @@ const TabView = <Route extends BaseRoute>({
       {trimmedRoutes.map((route) => {
         if (getLazy({ route }) !== false && !loaded.includes(route.key)) {
           // Don't render a screen if we've never navigated to it
-          if (Platform.OS === 'android') {
-            return null;
-          }
           return (
             <View
               key={route.key}
@@ -289,8 +294,6 @@ const TabView = <Route extends BaseRoute>({
         }
 
         const focused = route.key === focusedKey;
-        const opacity = focused ? 1 : 0;
-        const zIndex = focused ? 0 : -1;
 
         return (
           <View
@@ -299,11 +302,7 @@ const TabView = <Route extends BaseRoute>({
             pointerEvents={focused ? 'auto' : 'none'}
             accessibilityElementsHidden={!focused}
             importantForAccessibility={focused ? 'auto' : 'no-hide-descendants'}
-            style={
-              Platform.OS === 'android'
-                ? [StyleSheet.absoluteFill, { zIndex, opacity }]
-                : styles.fullWidth
-            }
+            style={{ ...measuredLayout }}
           >
             {renderScene({
               route,

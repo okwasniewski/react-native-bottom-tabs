@@ -9,33 +9,57 @@ import android.graphics.drawable.Drawable
 import android.os.Build
 import android.util.Log
 import android.util.TypedValue
-import android.view.Choreographer
 import android.view.HapticFeedbackConstants
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
+import android.widget.FrameLayout
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
+import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
+import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffoldDefaults
+import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteType
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.window.core.layout.WindowWidthSizeClass
 import coil3.ImageLoader
 import coil3.asDrawable
-import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.ReadableArray
-import com.facebook.react.bridge.WritableMap
-import com.facebook.react.common.assets.ReactFontManager
-import com.facebook.react.modules.core.ReactChoreographer
 import com.facebook.react.views.imagehelper.ImageSource
 import com.facebook.react.views.text.ReactTypefaceUtils
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import coil3.request.ImageRequest
 import coil3.svg.SvgDecoder
 
+data class TabViewProps(
+//  var children: MutableMap<Int, View> = mutableMapOf(),
+  var items: MutableList<TabInfo>? = null,
+  var children: List<View> = emptyList(),
+  var selectedItem: String? = null
+)
 
-class ReactBottomNavigationView(context: Context) : BottomNavigationView(context) {
+class ReactBottomNavigationView(context: Context) : FrameLayout(context) {
+  private var props = mutableStateOf(TabViewProps())
   private val icons: MutableMap<Int, ImageSource> = mutableMapOf()
-  private var isLayoutEnqueued = false
   var items: MutableList<TabInfo>? = null
-  var onTabSelectedListener: ((WritableMap) -> Unit)? = null
-  var onTabLongPressedListener: ((WritableMap) -> Unit)? = null
+  var onTabSelectedListener: ((key: String) -> Unit)? = null
+  var onTabLongPressedListener: ((key: String) -> Unit)? = null
+  var onLayoutListener: ((width: Double, height: Double) -> Unit)? = null
   private var isAnimating = false
   private var activeTintColor: Int? = null
   private var inactiveTintColor: Int? = null
@@ -52,91 +76,55 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
     }
     .build()
 
-  private val layoutCallback = Choreographer.FrameCallback {
-    isLayoutEnqueued = false
-    measure(
-      MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY),
-      MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY),
-    )
-    layout(left, top, right, bottom)
+  init {
+    val composeView = ComposeView(context)
+    composeView.layoutParams = LayoutParams(MATCH_PARENT, MATCH_PARENT)
+    composeView.setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+    composeView.setContent {
+      MaterialTheme {
+        ColumnComposable(props = props.value, onClick = { key ->
+          onTabSelectedListener?.invoke(key)
+          emitHapticFeedback(HapticFeedbackConstants.CONTEXT_CLICK)
+        }) { width, height ->
+          onLayoutListener?.invoke(width, height)
+        }
+      }
+    }
+    addView(composeView)
+  }
+
+  override fun addView(child: View?, index: Int) {
+    if (child is ComposeView) {
+      super.addView(child, index)
+    } else {
+      if (child != null) {
+        props.value = props.value.copy(children = props.value.children + child)
+      }
+    }
   }
 
   private fun onTabLongPressed(item: MenuItem) {
     val longPressedItem = items?.firstOrNull { it.title == item.title }
     longPressedItem?.let {
-      val event = Arguments.createMap().apply {
-        putString("key", longPressedItem.key)
-      }
-      onTabLongPressedListener?.invoke(event)
+      onTabLongPressedListener?.invoke(longPressedItem.key)
       emitHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
     }
   }
 
-  override fun requestLayout() {
-    super.requestLayout()
-    @Suppress("SENSELESS_COMPARISON") // layoutCallback can be null here since this method can be called in init
-
-    if (!isLayoutEnqueued && layoutCallback != null) {
-      isLayoutEnqueued = true
-      // we use NATIVE_ANIMATED_MODULE choreographer queue because it allows us to catch the current
-      // looper loop instead of enqueueing the update in the next loop causing a one frame delay.
-      ReactChoreographer
-        .getInstance()
-        .postFrameCallback(
-          ReactChoreographer.CallbackType.NATIVE_ANIMATED_MODULE,
-          layoutCallback,
-        )
-    }
-  }
-
   private fun onTabSelected(item: MenuItem) {
-    if (isLayoutEnqueued) {
-      return;
-    }
     val selectedItem = items?.first { it.title == item.title }
     selectedItem?.let {
-      val event = Arguments.createMap().apply {
-        putString("key", selectedItem.key)
-      }
-      onTabSelectedListener?.invoke(event)
+      onTabSelectedListener?.invoke(selectedItem.key)
       emitHapticFeedback(HapticFeedbackConstants.CONTEXT_CLICK)
     }
   }
 
   fun updateItems(items: MutableList<TabInfo>) {
-    this.items = items
-    items.forEachIndexed { index, item ->
-      val menuItem = getOrCreateItem(index, item.title)
-      menuItem.isVisible = !item.hidden
-      if (icons.containsKey(index)) {
-        getDrawable(icons[index]!!)  {
-          menuItem.icon = it
-        }
-      }
-
-      if (item.badge.isNotEmpty()) {
-        val badge = this.getOrCreateBadge(index)
-        badge.isVisible = true
-        badge.text = item.badge
-      } else {
-        removeBadge(index)
-      }
-      post {
-        findViewById<View>(menuItem.itemId).setOnLongClickListener {
-          onTabLongPressed(menuItem)
-          true
-        }
-        findViewById<View>(menuItem.itemId).setOnClickListener {
-          onTabSelected(menuItem)
-          updateTintColors(menuItem)
-        }
-        updateTextAppearance()
-      }
-    }
+    props.value = props.value.copy(items = items)
   }
 
-  private fun getOrCreateItem(index: Int, title: String): MenuItem {
-    return menu.findItem(index) ?: menu.add(0, index, 0, title)
+  fun setSelectedPage(key: String) {
+    props.value = props.value.copy(selectedItem = key)
   }
 
   fun setIcons(icons: ReadableArray?) {
@@ -158,26 +146,19 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
       this.icons[idx] = imageSource
 
       // Update existing item if exists.
-      menu.findItem(idx)?.let { menuItem ->
-        getDrawable(imageSource)  {
-          menuItem.icon = it
-        }
-      }
+//      menu.findItem(idx)?.let { menuItem ->
+//        getDrawable(imageSource)  {
+//          menuItem.icon = it
+//        }
+//      }
     }
   }
 
   fun setLabeled(labeled: Boolean?) {
-    labelVisibilityMode = if (labeled == false) {
-      LABEL_VISIBILITY_UNLABELED
-    } else if (labeled == true) {
-      LABEL_VISIBILITY_LABELED
-    } else {
-      LABEL_VISIBILITY_AUTO
-    }
   }
 
   fun setRippleColor(color: ColorStateList) {
-    itemRippleColor = color
+//    itemRippleColor = color
   }
 
   @SuppressLint("CheckResult")
@@ -209,7 +190,7 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
     // Apply the same color to both active and inactive states
     val colorDrawable = ColorDrawable(backgroundColor)
 
-    itemBackground = colorDrawable
+//    itemBackground = colorDrawable
     backgroundTintList = ColorStateList.valueOf(backgroundColor)
   }
 
@@ -224,7 +205,7 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
   }
 
   fun setActiveIndicatorColor(color: ColorStateList) {
-    itemActiveIndicatorColor = color
+//    itemActiveIndicatorColor = color
   }
 
   fun setHapticFeedback(enabled: Boolean) {
@@ -233,18 +214,18 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
 
   fun setFontSize(size: Int) {
     fontSize = size
-    updateTextAppearance()
+//    updateTextAppearance()
   }
 
   fun setFontFamily(family: String?) {
     fontFamily = family
-    updateTextAppearance()
+//    updateTextAppearance()
   }
 
  fun setFontWeight(weight: String?) {
    val fontWeight = ReactTypefaceUtils.parseFontWeight(weight)
    this.fontWeight = fontWeight
-   updateTextAppearance()
+//   updateTextAppearance()
   }
 
   private fun getTypefaceStyle(weight: Int?) = when (weight) {
@@ -252,32 +233,32 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
     else -> Typeface.NORMAL
   }
 
-  private fun updateTextAppearance() {
-    if (fontSize != null || fontFamily != null || fontWeight != null) {
-      val menuView = getChildAt(0) as? ViewGroup ?: return
-      val size = fontSize?.toFloat()?.takeIf { it > 0 } ?: 12f
-      val typeface = ReactFontManager.getInstance().getTypeface(
-        fontFamily ?: "",
-        getTypefaceStyle(fontWeight),
-        context.assets
-      )
-
-      for (i in 0 until menuView.childCount) {
-        val item = menuView.getChildAt(i)
-        val largeLabel =
-          item.findViewById<TextView>(com.google.android.material.R.id.navigation_bar_item_large_label_view)
-        val smallLabel =
-          item.findViewById<TextView>(com.google.android.material.R.id.navigation_bar_item_small_label_view)
-
-        listOf(largeLabel, smallLabel).forEach { label ->
-          label?.apply {
-            setTextSize(TypedValue.COMPLEX_UNIT_SP, size)
-            setTypeface(typeface)
-          }
-        }
-      }
-    }
-  }
+//  private fun updateTextAppearance() {
+//    if (fontSize != null || fontFamily != null || fontWeight != null) {
+//      val menuView = getChildAt(0) as? ViewGroup ?: return
+//      val size = fontSize?.toFloat()?.takeIf { it > 0 } ?: 12f
+//      val typeface = ReactFontManager.getInstance().getTypeface(
+//        fontFamily ?: "",
+//        getTypefaceStyle(fontWeight),
+//        context.assets
+//      )
+//
+//      for (i in 0 until menuView.childCount) {
+//        val item = menuView.getChildAt(i)
+//        val largeLabel =
+//          item.findViewById<TextView>(com.google.android.material.R.id.navigation_bar_item_large_label_view)
+//        val smallLabel =
+//          item.findViewById<TextView>(com.google.android.material.R.id.navigation_bar_item_small_label_view)
+//
+//        listOf(largeLabel, smallLabel).forEach { label ->
+//          label?.apply {
+//            setTextSize(TypedValue.COMPLEX_UNIT_SP, size)
+//            setTypeface(typeface)
+//          }
+//        }
+//      }
+//    }
+//  }
 
   private fun emitHapticFeedback(feedbackConstants: Int) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && hapticFeedbackEnabled) {
@@ -296,10 +277,10 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
     val states = arrayOf(uncheckedStateSet, checkedStateSet)
     val colors = intArrayOf(colorSecondary, colorPrimary)
 
-    ColorStateList(states, colors).apply {
-      this@ReactBottomNavigationView.itemTextColor = this
-      this@ReactBottomNavigationView.itemIconTintList = this
-    }
+//    ColorStateList(states, colors).apply {
+//      this@ReactBottomNavigationView.itemTextColor = this
+//      this@ReactBottomNavigationView.itemIconTintList = this
+//    }
   }
 
   private fun getDefaultColorFor(baseColorThemeAttr: Int): Int? {
@@ -312,4 +293,76 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
     )
     return baseColor.defaultColor
   }
+}
+
+@Composable
+fun ColumnComposable(props: TabViewProps, onClick: (key: String) -> Unit, onLayout: (width: Double, height: Double) -> Unit
+) {
+  val context = LocalContext.current
+  val windowWidthClass = currentWindowAdaptiveInfo().windowSizeClass.windowWidthSizeClass
+  val previousSize = remember { mutableStateOf<Pair<Double, Double>?>(null) }
+
+  NavigationSuiteScaffold(
+    navigationSuiteItems = {
+      props.items?.forEach {
+          item(
+            icon = {
+              Icon(
+                Icons.Default.Home,
+                contentDescription = ""
+              )
+            },
+            label = { Text(it.title) },
+            selected = it.key == props.selectedItem,
+            onClick = {
+              onClick(it.key)
+            },
+            alwaysShowLabel = false
+          )
+      }
+    },
+    layoutType = if(windowWidthClass == WindowWidthSizeClass.EXPANDED) {
+      NavigationSuiteType.NavigationDrawer
+    } else {
+      NavigationSuiteScaffoldDefaults.calculateFromAdaptiveInfo(
+        currentWindowAdaptiveInfo()
+      )
+    }
+  ) {
+      val selectedIndex = props.items?.indexOfFirst { it.key == props.selectedItem } ?: 0
+      AndroidView(
+        modifier = Modifier.fillMaxSize()
+          .onGloballyPositioned { coordinates ->
+            val size = coordinates.size
+            val dpWidth = (size.width / context.resources.displayMetrics.density).toDouble()
+            val dpHeight = (size.height / context.resources.displayMetrics.density).toDouble()
+            val newSize = Pair(dpWidth, dpHeight)
+            if (previousSize.value != newSize) {
+              previousSize.value = newSize
+              onLayout(dpWidth, dpHeight)
+            }
+          },
+        factory = { context ->
+          FrameLayout(context).apply {
+            layoutParams = ViewGroup.LayoutParams(
+              MATCH_PARENT,
+              MATCH_PARENT
+            )
+          }
+        },
+        update = { container ->
+          val currentView = if (container.childCount > 0) container.getChildAt(0) else null
+          val newView = props.children[selectedIndex]
+
+          if (currentView != newView) {
+            container.removeAllViews()
+            if (newView.parent != null) {
+              (newView.parent as? ViewGroup)?.removeView(newView)
+            }
+
+            container.addView(newView)
+          }
+        }
+      )
+    }
 }

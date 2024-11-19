@@ -1,5 +1,6 @@
 package com.rcttabview
 
+import android.view.View
 import android.view.View.MeasureSpec
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.module.annotations.ReactModule
@@ -14,9 +15,10 @@ import com.facebook.yoga.YogaMeasureOutput
 import com.facebook.yoga.YogaNode
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.uimanager.UIManagerModule
+import com.facebook.react.uimanager.ViewGroupManager
 
 @ReactModule(name = RCTTabViewImpl.NAME)
-class RCTTabViewManager(context: ReactApplicationContext) : SimpleViewManager<ReactBottomNavigationView>() {
+class RCTTabViewManager(context: ReactApplicationContext) : ViewGroupManager<ReactBottomNavigationView>() {
   private lateinit var eventDispatcher: EventDispatcher
   private var tabViewImpl = RCTTabViewImpl()
 
@@ -27,22 +29,22 @@ class RCTTabViewManager(context: ReactApplicationContext) : SimpleViewManager<Re
   public override fun createViewInstance(context: ThemedReactContext): ReactBottomNavigationView {
     eventDispatcher = context.getNativeModule(UIManagerModule::class.java)!!.eventDispatcher
     val view = ReactBottomNavigationView(context)
-    view.onTabSelectedListener = { data ->
-      data.getString("key")?.let {
-        eventDispatcher.dispatchEvent(PageSelectedEvent(viewTag = view.id, key = it))
-      }
+    view.onTabSelectedListener = { key ->
+      eventDispatcher.dispatchEvent(PageSelectedEvent(viewTag = view.id, key = key))
     }
 
-    view.onTabLongPressedListener = { data ->
-      data.getString("key")?.let {
-        eventDispatcher.dispatchEvent(TabLongPressEvent(viewTag = view.id, key = it))
-      }
+    view.onTabLongPressedListener = { key ->
+        eventDispatcher.dispatchEvent(TabLongPressEvent(viewTag = view.id, key = key))
+    }
+
+    view.onLayoutListener = { width, height ->
+      eventDispatcher.dispatchEvent(OnLayoutEvent(viewTag = view.id, width = width, height = height))
     }
     return view
   }
 
-  override fun createShadowNodeInstance(): LayoutShadowNode {
-    return TabViewShadowNode()
+  override fun needsCustomLayoutForChildren(): Boolean {
+    return true
   }
 
   override fun getExportedCustomDirectEventTypeConstants(): MutableMap<String, Any>? {
@@ -58,7 +60,6 @@ class RCTTabViewManager(context: ReactApplicationContext) : SimpleViewManager<Re
   fun setSelectedPage(view: ReactBottomNavigationView, key: String) {
     tabViewImpl.setSelectedPage(view, key)
   }
-
 
   @ReactProp(name = "labeled")
   fun setLabeled(view: ReactBottomNavigationView, flag: Boolean?) {
@@ -127,43 +128,5 @@ class RCTTabViewManager(context: ReactApplicationContext) : SimpleViewManager<Re
   @ReactProp(name = "fontSize")
   fun setFontSize(view: ReactBottomNavigationView?, value: Int) {
     view?.setFontSize(value)
-  }
-
-  class TabViewShadowNode() : LayoutShadowNode(),
-    YogaMeasureFunction {
-    private var mWidth = 0
-    private var mHeight = 0
-    private var mMeasured = false
-
-    init {
-      initMeasureFunction()
-    }
-
-    private fun initMeasureFunction() {
-      setMeasureFunction(this)
-    }
-
-    override fun measure(
-      node: YogaNode,
-      width: Float,
-      widthMode: YogaMeasureMode,
-      height: Float,
-      heightMode: YogaMeasureMode
-    ): Long {
-      if (mMeasured) {
-        return YogaMeasureOutput.make(mWidth, mHeight)
-      }
-      val tabView = ReactBottomNavigationView(themedContext)
-      val spec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED)
-
-      val navigationBarInset = RCTTabViewImpl.getNavigationBarInset(themedContext)
-      tabView.measure(spec, spec)
-      // TabBar should always stretch to the width of the screen.
-      this.mWidth = width.toInt()
-      this.mHeight = tabView.measuredHeight + navigationBarInset
-      this.mMeasured = true
-
-      return YogaMeasureOutput.make(mWidth, mHeight)
-    }
   }
 }
