@@ -1,11 +1,17 @@
+import { PackageManagerTabs } from '@theme';
+
 # Usage with One
+
+The `@bottom-tabs/react-navigation` package provides a native bottom tab navigator for React Navigation.
+
+<PackageManagerTabs command="install @bottom-tabs/react-navigation" />
 
 In order to use this navigator with [One](https://onestack.dev/), you need to wrap it with the `withLayoutContext`.
 
 
 ```tsx
 import { withLayoutContext } from 'one'
-import { createNativeBottomTabNavigator } from 'react-native-bottom-tabs/react-navigation'
+import { createNativeBottomTabNavigator } from '@bottom-tabs/react-navigation';
 
 const NativeTabsNavigator = createNativeBottomTabNavigator().Navigator
 

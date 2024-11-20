@@ -1,6 +1,11 @@
 import { Badge } from '@theme';
+import { PackageManagerTabs } from '@theme';
 
 # Usage with React Navigation
+
+First install `@bottom-tabs/react-navigation` which provides a native bottom tab navigator for React Navigation.
+
+<PackageManagerTabs command="install @bottom-tabs/react-navigation" />
 
 :::warning
 To use this navigator, ensure that you have [`@react-navigation/native` and its dependencies (follow this guide)](https://reactnavigation.org/docs/getting-started).
@@ -12,7 +17,7 @@ Minimal example of using `createNativeBottomTabNavigator` with React Navigation:
 import * as React from 'react';
 import { Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeBottomTabNavigator } from 'react-native-bottom-tabs/react-navigation';
+import { createNativeBottomTabNavigator } from '@bottom-tabs/react-navigation';
 
 const Tab = createNativeBottomTabNavigator();
 
