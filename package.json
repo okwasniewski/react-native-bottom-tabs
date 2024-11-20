@@ -12,13 +12,13 @@
     "lint": "turbo run lint",
     "test": "turbo run test",
     "typecheck": "turbo run typecheck",
-    "prepare": "turbo run prepare",
-    "release": "turbo run release",
+    "build": "turbo run build",
     "build:android": "turbo run build:android",
     "build:android:fabric": "turbo run build:android:fabric",
     "build:ios": "turbo run build:ios",
     "build:ios-expo": "turbo run build:ios-expo",
-    "build:android-expo": "turbo run build:android-expo"
+    "build:android-expo": "turbo run build:android-expo",
+    "publish-packages": "turbo run build lint && changeset version && changeset publish"
   },
   "resolutions": {
     "@types/react": "^18.2.44"
@@ -54,5 +54,8 @@
     "tabWidth": 2,
     "trailingComma": "es5",
     "useTabs": false
+  },
+  "dependencies": {
+    "@changesets/cli": "^2.27.10"
   }
 }

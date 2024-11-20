@@ -37,7 +37,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Build package
-        run: yarn prepare
+        run: yarn build
 
   build-android:
     runs-on: ubuntu-latest
@@ -51,7 +51,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Build package
-        run: yarn prepare
+        run: yarn build
 
       - name: Cache turborepo for Android
         uses: actions/cache@v3
@@ -110,7 +110,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Build package
-        run: yarn prepare
+        run: yarn build
 
       - name: Cache turborepo for Android new arch
         uses: actions/cache@v3
@@ -169,7 +169,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Build package
-        run: yarn prepare
+        run: yarn build
 
       - name: Cache turborepo for iOS
         uses: actions/cache@v3
@@ -212,7 +212,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Build package
-        run: yarn prepare
+        run: yarn build
 
       - name: Cache turborepo for iOS
         uses: actions/cache@v3

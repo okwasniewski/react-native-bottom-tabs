@@ -30,10 +30,9 @@
   ],
   "scripts": {
     "test": "jest",
-    "typecheck": "tsc",
+    "typecheck": "tsc -b",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
-    "prepare": "bob build",
-    "release": "release-it"
+    "build": "bob build"
   },
   "keywords": [
     "react-native",
@@ -64,7 +63,6 @@
     "react-native": "0.75.4",
     "react-native-bottom-tabs": "*",
     "react-native-builder-bob": "^0.32.1",
-    "release-it": "^15.0.0",
     "typescript": "^5.2.2"
   },
   "dependencies": {
@@ -76,25 +74,12 @@
     "react-native": "*",
     "react-native-bottom-tabs": "*"
   },
-  "packageManager": "yarn@3.6.1",
   "jest": {
     "preset": "react-native",
     "modulePathIgnorePatterns": [
       "<rootDir>/example/node_modules",
       "<rootDir>/lib/"
     ]
-  },
-  "release-it": {
-    "git": {
-      "commitMessage": "chore: release ${version}",
-      "tagName": "v${version}"
-    },
-    "npm": {
-      "publish": true
-    },
-    "github": {
-      "release": true
-    }
   },
   "react-native-builder-bob": {
     "source": "src",

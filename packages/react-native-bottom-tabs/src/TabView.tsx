@@ -1,7 +1,7 @@
 import React from 'react';
 import type { TabViewItems } from './TabViewNativeComponent';
 import {
-  ColorValue,
+  type ColorValue,
   Image,
   Platform,
   StyleSheet,

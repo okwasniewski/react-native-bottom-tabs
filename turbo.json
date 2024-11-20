@@ -2,21 +2,17 @@
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
     "lint": {
-      "dependsOn": ["prepare"],
+      "dependsOn": ["build"],
       "inputs": ["**/*.ts", "**/*.tsx", "**/*.js"]
     },
     "typecheck": {
-      "dependsOn": ["prepare"],
+      "dependsOn": ["build"],
       "inputs": ["**/*.ts", "**/*.tsx"]
     },
     "test": {},
-    "release": {
-      "inputs": ["package.json", "lib/**"]
-    },
-    "prepare": {
-      "dependsOn": ["^prepare"],
-      "outputs": ["lib/**"],
-      "inputs": ["src/**/*.ts", "src/**/*.tsx"]
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["lib/**"]
     },
     "build:android": {
       "env": ["JAVA_HOME", "ANDROID_NDK", "ANDROID_SDK", "ANDROID_HOME"],
