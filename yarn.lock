@@ -1755,7 +1755,7 @@ __metadata:
     jest: ^29.7.0
     react: 18.3.1
     react-native: 0.75.4
-    react-native-bottom-tabs: "workspace:^"
+    react-native-bottom-tabs: "*"
     react-native-builder-bob: ^0.32.1
     release-it: ^15.0.0
     typescript: ^5.2.2
@@ -16418,7 +16418,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"react-native-bottom-tabs@*, react-native-bottom-tabs@workspace:^, react-native-bottom-tabs@workspace:packages/react-native-bottom-tabs":
+"react-native-bottom-tabs@*, react-native-bottom-tabs@workspace:packages/react-native-bottom-tabs":
   version: 0.0.0-use.local
   resolution: "react-native-bottom-tabs@workspace:packages/react-native-bottom-tabs"
   dependencies:
