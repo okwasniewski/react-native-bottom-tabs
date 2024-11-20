@@ -1,10 +1,16 @@
+import { PackageManagerTabs } from '@theme';
+
 # Usage with Expo Router
+
+First install `@bottom-tabs/react-navigation` which provides a native bottom tab navigator for React Navigation.
+
+<PackageManagerTabs command="install @bottom-tabs/react-navigation" />
 
 First, create a custom layout adapter for the native bottom tabs:
 
 ```tsx
 import { withLayoutContext } from "expo-router";
-import { createNativeBottomTabNavigator } from "react-native-bottom-tabs/react-navigation";
+import { createNativeBottomTabNavigator } from '@bottom-tabs/react-navigation';
 
 export const Tabs = withLayoutContext(
   createNativeBottomTabNavigator().Navigator

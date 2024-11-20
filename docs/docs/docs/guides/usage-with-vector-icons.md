@@ -11,7 +11,7 @@ Follow installation guide in React Native Vector Icons [README](https://github.c
 ### Usage
 
 ```tsx
-import { createNativeBottomTabNavigator } from 'react-native-bottom-tabs/react-navigation';
+import { createNativeBottomTabNavigator } from '@bottom-tabs/react-navigation';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const homeIcon = Icon.getImageSourceSync('home', 24);

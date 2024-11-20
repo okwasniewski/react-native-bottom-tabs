@@ -10,6 +10,9 @@
       "inputs": ["**/*.ts", "**/*.tsx"]
     },
     "test": {},
+    "release": {
+      "inputs": ["package.json", "lib/**"]
+    },
     "prepare": {
       "dependsOn": ["^prepare"],
       "outputs": ["lib/**"],
