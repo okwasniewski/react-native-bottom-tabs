@@ -1,0 +1,20 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@3.0.4/schema.json",
+  "changelog": "@changesets/cli/changelog",
+  "commit": true,
+  "fixed": [
+    [
+      "react-native-bottom-tabs",
+      "@bottom-tabs/react-navigation"
+    ]
+  ],
+  "linked": [],
+  "access": "public",
+  "baseBranch": "main",
+  "updateInternalDependencies": "patch",
+  "ignore": [
+    "react-native-bottom-tabs-docs",
+    "react-native-bottom-tabs-example",
+    "example-expo"
+  ]
+}
