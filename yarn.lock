@@ -1755,8 +1755,8 @@ __metadata:
     jest: ^29.7.0
     react: 18.3.1
     react-native: 0.75.4
-    react-native-bottom-tabs: "*"
-    react-native-builder-bob: ^0.30.2
+    react-native-bottom-tabs: "workspace:^"
+    react-native-builder-bob: ^0.32.1
     release-it: ^15.0.0
     typescript: ^5.2.2
   peerDependencies:
@@ -16418,7 +16418,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"react-native-bottom-tabs@*, react-native-bottom-tabs@workspace:packages/react-native-bottom-tabs":
+"react-native-bottom-tabs@*, react-native-bottom-tabs@workspace:^, react-native-bottom-tabs@workspace:packages/react-native-bottom-tabs":
   version: 0.0.0-use.local
   resolution: "react-native-bottom-tabs@workspace:packages/react-native-bottom-tabs"
   dependencies:
@@ -16429,7 +16429,7 @@ __metadata:
     "@types/react": ^18.2.44
     react: 18.3.1
     react-native: 0.75.4
-    react-native-builder-bob: ^0.30.2
+    react-native-builder-bob: ^0.32.1
     release-it: ^15.0.0
     sf-symbols-typescript: ^2.0.0
     typescript: ^5.2.2
@@ -16469,6 +16469,38 @@ __metadata:
   bin:
     bob: bin/bob
   checksum: 32b2159559a08310656b6b2f5f591a6aeeb9595f0f2d0e8dff7602af6aa62f59ae7206b023789de0a08f231d747c9bcab19e3efc874fad124b38e40c61f1ec90
+  languageName: node
+  linkType: hard
+
+"react-native-builder-bob@npm:^0.32.1":
+  version: 0.32.1
+  resolution: "react-native-builder-bob@npm:0.32.1"
+  dependencies:
+    "@babel/core": ^7.25.2
+    "@babel/plugin-transform-strict-mode": ^7.24.7
+    "@babel/preset-env": ^7.25.2
+    "@babel/preset-flow": ^7.24.7
+    "@babel/preset-react": ^7.24.7
+    "@babel/preset-typescript": ^7.24.7
+    babel-plugin-module-resolver: ^5.0.2
+    browserslist: ^4.20.4
+    cosmiconfig: ^9.0.0
+    cross-spawn: ^7.0.3
+    dedent: ^0.7.0
+    del: ^6.1.1
+    escape-string-regexp: ^4.0.0
+    fs-extra: ^10.1.0
+    glob: ^8.0.3
+    is-git-dirty: ^2.0.1
+    json5: ^2.2.1
+    kleur: ^4.1.4
+    metro-config: ^0.80.9
+    prompts: ^2.4.2
+    which: ^2.0.2
+    yargs: ^17.5.1
+  bin:
+    bob: bin/bob
+  checksum: 913301f523ec0c2e854682aebe0abd2e017f041273f5d141e231b499f79e5592ba9d68ba602c665a946e5ee1f6a072b872d53e6f29b51cb9c60ab2b65c3ee8ac
   languageName: node
   linkType: hard
 

@@ -66,7 +66,8 @@
   },
   "homepage": "https://github.com/okwasniewski/react-native-bottom-tabs#readme",
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
   },
   "devDependencies": {
     "@expo/config-plugins": "^7.0.0 || ^8.0.0",
@@ -76,7 +77,7 @@
     "@types/react": "^18.2.44",
     "react": "18.3.1",
     "react-native": "0.75.4",
-    "react-native-builder-bob": "^0.30.2",
+    "react-native-builder-bob": "^0.32.1",
     "release-it": "^15.0.0",
     "typescript": "^5.2.2"
   },
@@ -118,7 +119,8 @@
         "typescript",
         {
           "project": "tsconfig.build.json",
-          "esm": true
+          "esm": true,
+          "tsc": "../../node_modules/.bin/tsc"
         }
       ]
     ]
