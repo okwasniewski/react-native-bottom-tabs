@@ -223,6 +223,15 @@ NSArray* convertItemsToArray(const std::vector<RNCTabViewItemsStruct>& items) {
   }
 }
 
+- (void)onTabBarMeasuredWithHeight:(NSInteger)height reactTag:(NSNumber *)reactTag {
+  auto eventEmitter = std::static_pointer_cast<const RNCTabViewEventEmitter>(_eventEmitter);
+  if (eventEmitter) {
+    eventEmitter->onTabBarMeasured(RNCTabViewEventEmitter::OnTabBarMeasured {
+      .height = (int)height
+    });
+  }
+}
+
 @end
 
 Class<RCTComponentViewProtocol> RNCTabViewCls(void)

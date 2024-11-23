@@ -8,6 +8,7 @@ import {
   View,
   processColor,
 } from 'react-native';
+import { BottomTabBarHeightContext } from './utils/BottomTabBarHeightContext';
 
 //@ts-ignore
 import type { ImageSource } from 'react-native/Libraries/Image/ImageSource';
@@ -169,6 +170,7 @@ const TabView = <Route extends BaseRoute>({
 }: Props<Route>) => {
   // @ts-ignore
   const focusedKey = navigationState.routes[navigationState.index].key;
+  const [tabBarHeight, setTabBarHeight] = React.useState<number | undefined>(0);
 
   const trimmedRoutes = React.useMemo(() => {
     if (
@@ -253,66 +255,73 @@ const TabView = <Route extends BaseRoute>({
   });
 
   return (
-    <TabViewAdapter
-      {...props}
-      {...tabLabelStyle}
-      style={styles.fullWidth}
-      items={items}
-      icons={resolvedIconAssets}
-      selectedPage={focusedKey}
-      onTabLongPress={({ nativeEvent: { key } }) => {
-        const index = trimmedRoutes.findIndex((route) => route.key === key);
-        onTabLongPress?.(index);
-      }}
-      onPageSelected={({ nativeEvent: { key } }) => {
-        jumpTo(key);
-      }}
-      hapticFeedbackEnabled={hapticFeedbackEnabled}
-      activeTintColor={activeTintColor}
-      inactiveTintColor={inactiveTintColor}
-      barTintColor={barTintColor}
-      rippleColor={rippleColor}
-    >
-      {trimmedRoutes.map((route) => {
-        if (getLazy({ route }) !== false && !loaded.includes(route.key)) {
-          // Don't render a screen if we've never navigated to it
-          if (Platform.OS === 'android') {
-            return null;
+    <BottomTabBarHeightContext.Provider value={tabBarHeight}>
+      <TabViewAdapter
+        {...props}
+        {...tabLabelStyle}
+        style={styles.fullWidth}
+        items={items}
+        icons={resolvedIconAssets}
+        selectedPage={focusedKey}
+        onTabLongPress={({ nativeEvent: { key } }) => {
+          const index = trimmedRoutes.findIndex((route) => route.key === key);
+          onTabLongPress?.(index);
+        }}
+        onPageSelected={({ nativeEvent: { key } }) => {
+          jumpTo(key);
+        }}
+        onTabBarMeasured={({ nativeEvent: { height } }) => {
+          setTabBarHeight(height);
+        }}
+        hapticFeedbackEnabled={hapticFeedbackEnabled}
+        activeTintColor={activeTintColor}
+        inactiveTintColor={inactiveTintColor}
+        barTintColor={barTintColor}
+        rippleColor={rippleColor}
+      >
+        {trimmedRoutes.map((route) => {
+          if (getLazy({ route }) !== false && !loaded.includes(route.key)) {
+            // Don't render a screen if we've never navigated to it
+            if (Platform.OS === 'android') {
+              return null;
+            }
+            return (
+              <View
+                key={route.key}
+                collapsable={false}
+                style={styles.fullWidth}
+              />
+            );
           }
+
+          const focused = route.key === focusedKey;
+          const opacity = focused ? 1 : 0;
+          const zIndex = focused ? 0 : -1;
+
           return (
             <View
               key={route.key}
               collapsable={false}
-              style={styles.fullWidth}
-            />
+              pointerEvents={focused ? 'auto' : 'none'}
+              accessibilityElementsHidden={!focused}
+              importantForAccessibility={
+                focused ? 'auto' : 'no-hide-descendants'
+              }
+              style={
+                Platform.OS === 'android'
+                  ? [StyleSheet.absoluteFill, { zIndex, opacity }]
+                  : styles.fullWidth
+              }
+            >
+              {renderScene({
+                route,
+                jumpTo,
+              })}
+            </View>
           );
-        }
-
-        const focused = route.key === focusedKey;
-        const opacity = focused ? 1 : 0;
-        const zIndex = focused ? 0 : -1;
-
-        return (
-          <View
-            key={route.key}
-            collapsable={false}
-            pointerEvents={focused ? 'auto' : 'none'}
-            accessibilityElementsHidden={!focused}
-            importantForAccessibility={focused ? 'auto' : 'no-hide-descendants'}
-            style={
-              Platform.OS === 'android'
-                ? [StyleSheet.absoluteFill, { zIndex, opacity }]
-                : styles.fullWidth
-            }
-          >
-            {renderScene({
-              route,
-              jumpTo,
-            })}
-          </View>
-        );
-      })}
-    </TabViewAdapter>
+        })}
+      </TabViewAdapter>
+    </BottomTabBarHeightContext.Provider>
   );
 };
 
