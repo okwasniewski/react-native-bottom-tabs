@@ -265,3 +265,38 @@ React.useEffect(() => {
   return unsubscribe;
 }, [navigation]);
 ```
+
+### Hooks
+
+`useBottomTabBarHeight`
+
+This hook returns the height of the bottom tab bar. This is useful when you want to place a component above the tab bar on iOS. It's not needed to offset the content of the screen as the navigator does it automatically.
+
+```tsx
+import { useBottomTabBarHeight } from 'react-native-bottom-tabs';
+
+function MyComponent() {
+  const tabBarHeight = useBottomTabBarHeight();
+
+  return (
+    <ScrollView>
+      {/* Content */}
+      <View style={{ bottom: tabBarHeight }} />
+    </ScrollView>
+  );
+}
+```
+
+Alternatively, you can use the `BottomTabBarHeightContext` directly if you are using a class component or need it in a reusable component that can be used outside the bottom tab navigator:
+
+```tsx
+import { BottomTabBarHeightContext } from 'react-native-bottom-tabs';
+
+// ...
+
+<BottomTabBarHeightContext.Consumer>
+  {tabBarHeight => (
+    /* render something */
+  )}
+</BottomTabBarHeightContext.Consumer>
+```
