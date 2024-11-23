@@ -1,7 +1,8 @@
-import type {
-  ParamListBase,
-  TabNavigationState,
-  Route,
+import {
+  type ParamListBase,
+  type TabNavigationState,
+  type Route,
+  CommonActions,
 } from '@react-navigation/native';
 import type {
   NativeBottomTabDescriptorMap,
@@ -81,10 +82,9 @@ export default function NativeBottomTabView({
         if (event.defaultPrevented) {
           return;
         } else {
-          navigation.navigate({
-            key: route.key,
-            name: route.name,
-            merge: true,
+          navigation.dispatch({
+            ...CommonActions.navigate(route),
+            target: state.key,
           });
         }
       }}

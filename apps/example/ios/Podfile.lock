@@ -1594,7 +1594,7 @@ PODS:
     - React-Core
     - React-jsi
   - ReactTestApp-Resources (1.0.0-dev)
-  - RNGestureHandler (2.21.0):
+  - RNGestureHandler (2.21.2):
     - DoubleConversion
     - glog
     - RCT-Folly (= 2024.01.01.00)
@@ -1615,7 +1615,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNScreens (3.35.0):
+  - RNScreens (4.3.0):
     - DoubleConversion
     - glog
     - RCT-Folly (= 2024.01.01.00)
@@ -1636,9 +1636,9 @@ PODS:
     - ReactCodegen
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
-    - RNScreens/common (= 3.35.0)
+    - RNScreens/common (= 4.3.0)
     - Yoga
-  - RNScreens/common (3.35.0):
+  - RNScreens/common (4.3.0):
     - DoubleConversion
     - glog
     - RCT-Folly (= 2024.01.01.00)
@@ -1975,8 +1975,8 @@ SPEC CHECKSUMS:
   ReactNativeHost: a3cd2bc15b6deac7439318607ce5637d8a93a117
   ReactTestApp-DevSupport: ce66fc1bbcf598d7e90616db390a0274c13e14e7
   ReactTestApp-Resources: 9c387cfe7185736e6a9045e5aa3e085367be6aa3
-  RNGestureHandler: 4f0384d607f005e33ac8acae4a8ace325fea883f
-  RNScreens: d4551ceaec50b2fd6648e36d2e47dd42ef9ccfef
+  RNGestureHandler: 492b1d415a25506d1dc612e6a14932b1e697d835
+  RNScreens: 16a61c0a9fe4cd69af6489b8d10ba580b5e22ed0
   RNVectorIcons: a1344e212e80e6e0f4537a9960148201175f4225
   SDWebImage: 73c6079366fea25fa4bb9640d5fb58f0893facd8
   SDWebImageSVGCoder: 15a300a97ec1c8ac958f009c02220ac0402e936c
