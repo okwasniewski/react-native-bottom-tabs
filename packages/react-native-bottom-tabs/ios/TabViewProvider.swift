@@ -11,7 +11,7 @@ import SDWebImageSVGCoder
   @objc public let sfSymbol: String
   @objc public let activeTintColor: UIColor?
   @objc public let hidden: Bool
-  
+
   @objc
   public init(
     key: String,
@@ -34,6 +34,7 @@ import SDWebImageSVGCoder
 @objc public protocol TabViewProviderDelegate {
   func onPageSelected(key: String, reactTag: NSNumber?)
   func onLongPress(key: String, reactTag: NSNumber?)
+  func onTabBarMeasured(height: Int, reactTag: NSNumber?)
 }
 
 @objc public class TabViewProvider: UIView {
@@ -46,6 +47,7 @@ import SDWebImageSVGCoder
   @objc var onPageSelected: RCTDirectEventBlock?
 
   @objc var onTabLongPress: RCTDirectEventBlock?
+  @objc var onTabBarMeasured: RCTDirectEventBlock?
 
   @objc public var icons: NSArray? {
     didSet {
@@ -131,19 +133,19 @@ import SDWebImageSVGCoder
       props.inactiveTintColor = inactiveTintColor
     }
   }
-  
+
   @objc public var fontFamily: NSString? {
     didSet {
       props.fontFamily = fontFamily as? String
     }
   }
-  
+
   @objc public var fontWeigth: NSString? {
     didSet {
       props.fontWeight = fontWeigth as? String
     }
   }
-  
+
   @objc public var fontSize: NSNumber? {
     didSet {
       props.fontSize = fontSize as? Int
@@ -182,7 +184,10 @@ import SDWebImageSVGCoder
       self.delegate?.onPageSelected(key: key, reactTag: self.reactTag)
     } onLongPress: { key in
       self.delegate?.onLongPress(key: key, reactTag: self.reactTag)
+    } onTabBarMeasured: { height in
+      self.delegate?.onTabBarMeasured(height: height, reactTag: self.reactTag)
     })
+
     if let hostingController = self.hostingController, let parentViewController = reactViewController() {
       parentViewController.addChild(hostingController)
       addSubview(hostingController.view)
@@ -196,27 +201,27 @@ import SDWebImageSVGCoder
     // TODO: Diff the arrays and update only changed items.
     // Now if the user passes `unfocusedIcon` we update every item.
     guard let imageSources = icons as? [RCTImageSource?] else { return }
-    
+
     for (index, imageSource) in imageSources.enumerated() {
       guard let imageSource = imageSource,
             let url = imageSource.request.url else { continue }
-      
+
       let isSVG = url.pathExtension.lowercased() == "svg"
-      
+
       var options: SDWebImageOptions = [.continueInBackground,
                                         .scaleDownLargeImages,
                                         .avoidDecodeImage,
                                         .highPriority]
-      
+
       if isSVG {
         options.insert(.decodeFirstFrameOnly)
       }
-      
+
       let context: [SDWebImageContextOption: Any]? = isSVG ? [
         .imageThumbnailPixelSize: iconSize,
         .imagePreserveAspectRatio: true
       ] : nil
-      
+
       SDWebImageManager.shared.loadImage(
         with: url,
         options: options,

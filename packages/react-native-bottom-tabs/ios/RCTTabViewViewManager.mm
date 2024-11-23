@@ -30,6 +30,7 @@ RCT_EXPORT_MODULE(RNCTabView)
 RCT_EXPORT_VIEW_PROPERTY(items, NSArray)
 RCT_EXPORT_VIEW_PROPERTY(onPageSelected, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onTabLongPress, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onTabBarMeasured, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(selectedPage, NSString)
 RCT_EXPORT_VIEW_PROPERTY(tabViewStyle, NSString)
 RCT_EXPORT_VIEW_PROPERTY(icons, NSArray<RCTImageSource *>);
@@ -56,6 +57,11 @@ RCT_EXPORT_VIEW_PROPERTY(fontSize, NSNumber)
 
 - (void)onPageSelectedWithKey:(NSString *)key reactTag:(NSNumber *)reactTag {
   auto event = [[PageSelectedEvent alloc] initWithReactTag:reactTag key:key coalescingKey:_coalescingKey++];
+  [self.bridge.eventDispatcher sendEvent:event];
+}
+
+- (void)onTabBarMeasuredWithHeight:(NSInteger)height reactTag:(NSNumber *)reactTag {
+  auto event = [[TabBarMeasuredEvent alloc] initWithReactTag:reactTag height:height coalescingKey:_coalescingKey++];
   [self.bridge.eventDispatcher sendEvent:event];
 }
 

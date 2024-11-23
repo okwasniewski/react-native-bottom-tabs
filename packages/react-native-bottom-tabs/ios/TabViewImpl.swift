@@ -55,10 +55,11 @@ struct RepresentableView: UIViewRepresentable {
  */
 struct TabViewImpl: View {
   @ObservedObject var props: TabViewProps
-  var onSelect: (_ key: String) -> Void
-  var onLongPress: (_ key: String) -> Void
   @Weak var tabBar: UITabBar?
 
+  var onSelect: (_ key: String) -> Void
+  var onLongPress: (_ key: String) -> Void
+  var onTabBarMeasured: (_ height: Int) -> Void
 
   var body: some View {
     TabView(selection: $props.selectedPage) {
@@ -83,6 +84,9 @@ struct TabViewImpl: View {
 #endif
     .introspectTabView(closure: { tabController in
       tabBar = tabController.tabBar
+      onTabBarMeasured(
+        Int(tabController.tabBar.frame.size.height)
+      )
     })
     .configureAppearance(props: props, tabBar: tabBar)
     .tintColor(props.selectedActiveTintColor)
