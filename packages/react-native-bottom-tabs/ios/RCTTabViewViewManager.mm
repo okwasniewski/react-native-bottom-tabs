@@ -60,6 +60,11 @@ RCT_EXPORT_VIEW_PROPERTY(fontSize, NSNumber)
   [self.bridge.eventDispatcher sendEvent:event];
 }
 
+- (void)onTabBarMeasuredWithHeight:(NSInteger)height reactTag:(NSNumber *)reactTag {
+  auto event = [[TabBarMeasuredEvent alloc] initWithReactTag:reactTag height:height coalescingKey:_coalescingKey++];
+  [self.bridge.eventDispatcher sendEvent:event];
+}
+
 - (UIView *)view
 {
   return [[TabViewProvider alloc] initWithDelegate:self];
