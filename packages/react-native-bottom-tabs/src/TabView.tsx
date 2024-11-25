@@ -294,25 +294,8 @@ const TabView = <Route extends BaseRoute>({
             );
           }
 
-          const focused = route.key === focusedKey;
-          const opacity = focused ? 1 : 0;
-          const zIndex = focused ? 0 : -1;
-
           return (
-            <View
-              key={route.key}
-              collapsable={false}
-              pointerEvents={focused ? 'auto' : 'none'}
-              accessibilityElementsHidden={!focused}
-              importantForAccessibility={
-                focused ? 'auto' : 'no-hide-descendants'
-              }
-              style={
-                Platform.OS === 'android'
-                  ? [StyleSheet.absoluteFill, { zIndex, opacity }]
-                  : styles.fullWidth
-              }
-            >
+            <View key={route.key} collapsable={false} style={styles.fullWidth}>
               {renderScene({
                 route,
                 jumpTo,

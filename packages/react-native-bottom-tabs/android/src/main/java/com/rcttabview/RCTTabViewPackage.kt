@@ -9,7 +9,7 @@ import java.util.ArrayList
 class RCTTabViewPackage : ReactPackage {
   override fun createViewManagers(reactContext: ReactApplicationContext): List<ViewManager<*, *>> {
     val viewManagers: MutableList<ViewManager<*, *>> = ArrayList()
-    viewManagers.add(RCTTabViewManager(reactContext))
+    viewManagers.add(RCTTabViewManager())
     return viewManagers
   }
 

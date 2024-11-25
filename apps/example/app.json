@@ -9,6 +9,9 @@
       "slug": "bottomtabs-example"
     }
   ],
+  "plugins": [
+    [["react-native-edge-to-edge"], { "android": { "parentTheme": "Material3" }}]
+  ],
   "resources": {
     "android": [
       "dist/res",

@@ -1,10 +1,6 @@
 package com.rcttabview
 
 import android.content.res.ColorStateList
-import android.graphics.Color
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.facebook.react.bridge.ReactContext
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.common.MapBuilder
 
@@ -21,7 +17,7 @@ class RCTTabViewImpl {
     return NAME
   }
 
-  fun setItems(view: ReactBottomNavigationView, items: ReadableArray) {
+  fun setItems(view: RCTTabView, items: ReadableArray) {
     val itemsArray = mutableListOf<TabInfo>()
     for (i in 0 until items.size()) {
       items.getMap(i).let { item ->
@@ -39,47 +35,47 @@ class RCTTabViewImpl {
     view.updateItems(itemsArray)
   }
 
-  fun setSelectedPage(view: ReactBottomNavigationView, key: String) {
+  fun setSelectedPage(view: RCTTabView, key: String) {
     view.items?.indexOfFirst { it.key == key }?.let {
-      view.selectedItemId = it
+      view.setSelectedItemId(it)
     }
   }
 
-  fun setLabeled(view: ReactBottomNavigationView, flag: Boolean?) {
+  fun setLabeled(view: RCTTabView, flag: Boolean?) {
     view.setLabeled(flag)
   }
 
-  fun setIcons(view: ReactBottomNavigationView, icons: ReadableArray?) {
+  fun setIcons(view: RCTTabView, icons: ReadableArray?) {
     view.setIcons(icons)
   }
 
-  fun setBarTintColor(view: ReactBottomNavigationView, color: Int?) {
+  fun setBarTintColor(view: RCTTabView, color: Int?) {
     view.setBarTintColor(color)
   }
 
-  fun setRippleColor(view: ReactBottomNavigationView, rippleColor: Int?) {
+  fun setRippleColor(view: RCTTabView, rippleColor: Int?) {
     if (rippleColor != null) {
       val color = ColorStateList.valueOf(rippleColor)
       view.setRippleColor(color)
     }
   }
 
-  fun setActiveIndicatorColor(view: ReactBottomNavigationView, color: Int?) {
+  fun setActiveIndicatorColor(view: RCTTabView, color: Int?) {
     if (color != null) {
       val color = ColorStateList.valueOf(color)
       view.setActiveIndicatorColor(color)
     }
   }
 
-  fun setActiveTintColor(view: ReactBottomNavigationView, color: Int?) {
+  fun setActiveTintColor(view: RCTTabView, color: Int?) {
     view.setActiveTintColor(color)
   }
 
-  fun setInactiveTintColor(view: ReactBottomNavigationView, color: Int?) {
+  fun setInactiveTintColor(view: RCTTabView, color: Int?) {
     view.setInactiveTintColor(color)
   }
 
-  fun setHapticFeedbackEnabled(view: ReactBottomNavigationView, enabled: Boolean) {
+  fun setHapticFeedbackEnabled(view: RCTTabView, enabled: Boolean) {
    view.setHapticFeedback(enabled)
   }
 
@@ -94,26 +90,5 @@ class RCTTabViewImpl {
 
   companion object {
     const val NAME = "RNCTabView"
-
-    // Detect `react-native-edge-to-edge` (https://github.com/zoontek/react-native-edge-to-edge)
-    private val EDGE_TO_EDGE = try {
-      Class.forName("com.zoontek.rnedgetoedge.EdgeToEdgePackage")
-      true
-    } catch (exception: ClassNotFoundException) {
-      false
-    }
-
-    fun getNavigationBarInset(context: ReactContext): Int {
-      val window = context.currentActivity?.window
-
-      val isSystemBarTransparent = EDGE_TO_EDGE || window?.navigationBarColor == Color.TRANSPARENT
-
-      if (!isSystemBarTransparent) {
-        return 0
-      }
-
-      val windowInsets = ViewCompat.getRootWindowInsets(window?.decorView ?: return 0)
-      return windowInsets?.getInsets(WindowInsetsCompat.Type.navigationBars())?.bottom ?: 0
-    }
   }
 }
