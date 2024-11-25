@@ -1,4 +1,4 @@
-package com.rcttabview
+package com.rcttabview.events
 
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.WritableMap

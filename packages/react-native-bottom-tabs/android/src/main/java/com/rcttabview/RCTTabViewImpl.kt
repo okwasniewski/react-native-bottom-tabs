@@ -3,6 +3,9 @@ package com.rcttabview
 import android.content.res.ColorStateList
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.common.MapBuilder
+import com.rcttabview.events.OnNativeLayoutEvent
+import com.rcttabview.events.PageSelectedEvent
+import com.rcttabview.events.TabLongPressEvent
 
 data class TabInfo(
   val key: String,
@@ -84,7 +87,9 @@ class RCTTabViewImpl {
       PageSelectedEvent.EVENT_NAME,
       MapBuilder.of("registrationName", "onPageSelected"),
       TabLongPressEvent.EVENT_NAME,
-      MapBuilder.of("registrationName", "onTabLongPress")
+      MapBuilder.of("registrationName", "onTabLongPress"),
+      OnNativeLayoutEvent.EVENT_NAME,
+      MapBuilder.of("registrationName", "onNativeLayout")
     )
   }
 

@@ -7,6 +7,9 @@ import com.facebook.react.uimanager.annotations.ReactProp
 import com.facebook.react.uimanager.events.EventDispatcher
 import com.facebook.react.uimanager.UIManagerModule
 import com.facebook.react.uimanager.ViewGroupManager
+import com.rcttabview.events.OnNativeLayoutEvent
+import com.rcttabview.events.PageSelectedEvent
+import com.rcttabview.events.TabLongPressEvent
 
 @ReactModule(name = RCTTabViewImpl.NAME)
 class RCTTabViewManager() : ViewGroupManager<RCTTabView>() {
@@ -25,11 +28,13 @@ class RCTTabViewManager() : ViewGroupManager<RCTTabView>() {
         eventDispatcher.dispatchEvent(PageSelectedEvent(viewTag = view.id, key = it))
       }
     }
-
     view.onTabLongPressedListener = { data ->
       data.getString("key")?.let {
         eventDispatcher.dispatchEvent(TabLongPressEvent(viewTag = view.id, key = it))
       }
+    }
+    view.onNativeLayoutListener = { width, height ->
+      eventDispatcher.dispatchEvent(OnNativeLayoutEvent(viewTag = view.id, width, height))
     }
     return view
   }

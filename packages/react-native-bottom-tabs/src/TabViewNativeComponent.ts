@@ -2,6 +2,7 @@ import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNati
 import type { ColorValue, ProcessedColorValue, ViewProps } from 'react-native';
 import type {
   DirectEventHandler,
+  Double,
   Int32,
   WithDefault,
 } from 'react-native/Libraries/Types/CodegenTypes';
@@ -14,6 +15,11 @@ export type OnPageSelectedEventData = Readonly<{
 
 export type OnTabBarMeasured = Readonly<{
   height: Int32;
+}>;
+
+export type OnNativeLayoutEventData = Readonly<{
+  width: Double;
+  height: Double;
 }>;
 
 export type TabViewItems = ReadonlyArray<{
@@ -30,6 +36,7 @@ export interface TabViewProps extends ViewProps {
   selectedPage: string;
   onPageSelected?: DirectEventHandler<OnPageSelectedEventData>;
   onTabLongPress?: DirectEventHandler<OnPageSelectedEventData>;
+  onNativeLayout?: DirectEventHandler<OnNativeLayoutEventData>;
   onTabBarMeasured?: DirectEventHandler<OnTabBarMeasured>;
   icons?: ReadonlyArray<ImageSource>;
   labeled?: boolean;

@@ -1,14 +1,14 @@
-package com.rcttabview
+package com.rcttabview.events
 
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.uimanager.events.Event
 import com.facebook.react.uimanager.events.RCTEventEmitter
 
-class TabLongPressEvent(viewTag: Int, private val key: String) :
+class OnNativeLayoutEvent(viewTag: Int, private val width: Double, private val height: Double) :
   Event<TabLongPressEvent>(viewTag) {
 
   companion object {
-    const val EVENT_NAME = "onTabLongPress"
+    const val EVENT_NAME = "onNativeLayout"
   }
 
   override fun getEventName(): String {
@@ -17,7 +17,8 @@ class TabLongPressEvent(viewTag: Int, private val key: String) :
 
   override fun dispatch(rctEventEmitter: RCTEventEmitter) {
     val event = Arguments.createMap().apply {
-      putString("key", key)
+      putDouble("width", width)
+      putDouble("height", height)
     }
     rctEventEmitter.receiveEvent(viewTag, eventName, event)
   }
