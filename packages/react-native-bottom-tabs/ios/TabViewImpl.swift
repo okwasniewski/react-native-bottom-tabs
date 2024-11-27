@@ -195,9 +195,6 @@ private func createFontAttributes(
 ) -> [NSAttributedString.Key: Any] {
   var attributes: [NSAttributedString.Key: Any] = [:]
 
-  if let inactiveTintColor {
-    attributes[.foregroundColor] = inactiveTintColor
-  }
 
   if family != nil || weight != nil {
     attributes[.font] = RCTFont.update(
@@ -258,12 +255,16 @@ private func configureStandardAppearance(tabBar: UITabBar, props: TabViewProps) 
   let itemAppearance = UITabBarItemAppearance()
   let fontSize = props.fontSize != nil ? CGFloat(props.fontSize!) : tabBarDefaultFontSize
 
-  let attributes = createFontAttributes(
+  var attributes = createFontAttributes(
     size: fontSize,
     family: props.fontFamily,
     weight: props.fontWeight,
     inactiveTintColor: props.inactiveTintColor
   )
+  
+  if let inactiveTintColor = props.inactiveTintColor {
+    attributes[.foregroundColor] = inactiveTintColor
+  }
 
   if let inactiveTintColor = props.inactiveTintColor {
     itemAppearance.normal.iconColor = inactiveTintColor
