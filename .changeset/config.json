@@ -16,5 +16,9 @@
     "react-native-bottom-tabs-docs",
     "react-native-bottom-tabs-example",
     "example-expo"
-  ]
+  ],
+  "bumpVersionsWithWorkspaceProtocolOnly": true,
+  "___experimentalUnsafeOptions_WILL_CHANGE_IN_PATCH": {
+    "onlyUpdatePeerDependentsWhenOutOfRange": true
+  }
 }
