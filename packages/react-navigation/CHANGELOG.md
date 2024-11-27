@@ -1,5 +1,11 @@
 # @bottom-tabs/react-navigation
 
+## 0.7.0
+
+### Minor Changes
+
+- af0c62a: feat: migrate to React Navigation v7
+
 ## 0.6.1
 
 ### Patch Changes
