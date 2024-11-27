@@ -131,7 +131,7 @@ Whether to disable animations between tabs.
 
 Whether to enable haptic feedback on tab press.
 - Type: `boolean`
-- Default: `true`
+- Default: `false`
 
 
 #### `tabLabelStyle`

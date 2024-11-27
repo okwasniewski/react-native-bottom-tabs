@@ -21,7 +21,7 @@ class TabViewProps: ObservableObject {
   @Published var translucent: Bool = true
   @Published var ignoresTopSafeArea: Bool = true
   @Published var disablePageAnimations: Bool = false
-  @Published var hapticFeedbackEnabled: Bool = true
+  @Published var hapticFeedbackEnabled: Bool = false
   @Published var fontSize: Int?
   @Published var fontFamily: String?
   @Published var fontWeight: String?

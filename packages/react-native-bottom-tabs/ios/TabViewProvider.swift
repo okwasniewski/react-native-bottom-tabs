@@ -92,7 +92,7 @@ import SDWebImageSVGCoder
     }
   }
 
-  @objc public var hapticFeedbackEnabled: Bool = true {
+  @objc public var hapticFeedbackEnabled: Bool = false {
     didSet {
       props.hapticFeedbackEnabled = hapticFeedbackEnabled
     }

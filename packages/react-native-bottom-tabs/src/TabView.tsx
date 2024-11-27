@@ -164,7 +164,7 @@ const TabView = <Route extends BaseRoute>({
   barTintColor,
   getHidden = ({ route }: { route: Route }) => route.hidden,
   getActiveTintColor = ({ route }: { route: Route }) => route.activeTintColor,
-  hapticFeedbackEnabled = true,
+  hapticFeedbackEnabled = false,
   tabLabelStyle,
   ...props
 }: Props<Route>) => {
