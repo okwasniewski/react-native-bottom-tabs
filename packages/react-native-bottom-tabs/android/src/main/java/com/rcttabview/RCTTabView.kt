@@ -41,7 +41,7 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
   private var inactiveTintColor: Int? = null
   private val checkedStateSet = intArrayOf(android.R.attr.state_checked)
   private val uncheckedStateSet = intArrayOf(-android.R.attr.state_checked)
-  private var hapticFeedbackEnabled = true
+  private var hapticFeedbackEnabled = false
   private var fontSize: Int? = null
   private var fontFamily: String? = null
   private var fontWeight: Int? = null
