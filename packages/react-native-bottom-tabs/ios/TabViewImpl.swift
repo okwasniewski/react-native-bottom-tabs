@@ -59,6 +59,7 @@ struct TabViewImpl: View {
 
   var onSelect: (_ key: String) -> Void
   var onLongPress: (_ key: String) -> Void
+  var onLayout: (_ size: CGSize) -> Void
   var onTabBarMeasured: (_ height: Int) -> Void
 
   var body: some View {
@@ -66,6 +67,9 @@ struct TabViewImpl: View {
       ForEach(props.children.indices, id: \.self) { index in
         renderTabItem(at: index)
       }
+      .measureView(onLayout: { size in
+        onLayout(size)
+      })
     }
 #if !os(tvOS)
     .onTabItemEvent({ index, isLongPress in
@@ -326,13 +330,10 @@ extension View {
   ) -> some View {
     if flag {
       self
-        .ignoresSafeArea(.container, edges: .all)
-        .frame(idealWidth: frame.width, idealHeight: frame.height)
+        .ignoresSafeArea(.container, edges: .vertical)
     } else {
       self
-        .ignoresSafeArea(.container, edges: .horizontal)
         .ignoresSafeArea(.container, edges: .bottom)
-        .frame(idealWidth: frame.width, idealHeight: frame.height)
     }
   }
 

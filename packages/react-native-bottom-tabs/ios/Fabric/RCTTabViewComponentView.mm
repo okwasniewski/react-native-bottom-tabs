@@ -232,6 +232,16 @@ NSArray* convertItemsToArray(const std::vector<RNCTabViewItemsStruct>& items) {
   }
 }
 
+- (void)onLayoutWithSize:(CGSize)size reactTag:(NSNumber *)reactTag {
+  auto eventEmitter = std::static_pointer_cast<const RNCTabViewEventEmitter>(_eventEmitter);
+  if (eventEmitter) {
+    eventEmitter->onNativeLayout(RNCTabViewEventEmitter::OnNativeLayout {
+      .height = size.height,
+      .width = size.width
+    });
+  }
+}
+
 @end
 
 Class<RCTComponentViewProtocol> RNCTabViewCls(void)

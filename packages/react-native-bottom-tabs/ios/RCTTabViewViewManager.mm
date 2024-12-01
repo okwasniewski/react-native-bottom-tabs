@@ -65,6 +65,11 @@ RCT_EXPORT_VIEW_PROPERTY(fontSize, NSNumber)
   [self.bridge.eventDispatcher sendEvent:event];
 }
 
+- (void)onLayoutWithSize:(CGSize)size reactTag:(NSNumber *)reactTag {
+  auto event = [[OnNativeLayoutEvent alloc] initWithReactTag:reactTag size:size coalescingKey:_coalescingKey++];
+  [self.bridge.eventDispatcher sendEvent:event];
+}
+
 - (UIView *)view
 {
   return [[TabViewProvider alloc] initWithDelegate:self];

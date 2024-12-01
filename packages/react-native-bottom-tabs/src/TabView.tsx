@@ -171,6 +171,9 @@ const TabView = <Route extends BaseRoute>({
   // @ts-ignore
   const focusedKey = navigationState.routes[navigationState.index].key;
   const [tabBarHeight, setTabBarHeight] = React.useState<number | undefined>(0);
+  const [measuredDimensions, setMeasuredDimensions] = React.useState<
+    { width: number; height: number } | undefined
+  >();
 
   const trimmedRoutes = React.useMemo(() => {
     if (
@@ -273,6 +276,9 @@ const TabView = <Route extends BaseRoute>({
         onTabBarMeasured={({ nativeEvent: { height } }) => {
           setTabBarHeight(height);
         }}
+        onNativeLayout={({ nativeEvent: { width, height } }) => {
+          setMeasuredDimensions({ width, height });
+        }}
         hapticFeedbackEnabled={hapticFeedbackEnabled}
         activeTintColor={activeTintColor}
         inactiveTintColor={inactiveTintColor}
@@ -310,7 +316,7 @@ const TabView = <Route extends BaseRoute>({
               style={
                 Platform.OS === 'android'
                   ? [StyleSheet.absoluteFill, { zIndex, opacity }]
-                  : styles.fullWidth
+                  : [{ position: 'absolute' }, measuredDimensions]
               }
             >
               {renderScene({
