@@ -6,6 +6,7 @@ import android.content.res.ColorStateList
 import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Build
 import android.util.Log
 import android.util.TypedValue
@@ -180,10 +181,27 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
     itemRippleColor = color
   }
 
+  private fun formatUri(uri: Uri): Uri {
+    return when (uri.scheme) {
+      "res" -> {
+        val uriString = uri.toString()
+        val parts = uriString.split(":/")
+        
+        if (parts.size > 1) {
+          val resourceId = parts[1].toIntOrNull()
+          Uri.parse("android.resource://${context.packageName}/${resourceId}")
+        } else {
+          uri
+        }
+      }
+      else -> uri
+    }
+  }
+
   @SuppressLint("CheckResult")
   private fun getDrawable(imageSource: ImageSource, onDrawableReady: (Drawable?) -> Unit) {
     val request = ImageRequest.Builder(context)
-      .data(imageSource.uri)
+      .data(formatUri(imageSource.uri))
       .target { drawable ->
         post { onDrawableReady(drawable.asDrawable(context.resources)) }
       }
