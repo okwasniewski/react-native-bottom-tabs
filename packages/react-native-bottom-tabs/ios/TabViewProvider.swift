@@ -49,6 +49,7 @@ public final class TabInfo: NSObject {
 
   @objc var onTabLongPress: RCTDirectEventBlock?
   @objc var onTabBarMeasured: RCTDirectEventBlock?
+  @objc var onNativeLayout: RCTDirectEventBlock?
 
   @objc public var icons: NSArray? {
     didSet {

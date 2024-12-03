@@ -18,6 +18,10 @@ public class OnNativeLayoutEvent: NSObject, RCTEvent {
   public class func moduleDotMethod() -> String {
     return "RCTEventEmitter.receiveEvent"
   }
+  
+  public func canCoalesce() -> Bool {
+      return false
+  }
 
   public func arguments() -> [Any] {
     return [

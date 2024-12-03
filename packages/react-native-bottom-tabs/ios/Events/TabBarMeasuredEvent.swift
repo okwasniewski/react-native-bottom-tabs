@@ -19,6 +19,10 @@ public class TabBarMeasuredEvent: NSObject, RCTEvent {
     return "RCTEventEmitter.receiveEvent"
   }
   
+  public func canCoalesce() -> Bool {
+      return false
+  }
+  
   public func arguments() -> [Any] {
     return [
       viewTag,
