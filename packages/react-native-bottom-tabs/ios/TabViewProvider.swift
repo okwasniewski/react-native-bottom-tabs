@@ -4,15 +4,15 @@ import React
 import SDWebImage
 import SDWebImageSVGCoder
 
-@objc public final class TabInfo: NSObject {
-  @objc public let key: String
-  @objc public let title: String
-  @objc public let badge: String
-  @objc public let sfSymbol: String
-  @objc public let activeTintColor: UIColor?
-  @objc public let hidden: Bool
+@objcMembers
+public final class TabInfo: NSObject {
+  public let key: String
+  public let title: String
+  public let badge: String
+  public let sfSymbol: String
+  public let activeTintColor: UIColor?
+  public let hidden: Bool
 
-  @objc
   public init(
     key: String,
     title: String,
@@ -35,6 +35,7 @@ import SDWebImageSVGCoder
   func onPageSelected(key: String, reactTag: NSNumber?)
   func onLongPress(key: String, reactTag: NSNumber?)
   func onTabBarMeasured(height: Int, reactTag: NSNumber?)
+  func onLayout(size: CGSize, reactTag: NSNumber?)
 }
 
 @objc public class TabViewProvider: UIView {
@@ -184,6 +185,8 @@ import SDWebImageSVGCoder
       self.delegate?.onPageSelected(key: key, reactTag: self.reactTag)
     } onLongPress: { key in
       self.delegate?.onLongPress(key: key, reactTag: self.reactTag)
+    } onLayout: { size  in
+      self.delegate?.onLayout(size: size, reactTag: self.reactTag)
     } onTabBarMeasured: { height in
       self.delegate?.onTabBarMeasured(height: height, reactTag: self.reactTag)
     })

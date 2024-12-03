@@ -1,30 +1,31 @@
 import React
 
 @objcMembers
-public class TabBarMeasuredEvent: NSObject, RCTEvent {
-  private var height: NSInteger
+public class OnNativeLayoutEvent: NSObject, RCTEvent {
+  private var size: CGSize
   public var viewTag: NSNumber
-  
+
   public var eventName: String {
-    return "onTabBarMeasured"
+    return "onNativeLayout"
   }
-  
-  public init(reactTag: NSNumber, height: NSInteger) {
+
+  public init(reactTag: NSNumber, size: CGSize) {
     self.viewTag = reactTag
-    self.height = height
+    self.size = size
     super.init()
   }
-  
+
   public class func moduleDotMethod() -> String {
     return "RCTEventEmitter.receiveEvent"
   }
-  
+
   public func arguments() -> [Any] {
     return [
       viewTag,
       RCTNormalizeInputEventName(eventName) ?? eventName,
       [
-        "height": height
+        "width": size.width,
+        "height": size.height
       ]
     ]
   }

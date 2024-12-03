@@ -50,4 +50,23 @@ extension View {
         customize: closure
       )
   }
+  
+  
+  @MainActor
+  @ViewBuilder
+  func measureView(onLayout: @escaping (_ size: CGSize) -> Void) -> some View {
+    self
+      .background (
+        GeometryReader { geometry in
+          Color.clear
+            .onChange(of: geometry.size) { newValue in
+              onLayout(newValue)
+            }
+            .onAppear {
+              onLayout(geometry.size)
+            }
+        }
+          .ignoresSafeArea(.container, edges: .vertical)
+      )
+  }
 }

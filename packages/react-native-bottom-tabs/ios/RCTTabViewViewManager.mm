@@ -12,20 +12,9 @@
 @interface RCTTabView : RCTViewManager <TabViewProviderDelegate>
 @end
 
-@implementation RCTTabView {
-  uint16_t _coalescingKey;
-}
+@implementation RCTTabView
 
 RCT_EXPORT_MODULE(RNCTabView)
-
-- (instancetype)init
-{
-  self = [super init];
-  if (self) {
-    _coalescingKey = 0;
-  }
-  return self;
-}
 
 RCT_EXPORT_VIEW_PROPERTY(items, NSArray)
 RCT_EXPORT_VIEW_PROPERTY(onPageSelected, RCTDirectEventBlock)
@@ -51,17 +40,22 @@ RCT_EXPORT_VIEW_PROPERTY(fontSize, NSNumber)
 //  MARK: TabViewProviderDelegate
 
 - (void)onLongPressWithKey:(NSString *)key reactTag:(NSNumber *)reactTag {
-  auto event = [[TabLongPressEvent alloc] initWithReactTag:reactTag key:key coalescingKey:_coalescingKey++];
+  auto event = [[TabLongPressEvent alloc] initWithReactTag:reactTag key:key];
   [self.bridge.eventDispatcher sendEvent:event];
 }
 
 - (void)onPageSelectedWithKey:(NSString *)key reactTag:(NSNumber *)reactTag {
-  auto event = [[PageSelectedEvent alloc] initWithReactTag:reactTag key:key coalescingKey:_coalescingKey++];
+  auto event = [[PageSelectedEvent alloc] initWithReactTag:reactTag key:key];
   [self.bridge.eventDispatcher sendEvent:event];
 }
 
 - (void)onTabBarMeasuredWithHeight:(NSInteger)height reactTag:(NSNumber *)reactTag {
-  auto event = [[TabBarMeasuredEvent alloc] initWithReactTag:reactTag height:height coalescingKey:_coalescingKey++];
+  auto event = [[TabBarMeasuredEvent alloc] initWithReactTag:reactTag height:height];
+  [self.bridge.eventDispatcher sendEvent:event];
+}
+
+- (void)onLayoutWithSize:(CGSize)size reactTag:(NSNumber *)reactTag {
+  auto event = [[OnNativeLayoutEvent alloc] initWithReactTag:reactTag size:size];
   [self.bridge.eventDispatcher sendEvent:event];
 }
 
