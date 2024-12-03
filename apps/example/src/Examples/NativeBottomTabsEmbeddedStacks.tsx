@@ -67,7 +67,7 @@ function ChatStackScreen() {
 
 function NativeBottomTabsEmbeddedStacks() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator sidebarAdaptable>
       <Tab.Screen
         name="Article"
         component={ArticleStackScreen}
