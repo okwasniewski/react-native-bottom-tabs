@@ -231,7 +231,7 @@ private func configureTransparentAppearance(tabBar: UITabBar, props: TabViewProp
     size: fontSize,
     family: props.fontFamily,
     weight: props.fontWeight,
-    inactiveTintColor: props.inactiveTintColor
+    inactiveTintColor: nil
   )
 
   items.forEach { item in
