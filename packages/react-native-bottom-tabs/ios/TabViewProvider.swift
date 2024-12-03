@@ -10,7 +10,7 @@ public final class TabInfo: NSObject {
   public let title: String
   public let badge: String
   public let sfSymbol: String
-  public let activeTintColor: UIColor?
+  public let activeTintColor: PlatformColor?
   public let hidden: Bool
 
   public init(
@@ -18,7 +18,7 @@ public final class TabInfo: NSObject {
     title: String,
     badge: String,
     sfSymbol: String,
-    activeTintColor: UIColor?,
+    activeTintColor: PlatformColor?,
     hidden: Bool
   ) {
     self.key = key
@@ -38,10 +38,10 @@ public final class TabInfo: NSObject {
   func onLayout(size: CGSize, reactTag: NSNumber?)
 }
 
-@objc public class TabViewProvider: UIView {
+@objc public class TabViewProvider: PlatformView {
   private var delegate: TabViewProviderDelegate?
   private var props = TabViewProps()
-  private var hostingController: UIHostingController<TabViewImpl>?
+  private var hostingController: PlatformHostingController<TabViewImpl>?
   private var coalescingKey: UInt16 = 0
   private var iconSize = CGSize(width: 27, height: 27)
 
@@ -57,7 +57,7 @@ public final class TabInfo: NSObject {
     }
   }
 
-  @objc public var children: [UIView] = [] {
+  @objc public var children: [PlatformView] = [] {
     didSet {
       props.children = children
     }
@@ -118,19 +118,19 @@ public final class TabInfo: NSObject {
     }
   }
 
-  @objc public var barTintColor: UIColor? {
+  @objc public var barTintColor: PlatformColor? {
     didSet {
       props.barTintColor = barTintColor
     }
   }
 
-  @objc public var activeTintColor: UIColor? {
+  @objc public var activeTintColor: PlatformColor? {
     didSet {
       props.activeTintColor = activeTintColor
     }
   }
 
-  @objc public var inactiveTintColor: UIColor? {
+  @objc public var inactiveTintColor: PlatformColor? {
     didSet {
       props.inactiveTintColor = inactiveTintColor
     }
@@ -172,17 +172,24 @@ public final class TabInfo: NSObject {
     props.children = reactSubviews()
   }
 
+#if os(macOS)
+  public override func layout() {
+    super.layout()
+    setupView()
+  }
+#else
   public override func layoutSubviews() {
     super.layoutSubviews()
     setupView()
   }
+#endif
 
   private func setupView() {
     if self.hostingController != nil {
       return
     }
 
-    self.hostingController = UIHostingController(rootView: TabViewImpl(props: props) { key in
+    self.hostingController = PlatformHostingController(rootView: TabViewImpl(props: props) { key in
       self.delegate?.onPageSelected(key: key, reactTag: self.reactTag)
     } onLongPress: { key in
       self.delegate?.onLongPress(key: key, reactTag: self.reactTag)
@@ -197,7 +204,9 @@ public final class TabInfo: NSObject {
       addSubview(hostingController.view)
       hostingController.view.translatesAutoresizingMaskIntoConstraints = false
       hostingController.view.pinEdges(to: self)
+#if !os(macOS)
       hostingController.didMove(toParent: parentViewController)
+#endif
     }
   }
 

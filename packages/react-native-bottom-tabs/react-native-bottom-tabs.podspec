@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.license      = package["license"]
   s.authors      = package["author"]
 
-  s.platforms    = { :ios => "14.0", :visionos => "1.0", :tvos => "15.1" }
+  s.platforms    = { :ios => "14.0", :visionos => "1.0", :tvos => "15.1", :macos => "11.0" }
   s.source       = { :git => "https://github.com/okwasniewski/react-native-bottom-tabs.git", :tag => "#{s.version}" }
 
   s.source_files = "ios/**/*.{h,m,mm,cpp,swift}"

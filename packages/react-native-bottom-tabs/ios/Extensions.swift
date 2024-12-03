@@ -1,13 +1,18 @@
 import Foundation
 import SwiftUI
 
+#if os(macOS)
+import AppKit
+#else
+import UIKit
+#endif
+
 extension Collection {
   // Returns the element at the specified index if it is within bounds, otherwise nil.
   subscript(safe index: Index) -> Element? {
     return indices.contains(index) ? self[index] : nil
   }
 }
-
 
 extension Collection where Element == TabInfo {
   func findByKey(_ key: String?) -> Element? {
@@ -17,8 +22,8 @@ extension Collection where Element == TabInfo {
   }
 }
 
-extension UIView {
-  func pinEdges(to other: UIView) {
+extension PlatformView {
+  func pinEdges(to other: PlatformView) {
     NSLayoutConstraint.activate([
       leadingAnchor.constraint(equalTo: other.leadingAnchor),
       trailingAnchor.constraint(equalTo: other.trailingAnchor),
@@ -28,17 +33,41 @@ extension UIView {
   }
 }
 
-extension UIImage {
-  func resizeImageTo(size: CGSize) -> UIImage? {
+extension PlatformImage {
+  func resizeImageTo(size: CGSize) -> PlatformImage? {
+#if os(macOS)
+    let newImage = NSImage(size: size, flipped: false) { (rect) -> Bool in
+      self.draw(in: rect,
+                from: CGRect(origin: .zero, size: self.size),
+                operation: .copy,
+                fraction: 1.0)
+      return true
+    }
+    return newImage
+#else
     UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
     self.draw(in: CGRect(origin: CGPoint.zero, size: size))
     let resizedImage = UIGraphicsGetImageFromCurrentImageContext()!
     UIGraphicsEndImageContext()
     return resizedImage
+#endif
   }
 }
 
 extension View {
+  
+#if os(macOS)
+  @MainActor
+  @ViewBuilder
+  func introspectTabView(closure: @escaping (NSTabView) -> Void) -> some View {
+    self
+      .introspect(
+        .tabView,
+        on: .macOS(.v11, .v12, .v13, .v14, .v15),
+        customize: closure
+      )
+  }
+#else
   @MainActor
   @ViewBuilder
   func introspectTabView(closure: @escaping (UITabBarController) -> Void) -> some View {
@@ -50,6 +79,7 @@ extension View {
         customize: closure
       )
   }
+#endif
   
   
   @MainActor
