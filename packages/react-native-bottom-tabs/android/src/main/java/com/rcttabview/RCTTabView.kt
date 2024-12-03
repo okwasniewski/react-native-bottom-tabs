@@ -23,7 +23,6 @@ import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.WritableMap
 import com.facebook.react.common.assets.ReactFontManager
 import com.facebook.react.modules.core.ReactChoreographer
-import com.facebook.react.views.imagehelper.ImageSource
 import com.facebook.react.views.text.ReactTypefaceUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import coil3.request.ImageRequest
@@ -31,12 +30,11 @@ import coil3.svg.SvgDecoder
 
 
 class ReactBottomNavigationView(context: Context) : BottomNavigationView(context) {
-  private val icons: MutableMap<Int, ImageSource> = mutableMapOf()
+  private val iconSources: MutableMap<Int, ImageSource> = mutableMapOf()
   private var isLayoutEnqueued = false
   var items: MutableList<TabInfo>? = null
   var onTabSelectedListener: ((WritableMap) -> Unit)? = null
   var onTabLongPressedListener: ((WritableMap) -> Unit)? = null
-  private var isAnimating = false
   private var activeTintColor: Int? = null
   private var inactiveTintColor: Int? = null
   private val checkedStateSet = intArrayOf(android.R.attr.state_checked)
@@ -91,7 +89,7 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
 
   private fun onTabSelected(item: MenuItem) {
     if (isLayoutEnqueued) {
-      return;
+      return
     }
     val selectedItem = items?.first { it.title == item.title }
     selectedItem?.let {
@@ -108,8 +106,8 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
     items.forEachIndexed { index, item ->
       val menuItem = getOrCreateItem(index, item.title)
       menuItem.isVisible = !item.hidden
-      if (icons.containsKey(index)) {
-        getDrawable(icons[index]!!)  {
+      if (iconSources.containsKey(index)) {
+        getDrawable(iconSources[index]!!)  {
           menuItem.icon = it
         }
       }
@@ -150,12 +148,9 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
       if (uri.isNullOrEmpty()) {
         continue
       }
-      val imageSource =
-      ImageSource(
-        context,
-        uri
-      )
-      this.icons[idx] = imageSource
+
+      val imageSource = ImageSource(context, uri)
+      this.iconSources[idx] = imageSource
 
       // Update existing item if exists.
       menu.findItem(idx)?.let { menuItem ->
@@ -183,7 +178,7 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
   @SuppressLint("CheckResult")
   private fun getDrawable(imageSource: ImageSource, onDrawableReady: (Drawable?) -> Unit) {
     val request = ImageRequest.Builder(context)
-      .data(imageSource.uri)
+      .data(imageSource.getUri(context))
       .target { drawable ->
         post { onDrawableReady(drawable.asDrawable(context.resources)) }
       }
@@ -195,11 +190,6 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
       .build()
 
     imageLoader.enqueue(request)
-  }
-
-  override fun onDetachedFromWindow() {
-    super.onDetachedFromWindow()
-    isAnimating = false
   }
 
   fun setBarTintColor(color: Int?) {
@@ -241,10 +231,10 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
     updateTextAppearance()
   }
 
- fun setFontWeight(weight: String?) {
-   val fontWeight = ReactTypefaceUtils.parseFontWeight(weight)
-   this.fontWeight = fontWeight
-   updateTextAppearance()
+  fun setFontWeight(weight: String?) {
+    val fontWeight = ReactTypefaceUtils.parseFontWeight(weight)
+    this.fontWeight = fontWeight
+    updateTextAppearance()
   }
 
   private fun getTypefaceStyle(weight: Int?) = when (weight) {
@@ -289,7 +279,7 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
     // First let's check current item color.
     val currentItemTintColor = items?.find { it.title == item?.title }?.activeTintColor
 
-    // getDeaultColor will always return a valid color but to satisfy the compiler we need to check for null
+    // getDefaultColor will always return a valid color but to satisfy the compiler we need to check for null
     val colorPrimary = currentItemTintColor ?: activeTintColor ?: getDefaultColorFor(android.R.attr.colorPrimary) ?: return
     val colorSecondary =
       inactiveTintColor ?: getDefaultColorFor(android.R.attr.textColorSecondary) ?: return
@@ -313,3 +303,6 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
     return baseColor.defaultColor
   }
 }
+
+
+
