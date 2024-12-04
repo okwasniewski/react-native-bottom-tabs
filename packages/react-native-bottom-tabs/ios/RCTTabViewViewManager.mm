@@ -2,9 +2,6 @@
 #import <React/RCTUIManager.h>
 #import <React/RCTImageLoader.h>
 #import <React/RCTBridge.h>
-#if TARGET_OS_OSX
-#import <React/RCTUIKit.h>
-#endif
 
 #if TARGET_OS_OSX
 #import <AppKit/AppKit.h>

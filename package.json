@@ -16,6 +16,7 @@
     "build:android": "turbo run build:android",
     "build:android:fabric": "turbo run build:android:fabric",
     "build:ios": "turbo run build:ios",
+    "build:macos": "turbo run build:macos",
     "build:ios-expo": "turbo run build:ios-expo",
     "build:android-expo": "turbo run build:android-expo",
     "publish-packages": "turbo run build lint && changeset version && changeset publish"

@@ -14,12 +14,12 @@ struct TabViewImpl: View {
 #else
   @Weak var tabBar: UITabBar?
 #endif
-  
+
   var onSelect: (_ key: String) -> Void
   var onLongPress: (_ key: String) -> Void
   var onLayout: (_ size: CGSize) -> Void
   var onTabBarMeasured: (_ height: Int) -> Void
-  
+
   var body: some View {
     TabView(selection: $props.selectedPage) {
       ForEach(props.children.indices, id: \.self) { index in
@@ -34,7 +34,7 @@ struct TabViewImpl: View {
       guard let key = props.items.filter({
         !$0.hidden || $0.key == props.selectedPage
       })[safe: index]?.key else { return }
-      
+
       if isLongPress {
         onLongPress(key)
         emitHapticFeedback(longPress: true)
@@ -73,17 +73,17 @@ struct TabViewImpl: View {
 #endif
     }
   }
-  
+
   @ViewBuilder
   private func renderTabItem(at index: Int) -> some View {
     let tabData = props.items[safe: index]
     let isHidden = tabData?.hidden ?? false
     let isFocused = props.selectedPage == tabData?.key
-    
+
     if !isHidden || isFocused {
       let child = props.children[safe: index] ?? PlatformView()
       let icon = props.icons[index]
-      
+
       RepresentableView(view: child)
         .ignoresTopSafeArea(
           props.ignoresTopSafeArea,
@@ -103,7 +103,7 @@ struct TabViewImpl: View {
 #if !os(macOS)
           updateTabBarAppearance(props: props, tabBar: tabBar)
 #endif
-          
+
 #if os(iOS)
           guard index >= 4,
                 let key = tabData?.key,
@@ -113,13 +113,13 @@ struct TabViewImpl: View {
         }
     }
   }
-  
+
   func emitHapticFeedback(longPress: Bool = false) {
 #if os(iOS)
     if !props.hapticFeedbackEnabled {
       return
     }
-    
+
     if longPress {
       UINotificationFeedbackGenerator().notificationOccurred(.success)
     } else {
@@ -132,12 +132,12 @@ struct TabViewImpl: View {
 #if !os(macOS)
 private func updateTabBarAppearance(props: TabViewProps, tabBar: UITabBar?) {
   guard let tabBar else { return }
-  
+
   if props.scrollEdgeAppearance == "transparent" {
     configureTransparentAppearance(tabBar: tabBar, props: props)
     return
   }
-  
+
   configureStandardAppearance(tabBar: tabBar, props: props)
 }
 #endif
@@ -149,8 +149,8 @@ private func createFontAttributes(
   inactiveTintColor: PlatformColor?
 ) -> [NSAttributedString.Key: Any] {
   var attributes: [NSAttributedString.Key: Any] = [:]
-  
-  
+
+
   if family != nil || weight != nil {
     attributes[.font] = RCTFont.update(
       nil,
@@ -164,7 +164,7 @@ private func createFontAttributes(
   } else {
     attributes[.font] = UIFont.boldSystemFont(ofSize: size)
   }
-  
+
   return attributes
 }
 
@@ -180,9 +180,9 @@ private func configureTransparentAppearance(tabBar: UITabBar, props: TabViewProp
   tabBar.barTintColor = props.barTintColor
   tabBar.isTranslucent = props.translucent
   tabBar.unselectedItemTintColor = props.inactiveTintColor
-  
+
   guard let items = tabBar.items else { return }
-  
+
   let fontSize = props.fontSize != nil ? CGFloat(props.fontSize!) : tabBarDefaultFontSize
   let attributes = createFontAttributes(
     size: fontSize,
@@ -190,7 +190,7 @@ private func configureTransparentAppearance(tabBar: UITabBar, props: TabViewProp
     weight: props.fontWeight,
     inactiveTintColor: nil
   )
-  
+
   items.forEach { item in
     item.setTitleTextAttributes(attributes, for: .normal)
   }
@@ -198,7 +198,7 @@ private func configureTransparentAppearance(tabBar: UITabBar, props: TabViewProp
 
 private func configureStandardAppearance(tabBar: UITabBar, props: TabViewProps) {
   let appearance = UITabBarAppearance()
-  
+
   // Configure background
   switch props.scrollEdgeAppearance {
   case "opaque":
@@ -207,33 +207,33 @@ private func configureStandardAppearance(tabBar: UITabBar, props: TabViewProps) 
     appearance.configureWithDefaultBackground()
   }
   appearance.backgroundColor = props.barTintColor
-  
+
   // Configure item appearance
   let itemAppearance = UITabBarItemAppearance()
   let fontSize = props.fontSize != nil ? CGFloat(props.fontSize!) : tabBarDefaultFontSize
-  
+
   var attributes = createFontAttributes(
     size: fontSize,
     family: props.fontFamily,
     weight: props.fontWeight,
     inactiveTintColor: props.inactiveTintColor
   )
-  
+
   if let inactiveTintColor = props.inactiveTintColor {
     attributes[.foregroundColor] = inactiveTintColor
   }
-  
+
   if let inactiveTintColor = props.inactiveTintColor {
     itemAppearance.normal.iconColor = inactiveTintColor
   }
-  
+
   itemAppearance.normal.titleTextAttributes = attributes
-  
+
   // Apply item appearance to all layouts
   appearance.stackedLayoutAppearance = itemAppearance
   appearance.inlineLayoutAppearance = itemAppearance
   appearance.compactInlineLayoutAppearance = itemAppearance
-  
+
   // Apply final appearance
   tabBar.standardAppearance = appearance
   if #available(iOS 15.0, *) {
@@ -259,7 +259,7 @@ extension View {
       self
     }
   }
-  
+
   @ViewBuilder
   func tabBadge(_ data: String?) -> some View {
     if #available(iOS 15.0, macOS 15.0, visionOS 2.0, tvOS 15.0, *) {
@@ -276,7 +276,7 @@ extension View {
       self
     }
   }
-  
+
   @ViewBuilder
   func ignoresTopSafeArea(
     _ flag: Bool,
@@ -290,7 +290,7 @@ extension View {
         .ignoresSafeArea(.container, edges: .bottom)
     }
   }
-  
+
 #if !os(macOS)
   @ViewBuilder
   func configureAppearance(props: TabViewProps, tabBar: UITabBar?) -> some View {
@@ -321,7 +321,7 @@ extension View {
       }
   }
 #endif
-  
+
   @ViewBuilder
   func tintColor(_ color: PlatformColor?) -> some View {
     if let color {
@@ -335,7 +335,7 @@ extension View {
       self
     }
   }
-  
+
   // Allows TabView to use unfilled SFSymbols.
   // By default they are always filled.
   @ViewBuilder
