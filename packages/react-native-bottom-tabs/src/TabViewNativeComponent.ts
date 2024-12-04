@@ -50,6 +50,7 @@ export interface TabViewProps extends ViewProps {
   ignoresTopSafeArea?: WithDefault<boolean, true>;
   disablePageAnimations?: boolean;
   activeIndicatorColor?: ColorValue;
+  borderColor?: ColorValue;
   hapticFeedbackEnabled?: boolean;
   fontFamily?: string;
   fontWeight?: string;

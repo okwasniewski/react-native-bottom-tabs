@@ -136,6 +136,12 @@ public final class TabInfo: NSObject {
     }
   }
 
+  @objc public var borderColor: UIColor? {
+    didSet {
+      props.borderColor = borderColor
+    }
+  }
+
   @objc public var fontFamily: NSString? {
     didSet {
       props.fontFamily = fontFamily as? String

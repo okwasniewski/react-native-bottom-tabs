@@ -22,6 +22,7 @@ class TabViewProps: ObservableObject {
   @Published var ignoresTopSafeArea: Bool = true
   @Published var disablePageAnimations: Bool = false
   @Published var hapticFeedbackEnabled: Bool = false
+  @Published var borderColor: UIColor?
   @Published var fontSize: Int?
   @Published var fontFamily: String?
   @Published var fontWeight: String?
@@ -241,6 +242,11 @@ private func configureTransparentAppearance(tabBar: UITabBar, props: TabViewProp
   items.forEach { item in
     item.setTitleTextAttributes(attributes, for: .normal)
   }
+
+  if let borderColor = props.borderColor {
+    tabBar.layer.borderWidth = 0.5
+    tabBar.layer.borderColor = borderColor.cgColor
+  }
 }
 
 private func configureStandardAppearance(tabBar: UITabBar, props: TabViewProps) {
@@ -280,6 +286,10 @@ private func configureStandardAppearance(tabBar: UITabBar, props: TabViewProps) 
   appearance.stackedLayoutAppearance = itemAppearance
   appearance.inlineLayoutAppearance = itemAppearance
   appearance.compactInlineLayoutAppearance = itemAppearance
+
+  if let borderColor = props.borderColor {
+    appearance.shadowColor = borderColor
+  }
 
   // Apply final appearance
   tabBar.standardAppearance = appearance
@@ -362,6 +372,9 @@ extension View {
         updateTabBarAppearance(props: props, tabBar: tabBar)
       }
       .onChange(of: props.fontWeight) { newValue in
+        updateTabBarAppearance(props: props, tabBar: tabBar)
+      }
+      .onChange(of: props.borderColor) { newValue in
         updateTabBarAppearance(props: props, tabBar: tabBar)
       }
   }

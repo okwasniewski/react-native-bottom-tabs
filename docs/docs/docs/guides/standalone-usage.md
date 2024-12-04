@@ -173,6 +173,11 @@ Whether the tab bar is translucent.
 Color of tab indicator.
 - Type: `ColorValue`
 
+#### `borderColor` <Badge text="iOS" type="info" />
+
+Color of the tab bar top border.
+- Type: `ColorValue`
+
 ### Route Configuration
 
 Each route in the `routes` array can have the following properties:

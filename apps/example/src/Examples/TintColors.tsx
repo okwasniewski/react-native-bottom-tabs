@@ -54,6 +54,7 @@ export default function TintColorsExample() {
       tabBarActiveTintColor="red"
       tabBarInactiveTintColor="orange"
       scrollEdgeAppearance="default"
+      borderColor="red"
     />
   );
 }
