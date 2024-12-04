@@ -21,6 +21,12 @@
 #import "RCTImagePrimitivesConversions.h"
 #import "RCTConversions.h"
 
+#if TARGET_OS_OSX
+typedef NSView PlatformView;
+#else
+typedef UIView PlatformView;
+#endif
+
 
 using namespace facebook::react;
 
@@ -31,7 +37,7 @@ using namespace facebook::react;
 
 @implementation RCTTabViewComponentView {
   TabViewProvider *_tabViewProvider;
-  NSMutableArray<UIView *> *_reactSubviews;
+  NSMutableArray<PlatformView *> *_reactSubviews;
 }
 
 + (ComponentDescriptorProvider)componentDescriptorProvider
@@ -63,17 +69,17 @@ using namespace facebook::react;
   _tabViewProvider.children = [self reactSubviews];
 }
 
-- (NSArray<UIView *> *)reactSubviews
+- (NSArray<PlatformView *> *)reactSubviews
 {
   return _reactSubviews;
 }
 
-- (void)mountChildComponentView:(UIView<RCTComponentViewProtocol> *)childComponentView index:(NSInteger)index {
+- (void)mountChildComponentView:(PlatformView<RCTComponentViewProtocol> *)childComponentView index:(NSInteger)index {
   [_reactSubviews insertObject:childComponentView atIndex:index];
   _tabViewProvider.children = [self reactSubviews];
 }
 
-- (void)unmountChildComponentView:(UIView<RCTComponentViewProtocol> *)childComponentView index:(NSInteger)index {
+- (void)unmountChildComponentView:(PlatformView<RCTComponentViewProtocol> *)childComponentView index:(NSInteger)index {
   [_reactSubviews removeObjectAtIndex:index];
 
   [childComponentView removeFromSuperview];

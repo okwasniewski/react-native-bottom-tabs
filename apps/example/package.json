@@ -6,12 +6,14 @@
     "android": "react-native run-android",
     "build:android": "npm run mkdist && react-native bundle --entry-file index.js --platform android --dev true --bundle-output dist/main.android.jsbundle --assets-dest dist && react-native build-android --extra-params \"--no-daemon --console=plain -PreactNativeArchitectures=arm64-v8a\"",
     "build:android:fabric": "npm run mkdist && react-native bundle --entry-file index.js --platform android --dev true --bundle-output dist/main.android.jsbundle --assets-dest dist && react-native build-android --extra-params \"--no-daemon --console=plain -PreactNativeArchitectures=arm64-v8a -PnewArchEnabled=true\"",
+    "build:macos": "npm run mkdist && react-native bundle --entry-file index.js --platform macos --dev true --bundle-output dist/main.macos.jsbundle --assets-dest dist",
     "build:ios": "npm run mkdist && react-native bundle --entry-file index.js --platform ios --dev true --bundle-output dist/main.ios.jsbundle --assets-dest dist && react-native build-ios --scheme ReactNativeBottomTabs --mode Debug --extra-params \"-sdk iphonesimulator CC=clang CPLUSPLUS=clang++ LD=clang LDPLUSPLUS=clang++ GCC_OPTIMIZATION_LEVEL=0 GCC_PRECOMPILE_PREFIX_HEADER=YES ASSETCATALOG_COMPILER_OPTIMIZATION=time DEBUG_INFORMATION_FORMAT=dwarf COMPILER_INDEX_STORE_ENABLE=NO\"",
     "build:visionos": "npm run mkdist && react-native bundle --entry-file index.js --platform ios --dev true --bundle-output dist/main.visionos.jsbundle --assets-dest dist",
     "ios": "react-native run-ios",
     "mkdist": "node -e \"require('node:fs').mkdirSync('dist', { recursive: true, mode: 0o755 })\"",
     "start": "react-native start",
-    "visionos": "react-native run-visionos"
+    "visionos": "react-native run-visionos",
+    "macos": "react-native run-macos --scheme ReactNativeBottomTabs"
   },
   "dependencies": {
     "@bottom-tabs/react-navigation": "*",
@@ -25,8 +27,9 @@
     "react-native": "0.75.4",
     "react-native-bottom-tabs": "*",
     "react-native-gesture-handler": "^2.21.2",
+    "react-native-macos": "^0.75.0",
     "react-native-paper": "^5.12.5",
-    "react-native-safe-area-context": "^4.11.0",
+    "react-native-safe-area-context": "^4.14.0",
     "react-native-screens": "4.3.0",
     "react-native-vector-icons": "^10.2.0"
   },

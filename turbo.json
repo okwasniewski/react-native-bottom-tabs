@@ -73,6 +73,21 @@
       ],
       "outputs": []
     },
+    "build:macos": {
+      "env": ["RCT_NEW_ARCH_ENABLED"],
+      "inputs": [
+        "packages/*/package.json",
+        "packages/*/*.podspec",
+        "packages/*/ios",
+        "packages/*/src/*.ts",
+        "packages/*/src/*.tsx",
+        "apps/example/package.json",
+        "apps/example/macos",
+        "!apps/example/macos/build",
+        "!apps/example/macos/Pods"
+      ],
+      "outputs": []
+    },
     "build:ios-expo": {
       "env": ["RCT_NEW_ARCH_ENABLED"],
       "inputs": [

@@ -1,6 +1,8 @@
 import SwiftUI
 import SwiftUIIntrospect
 
+#if !os(macOS)
+
 private final class TabBarDelegate: NSObject, UITabBarControllerDelegate {
   var onClick: ((_ index: Int) -> Void)? = nil
   
@@ -95,3 +97,5 @@ extension View {
     modifier(TabItemEventModifier(onTabEvent: handler))
   }
 }
+
+#endif

@@ -5,57 +5,15 @@ import React
 
 
 /**
- Props that component accepts. SwiftUI view gets re-rendered when ObservableObject changes.
- */
-class TabViewProps: ObservableObject {
-  @Published var children: [UIView] = []
-  @Published var items: [TabInfo] = []
-  @Published var selectedPage: String?
-  @Published var icons: [Int: UIImage] = [:]
-  @Published var sidebarAdaptable: Bool?
-  @Published var labeled: Bool?
-  @Published var scrollEdgeAppearance: String?
-  @Published var barTintColor: UIColor?
-  @Published var activeTintColor: UIColor?
-  @Published var inactiveTintColor: UIColor?
-  @Published var translucent: Bool = true
-  @Published var ignoresTopSafeArea: Bool = true
-  @Published var disablePageAnimations: Bool = false
-  @Published var hapticFeedbackEnabled: Bool = false
-  @Published var fontSize: Int?
-  @Published var fontFamily: String?
-  @Published var fontWeight: String?
-
-  var selectedActiveTintColor: UIColor? {
-    if let selectedPage = selectedPage,
-       let tabData = items.findByKey(selectedPage),
-       let activeTintColor = tabData.activeTintColor {
-      return activeTintColor
-    }
-
-    return activeTintColor
-  }
-}
-
-/**
- Helper used to render UIView inside of SwiftUI.
- */
-struct RepresentableView: UIViewRepresentable {
-  var view: UIView
-
-  func makeUIView(context: Context) -> UIView {
-    return view
-  }
-
-  func updateUIView(_ uiView: UIView, context: Context) {}
-}
-
-/**
  SwiftUI implementation of TabView used to render React Native views.
  */
 struct TabViewImpl: View {
   @ObservedObject var props: TabViewProps
+#if os(macOS)
+  @Weak var tabBar: NSTabView?
+#else
   @Weak var tabBar: UITabBar?
+#endif
 
   var onSelect: (_ key: String) -> Void
   var onLongPress: (_ key: String) -> Void
@@ -71,7 +29,7 @@ struct TabViewImpl: View {
         onLayout(size)
       })
     }
-#if !os(tvOS)
+#if !os(tvOS) && !os(macOS)
     .onTabItemEvent({ index, isLongPress in
       guard let key = props.items.filter({
         !$0.hidden || $0.key == props.selectedPage
@@ -87,22 +45,30 @@ struct TabViewImpl: View {
     })
 #endif
     .introspectTabView(closure: { tabController in
+#if os(macOS)
+      tabBar = tabController
+#else
       tabBar = tabController.tabBar
       onTabBarMeasured(
         Int(tabController.tabBar.frame.size.height)
       )
+#endif
     })
+#if !os(macOS)
     .configureAppearance(props: props, tabBar: tabBar)
+#endif
     .tintColor(props.selectedActiveTintColor)
     .getSidebarAdaptable(enabled: props.sidebarAdaptable ?? false)
     .onChange(of: props.selectedPage ?? "") { newValue in
+#if !os(macOS)
       if (props.disablePageAnimations) {
         UIView.setAnimationsEnabled(false)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
           UIView.setAnimationsEnabled(true)
         }
       }
-#if os(tvOS)
+#endif
+#if os(tvOS) || os(macOS)
       onSelect(newValue)
 #endif
     }
@@ -115,7 +81,7 @@ struct TabViewImpl: View {
     let isFocused = props.selectedPage == tabData?.key
 
     if !isHidden || isFocused {
-      let child = props.children[safe: index] ?? UIView()
+      let child = props.children[safe: index] ?? PlatformView()
       let icon = props.icons[index]
 
       RepresentableView(view: child)
@@ -134,7 +100,9 @@ struct TabViewImpl: View {
         .tag(tabData?.key)
         .tabBadge(tabData?.badge)
         .onAppear {
+#if !os(macOS)
           updateTabBarAppearance(props: props, tabBar: tabBar)
+#endif
 
 #if os(iOS)
           guard index >= 4,
@@ -161,41 +129,24 @@ struct TabViewImpl: View {
   }
 }
 
-struct TabItem: View {
-  var title: String?
-  var icon: UIImage?
-  var sfSymbol: String?
-  var labeled: Bool?
-
-  var body: some View {
-    if let icon {
-      Image(uiImage: icon)
-    } else if let sfSymbol, !sfSymbol.isEmpty {
-      Image(systemName: sfSymbol)
-        .noneSymbolVariant()
-    }
-    if (labeled != false) {
-      Text(title ?? "")
-    }
-  }
-}
-
+#if !os(macOS)
 private func updateTabBarAppearance(props: TabViewProps, tabBar: UITabBar?) {
-    guard let tabBar else { return }
+  guard let tabBar else { return }
 
-    if props.scrollEdgeAppearance == "transparent" {
-        configureTransparentAppearance(tabBar: tabBar, props: props)
-        return
-    }
+  if props.scrollEdgeAppearance == "transparent" {
+    configureTransparentAppearance(tabBar: tabBar, props: props)
+    return
+  }
 
-    configureStandardAppearance(tabBar: tabBar, props: props)
+  configureStandardAppearance(tabBar: tabBar, props: props)
 }
+#endif
 
 private func createFontAttributes(
   size: CGFloat,
   family: String?,
   weight: String?,
-  inactiveTintColor: UIColor?
+  inactiveTintColor: PlatformColor?
 ) -> [NSAttributedString.Key: Any] {
   var attributes: [NSAttributedString.Key: Any] = [:]
 
@@ -223,6 +174,8 @@ let tabBarDefaultFontSize: CGFloat = 30.0
 let tabBarDefaultFontSize: CGFloat = UIFont.smallSystemFontSize
 #endif
 
+
+#if !os(macOS)
 private func configureTransparentAppearance(tabBar: UITabBar, props: TabViewProps) {
   tabBar.barTintColor = props.barTintColor
   tabBar.isTranslucent = props.translucent
@@ -265,7 +218,7 @@ private func configureStandardAppearance(tabBar: UITabBar, props: TabViewProps) 
     weight: props.fontWeight,
     inactiveTintColor: props.inactiveTintColor
   )
-  
+
   if let inactiveTintColor = props.inactiveTintColor {
     attributes[.foregroundColor] = inactiveTintColor
   }
@@ -287,6 +240,7 @@ private func configureStandardAppearance(tabBar: UITabBar, props: TabViewProps) 
     tabBar.scrollEdgeAppearance = appearance.copy()
   }
 }
+#endif
 
 extension View {
   @ViewBuilder
@@ -337,6 +291,7 @@ extension View {
     }
   }
 
+#if !os(macOS)
   @ViewBuilder
   func configureAppearance(props: TabViewProps, tabBar: UITabBar?) -> some View {
     self
@@ -365,12 +320,13 @@ extension View {
         updateTabBarAppearance(props: props, tabBar: tabBar)
       }
   }
+#endif
 
   @ViewBuilder
-  func tintColor(_ color: UIColor?) -> some View {
+  func tintColor(_ color: PlatformColor?) -> some View {
     if let color {
       let color = Color(color)
-      if #available(iOS 16.0, tvOS 16.0, *) {
+      if #available(iOS 16.0, tvOS 16.0, macOS 13.0, *) {
         self.tint(color)
       } else {
         self.accentColor(color)
@@ -384,7 +340,7 @@ extension View {
   // By default they are always filled.
   @ViewBuilder
   func noneSymbolVariant() -> some View {
-    if #available(iOS 15.0, tvOS 15.0, *) {
+    if #available(iOS 15.0, tvOS 15.0, macOS 13.0, *) {
       self
         .environment(\.symbolVariants, .none)
     } else {
