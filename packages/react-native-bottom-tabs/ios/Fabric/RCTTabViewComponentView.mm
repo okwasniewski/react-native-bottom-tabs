@@ -142,10 +142,14 @@ using namespace facebook::react;
     _tabViewProvider.inactiveTintColor = RCTUIColorFromSharedColor(newViewProps.inactiveTintColor);
   }
   
+  if (oldViewProps.borderColor != newViewProps.borderColor) {
+    _tabViewProvider.borderColor = RCTUIColorFromSharedColor(newViewProps.borderColor);
+  }
+
   if (oldViewProps.hapticFeedbackEnabled != newViewProps.hapticFeedbackEnabled) {
     _tabViewProvider.hapticFeedbackEnabled = newViewProps.hapticFeedbackEnabled;
   }
-  
+
   if (oldViewProps.fontSize != newViewProps.fontSize) {
     _tabViewProvider.fontSize = [NSNumber numberWithInt:newViewProps.fontSize];
   }

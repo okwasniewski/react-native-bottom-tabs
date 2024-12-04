@@ -52,6 +52,10 @@ interface Props<Route extends BaseRoute> {
    */
   scrollEdgeAppearance?: 'default' | 'opaque' | 'transparent';
   /**
+   * Color of the tab bar top border.
+   */
+  borderColor?: ColorValue;
+  /**
    * Active tab color.
    */
   tabBarActiveTintColor?: ColorValue;
