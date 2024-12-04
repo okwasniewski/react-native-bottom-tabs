@@ -41,6 +41,7 @@ function NativeBottomTabs() {
           },
         }}
         options={{
+          tabBarButtonTestID: 'articleTestID',
           tabBarBadge: '10',
           tabBarIcon: ({ focused }) =>
             focused

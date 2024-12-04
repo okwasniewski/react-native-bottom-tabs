@@ -173,7 +173,8 @@ bool areTabItemsEqual(const RNCTabViewItemsStruct& lhs, const RNCTabViewItemsStr
   lhs.sfSymbol == rhs.sfSymbol &&
   lhs.badge == rhs.badge &&
   lhs.activeTintColor == rhs.activeTintColor &&
-  lhs.hidden == rhs.hidden;
+  lhs.hidden == rhs.hidden &&
+  lhs.testID == rhs.testID;
 }
 
 bool haveTabItemsChanged(const std::vector<RNCTabViewItemsStruct>& oldItems,
@@ -201,7 +202,8 @@ NSArray* convertItemsToArray(const std::vector<RNCTabViewItemsStruct>& items) {
                                           badge:RCTNSStringFromStringNilIfEmpty(item.badge)
                                        sfSymbol:RCTNSStringFromStringNilIfEmpty(item.sfSymbol)
                                 activeTintColor:RCTUIColorFromSharedColor(item.activeTintColor)
-                                         hidden:item.hidden];
+                                         hidden:item.hidden
+                                         testID:RCTNSStringFromStringNilIfEmpty(item.testID)];
 
     [result addObject:tabInfo];
   }

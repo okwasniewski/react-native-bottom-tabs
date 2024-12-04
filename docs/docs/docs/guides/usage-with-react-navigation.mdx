@@ -162,10 +162,10 @@ Whether to enable haptic feedback on tab press. Defaults to false.
 Object containing styles for the tab label.
 
 Supported properties:
+
 - `fontFamily`
 - `fontSize`
 - `fontWeight`
-
 
 ### Options
 
@@ -228,6 +228,10 @@ Due to native limitations on iOS, this option doesn't hide the tab item **when h
 #### `lazy`
 
 Whether this screens should render the first time it's accessed. Defaults to true. Set it to false if you want to render the screen on initial render.
+
+#### `tabBarButtonTestID`
+
+Test ID for the tab item. This can be used to find the tab item in the native view hierarchy.
 
 ### Events
 

@@ -120,13 +120,22 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
         removeBadge(index)
       }
       post {
-        findViewById<View>(menuItem.itemId).setOnLongClickListener {
-          onTabLongPressed(menuItem)
-          true
-        }
-        findViewById<View>(menuItem.itemId).setOnClickListener {
-          onTabSelected(menuItem)
-          updateTintColors(menuItem)
+        val itemView = findViewById<View>(menuItem.itemId)
+        itemView?.let { view ->
+          view.setOnLongClickListener {
+            onTabLongPressed(menuItem)
+            true
+          }
+          view.setOnClickListener {
+            onTabSelected(menuItem)
+            updateTintColors(menuItem)
+          }
+
+          item.testID?.let { testId ->
+            view.findViewById<View>(com.google.android.material.R.id.navigation_bar_item_content_container)?.apply {
+                tag = testId
+            }
+          }
         }
         updateTextAppearance()
       }

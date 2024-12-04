@@ -14,6 +14,7 @@ export type BaseRoute = {
   unfocusedIcon?: ImageSourcePropType | AppleIcon;
   activeTintColor?: string;
   hidden?: boolean;
+  testID?: string;
 };
 
 export type NavigationState<Route extends BaseRoute> = {
