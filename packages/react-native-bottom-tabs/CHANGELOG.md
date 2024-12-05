@@ -1,5 +1,11 @@
 # react-native-bottom-tabs
 
+## 0.7.3
+
+### Patch Changes
+
+- 3ab7d98: Fix codegen setup & prevent injecting @babel/runtime when building the lib
+
 ## 0.7.2
 
 ### Patch Changes
