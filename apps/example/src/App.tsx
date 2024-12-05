@@ -72,9 +72,16 @@ const FourTabsActiveIndicatorColor = () => {
 };
 
 const examples = [
-  { component: ThreeTabs, name: 'Three Tabs' },
+  {
+    component: ThreeTabs,
+    name: 'Three Tabs',
+  },
   { component: FourTabs, name: 'Four Tabs' },
-  { component: SFSymbols, name: 'SF Symbols' },
+  {
+    component: SFSymbols,
+    name: 'SF Symbols',
+    screenOptions: { headerShown: false },
+  },
   { component: LabeledTabs, name: 'Labeled Tabs', platform: 'android' },
   {
     component: NativeBottomTabsEmbeddedStacks,
@@ -176,8 +183,11 @@ const Stack = createStackNavigator();
 
 const NativeStack = createNativeStackNavigator();
 
+const defaultStack = Platform.OS === 'macos' ? 'js' : 'native';
+
 export default function Navigation() {
-  const [mode, setMode] = React.useState<'native' | 'js'>('native');
+  const [mode, setMode] = React.useState<'native' | 'js'>(defaultStack);
+
   const NavigationStack = mode === 'js' ? Stack : NativeStack;
   const colorScheme = useColorScheme();
   const theme = colorScheme === 'dark' ? DarkTheme : DefaultTheme;

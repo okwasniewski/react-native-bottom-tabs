@@ -242,3 +242,49 @@ jobs:
       - name: Build example for iOS
         run: |
           yarn turbo run build:ios --cache-dir="${{ env.TURBO_CACHE_DIR }}"
+
+  build-macos:
+    runs-on: macos-15
+    env:
+      TURBO_CACHE_DIR: .turbo/macos
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Build package
+        run: yarn build
+
+      - name: Install xcbeautify
+        run: |
+          brew install xcbeautify
+
+      - name: Cache turborepo for macOS
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.TURBO_CACHE_DIR }}
+          key: ${{ runner.os }}-turborepo-macos-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-turborepo-macos-
+
+      - name: Check turborepo cache for macOS
+        run: |
+          TURBO_CACHE_STATUS=$(node -p "($(yarn turbo run build:macos --cache-dir="${{ env.TURBO_CACHE_DIR }}" --dry=json)).tasks.find(t => t.task === 'build:macos').cache.status")
+
+          if [[ $TURBO_CACHE_STATUS == "HIT" ]]; then
+            echo "turbo_cache_hit=1" >> $GITHUB_ENV
+          fi
+
+      - name: Install cocoapods
+        if: env.turbo_cache_hit != 1 && steps.cocoapods-cache.outputs.cache-hit != 'true'
+        run: |
+          cd apps/example
+          pod install --project-directory=macos
+        env:
+          NO_FLIPPER: 1
+
+      - name: Build example for macOS
+        run: |
+          yarn turbo run build:macos --cache-dir="${{ env.TURBO_CACHE_DIR }}"

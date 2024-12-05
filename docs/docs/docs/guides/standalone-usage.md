@@ -107,7 +107,8 @@ Callback that is called when the tab index changes.
 
 Whether to show labels in tabs. When `false`, only icons will be displayed.
 - Type: `boolean`
-- Default: `true`
+- Default <Badge text="iOS" type="info" />: `true`
+- Default <Badge text="Android" type="info" />: `false`
 
 #### `sidebarAdaptable` <Badge text="iOS" type="info" />
 

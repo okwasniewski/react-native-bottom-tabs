@@ -8,7 +8,7 @@ const Tab = createNativeBottomTabNavigator();
 
 function NativeBottomTabsSVGs() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator sidebarAdaptable>
       <Tab.Screen
         name="Article"
         component={Article}
