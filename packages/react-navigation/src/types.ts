@@ -86,6 +86,11 @@ export type NativeBottomTabNavigationOptions = {
    * Active tab color.
    */
   tabBarActiveTintColor?: string;
+
+  /**
+   * TestID for the tab.
+   */
+  tabBarButtonTestID?: string;
 };
 
 export type NativeBottomTabDescriptor = Descriptor<
@@ -111,5 +116,6 @@ export type NativeBottomTabNavigationConfig = Partial<
     | 'getBadge'
     | 'onTabLongPress'
     | 'getActiveTintColor'
+    | 'getTestID'
   >
 >;

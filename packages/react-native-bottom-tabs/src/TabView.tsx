@@ -112,6 +112,11 @@ interface Props<Route extends BaseRoute> {
   getHidden?: (props: { route: Route }) => boolean | undefined;
 
   /**
+   * Get testID for the tab, uses `route.testID` by default.
+   */
+  getTestID?: (props: { route: Route }) => string | undefined;
+
+  /**
    * Background color of the tab bar.
    */
   barTintColor?: ColorValue;
@@ -164,6 +169,7 @@ const TabView = <Route extends BaseRoute>({
   barTintColor,
   getHidden = ({ route }: { route: Route }) => route.hidden,
   getActiveTintColor = ({ route }: { route: Route }) => route.activeTintColor,
+  getTestID = ({ route }: { route: Route }) => route.testID,
   hapticFeedbackEnabled = false,
   tabLabelStyle,
   ...props
@@ -228,6 +234,7 @@ const TabView = <Route extends BaseRoute>({
           badge: getBadge?.({ route }),
           activeTintColor: processColor(getActiveTintColor({ route })),
           hidden: getHidden?.({ route }),
+          testID: getTestID?.({ route }),
         };
       }),
     [
@@ -237,6 +244,7 @@ const TabView = <Route extends BaseRoute>({
       getBadge,
       getActiveTintColor,
       getHidden,
+      getTestID,
     ]
   );
 

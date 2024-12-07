@@ -96,6 +96,7 @@ struct TabViewImpl: View {
             sfSymbol: tabData?.sfSymbol,
             labeled: props.labeled
           )
+          .accessibilityIdentifier(tabData?.testID ?? "")
         }
         .tag(tabData?.key)
         .tabBadge(tabData?.badge)

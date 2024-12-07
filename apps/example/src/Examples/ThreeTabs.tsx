@@ -13,17 +13,20 @@ export default function ThreeTabs() {
       focusedIcon: require('../../assets/icons/article_dark.png'),
       unfocusedIcon: require('../../assets/icons/chat_dark.png'),
       badge: '!',
+      testID: 'articleTestID',
     },
     {
       key: 'albums',
       title: 'Albums',
       focusedIcon: require('../../assets/icons/grid_dark.png'),
       badge: '5',
+      testID: 'albumsTestID',
     },
     {
       key: 'contacts',
       focusedIcon: require('../../assets/icons/person_dark.png'),
       title: 'Contacts',
+      testID: 'contactsTestID',
     },
   ]);
 

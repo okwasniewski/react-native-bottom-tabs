@@ -45,6 +45,9 @@ export default function NativeBottomTabView({
         const options = descriptors[route.key]?.options;
         return options?.tabBarItemHidden === true;
       }}
+      getTestID={({ route }) =>
+        descriptors[route.key]?.options.tabBarButtonTestID
+      }
       getIcon={({ route, focused }) => {
         const options = descriptors[route.key]?.options;
 

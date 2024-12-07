@@ -219,3 +219,8 @@ Function to get the icon for a tab.
 Function to determine if a tab should be hidden.
 
 - Default: Uses `route.hidden`
+
+#### `getTestID`
+
+Function to get the test ID for a tab item.
+- Default: Uses `route.testID`

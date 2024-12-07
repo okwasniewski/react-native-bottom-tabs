@@ -12,6 +12,7 @@ public final class TabInfo: NSObject {
   public let sfSymbol: String
   public let activeTintColor: PlatformColor?
   public let hidden: Bool
+  public let testID: String?
 
   public init(
     key: String,
@@ -19,7 +20,8 @@ public final class TabInfo: NSObject {
     badge: String,
     sfSymbol: String,
     activeTintColor: PlatformColor?,
-    hidden: Bool
+    hidden: Bool,
+    testID: String?
   ) {
     self.key = key
     self.title = title
@@ -27,6 +29,7 @@ public final class TabInfo: NSObject {
     self.sfSymbol = sfSymbol
     self.activeTintColor = activeTintColor
     self.hidden = hidden
+    self.testID = testID
     super.init()
   }
 }
@@ -264,7 +267,8 @@ public final class TabInfo: NSObject {
             badge: itemDict["badge"] as? String ?? "",
             sfSymbol: itemDict["sfSymbol"] as? String ?? "",
             activeTintColor: RCTConvert.uiColor(itemDict["activeTintColor"] as? NSNumber),
-            hidden: itemDict["hidden"] as? Bool ?? false
+            hidden: itemDict["hidden"] as? Bool ?? false,
+            testID: itemDict["testID"] as? String ?? ""
           )
         )
       }
