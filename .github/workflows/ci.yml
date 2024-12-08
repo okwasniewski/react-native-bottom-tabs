@@ -187,9 +187,10 @@ jobs:
             echo "turbo_cache_hit=1" >> $GITHUB_ENV
           fi
 
-      - name: Install cocoapods
+      - name: Install cocoapods and plugins
         if: env.turbo_cache_hit != 1 && steps.cocoapods-cache.outputs.cache-hit != 'true'
         run: |
+          gem install cocoapods-swift-modular-headers
           cd apps/example
           pod install --project-directory=ios
         env:
@@ -230,9 +231,10 @@ jobs:
             echo "turbo_cache_hit=1" >> $GITHUB_ENV
           fi
 
-      - name: Install cocoapods
+      - name: Install cocoapods and plugins
         if: env.turbo_cache_hit != 1 && steps.cocoapods-cache.outputs.cache-hit != 'true'
         run: |
+          gem install cocoapods-swift-modular-headers
           cd apps/example
           pod install --project-directory=ios
         env:
@@ -277,9 +279,10 @@ jobs:
             echo "turbo_cache_hit=1" >> $GITHUB_ENV
           fi
 
-      - name: Install cocoapods
+      - name: Install cocoapods and plugins
         if: env.turbo_cache_hit != 1 && steps.cocoapods-cache.outputs.cache-hit != 'true'
         run: |
+          gem install cocoapods-swift-modular-headers
           cd apps/example
           pod install --project-directory=macos
         env:
