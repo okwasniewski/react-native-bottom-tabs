@@ -1,5 +1,11 @@
 # @bottom-tabs/react-navigation
 
+## 0.7.4
+
+### Patch Changes
+
+- 4771cfd: feat: add support for testID
+
 ## 0.7.3
 
 ## 0.7.2
