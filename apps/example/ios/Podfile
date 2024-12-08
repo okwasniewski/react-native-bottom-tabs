@@ -1,3 +1,5 @@
+plugin 'cocoapods-swift-modular-headers'
+
 ws_dir = Pathname.new(__dir__)
 ws_dir = ws_dir.parent until
   File.exist?("#{ws_dir}/node_modules/react-native-test-app/test_app.rb") ||
@@ -6,9 +8,6 @@ require "#{ws_dir}/node_modules/react-native-test-app/test_app.rb"
 
 workspace 'ReactNativeBottomTabsExample.xcworkspace'
 
-use_test_app! do |test_app|
-  # Workaround for not using use_frameworks! in the Podfile
-  pod 'SDWebImage', :modular_headers => true
-  pod 'SDWebImageSVGCoder', :modular_headers => true
-end
+apply_modular_headers_for_swift_dependencies()
 
+use_test_app!
