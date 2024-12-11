@@ -199,6 +199,7 @@ private func configureTransparentAppearance(tabBar: UITabBar, props: TabViewProp
 
 private func configureStandardAppearance(tabBar: UITabBar, props: TabViewProps) {
   let appearance = UITabBarAppearance()
+  tabBar.isTranslucent = props.translucent
 
   // Configure background
   switch props.scrollEdgeAppearance {
