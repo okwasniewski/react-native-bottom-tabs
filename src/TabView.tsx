@@ -127,13 +127,6 @@ interface Props<Route extends BaseRoute> {
    * Color of tab indicator. (Android only)
    */
   activeIndicatorColor?: ColorValue;
-
-  /**
-   * Whether inactive screens should be detached from the view hierarchy to save memory.
-   * Make sure to call `enableScreens` from `react-native-screens` to make it work.
-   * Defaults to `true` on Android.
-   */
-  detachInactiveScreens?: boolean;
 }
 
 const ANDROID_MAX_TABS = 6;
@@ -154,9 +147,6 @@ const TabView = <Route extends BaseRoute>({
   barTintColor,
   getActiveTintColor = ({ route }: { route: Route }) => route.activeTintColor,
   getFreezeOnBlur = ({ route }: { route: Route }) => route.freezeOnBlur,
-  detachInactiveScreens = Platform.OS === 'web' ||
-    Platform.OS === 'android' ||
-    Platform.OS === 'ios',
   tabBarActiveTintColor: activeTintColor,
   tabBarInactiveTintColor: inactiveTintColor,
   hapticFeedbackEnabled = true,
@@ -259,11 +249,7 @@ const TabView = <Route extends BaseRoute>({
       barTintColor={barTintColor}
       rippleColor={rippleColor}
     >
-      <MaybeScreenContainer
-        enabled={detachInactiveScreens}
-        hasTwoStates
-        style={styles.container}
-      >
+      <MaybeScreenContainer style={styles.container}>
         {trimmedRoutes.map((route) => {
           const isFocused = route.key === focusedKey;
 
@@ -276,7 +262,6 @@ const TabView = <Route extends BaseRoute>({
               <MaybeScreen
                 key={route.key}
                 visible={isFocused}
-                enabled={detachInactiveScreens}
                 style={styles.fullWidth}
                 collapsable={false}
               />
@@ -289,7 +274,6 @@ const TabView = <Route extends BaseRoute>({
             <MaybeScreen
               key={route.key}
               visible={isFocused}
-              enabled={detachInactiveScreens}
               freezeOnBlur={freezeOnBlur}
               collapsable={false}
               style={[

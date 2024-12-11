@@ -4,7 +4,6 @@ import { Platform, StyleProp, View, ViewProps, ViewStyle } from 'react-native';
 type Props = {
   visible: boolean;
   children?: React.ReactNode;
-  enabled: boolean;
   freezeOnBlur?: boolean;
   style?: StyleProp<ViewStyle>;
   collapsable?: boolean;
@@ -18,20 +17,10 @@ try {
   // Ignore
 }
 
-export const MaybeScreenContainer = ({
-  enabled,
-  children,
-  ...rest
-}: ViewProps & {
-  enabled: boolean;
-  hasTwoStates: boolean;
-  children?: React.ReactNode;
-}) => {
+export const MaybeScreenContainer = ({ children, ...rest }: ViewProps) => {
   if (Platform.OS === 'android' && Screens?.screensEnabled()) {
     return (
-      <Screens.ScreenContainer enabled={enabled} {...rest}>
-        {children}
-      </Screens.ScreenContainer>
+      <Screens.ScreenContainer {...rest}>{children}</Screens.ScreenContainer>
     );
   }
 

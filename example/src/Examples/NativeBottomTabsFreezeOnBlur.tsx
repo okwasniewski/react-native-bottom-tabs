@@ -30,14 +30,17 @@ function HomeScreen() {
   );
 }
 
-function DetailsScreen() {
+function DetailsScreen(props: any) {
   const value = useValue();
+  const screenName = props?.route?.params?.screenName;
   // only 1 'render' should appear at the time
-  console.log(`${Platform.OS} Details Screen render ${value}`);
+  console.log(`${Platform.OS} Details Screen render ${value} ${screenName}`);
   return (
     <View style={styles.screenContainer}>
       <Text>Details!</Text>
-      <Text style={{ alignSelf: 'center' }}>Details Screen {value}</Text>
+      <Text style={{ alignSelf: 'center' }}>
+        Details Screen {value} {screenName ? screenName : ''}{' '}
+      </Text>
     </View>
   );
 }
@@ -62,6 +65,9 @@ export default function NativeBottomTabsFreezeOnBlur() {
       <Tab.Screen
         name="Article"
         component={HomeScreen}
+        initialParams={{
+          screenName: 'Article',
+        }}
         options={{
           tabBarIcon: () => require('../../assets/icons/article_dark.png'),
         }}
@@ -69,6 +75,9 @@ export default function NativeBottomTabsFreezeOnBlur() {
       <Tab.Screen
         name="Albums"
         component={DetailsScreen}
+        initialParams={{
+          screenName: 'Albums',
+        }}
         options={{
           tabBarIcon: () => require('../../assets/icons/grid_dark.png'),
         }}
@@ -76,6 +85,9 @@ export default function NativeBottomTabsFreezeOnBlur() {
       <Tab.Screen
         name="Contact"
         component={DetailsScreen}
+        initialParams={{
+          screenName: 'Contact',
+        }}
         options={{
           tabBarIcon: () => require('../../assets/icons/person_dark.png'),
         }}
@@ -83,6 +95,9 @@ export default function NativeBottomTabsFreezeOnBlur() {
       <Tab.Screen
         name="Chat"
         component={DetailsScreen}
+        initialParams={{
+          screenName: 'Chat',
+        }}
         options={{
           tabBarIcon: () => require('../../assets/icons/chat_dark.png'),
         }}
