@@ -1,5 +1,12 @@
 # react-native-bottom-tabs
 
+## 0.7.4
+
+### Patch Changes
+
+- 4771cfd: feat: add support for testID
+- 8a7add1: fix: properly set translucent prop on iOS
+
 ## 0.7.3
 
 ### Patch Changes
