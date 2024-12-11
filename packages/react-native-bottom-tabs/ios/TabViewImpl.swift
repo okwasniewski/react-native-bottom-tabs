@@ -29,7 +29,7 @@ struct TabViewImpl: View {
         onLayout(size)
       })
     }
-#if !os(tvOS) && !os(macOS)
+#if !os(tvOS) && !os(macOS) && !os(visionOS)
     .onTabItemEvent({ index, isLongPress in
       guard let key = props.items.filter({
         !$0.hidden || $0.key == props.selectedPage
@@ -68,7 +68,7 @@ struct TabViewImpl: View {
         }
       }
 #endif
-#if os(tvOS) || os(macOS)
+#if os(tvOS) || os(macOS) || os(visionOS)
       onSelect(newValue)
 #endif
     }
@@ -179,7 +179,9 @@ let tabBarDefaultFontSize: CGFloat = UIFont.smallSystemFontSize
 #if !os(macOS)
 private func configureTransparentAppearance(tabBar: UITabBar, props: TabViewProps) {
   tabBar.barTintColor = props.barTintColor
+#if !os(visionOS)
   tabBar.isTranslucent = props.translucent
+#endif
   tabBar.unselectedItemTintColor = props.inactiveTintColor
 
   guard let items = tabBar.items else { return }
