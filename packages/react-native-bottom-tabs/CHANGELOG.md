@@ -1,5 +1,13 @@
 # react-native-bottom-tabs
 
+## 0.7.5
+
+### Patch Changes
+
+- [#191](https://github.com/okwasniewski/react-native-bottom-tabs/pull/191) [`f681e5e`](https://github.com/okwasniewski/react-native-bottom-tabs/commit/f681e5e81a9ff89c7cdb8e98b89efd9d6bcae6a9) Thanks [@okwasniewski](https://github.com/okwasniewski)! - fix: make translucent prop work properly with default apperance
+
+- [#189](https://github.com/okwasniewski/react-native-bottom-tabs/pull/189) [`041eebc`](https://github.com/okwasniewski/react-native-bottom-tabs/commit/041eebc458ac953971fc398ecd8c758d43710e0f) Thanks [@okwasniewski](https://github.com/okwasniewski)! - fix: compile on visionOS
+
 ## 0.7.4
 
 ### Patch Changes
