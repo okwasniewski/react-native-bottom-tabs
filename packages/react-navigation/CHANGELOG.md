@@ -1,5 +1,11 @@
 # @bottom-tabs/react-navigation
 
+## 0.7.6
+
+### Patch Changes
+
+- [#193](https://github.com/okwasniewski/react-native-bottom-tabs/pull/193) [`79311a5`](https://github.com/okwasniewski/react-native-bottom-tabs/commit/79311a5939e7f33981ea9924625ef47e5ade9d13) Thanks [@okwasniewski](https://github.com/okwasniewski)! - chore: setup provenance
+
 ## 0.7.5
 
 ## 0.7.4
