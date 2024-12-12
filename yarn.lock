@@ -15591,6 +15591,7 @@ __metadata:
     react-native: 0.75.4
     react-native-bottom-tabs: "*"
     react-native-builder-bob: ^0.30.2
+    react-native-edge-to-edge: ^1.1.3
     react-native-gesture-handler: ^2.21.2
     react-native-macos: ^0.75.0
     react-native-paper: ^5.12.5
@@ -15683,6 +15684,16 @@ __metadata:
   bin:
     bob: bin/bob
   checksum: 913301f523ec0c2e854682aebe0abd2e017f041273f5d141e231b499f79e5592ba9d68ba602c665a946e5ee1f6a072b872d53e6f29b51cb9c60ab2b65c3ee8ac
+  languageName: node
+  linkType: hard
+
+"react-native-edge-to-edge@npm:^1.1.3":
+  version: 1.1.3
+  resolution: "react-native-edge-to-edge@npm:1.1.3"
+  peerDependencies:
+    react: ">=18.2.0"
+    react-native: ">=0.73.0"
+  checksum: 712c4cab722640dee0153fe7ba5663cb34a3a30310a9e3792678ac2b58b9cf6acd1677a2cdd73b63aeca3bfa99e5fb6f18cded7752f52ed3aa0eea120e39916d
   languageName: node
   linkType: hard
 
