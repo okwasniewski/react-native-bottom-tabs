@@ -18,9 +18,7 @@ import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import coil3.ImageLoader
 import coil3.asDrawable
-import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.ReadableArray
-import com.facebook.react.bridge.WritableMap
 import com.facebook.react.common.assets.ReactFontManager
 import com.facebook.react.modules.core.ReactChoreographer
 import com.facebook.react.views.text.ReactTypefaceUtils
@@ -33,8 +31,8 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
   private val iconSources: MutableMap<Int, ImageSource> = mutableMapOf()
   private var isLayoutEnqueued = false
   var items: MutableList<TabInfo>? = null
-  var onTabSelectedListener: ((WritableMap) -> Unit)? = null
-  var onTabLongPressedListener: ((WritableMap) -> Unit)? = null
+  var onTabSelectedListener: ((key: String) -> Unit)? = null
+  var onTabLongPressedListener: ((key: String) -> Unit)? = null
   private var activeTintColor: Int? = null
   private var inactiveTintColor: Int? = null
   private val checkedStateSet = intArrayOf(android.R.attr.state_checked)
@@ -62,10 +60,7 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
   private fun onTabLongPressed(item: MenuItem) {
     val longPressedItem = items?.firstOrNull { it.title == item.title }
     longPressedItem?.let {
-      val event = Arguments.createMap().apply {
-        putString("key", longPressedItem.key)
-      }
-      onTabLongPressedListener?.invoke(event)
+      onTabLongPressedListener?.invoke(longPressedItem.key)
       emitHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
     }
   }
@@ -93,10 +88,7 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
     }
     val selectedItem = items?.first { it.title == item.title }
     selectedItem?.let {
-      val event = Arguments.createMap().apply {
-        putString("key", selectedItem.key)
-      }
-      onTabSelectedListener?.invoke(event)
+      onTabSelectedListener?.invoke(selectedItem.key)
       emitHapticFeedback(HapticFeedbackConstants.CONTEXT_CLICK)
     }
   }
