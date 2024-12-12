@@ -1732,6 +1732,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@bottom-tabs/monorepo@workspace:."
   dependencies:
+    "@changesets/changelog-github": ^0.5.0
     "@changesets/cli": ^2.27.10
     "@commitlint/config-conventional": ^17.0.2
     commitlint: ^17.0.2
@@ -1885,6 +1886,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@changesets/changelog-github@npm:^0.5.0":
+  version: 0.5.0
+  resolution: "@changesets/changelog-github@npm:0.5.0"
+  dependencies:
+    "@changesets/get-github-info": ^0.6.0
+    "@changesets/types": ^6.0.0
+    dotenv: ^8.1.0
+  checksum: 4ab43d8104693f970d878f2b1657ff67b4d4dcb7452ddf118575153bab74286cdfd125381c2ab92b205bce4b2c653c36552138bf2900f7165ac39a868b7fe22c
+  languageName: node
+  linkType: hard
+
 "@changesets/cli@npm:^2.27.10":
   version: 2.27.10
   resolution: "@changesets/cli@npm:2.27.10"
@@ -1956,6 +1968,16 @@ __metadata:
     picocolors: ^1.1.0
     semver: ^7.5.3
   checksum: 38446343e43f9b8731098e3b42d2525d5399d59cfccc09bdb62c9a48de60c7a893882050202badca3b5cab8405e6deb82e88258a56a318e42749fa60d96d874a
+  languageName: node
+  linkType: hard
+
+"@changesets/get-github-info@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "@changesets/get-github-info@npm:0.6.0"
+  dependencies:
+    dataloader: ^1.4.0
+    node-fetch: ^2.5.0
+  checksum: 753173bda536aa79cb0502f59ce13889b23ae8463d04893d43ff22966818060837d9db4052b6cbfbd95dfb242fbfd38890a38c56832948e83bf358a47812b708
   languageName: node
   linkType: hard
 
@@ -7943,6 +7965,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dataloader@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "dataloader@npm:1.4.0"
+  checksum: e2c93d43afde68980efc0cd9ff48e9851116e27a9687f863e02b56d46f7e7868cc762cd6dcbaf4197e1ca850a03651510c165c2ae24b8e9843fd894002ad0e20
+  languageName: node
+  linkType: hard
+
 "dayjs@npm:^1.8.15":
   version: 1.11.13
   resolution: "dayjs@npm:1.11.13"
@@ -8369,6 +8398,13 @@ __metadata:
   version: 16.4.5
   resolution: "dotenv@npm:16.4.5"
   checksum: 301a12c3d44fd49888b74eb9ccf9f07a1f5df43f489e7fcb89647a2edcd84c42d6bc349dc8df099cd18f07c35c7b04685c1a4f3e6a6a9e6b30f8d48c15b7f49c
+  languageName: node
+  linkType: hard
+
+"dotenv@npm:^8.1.0":
+  version: 8.6.0
+  resolution: "dotenv@npm:8.6.0"
+  checksum: 38e902c80b0666ab59e9310a3d24ed237029a7ce34d976796349765ac96b8d769f6df19090f1f471b77a25ca391971efde8a1ea63bb83111bd8bec8e5cc9b2cd
   languageName: node
   linkType: hard
 
@@ -14352,7 +14388,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-fetch@npm:^2.2.0, node-fetch@npm:^2.6.0, node-fetch@npm:^2.6.1, node-fetch@npm:^2.6.12, node-fetch@npm:^2.6.7":
+"node-fetch@npm:^2.2.0, node-fetch@npm:^2.5.0, node-fetch@npm:^2.6.0, node-fetch@npm:^2.6.1, node-fetch@npm:^2.6.12, node-fetch@npm:^2.6.7":
   version: 2.7.0
   resolution: "node-fetch@npm:2.7.0"
   dependencies:
@@ -14845,9 +14881,9 @@ __metadata:
   linkType: hard
 
 "package-manager-detector@npm:^0.2.0":
-  version: 0.2.4
-  resolution: "package-manager-detector@npm:0.2.4"
-  checksum: 9cd74be5e44b2c499c060561b86913533f01b97df305e8aedec70e3afdc9c7bbe70cd1267d9f95a75d457a7997317ce1cf2468909be3e0949ec5992d50913f28
+  version: 0.2.7
+  resolution: "package-manager-detector@npm:0.2.7"
+  checksum: 8dc58fb1fe9ba29a2750ecccde41c02357df8cefe5dcacf4a61bedcfab746d3589545a1703e7f1d1ade2611bd646f47f1c4cbc002d7507fc6f7d34b015fcecfc
   languageName: node
   linkType: hard
 
