@@ -138,6 +138,7 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
           }
         }
         updateTextAppearance()
+        updateTintColors()
       }
     }
   }
@@ -171,12 +172,16 @@ class ReactBottomNavigationView(context: Context) : BottomNavigationView(context
   }
 
   fun setLabeled(labeled: Boolean?) {
-    labelVisibilityMode = if (labeled == false) {
-      LABEL_VISIBILITY_UNLABELED
-    } else if (labeled == true) {
-      LABEL_VISIBILITY_LABELED
-    } else {
-      LABEL_VISIBILITY_AUTO
+    labelVisibilityMode = when (labeled) {
+        false -> {
+          LABEL_VISIBILITY_UNLABELED
+        }
+        true -> {
+          LABEL_VISIBILITY_LABELED
+        }
+        else -> {
+          LABEL_VISIBILITY_AUTO
+        }
     }
   }
 

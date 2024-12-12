@@ -10,7 +10,6 @@ import {
   TouchableOpacity,
   Button,
   Alert,
-  useColorScheme,
   Platform,
 } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
