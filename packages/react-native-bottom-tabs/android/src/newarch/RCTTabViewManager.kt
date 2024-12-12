@@ -30,16 +30,12 @@ class RCTTabViewManager(context: ReactApplicationContext) :
   override fun createViewInstance(context: ThemedReactContext): ReactBottomNavigationView {
     val view = ReactBottomNavigationView(context)
     val eventDispatcher = UIManagerHelper.getEventDispatcherForReactTag(context, view.id)
-    view.onTabSelectedListener = { data ->
-      data.getString("key")?.let {
-        eventDispatcher?.dispatchEvent(PageSelectedEvent(viewTag = view.id, key = it))
-      }
+    view.onTabSelectedListener = { key ->
+      eventDispatcher?.dispatchEvent(PageSelectedEvent(viewTag = view.id, key))
     }
 
-    view.onTabLongPressedListener = { data ->
-      data.getString("key")?.let {
-        eventDispatcher?.dispatchEvent(TabLongPressEvent(viewTag = view.id, key = it))
-      }
+    view.onTabLongPressedListener = { key ->
+      eventDispatcher?.dispatchEvent(TabLongPressEvent(viewTag = view.id, key))
     }
     return view
 
