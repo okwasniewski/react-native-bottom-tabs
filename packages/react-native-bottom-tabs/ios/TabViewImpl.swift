@@ -199,7 +199,6 @@ private func configureTransparentAppearance(tabBar: UITabBar, props: TabViewProp
 
 private func configureStandardAppearance(tabBar: UITabBar, props: TabViewProps) {
   let appearance = UITabBarAppearance()
-  tabBar.isTranslucent = props.translucent
 
   // Configure background
   switch props.scrollEdgeAppearance {
@@ -208,8 +207,15 @@ private func configureStandardAppearance(tabBar: UITabBar, props: TabViewProps) 
   default:
     appearance.configureWithDefaultBackground()
   }
-  appearance.backgroundColor = props.barTintColor
-
+  
+  if props.translucent == false {
+    appearance.configureWithOpaqueBackground()
+  }
+  
+  if props.barTintColor != nil {
+    appearance.backgroundColor = props.barTintColor
+  }
+  
   // Configure item appearance
   let itemAppearance = UITabBarItemAppearance()
   let fontSize = props.fontSize != nil ? CGFloat(props.fontSize!) : tabBarDefaultFontSize
