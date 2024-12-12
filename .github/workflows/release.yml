@@ -10,7 +10,9 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 jobs:
   release:
     permissions:
+      contents: write # to create release (changesets/action)
       id-token: write # Required for provenance
+      pull-requests: write # to create pull request (changesets/action)
     name: Release
     runs-on: ubuntu-latest
     steps:
