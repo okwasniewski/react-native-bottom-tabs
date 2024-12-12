@@ -13,12 +13,7 @@ import {
   useColorScheme,
   Platform,
 } from 'react-native';
-import {
-  DarkTheme,
-  DefaultTheme,
-  NavigationContainer,
-  useNavigation,
-} from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -30,7 +25,6 @@ import SFSymbols from './Examples/SFSymbols';
 import LabeledTabs from './Examples/Labeled';
 import NativeBottomTabs from './Examples/NativeBottomTabs';
 import TintColorsExample from './Examples/TintColors';
-import NativeBottomTabsVectorIcons from './Examples/NativeBottomTabsVectorIcons';
 import NativeBottomTabsEmbeddedStacks from './Examples/NativeBottomTabsEmbeddedStacks';
 import NativeBottomTabsSVGs from './Examples/NativeBottomTabsSVGs';
 import NativeBottomTabsRemoteIcons from './Examples/NativeBottomTabsRemoteIcons';
@@ -132,10 +126,6 @@ const examples = [
     name: 'Four Tabs - With Hidden Tab',
   },
   {
-    component: NativeBottomTabsVectorIcons,
-    name: 'Native Bottom Tabs with Vector Icons',
-  },
-  {
     component: NativeBottomTabsSVGs,
     name: 'Native Bottom Tabs with SVG Icons',
   },
@@ -189,12 +179,10 @@ export default function Navigation() {
   const [mode, setMode] = React.useState<'native' | 'js'>(defaultStack);
 
   const NavigationStack = mode === 'js' ? Stack : NativeStack;
-  const colorScheme = useColorScheme();
-  const theme = colorScheme === 'dark' ? DarkTheme : DefaultTheme;
 
   return (
     <SafeAreaProvider>
-      <NavigationContainer theme={theme}>
+      <NavigationContainer>
         <NavigationStack.Navigator initialRouteName="BottomTabs Example">
           <NavigationStack.Screen
             name="BottomTabs Example"

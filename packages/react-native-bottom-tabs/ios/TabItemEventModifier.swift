@@ -1,7 +1,7 @@
 import SwiftUI
 import SwiftUIIntrospect
 
-#if !os(macOS)
+#if !os(macOS) && !os(visionOS)
 
 private final class TabBarDelegate: NSObject, UITabBarControllerDelegate {
   var onClick: ((_ index: Int) -> Void)? = nil

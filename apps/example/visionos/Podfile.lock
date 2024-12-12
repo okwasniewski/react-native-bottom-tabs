@@ -1243,7 +1243,79 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - react-native-bottom-tabs (0.1.0):
+  - react-native-bottom-tabs (0.7.3):
+    - DoubleConversion
+    - glog
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - react-native-bottom-tabs/common (= 0.7.3)
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - SDWebImage (>= 5.19.1)
+    - SDWebImageSVGCoder (>= 1.7.0)
+    - SwiftUIIntrospect (~> 1.0)
+    - Yoga
+  - react-native-bottom-tabs/common (0.7.3):
+    - DoubleConversion
+    - glog
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - SDWebImage (>= 5.19.1)
+    - SDWebImageSVGCoder (>= 1.7.0)
+    - SwiftUIIntrospect (~> 1.0)
+    - Yoga
+  - react-native-safe-area-context (4.14.0):
+    - DoubleConversion
+    - glog
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - react-native-safe-area-context/common (= 4.14.0)
+    - react-native-safe-area-context/fabric (= 4.14.0)
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
+  - react-native-safe-area-context/common (4.14.0):
     - DoubleConversion
     - glog
     - RCT-Folly (= 2024.01.01.00)
@@ -1264,8 +1336,28 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - react-native-safe-area-context (4.11.0):
+  - react-native-safe-area-context/fabric (4.14.0):
+    - DoubleConversion
+    - glog
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
     - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - react-native-safe-area-context/common
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
   - React-nativeconfig (0.75.0)
   - React-NativeModulesApple (0.75.0):
     - glog
@@ -1544,6 +1636,7 @@ PODS:
     - React-ImageManager
     - React-jsi
     - React-NativeModulesApple
+    - React-RCTAppDelegate
     - React-RCTFabric
     - React-rendererdebug
     - React-utils
@@ -1551,11 +1644,11 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - ReactTestApp-DevSupport (3.10.10):
+  - ReactTestApp-DevSupport (4.0.2):
     - React-Core
     - React-jsi
   - ReactTestApp-Resources (1.0.0-dev)
-  - RNGestureHandler (2.20.0):
+  - RNGestureHandler (2.21.2):
     - DoubleConversion
     - glog
     - RCT-Folly (= 2024.01.01.00)
@@ -1576,7 +1669,30 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNScreens (3.34.0):
+  - RNScreens (4.3.0):
+    - DoubleConversion
+    - glog
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-RCTImage
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - RNScreens/common (= 4.3.0)
+    - Yoga
+  - RNScreens/common (4.3.0):
     - DoubleConversion
     - glog
     - RCT-Folly (= 2024.01.01.00)
@@ -1598,227 +1714,264 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
+  - RNVectorIcons (10.2.0):
+    - DoubleConversion
+    - glog
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
+  - SDWebImage (5.20.0):
+    - SDWebImage/Core (= 5.20.0)
+  - SDWebImage/Core (5.20.0)
+  - SDWebImageSVGCoder (1.8.0):
+    - SDWebImage/Core (~> 5.6)
   - SocketRocket (0.7.0.1)
+  - SwiftUIIntrospect (1.3.0)
   - Yoga (0.0.0)
 
 DEPENDENCIES:
-  - "boost (from `../node_modules/@callstack/react-native-visionos/third-party-podspecs/boost.podspec`)"
-  - "DoubleConversion (from `../node_modules/@callstack/react-native-visionos/third-party-podspecs/DoubleConversion.podspec`)"
-  - "FBLazyVector (from `../node_modules/@callstack/react-native-visionos/Libraries/FBLazyVector`)"
-  - "fmt (from `../node_modules/@callstack/react-native-visionos/third-party-podspecs/fmt.podspec`)"
-  - "glog (from `../node_modules/@callstack/react-native-visionos/third-party-podspecs/glog.podspec`)"
-  - "RCT-Folly (from `../node_modules/@callstack/react-native-visionos/third-party-podspecs/RCT-Folly.podspec`)"
-  - "RCT-Folly/Fabric (from `../node_modules/@callstack/react-native-visionos/third-party-podspecs/RCT-Folly.podspec`)"
-  - "RCTDeprecation (from `../node_modules/@callstack/react-native-visionos/ReactApple/Libraries/RCTFoundation/RCTDeprecation`)"
-  - "RCTRequired (from `../node_modules/@callstack/react-native-visionos/Libraries/Required`)"
-  - "RCTTypeSafety (from `../node_modules/@callstack/react-native-visionos/Libraries/TypeSafety`)"
-  - "React (from `../node_modules/@callstack/react-native-visionos/`)"
-  - "React-callinvoker (from `../node_modules/@callstack/react-native-visionos/ReactCommon/callinvoker`)"
-  - "React-Core (from `../node_modules/@callstack/react-native-visionos/`)"
-  - "React-Core/RCTWebSocket (from `../node_modules/@callstack/react-native-visionos/`)"
-  - "React-CoreModules (from `../node_modules/@callstack/react-native-visionos/React/CoreModules`)"
-  - "React-cxxreact (from `../node_modules/@callstack/react-native-visionos/ReactCommon/cxxreact`)"
-  - "React-debug (from `../node_modules/@callstack/react-native-visionos/ReactCommon/react/debug`)"
-  - "React-defaultsnativemodule (from `../node_modules/@callstack/react-native-visionos/ReactCommon/react/nativemodule/defaults`)"
-  - "React-domnativemodule (from `../node_modules/@callstack/react-native-visionos/ReactCommon/react/nativemodule/dom`)"
-  - "React-Fabric (from `../node_modules/@callstack/react-native-visionos/ReactCommon`)"
-  - "React-FabricComponents (from `../node_modules/@callstack/react-native-visionos/ReactCommon`)"
-  - "React-FabricImage (from `../node_modules/@callstack/react-native-visionos/ReactCommon`)"
-  - "React-featureflags (from `../node_modules/@callstack/react-native-visionos/ReactCommon/react/featureflags`)"
-  - "React-featureflagsnativemodule (from `../node_modules/@callstack/react-native-visionos/ReactCommon/react/nativemodule/featureflags`)"
-  - "React-graphics (from `../node_modules/@callstack/react-native-visionos/ReactCommon/react/renderer/graphics`)"
-  - "React-idlecallbacksnativemodule (from `../node_modules/@callstack/react-native-visionos/ReactCommon/react/nativemodule/idlecallbacks`)"
-  - "React-ImageManager (from `../node_modules/@callstack/react-native-visionos/ReactCommon/react/renderer/imagemanager/platform/ios`)"
-  - "React-jsc (from `../node_modules/@callstack/react-native-visionos/ReactCommon/jsc`)"
-  - "React-jserrorhandler (from `../node_modules/@callstack/react-native-visionos/ReactCommon/jserrorhandler`)"
-  - "React-jsi (from `../node_modules/@callstack/react-native-visionos/ReactCommon/jsi`)"
-  - "React-jsiexecutor (from `../node_modules/@callstack/react-native-visionos/ReactCommon/jsiexecutor`)"
-  - "React-jsinspector (from `../node_modules/@callstack/react-native-visionos/ReactCommon/jsinspector-modern`)"
-  - "React-jsitracing (from `../node_modules/@callstack/react-native-visionos/ReactCommon/hermes/executor/`)"
-  - "React-logger (from `../node_modules/@callstack/react-native-visionos/ReactCommon/logger`)"
-  - "React-Mapbuffer (from `../node_modules/@callstack/react-native-visionos/ReactCommon`)"
-  - "React-microtasksnativemodule (from `../node_modules/@callstack/react-native-visionos/ReactCommon/react/nativemodule/microtasks`)"
-  - react-native-bottom-tabs (from `../..`)
-  - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
-  - "React-nativeconfig (from `../node_modules/@callstack/react-native-visionos/ReactCommon`)"
-  - "React-NativeModulesApple (from `../node_modules/@callstack/react-native-visionos/ReactCommon/react/nativemodule/core/platform/ios`)"
-  - "React-perflogger (from `../node_modules/@callstack/react-native-visionos/ReactCommon/reactperflogger`)"
-  - "React-performancetimeline (from `../node_modules/@callstack/react-native-visionos/ReactCommon/react/performance/timeline`)"
-  - "React-RCTActionSheet (from `../node_modules/@callstack/react-native-visionos/Libraries/ActionSheetIOS`)"
-  - "React-RCTAnimation (from `../node_modules/@callstack/react-native-visionos/Libraries/NativeAnimation`)"
-  - "React-RCTAppDelegate (from `../node_modules/@callstack/react-native-visionos/Libraries/AppDelegate`)"
-  - "React-RCTBlob (from `../node_modules/@callstack/react-native-visionos/Libraries/Blob`)"
-  - "React-RCTFabric (from `../node_modules/@callstack/react-native-visionos/React`)"
-  - "React-RCTImage (from `../node_modules/@callstack/react-native-visionos/Libraries/Image`)"
-  - "React-RCTLinking (from `../node_modules/@callstack/react-native-visionos/Libraries/LinkingIOS`)"
-  - "React-RCTNetwork (from `../node_modules/@callstack/react-native-visionos/Libraries/Network`)"
-  - "React-RCTSettings (from `../node_modules/@callstack/react-native-visionos/Libraries/Settings`)"
-  - "React-RCTSwiftExtensions (from `../node_modules/@callstack/react-native-visionos/Libraries/SwiftExtensions`)"
-  - "React-RCTText (from `../node_modules/@callstack/react-native-visionos/Libraries/Text`)"
-  - "React-RCTVibration (from `../node_modules/@callstack/react-native-visionos/Libraries/Vibration`)"
-  - "React-RCTWindowManager (from `../node_modules/@callstack/react-native-visionos/Libraries/WindowManager`)"
-  - "React-RCTXR (from `../node_modules/@callstack/react-native-visionos/Libraries/XR`)"
-  - "React-rendererconsistency (from `../node_modules/@callstack/react-native-visionos/ReactCommon/react/renderer/consistency`)"
-  - "React-rendererdebug (from `../node_modules/@callstack/react-native-visionos/ReactCommon/react/renderer/debug`)"
-  - "React-rncore (from `../node_modules/@callstack/react-native-visionos/ReactCommon`)"
-  - "React-RuntimeApple (from `../node_modules/@callstack/react-native-visionos/ReactCommon/react/runtime/platform/ios`)"
-  - "React-RuntimeCore (from `../node_modules/@callstack/react-native-visionos/ReactCommon/react/runtime`)"
-  - "React-runtimeexecutor (from `../node_modules/@callstack/react-native-visionos/ReactCommon/runtimeexecutor`)"
-  - "React-runtimescheduler (from `../node_modules/@callstack/react-native-visionos/ReactCommon/react/renderer/runtimescheduler`)"
-  - "React-utils (from `../node_modules/@callstack/react-native-visionos/ReactCommon/react/utils`)"
+  - "boost (from `../../../node_modules/@callstack/react-native-visionos/third-party-podspecs/boost.podspec`)"
+  - "DoubleConversion (from `../../../node_modules/@callstack/react-native-visionos/third-party-podspecs/DoubleConversion.podspec`)"
+  - "FBLazyVector (from `../../../node_modules/@callstack/react-native-visionos/Libraries/FBLazyVector`)"
+  - "fmt (from `../../../node_modules/@callstack/react-native-visionos/third-party-podspecs/fmt.podspec`)"
+  - "glog (from `../../../node_modules/@callstack/react-native-visionos/third-party-podspecs/glog.podspec`)"
+  - "RCT-Folly (from `../../../node_modules/@callstack/react-native-visionos/third-party-podspecs/RCT-Folly.podspec`)"
+  - "RCT-Folly/Fabric (from `../../../node_modules/@callstack/react-native-visionos/third-party-podspecs/RCT-Folly.podspec`)"
+  - "RCTDeprecation (from `../../../node_modules/@callstack/react-native-visionos/ReactApple/Libraries/RCTFoundation/RCTDeprecation`)"
+  - "RCTRequired (from `../../../node_modules/@callstack/react-native-visionos/Libraries/Required`)"
+  - "RCTTypeSafety (from `../../../node_modules/@callstack/react-native-visionos/Libraries/TypeSafety`)"
+  - "React (from `../../../node_modules/@callstack/react-native-visionos/`)"
+  - "React-callinvoker (from `../../../node_modules/@callstack/react-native-visionos/ReactCommon/callinvoker`)"
+  - "React-Core (from `../../../node_modules/@callstack/react-native-visionos/`)"
+  - "React-Core/RCTWebSocket (from `../../../node_modules/@callstack/react-native-visionos/`)"
+  - "React-CoreModules (from `../../../node_modules/@callstack/react-native-visionos/React/CoreModules`)"
+  - "React-cxxreact (from `../../../node_modules/@callstack/react-native-visionos/ReactCommon/cxxreact`)"
+  - "React-debug (from `../../../node_modules/@callstack/react-native-visionos/ReactCommon/react/debug`)"
+  - "React-defaultsnativemodule (from `../../../node_modules/@callstack/react-native-visionos/ReactCommon/react/nativemodule/defaults`)"
+  - "React-domnativemodule (from `../../../node_modules/@callstack/react-native-visionos/ReactCommon/react/nativemodule/dom`)"
+  - "React-Fabric (from `../../../node_modules/@callstack/react-native-visionos/ReactCommon`)"
+  - "React-FabricComponents (from `../../../node_modules/@callstack/react-native-visionos/ReactCommon`)"
+  - "React-FabricImage (from `../../../node_modules/@callstack/react-native-visionos/ReactCommon`)"
+  - "React-featureflags (from `../../../node_modules/@callstack/react-native-visionos/ReactCommon/react/featureflags`)"
+  - "React-featureflagsnativemodule (from `../../../node_modules/@callstack/react-native-visionos/ReactCommon/react/nativemodule/featureflags`)"
+  - "React-graphics (from `../../../node_modules/@callstack/react-native-visionos/ReactCommon/react/renderer/graphics`)"
+  - "React-idlecallbacksnativemodule (from `../../../node_modules/@callstack/react-native-visionos/ReactCommon/react/nativemodule/idlecallbacks`)"
+  - "React-ImageManager (from `../../../node_modules/@callstack/react-native-visionos/ReactCommon/react/renderer/imagemanager/platform/ios`)"
+  - "React-jsc (from `../../../node_modules/@callstack/react-native-visionos/ReactCommon/jsc`)"
+  - "React-jsc/Fabric (from `../../../node_modules/@callstack/react-native-visionos/ReactCommon/jsc`)"
+  - "React-jserrorhandler (from `../../../node_modules/@callstack/react-native-visionos/ReactCommon/jserrorhandler`)"
+  - "React-jsi (from `../../../node_modules/@callstack/react-native-visionos/ReactCommon/jsi`)"
+  - "React-jsiexecutor (from `../../../node_modules/@callstack/react-native-visionos/ReactCommon/jsiexecutor`)"
+  - "React-jsinspector (from `../../../node_modules/@callstack/react-native-visionos/ReactCommon/jsinspector-modern`)"
+  - "React-jsitracing (from `../../../node_modules/@callstack/react-native-visionos/ReactCommon/hermes/executor/`)"
+  - "React-logger (from `../../../node_modules/@callstack/react-native-visionos/ReactCommon/logger`)"
+  - "React-Mapbuffer (from `../../../node_modules/@callstack/react-native-visionos/ReactCommon`)"
+  - "React-microtasksnativemodule (from `../../../node_modules/@callstack/react-native-visionos/ReactCommon/react/nativemodule/microtasks`)"
+  - react-native-bottom-tabs (from `../../../node_modules/react-native-bottom-tabs`)
+  - react-native-safe-area-context (from `../../../node_modules/react-native-safe-area-context`)
+  - "React-nativeconfig (from `../../../node_modules/@callstack/react-native-visionos/ReactCommon`)"
+  - "React-NativeModulesApple (from `../../../node_modules/@callstack/react-native-visionos/ReactCommon/react/nativemodule/core/platform/ios`)"
+  - "React-perflogger (from `../../../node_modules/@callstack/react-native-visionos/ReactCommon/reactperflogger`)"
+  - "React-performancetimeline (from `../../../node_modules/@callstack/react-native-visionos/ReactCommon/react/performance/timeline`)"
+  - "React-RCTActionSheet (from `../../../node_modules/@callstack/react-native-visionos/Libraries/ActionSheetIOS`)"
+  - "React-RCTAnimation (from `../../../node_modules/@callstack/react-native-visionos/Libraries/NativeAnimation`)"
+  - "React-RCTAppDelegate (from `../../../node_modules/@callstack/react-native-visionos/Libraries/AppDelegate`)"
+  - "React-RCTBlob (from `../../../node_modules/@callstack/react-native-visionos/Libraries/Blob`)"
+  - "React-RCTFabric (from `../../../node_modules/@callstack/react-native-visionos/React`)"
+  - "React-RCTImage (from `../../../node_modules/@callstack/react-native-visionos/Libraries/Image`)"
+  - "React-RCTLinking (from `../../../node_modules/@callstack/react-native-visionos/Libraries/LinkingIOS`)"
+  - "React-RCTNetwork (from `../../../node_modules/@callstack/react-native-visionos/Libraries/Network`)"
+  - "React-RCTSettings (from `../../../node_modules/@callstack/react-native-visionos/Libraries/Settings`)"
+  - "React-RCTSwiftExtensions (from `../../../node_modules/@callstack/react-native-visionos/Libraries/SwiftExtensions`)"
+  - "React-RCTText (from `../../../node_modules/@callstack/react-native-visionos/Libraries/Text`)"
+  - "React-RCTVibration (from `../../../node_modules/@callstack/react-native-visionos/Libraries/Vibration`)"
+  - "React-RCTWindowManager (from `../../../node_modules/@callstack/react-native-visionos/Libraries/WindowManager`)"
+  - "React-RCTXR (from `../../../node_modules/@callstack/react-native-visionos/Libraries/XR`)"
+  - "React-rendererconsistency (from `../../../node_modules/@callstack/react-native-visionos/ReactCommon/react/renderer/consistency`)"
+  - "React-rendererdebug (from `../../../node_modules/@callstack/react-native-visionos/ReactCommon/react/renderer/debug`)"
+  - "React-rncore (from `../../../node_modules/@callstack/react-native-visionos/ReactCommon`)"
+  - "React-RuntimeApple (from `../../../node_modules/@callstack/react-native-visionos/ReactCommon/react/runtime/platform/ios`)"
+  - "React-RuntimeCore (from `../../../node_modules/@callstack/react-native-visionos/ReactCommon/react/runtime`)"
+  - "React-runtimeexecutor (from `../../../node_modules/@callstack/react-native-visionos/ReactCommon/runtimeexecutor`)"
+  - "React-runtimescheduler (from `../../../node_modules/@callstack/react-native-visionos/ReactCommon/react/renderer/runtimescheduler`)"
+  - "React-utils (from `../../../node_modules/@callstack/react-native-visionos/ReactCommon/react/utils`)"
   - ReactCodegen (from `build/generated/ios`)
-  - "ReactCommon/turbomodule/core (from `../node_modules/@callstack/react-native-visionos/ReactCommon`)"
-  - "ReactNativeHost (from `../node_modules/@rnx-kit/react-native-host`)"
-  - ReactTestApp-DevSupport (from `../node_modules/react-native-test-app`)
+  - "ReactCommon/turbomodule/core (from `../../../node_modules/@callstack/react-native-visionos/ReactCommon`)"
+  - "ReactNativeHost (from `../../../node_modules/@rnx-kit/react-native-host`)"
+  - ReactTestApp-DevSupport (from `../../../node_modules/react-native-test-app`)
   - ReactTestApp-Resources (from `..`)
-  - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
-  - RNScreens (from `../node_modules/react-native-screens`)
-  - "SocketRocket (from `../node_modules/@callstack/react-native-visionos/third-party-podspecs/SocketRocket.podspec`)"
-  - "Yoga (from `../node_modules/@callstack/react-native-visionos/ReactCommon/yoga`)"
+  - RNGestureHandler (from `../../../node_modules/react-native-gesture-handler`)
+  - RNScreens (from `../../../node_modules/react-native-screens`)
+  - RNVectorIcons (from `../../../node_modules/react-native-vector-icons`)
+  - "SocketRocket (from `../../../node_modules/@callstack/react-native-visionos/third-party-podspecs/SocketRocket.podspec`)"
+  - "Yoga (from `../../../node_modules/@callstack/react-native-visionos/ReactCommon/yoga`)"
+
+SPEC REPOS:
+  trunk:
+    - SDWebImage
+    - SDWebImageSVGCoder
+    - SwiftUIIntrospect
 
 EXTERNAL SOURCES:
   boost:
-    :podspec: "../node_modules/@callstack/react-native-visionos/third-party-podspecs/boost.podspec"
+    :podspec: "../../../node_modules/@callstack/react-native-visionos/third-party-podspecs/boost.podspec"
   DoubleConversion:
-    :podspec: "../node_modules/@callstack/react-native-visionos/third-party-podspecs/DoubleConversion.podspec"
+    :podspec: "../../../node_modules/@callstack/react-native-visionos/third-party-podspecs/DoubleConversion.podspec"
   FBLazyVector:
-    :path: "../node_modules/@callstack/react-native-visionos/Libraries/FBLazyVector"
+    :path: "../../../node_modules/@callstack/react-native-visionos/Libraries/FBLazyVector"
   fmt:
-    :podspec: "../node_modules/@callstack/react-native-visionos/third-party-podspecs/fmt.podspec"
+    :podspec: "../../../node_modules/@callstack/react-native-visionos/third-party-podspecs/fmt.podspec"
   glog:
-    :podspec: "../node_modules/@callstack/react-native-visionos/third-party-podspecs/glog.podspec"
+    :podspec: "../../../node_modules/@callstack/react-native-visionos/third-party-podspecs/glog.podspec"
   RCT-Folly:
-    :podspec: "../node_modules/@callstack/react-native-visionos/third-party-podspecs/RCT-Folly.podspec"
+    :podspec: "../../../node_modules/@callstack/react-native-visionos/third-party-podspecs/RCT-Folly.podspec"
   RCTDeprecation:
-    :path: "../node_modules/@callstack/react-native-visionos/ReactApple/Libraries/RCTFoundation/RCTDeprecation"
+    :path: "../../../node_modules/@callstack/react-native-visionos/ReactApple/Libraries/RCTFoundation/RCTDeprecation"
   RCTRequired:
-    :path: "../node_modules/@callstack/react-native-visionos/Libraries/Required"
+    :path: "../../../node_modules/@callstack/react-native-visionos/Libraries/Required"
   RCTTypeSafety:
-    :path: "../node_modules/@callstack/react-native-visionos/Libraries/TypeSafety"
+    :path: "../../../node_modules/@callstack/react-native-visionos/Libraries/TypeSafety"
   React:
-    :path: "../node_modules/@callstack/react-native-visionos/"
+    :path: "../../../node_modules/@callstack/react-native-visionos/"
   React-callinvoker:
-    :path: "../node_modules/@callstack/react-native-visionos/ReactCommon/callinvoker"
+    :path: "../../../node_modules/@callstack/react-native-visionos/ReactCommon/callinvoker"
   React-Core:
-    :path: "../node_modules/@callstack/react-native-visionos/"
+    :path: "../../../node_modules/@callstack/react-native-visionos/"
   React-CoreModules:
-    :path: "../node_modules/@callstack/react-native-visionos/React/CoreModules"
+    :path: "../../../node_modules/@callstack/react-native-visionos/React/CoreModules"
   React-cxxreact:
-    :path: "../node_modules/@callstack/react-native-visionos/ReactCommon/cxxreact"
+    :path: "../../../node_modules/@callstack/react-native-visionos/ReactCommon/cxxreact"
   React-debug:
-    :path: "../node_modules/@callstack/react-native-visionos/ReactCommon/react/debug"
+    :path: "../../../node_modules/@callstack/react-native-visionos/ReactCommon/react/debug"
   React-defaultsnativemodule:
-    :path: "../node_modules/@callstack/react-native-visionos/ReactCommon/react/nativemodule/defaults"
+    :path: "../../../node_modules/@callstack/react-native-visionos/ReactCommon/react/nativemodule/defaults"
   React-domnativemodule:
-    :path: "../node_modules/@callstack/react-native-visionos/ReactCommon/react/nativemodule/dom"
+    :path: "../../../node_modules/@callstack/react-native-visionos/ReactCommon/react/nativemodule/dom"
   React-Fabric:
-    :path: "../node_modules/@callstack/react-native-visionos/ReactCommon"
+    :path: "../../../node_modules/@callstack/react-native-visionos/ReactCommon"
   React-FabricComponents:
-    :path: "../node_modules/@callstack/react-native-visionos/ReactCommon"
+    :path: "../../../node_modules/@callstack/react-native-visionos/ReactCommon"
   React-FabricImage:
-    :path: "../node_modules/@callstack/react-native-visionos/ReactCommon"
+    :path: "../../../node_modules/@callstack/react-native-visionos/ReactCommon"
   React-featureflags:
-    :path: "../node_modules/@callstack/react-native-visionos/ReactCommon/react/featureflags"
+    :path: "../../../node_modules/@callstack/react-native-visionos/ReactCommon/react/featureflags"
   React-featureflagsnativemodule:
-    :path: "../node_modules/@callstack/react-native-visionos/ReactCommon/react/nativemodule/featureflags"
+    :path: "../../../node_modules/@callstack/react-native-visionos/ReactCommon/react/nativemodule/featureflags"
   React-graphics:
-    :path: "../node_modules/@callstack/react-native-visionos/ReactCommon/react/renderer/graphics"
+    :path: "../../../node_modules/@callstack/react-native-visionos/ReactCommon/react/renderer/graphics"
   React-idlecallbacksnativemodule:
-    :path: "../node_modules/@callstack/react-native-visionos/ReactCommon/react/nativemodule/idlecallbacks"
+    :path: "../../../node_modules/@callstack/react-native-visionos/ReactCommon/react/nativemodule/idlecallbacks"
   React-ImageManager:
-    :path: "../node_modules/@callstack/react-native-visionos/ReactCommon/react/renderer/imagemanager/platform/ios"
+    :path: "../../../node_modules/@callstack/react-native-visionos/ReactCommon/react/renderer/imagemanager/platform/ios"
   React-jsc:
-    :path: "../node_modules/@callstack/react-native-visionos/ReactCommon/jsc"
+    :path: "../../../node_modules/@callstack/react-native-visionos/ReactCommon/jsc"
   React-jserrorhandler:
-    :path: "../node_modules/@callstack/react-native-visionos/ReactCommon/jserrorhandler"
+    :path: "../../../node_modules/@callstack/react-native-visionos/ReactCommon/jserrorhandler"
   React-jsi:
-    :path: "../node_modules/@callstack/react-native-visionos/ReactCommon/jsi"
+    :path: "../../../node_modules/@callstack/react-native-visionos/ReactCommon/jsi"
   React-jsiexecutor:
-    :path: "../node_modules/@callstack/react-native-visionos/ReactCommon/jsiexecutor"
+    :path: "../../../node_modules/@callstack/react-native-visionos/ReactCommon/jsiexecutor"
   React-jsinspector:
-    :path: "../node_modules/@callstack/react-native-visionos/ReactCommon/jsinspector-modern"
+    :path: "../../../node_modules/@callstack/react-native-visionos/ReactCommon/jsinspector-modern"
   React-jsitracing:
-    :path: "../node_modules/@callstack/react-native-visionos/ReactCommon/hermes/executor/"
+    :path: "../../../node_modules/@callstack/react-native-visionos/ReactCommon/hermes/executor/"
   React-logger:
-    :path: "../node_modules/@callstack/react-native-visionos/ReactCommon/logger"
+    :path: "../../../node_modules/@callstack/react-native-visionos/ReactCommon/logger"
   React-Mapbuffer:
-    :path: "../node_modules/@callstack/react-native-visionos/ReactCommon"
+    :path: "../../../node_modules/@callstack/react-native-visionos/ReactCommon"
   React-microtasksnativemodule:
-    :path: "../node_modules/@callstack/react-native-visionos/ReactCommon/react/nativemodule/microtasks"
+    :path: "../../../node_modules/@callstack/react-native-visionos/ReactCommon/react/nativemodule/microtasks"
   react-native-bottom-tabs:
-    :path: "../.."
+    :path: "../../../node_modules/react-native-bottom-tabs"
   react-native-safe-area-context:
-    :path: "../node_modules/react-native-safe-area-context"
+    :path: "../../../node_modules/react-native-safe-area-context"
   React-nativeconfig:
-    :path: "../node_modules/@callstack/react-native-visionos/ReactCommon"
+    :path: "../../../node_modules/@callstack/react-native-visionos/ReactCommon"
   React-NativeModulesApple:
-    :path: "../node_modules/@callstack/react-native-visionos/ReactCommon/react/nativemodule/core/platform/ios"
+    :path: "../../../node_modules/@callstack/react-native-visionos/ReactCommon/react/nativemodule/core/platform/ios"
   React-perflogger:
-    :path: "../node_modules/@callstack/react-native-visionos/ReactCommon/reactperflogger"
+    :path: "../../../node_modules/@callstack/react-native-visionos/ReactCommon/reactperflogger"
   React-performancetimeline:
-    :path: "../node_modules/@callstack/react-native-visionos/ReactCommon/react/performance/timeline"
+    :path: "../../../node_modules/@callstack/react-native-visionos/ReactCommon/react/performance/timeline"
   React-RCTActionSheet:
-    :path: "../node_modules/@callstack/react-native-visionos/Libraries/ActionSheetIOS"
+    :path: "../../../node_modules/@callstack/react-native-visionos/Libraries/ActionSheetIOS"
   React-RCTAnimation:
-    :path: "../node_modules/@callstack/react-native-visionos/Libraries/NativeAnimation"
+    :path: "../../../node_modules/@callstack/react-native-visionos/Libraries/NativeAnimation"
   React-RCTAppDelegate:
-    :path: "../node_modules/@callstack/react-native-visionos/Libraries/AppDelegate"
+    :path: "../../../node_modules/@callstack/react-native-visionos/Libraries/AppDelegate"
   React-RCTBlob:
-    :path: "../node_modules/@callstack/react-native-visionos/Libraries/Blob"
+    :path: "../../../node_modules/@callstack/react-native-visionos/Libraries/Blob"
   React-RCTFabric:
-    :path: "../node_modules/@callstack/react-native-visionos/React"
+    :path: "../../../node_modules/@callstack/react-native-visionos/React"
   React-RCTImage:
-    :path: "../node_modules/@callstack/react-native-visionos/Libraries/Image"
+    :path: "../../../node_modules/@callstack/react-native-visionos/Libraries/Image"
   React-RCTLinking:
-    :path: "../node_modules/@callstack/react-native-visionos/Libraries/LinkingIOS"
+    :path: "../../../node_modules/@callstack/react-native-visionos/Libraries/LinkingIOS"
   React-RCTNetwork:
-    :path: "../node_modules/@callstack/react-native-visionos/Libraries/Network"
+    :path: "../../../node_modules/@callstack/react-native-visionos/Libraries/Network"
   React-RCTSettings:
-    :path: "../node_modules/@callstack/react-native-visionos/Libraries/Settings"
+    :path: "../../../node_modules/@callstack/react-native-visionos/Libraries/Settings"
   React-RCTSwiftExtensions:
-    :path: "../node_modules/@callstack/react-native-visionos/Libraries/SwiftExtensions"
+    :path: "../../../node_modules/@callstack/react-native-visionos/Libraries/SwiftExtensions"
   React-RCTText:
-    :path: "../node_modules/@callstack/react-native-visionos/Libraries/Text"
+    :path: "../../../node_modules/@callstack/react-native-visionos/Libraries/Text"
   React-RCTVibration:
-    :path: "../node_modules/@callstack/react-native-visionos/Libraries/Vibration"
+    :path: "../../../node_modules/@callstack/react-native-visionos/Libraries/Vibration"
   React-RCTWindowManager:
-    :path: "../node_modules/@callstack/react-native-visionos/Libraries/WindowManager"
+    :path: "../../../node_modules/@callstack/react-native-visionos/Libraries/WindowManager"
   React-RCTXR:
-    :path: "../node_modules/@callstack/react-native-visionos/Libraries/XR"
+    :path: "../../../node_modules/@callstack/react-native-visionos/Libraries/XR"
   React-rendererconsistency:
-    :path: "../node_modules/@callstack/react-native-visionos/ReactCommon/react/renderer/consistency"
+    :path: "../../../node_modules/@callstack/react-native-visionos/ReactCommon/react/renderer/consistency"
   React-rendererdebug:
-    :path: "../node_modules/@callstack/react-native-visionos/ReactCommon/react/renderer/debug"
+    :path: "../../../node_modules/@callstack/react-native-visionos/ReactCommon/react/renderer/debug"
   React-rncore:
-    :path: "../node_modules/@callstack/react-native-visionos/ReactCommon"
+    :path: "../../../node_modules/@callstack/react-native-visionos/ReactCommon"
   React-RuntimeApple:
-    :path: "../node_modules/@callstack/react-native-visionos/ReactCommon/react/runtime/platform/ios"
+    :path: "../../../node_modules/@callstack/react-native-visionos/ReactCommon/react/runtime/platform/ios"
   React-RuntimeCore:
-    :path: "../node_modules/@callstack/react-native-visionos/ReactCommon/react/runtime"
+    :path: "../../../node_modules/@callstack/react-native-visionos/ReactCommon/react/runtime"
   React-runtimeexecutor:
-    :path: "../node_modules/@callstack/react-native-visionos/ReactCommon/runtimeexecutor"
+    :path: "../../../node_modules/@callstack/react-native-visionos/ReactCommon/runtimeexecutor"
   React-runtimescheduler:
-    :path: "../node_modules/@callstack/react-native-visionos/ReactCommon/react/renderer/runtimescheduler"
+    :path: "../../../node_modules/@callstack/react-native-visionos/ReactCommon/react/renderer/runtimescheduler"
   React-utils:
-    :path: "../node_modules/@callstack/react-native-visionos/ReactCommon/react/utils"
+    :path: "../../../node_modules/@callstack/react-native-visionos/ReactCommon/react/utils"
   ReactCodegen:
     :path: build/generated/ios
   ReactCommon:
-    :path: "../node_modules/@callstack/react-native-visionos/ReactCommon"
+    :path: "../../../node_modules/@callstack/react-native-visionos/ReactCommon"
   ReactNativeHost:
-    :path: "../node_modules/@rnx-kit/react-native-host"
+    :path: "../../../node_modules/@rnx-kit/react-native-host"
   ReactTestApp-DevSupport:
-    :path: "../node_modules/react-native-test-app"
+    :path: "../../../node_modules/react-native-test-app"
   ReactTestApp-Resources:
     :path: ".."
   RNGestureHandler:
-    :path: "../node_modules/react-native-gesture-handler"
+    :path: "../../../node_modules/react-native-gesture-handler"
   RNScreens:
-    :path: "../node_modules/react-native-screens"
+    :path: "../../../node_modules/react-native-screens"
+  RNVectorIcons:
+    :path: "../../../node_modules/react-native-vector-icons"
   SocketRocket:
-    :podspec: "../node_modules/@callstack/react-native-visionos/third-party-podspecs/SocketRocket.podspec"
+    :podspec: "../../../node_modules/@callstack/react-native-visionos/third-party-podspecs/SocketRocket.podspec"
   Yoga:
-    :path: "../node_modules/@callstack/react-native-visionos/ReactCommon/yoga"
+    :path: "../../../node_modules/@callstack/react-native-visionos/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
   boost: b6392ab8d665ef3aa7069eea9e57f5224ec9970a
@@ -1836,15 +1989,15 @@ SPEC CHECKSUMS:
   React-CoreModules: 41bf6bd07e0b002841b68847692d016eaa6a2a9a
   React-cxxreact: 5b814ce208f02c3531b4b99778b45ea84c5adae8
   React-debug: 6e146210722ae90c0463b337f0eba3a3367dce44
-  React-defaultsnativemodule: f34ed370ee9ba638c04afc61eced19d746bf02d8
-  React-domnativemodule: 4bb657b30cc5b5c835bde33398344b53492e773d
+  React-defaultsnativemodule: df5948780d141d4e554eb5bcf80ef6e5ede4a588
+  React-domnativemodule: 302f7c39e59f89558318f9032beda741bdcd93fc
   React-Fabric: 6425cbd44991b45724d3932ac8842ca37b01fa16
   React-FabricComponents: 04a64b1dd8e784fad2022ecc70436a6deaf629f7
   React-FabricImage: d14743cfb495a602017cc85213323d136e17e437
   React-featureflags: e3e30374acf97f5f0171b7cd6c725abee3e08cf3
-  React-featureflagsnativemodule: 95e693067dc4a07831ad0626a343465c060460c6
+  React-featureflagsnativemodule: 4355e39c10361cee81ea687b673b9a63994f2e03
   React-graphics: e2a28fa4a82a51769f7ebf960f9dad67690ca54a
-  React-idlecallbacksnativemodule: 48d28705adceebe9e1a8d178e0b3ae612eea5a49
+  React-idlecallbacksnativemodule: b792fb47c085c8729c4318c1890947b0b8813327
   React-ImageManager: 31f3e1b99826d40a6b8cafc3bcbc35f0e74b361e
   React-jsc: 99fd78f3a74dc9966456159d1b488a5e57ef9cff
   React-jserrorhandler: 01e49c0f9b99dddeb30ca6f1efcea56d7b374ca0
@@ -1854,18 +2007,18 @@ SPEC CHECKSUMS:
   React-jsitracing: cd7c522ed1add67630d13503220fdaa97e3e0f1c
   React-logger: 3b9cc828d9dd5f8ba7da014dab19fcff6beceb79
   React-Mapbuffer: b925e985164304a420b29103c38c6c9d91691d2d
-  React-microtasksnativemodule: 1940f8375742bf1fa2100cbc1dba3e9b20c1b8b5
-  react-native-bottom-tabs: 894d1fb8fc4e6d525b2da35e83e00e18c420cdf2
-  react-native-safe-area-context: 851c62c48dce80ccaa5637b6aa5991a1bc36eca9
+  React-microtasksnativemodule: 2c2584d465e7bfa42f03a447b12ac392caaabdb2
+  react-native-bottom-tabs: b6b3dc2e971c860a0a6d763701929d1899f666a0
+  react-native-safe-area-context: 73505107f7c673cd550a561aeb6271f152c483b6
   React-nativeconfig: afe30c46ab7d8b251f38961a644698387f5f9e6d
   React-NativeModulesApple: ccef48a493eae993fcddc7c7b7f80e5cdd2add8a
   React-perflogger: 76276a729b69a8131bf2a56f9edb811448ea1408
   React-performancetimeline: b6d11c87bdfbf29aa7ed576f4912dabc5731bf47
   React-RCTActionSheet: 6f358590a41cfae89472c9edc4dfad1c820be1f8
   React-RCTAnimation: ddfa17867fadbc9fb924601d23dc574a9c5d26a0
-  React-RCTAppDelegate: d4013b4a8be54f43292302f2c57d396f823d7090
+  React-RCTAppDelegate: 9964f01353d220574d646d182855c4d1b1c9f6b3
   React-RCTBlob: e3a70c35f10bb5cb8d5b80bbdc0bb7c71fad07be
-  React-RCTFabric: 3e4511f76fc645dde75a72500c3b221eeb81f541
+  React-RCTFabric: 5909bd56a8033ffac85d9b3fa0a325e5800f7213
   React-RCTImage: 2224a080b538963a27a505fad219cf03d02ef56f
   React-RCTLinking: d3acefe1cd85a66c02478c7d142244111cb7e682
   React-RCTNetwork: 544b1e444b4b47d8a6067d6eb4b959b61dacd722
@@ -1883,16 +2036,20 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: 4df3caf969d88814b3b214bd151f1c9e4a0ae454
   React-runtimescheduler: 574c57409ff37111b7efbb179ae6c1deae358537
   React-utils: 391e885e0f1d86204feca98453737a94e9dda240
-  ReactCodegen: 453a12de61647f431b0ac75a18f9051e0bdbd535
+  ReactCodegen: dd63a84260869d3d497fb63434f1dfe04164f780
   ReactCommon: 6f4f1e1a906d6bce064fe5d7bd1846605075e4c1
-  ReactNativeHost: 99c0ffb175cd69de2ac9a70892cd22dac65ea79d
-  ReactTestApp-DevSupport: b7cd76a3aeee6167f5e14d82f09685059152c426
-  ReactTestApp-Resources: 0be6dec7d289172429c080c56dbd4f5aeb5e1ced
-  RNGestureHandler: 18b9b5d65c77c4744a640f69b7fccdd47ed935c0
-  RNScreens: 5288a8dbeedb3c5051aa2d5658c1c553c050b80a
+  ReactNativeHost: a3cd2bc15b6deac7439318607ce5637d8a93a117
+  ReactTestApp-DevSupport: ce66fc1bbcf598d7e90616db390a0274c13e14e7
+  ReactTestApp-Resources: 2ad57492ef72ab9b2c6f6e89ea198cc1999ca20b
+  RNGestureHandler: 492b1d415a25506d1dc612e6a14932b1e697d835
+  RNScreens: 16a61c0a9fe4cd69af6489b8d10ba580b5e22ed0
+  RNVectorIcons: a1344e212e80e6e0f4537a9960148201175f4225
+  SDWebImage: 73c6079366fea25fa4bb9640d5fb58f0893facd8
+  SDWebImageSVGCoder: 8e10c8f6cc879c7dfb317b284e13dd589379f01c
   SocketRocket: 0ba3e799f983d2dfa878777017659ef6c866e5c6
+  SwiftUIIntrospect: fee9aa07293ee280373a591e1824e8ddc869ba5d
   Yoga: 7c17e3a94a522222e393c1e9c9387afd9428f6eb
 
-PODFILE CHECKSUM: f89ba4e3c51d912721e2bf52a0d5575eb0309fc2
+PODFILE CHECKSUM: 4debc26ca9e1f45aba2b73b16dc53cfe7104aaa9
 
 COCOAPODS: 1.15.2

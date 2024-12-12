@@ -72,12 +72,14 @@ extension View {
   @ViewBuilder
   func introspectTabView(closure: @escaping (UITabBarController) -> Void) -> some View {
     self
+#if !os(visionOS)
       .introspect(
         .tabView,
         on: .iOS(.v14, .v15, .v16, .v17, .v18),
         .tvOS(.v14,.v15, .v16, .v17, .v18),
         customize: closure
       )
+#endif
   }
 #endif
   
