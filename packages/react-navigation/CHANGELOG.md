@@ -1,5 +1,7 @@
 # @bottom-tabs/react-navigation
 
+## 0.7.5
+
 ## 0.7.4
 
 ### Patch Changes
