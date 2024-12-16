@@ -17,6 +17,13 @@
 
 https://github.com/user-attachments/assets/fbdd9ce2-f4b9-4d0c-bd91-2e62bb422d69
 
+## Package Versions
+
+| Name                                                                         |                                                                      Latest Version                                                                       |
+| ---------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| [react-native-bottom-tabs](/packages/react-native-bottom-tabs)               | [![badge](https://img.shields.io/npm/v/react-native-bottom-tabs.svg)](https://www.npmjs.com/package/react-native-bottom-tabs)                             |
+| [@bottom-tabs/react-navigation](/packages/react-navigation)                  | [![badge](https://img.shields.io/npm/v/@bottom-tabs/react-navigation.svg)](https://www.npmjs.com/package/@bottom-tabs/react-navigation)                   |
+
 ## Documentation
 
 The full documentation can be found on our [website](https://okwasniewski.github.io/react-native-bottom-tabs/).
