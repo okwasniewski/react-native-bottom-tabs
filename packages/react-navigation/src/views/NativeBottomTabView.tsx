@@ -45,6 +45,9 @@ export default function NativeBottomTabView({
         const options = descriptors[route.key]?.options;
         return options?.tabBarItemHidden === true;
       }}
+      getFreezeOnBlur={({ route }) =>
+        descriptors[route.key]?.options.freezeOnBlur
+      }
       getTestID={({ route }) =>
         descriptors[route.key]?.options.tabBarButtonTestID
       }

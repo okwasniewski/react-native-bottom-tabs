@@ -15,6 +15,7 @@ import type { ImageSource } from 'react-native/Libraries/Image/ImageSource';
 import TabViewAdapter from './TabViewAdapter';
 import useLatestCallback from 'use-latest-callback';
 import type { BaseRoute, NavigationState } from './types';
+import { Screen } from './Screen';
 
 const isAppleSymbol = (icon: any): icon is { sfSymbol: string } =>
   icon?.sfSymbol;
@@ -117,6 +118,13 @@ interface Props<Route extends BaseRoute> {
   getTestID?: (props: { route: Route }) => string | undefined;
 
   /**
+   * Get freezeOnBlur for the current screen. Uses false by default.
+   * Defaults to `true` when `enableFreeze()` is run at the top of the application.
+   *
+   */
+  getFreezeOnBlur?: (props: { route: Route }) => boolean | undefined;
+
+  /**
    * Background color of the tab bar.
    */
   barTintColor?: ColorValue;
@@ -160,6 +168,7 @@ const TabView = <Route extends BaseRoute>({
   tabBarInactiveTintColor: inactiveTintColor,
   getLazy = ({ route }: { route: Route }) => route.lazy,
   getLabelText = ({ route }: { route: Route }) => route.title,
+  getFreezeOnBlur = ({ route }: { route: Route }) => route.freezeOnBlur,
   getIcon = ({ route, focused }: { route: Route; focused: boolean }) =>
     route.unfocusedIcon
       ? focused
@@ -311,11 +320,14 @@ const TabView = <Route extends BaseRoute>({
           const focused = route.key === focusedKey;
           const opacity = focused ? 1 : 0;
           const zIndex = focused ? 0 : -1;
+          const freezeOnBlur = getFreezeOnBlur({ route });
 
           return (
-            <View
+            <Screen
               key={route.key}
               collapsable={false}
+              visible={focused}
+              freezeOnBlur={freezeOnBlur}
               pointerEvents={focused ? 'auto' : 'none'}
               accessibilityElementsHidden={!focused}
               importantForAccessibility={
@@ -331,7 +343,7 @@ const TabView = <Route extends BaseRoute>({
                 route,
                 jumpTo,
               })}
-            </View>
+            </Screen>
           );
         })}
       </TabViewAdapter>
