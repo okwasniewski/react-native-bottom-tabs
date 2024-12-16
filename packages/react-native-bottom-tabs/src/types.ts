@@ -15,6 +15,7 @@ export type BaseRoute = {
   activeTintColor?: string;
   hidden?: boolean;
   testID?: string;
+  freezeOnBlur?: boolean;
 };
 
 export type NavigationState<Route extends BaseRoute> = {
