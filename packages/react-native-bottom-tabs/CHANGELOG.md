@@ -1,5 +1,15 @@
 # react-native-bottom-tabs
 
+## 0.7.7
+
+### Patch Changes
+
+- [#207](https://github.com/okwasniewski/react-native-bottom-tabs/pull/207) [`c9f13ad`](https://github.com/okwasniewski/react-native-bottom-tabs/commit/c9f13ad01aa147341ac74acce00b7ae8e1db5402) Thanks [@okwasniewski](https://github.com/okwasniewski)! - feat: add freezeOnBlur
+
+- [#195](https://github.com/okwasniewski/react-native-bottom-tabs/pull/195) [`2526db9`](https://github.com/okwasniewski/react-native-bottom-tabs/commit/2526db97b768981dbbd8c7c66a61335230a9f1df) Thanks [@okwasniewski](https://github.com/okwasniewski)! - fix: update tint colors after updating items
+
+- [#197](https://github.com/okwasniewski/react-native-bottom-tabs/pull/197) [`1a7b392`](https://github.com/okwasniewski/react-native-bottom-tabs/commit/1a7b392b9ad6db16c6055d8f0032a549f7f675f3) Thanks [@okwasniewski](https://github.com/okwasniewski)! - chore: refactor android event dispatching
+
 ## 0.7.6
 
 ### Patch Changes

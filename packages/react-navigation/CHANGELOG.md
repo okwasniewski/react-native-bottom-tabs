@@ -1,5 +1,11 @@
 # @bottom-tabs/react-navigation
 
+## 0.7.7
+
+### Patch Changes
+
+- [#207](https://github.com/okwasniewski/react-native-bottom-tabs/pull/207) [`c9f13ad`](https://github.com/okwasniewski/react-native-bottom-tabs/commit/c9f13ad01aa147341ac74acce00b7ae8e1db5402) Thanks [@okwasniewski](https://github.com/okwasniewski)! - feat: add freezeOnBlur
+
 ## 0.7.6
 
 ### Patch Changes
