@@ -1,5 +1,8 @@
 blank_issues_enabled: false
 contact_links:
-  - name: ❓Stack Overflow
-    url: https://stackoverflow.com
+  - name: Feature Request 💡
+    url: https://github.com/okwasniewski/react-native-bottom-tabs/discussions/new?category=ideas
+    about: If you have a feature request, please create a new discussion on GitHub.
+  - name: Discussions on GitHub 💬
+    url: https://github.com/okwasniewski/react-native-bottom-tabs/discussions
     about: If this library works as promised but you need help, please ask questions there.
