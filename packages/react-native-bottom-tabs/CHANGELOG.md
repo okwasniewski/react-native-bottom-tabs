@@ -1,5 +1,11 @@
 # react-native-bottom-tabs
 
+## 0.7.8
+
+### Patch Changes
+
+- [#221](https://github.com/okwasniewski/react-native-bottom-tabs/pull/221) [`1ae783d`](https://github.com/okwasniewski/react-native-bottom-tabs/commit/1ae783df914fc661d25dfcbfafec32c70e9b3538) Thanks [@okwasniewski](https://github.com/okwasniewski)! - revert: freezeOnblur
+
 ## 0.7.7
 
 ### Patch Changes
