@@ -27,7 +27,6 @@ import TintColorsExample from './Examples/TintColors';
 import NativeBottomTabsEmbeddedStacks from './Examples/NativeBottomTabsEmbeddedStacks';
 import NativeBottomTabsSVGs from './Examples/NativeBottomTabsSVGs';
 import NativeBottomTabsRemoteIcons from './Examples/NativeBottomTabsRemoteIcons';
-import NativeBottomTabsFreezeOnBlur from './Examples/NativeBottomTabsFreezeOnBlur';
 
 const FourTabsIgnoreSafeArea = () => {
   return <FourTabs ignoresTopSafeArea />;
@@ -102,10 +101,6 @@ const examples = [
     component: FourTabsTransparentScrollEdgeAppearance,
     name: 'Four Tabs - Transparent scroll edge appearance',
     platform: 'ios',
-  },
-  {
-    component: NativeBottomTabsFreezeOnBlur,
-    name: 'Native Bottom Tabs with freezeOnBlur',
   },
   {
     component: FourTabsOpaqueScrollEdgeAppearance,

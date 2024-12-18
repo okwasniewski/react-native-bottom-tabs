@@ -91,14 +91,6 @@ export type NativeBottomTabNavigationOptions = {
    * TestID for the tab.
    */
   tabBarButtonTestID?: string;
-
-  /**
-   * Whether inactive screens should be suspended from re-rendering. Defaults to `false`.
-   * Defaults to `true` when `enableFreeze()` is run at the top of the application.
-   *
-   * Only supported on iOS and Android.
-   */
-  freezeOnBlur?: boolean;
 };
 
 export type NativeBottomTabDescriptor = Descriptor<
@@ -125,6 +117,5 @@ export type NativeBottomTabNavigationConfig = Partial<
     | 'onTabLongPress'
     | 'getActiveTintColor'
     | 'getTestID'
-    | 'getFreezeOnBlur'
   >
 >;
