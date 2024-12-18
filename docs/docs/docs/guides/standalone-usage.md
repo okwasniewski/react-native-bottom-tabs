@@ -184,7 +184,6 @@ Each route in the `routes` array can have the following properties:
 - `badge`: Badge text to display on the tab
 - `activeTintColor`: Custom active tint color for this specific tab
 - `lazy`: Whether to lazy load this tab's content
-- `freezeOnBlur`: Whether to freeze this tab's content when it's not visible
 
 ### Helper Props
 
@@ -225,8 +224,3 @@ Function to determine if a tab should be hidden.
 
 Function to get the test ID for a tab item.
 - Default: Uses `route.testID`
-
-#### `getFreezeOnBlur`
-
-Function to determine if a screen should be frozen on blur.
-- Default: Uses `route.freezeOnBlur`

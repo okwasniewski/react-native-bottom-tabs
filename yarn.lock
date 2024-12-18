@@ -15614,17 +15614,12 @@ __metadata:
     react: 18.3.1
     react-native: 0.75.4
     react-native-builder-bob: ^0.32.1
-    react-native-screens: 4.3.0
     sf-symbols-typescript: ^2.0.0
     typescript: ^5.2.2
     use-latest-callback: ^0.2.1
   peerDependencies:
     react: "*"
     react-native: "*"
-    react-native-screens: ">=3.29.0"
-  peerDependenciesMeta:
-    react-native-screens:
-      optional: true
   languageName: unknown
   linkType: soft
 
